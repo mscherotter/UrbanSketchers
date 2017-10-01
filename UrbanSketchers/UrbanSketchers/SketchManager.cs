@@ -32,7 +32,8 @@ namespace UrbanSketchers
 #if OFFLINE_SYNC_ENABLED
         IMobileServiceSyncTable<Sketch> sketchTable;
 #else
-        IMobileServiceTable<Sketch> sketchTable;
+        readonly IMobileServiceTable<Sketch> sketchTable;
+        readonly IMobileServiceTable<Person> peopleTable;
 #endif
 
         const string offlineDbPath = @"localstore.db";
@@ -51,6 +52,7 @@ namespace UrbanSketchers
             this.todoTable = client.GetSyncTable<Sketch>();
 #else
             this.sketchTable = client.GetTable<Sketch>();
+            peopleTable = client.GetTable<Person>();
 #endif
         }
 
@@ -74,6 +76,13 @@ namespace UrbanSketchers
         public bool IsOfflineEnabled
         {
             get { return sketchTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Sketch>; }
+        }
+
+        public async Task<ObservableCollection<Person>> GetPeopleAsync()
+        {
+            var items = await peopleTable.ToEnumerableAsync();
+
+            return new ObservableCollection<Person>(items);
         }
 
         public async Task<ObservableCollection<Sketch>> GetSketchsAsync(bool syncItems = false)

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Data\BaseDataObject.cs" />
+    <Compile Include="Data\Person.cs" />
     <Compile Include="Data\Sketch.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
