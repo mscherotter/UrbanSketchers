@@ -43,6 +43,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="TodoItem.cs" />
     <Compile Include="SketchManager.cs" />
+    <Compile Include="Views\EditSketchView.xaml.cs">
+      <DependentUpon>EditSketchView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
@@ -75,5 +78,14 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EditSketchView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
   </ItemGroup>
 </Project>

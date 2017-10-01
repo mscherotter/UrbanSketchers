@@ -9,6 +9,6 @@
         <ToolbarItem Text="Locate me"/>
     </ContentPage.ToolbarItems>
     <Grid>
-        <maps:Map IsShowingUser="True" MapType="Hybrid"/>
+        <maps:Map x:Name="Map" IsShowingUser="True" MapType="Hybrid"/>
     </Grid>
 </ContentPage>

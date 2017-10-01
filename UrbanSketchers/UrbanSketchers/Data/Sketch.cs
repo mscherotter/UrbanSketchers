@@ -21,5 +21,10 @@ namespace UrbanSketchers.Data
         public string ImageUrl { get; set; }
 
         public string CreatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the address
+        /// </summary>
+        public string Address { get; set; }
     }
 }
