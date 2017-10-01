@@ -122,6 +122,11 @@ namespace UrbanSketchers
             }
         }
 
+        internal Task AddAsync(Sketch sketch)
+        {
+            throw new NotImplementedException();
+        }
+
 #if OFFLINE_SYNC_ENABLED
         public async Task SyncAsync()
         {

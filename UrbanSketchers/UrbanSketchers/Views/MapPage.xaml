@@ -2,14 +2,22 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:views="clr-namespace:UrbanSketchers.Views"
              Title="Sketch Map"
              x:Class="UrbanSketchers.Views.MapPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Sketch"/>
+        <ToolbarItem Text="Add Sketch" Clicked="OnAddSketch"/>
         <ToolbarItem Text="Locate me"/>
         <ToolbarItem Text="Refresh" Clicked="OnRefresh"/>
     </ContentPage.ToolbarItems>
     <Grid>
-        <maps:Map x:Name="Map" IsShowingUser="True" MapType="Hybrid"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <maps:Map x:Name="Map" IsShowingUser="True" MapType="Hybrid" PropertyChanged="OnMapPropertyChanged"  />
+        
+        <views:EditSketchView IsVisible="False" Grid.Row="1" x:Name="EditSketchView" SketchSaved="OnSketchSaved"
+                              Canceled="OnSketchCanceled"/>
     </Grid>
 </ContentPage>
