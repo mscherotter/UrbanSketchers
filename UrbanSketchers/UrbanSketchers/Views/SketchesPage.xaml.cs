@@ -68,13 +68,7 @@ namespace UrbanSketchers.Views
             {
                 var sketches = await _sketchManager.GetSketchsAsync();
 
-                Items.Clear();
-
-                foreach (var item in sketches)
-                {
-                    Items.Add(item);
-                }
-                //todoList.ItemsSource = await manager.GetTodoItemsAsync(syncItems);
+                Items.SetRange(sketches);
             }
         }
 
