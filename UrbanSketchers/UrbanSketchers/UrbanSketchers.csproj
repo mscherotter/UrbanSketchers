@@ -32,6 +32,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Data\BaseDataObject.cs" />
     <Compile Include="Data\Sketch.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />

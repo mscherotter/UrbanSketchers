@@ -4,7 +4,13 @@
              x:Class="UrbanSketchers.Views.EditSketchView">
   <Grid.Content>
       <StackLayout>
-          
-      </StackLayout>
+            <Entry Placeholder="Title"/>
+            <Entry Placeholder="Description"/>
+            <Entry Placeholder="ImageUrl"/>
+            <Label Text="Latitude"/>
+            <Entry />
+            <Label Text="Longitude"/>
+            <Entry Placeholder="Longitude"/>
+        </StackLayout>
   </Grid.Content>
 </Grid>

@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    /// Map Page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage : ContentPage
     {
@@ -39,12 +39,12 @@ namespace UrbanSketchers.Views
                     Address = sketch.Address
                 };
 
-            this.Map.Pins.Clear();
+            this.Map.Pins.SetRange(pins);
+        }
 
-            foreach (var item in pins)
-            {
-                this.Map.Pins.Add(item);
-            }
+        private async void OnRefresh(object sender, EventArgs e)
+        {
+            await RefreshAsync();
         }
     }
 }
