@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UrbanSketchers.Views.SketchesPage"
              Title="Sketches">
-  <ListView ItemsSource="{Binding Items}" RowHeight="40"
+  <ListView ItemsSource="{Binding Items}" RowHeight="48"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
             
@@ -18,8 +18,19 @@
     
     <ListView.ItemTemplate>
       <DataTemplate>
-          <ImageCell Text="{Binding Path=Title}" ImageSource="{Binding ImageUrl}"
-                     Detail="{Binding CreatedByName, StringFormat='by {0}'}"/>
+          <ViewCell>
+              <Grid>
+                  <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="48"/>
+                      <ColumnDefinition/>
+                  </Grid.ColumnDefinitions>
+                  <Image Source="{Binding ImageUrl}" VerticalOptions="FillAndExpand"/>
+                  <StackLayout Grid.Column="1" Padding="4,0,0,0">
+                      <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"/>
+                      <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                  </StackLayout>
+              </Grid>
+          </ViewCell>
       </DataTemplate>
     </ListView.ItemTemplate>
     
