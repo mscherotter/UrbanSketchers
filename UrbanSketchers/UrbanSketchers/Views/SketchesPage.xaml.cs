@@ -15,26 +15,13 @@ namespace UrbanSketchers.Views
         private SketchManager _sketchManager;
 
         public ObservableCollection<Sketch> Items { get; set; }
+        public string PersonId { get; internal set; }
 
         public SketchesPage()
         {
             InitializeComponent();
 
-            Items = new ObservableCollection<Sketch>
-            {
-                new Sketch
-                {
-                    Title = "Sagrada Familia"
-                },
-                new Sketch
-                {
-                    Title = "Barcelona Pavillion"
-                },
-                new Sketch
-                {
-                    Title = "Barcelona Cathedral"
-                }
-            };
+            Items = new ObservableCollection<Sketch>();
 
             BindingContext = this;
 
@@ -66,9 +53,26 @@ namespace UrbanSketchers.Views
         {
             //using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
-                var sketches = await _sketchManager.GetSketchsAsync();
+                if (string.IsNullOrWhiteSpace(PersonId))
+                {
+                    var sketches = await _sketchManager.GetSketchsAsync();
 
-                Items.SetRange(sketches);
+                    Items.SetRange(sketches);
+                }
+                else
+                {
+                   var sketches = await _sketchManager.GetSketchsAsync(PersonId);
+
+                    if (sketches.Any())
+                    {
+                        this.Title = string.Format(
+                            "{0} Sketches by {1}", 
+                            sketches.Count,
+                            sketches.First().CreatedByName);
+                    }
+
+                    Items.SetRange(sketches);
+                }
             }
         }
 

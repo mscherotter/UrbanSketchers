@@ -8,13 +8,11 @@
 //#define OFFLINE_SYNC_ENABLED
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 using UrbanSketchers.Data;
 
 #if OFFLINE_SYNC_ENABLED
@@ -24,23 +22,20 @@ using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace UrbanSketchers
 {
-    public partial class SketchManager
+    public class SketchManager
     {
-        static SketchManager defaultInstance = new SketchManager();
-        MobileServiceClient client;
-
 #if OFFLINE_SYNC_ENABLED
         IMobileServiceSyncTable<Sketch> sketchTable;
 #else
-        readonly IMobileServiceTable<Sketch> sketchTable;
-        readonly IMobileServiceTable<Person> peopleTable;
+        private readonly IMobileServiceTable<Sketch> _sketchTable;
+        private readonly IMobileServiceTable<Person> _peopleTable;
 #endif
 
-        const string offlineDbPath = @"localstore.db";
+        private const string offlineDbPath = @"localstore.db";
 
         private SketchManager()
         {
-            this.client = new MobileServiceClient(Constants.ApplicationURL);
+            CurrentClient = new MobileServiceClient(Constants.ApplicationURL);
 
 #if OFFLINE_SYNC_ENABLED
             var store = new MobileServiceSQLiteStore(offlineDbPath);
@@ -51,38 +46,53 @@ namespace UrbanSketchers
 
             this.todoTable = client.GetSyncTable<Sketch>();
 #else
-            this.sketchTable = client.GetTable<Sketch>();
-            peopleTable = client.GetTable<Person>();
+            _sketchTable = CurrentClient.GetTable<Sketch>();
+            _peopleTable = CurrentClient.GetTable<Person>();
 #endif
         }
 
-        public static SketchManager DefaultManager
-        {
-            get
-            {
-                return defaultInstance;
-            }
-            private set
-            {
-                defaultInstance = value;
-            }
-        }
+        public static SketchManager DefaultManager { get; } = new SketchManager();
 
-        public MobileServiceClient CurrentClient
-        {
-            get { return client; }
-        }
+        public MobileServiceClient CurrentClient { get; }
 
-        public bool IsOfflineEnabled
-        {
-            get { return sketchTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Sketch>; }
-        }
+        public bool IsOfflineEnabled => _sketchTable is IMobileServiceSyncTable<Sketch>;
 
         public async Task<ObservableCollection<Person>> GetPeopleAsync()
         {
-            var items = await peopleTable.ToEnumerableAsync();
+            var items = await _peopleTable.ToEnumerableAsync();
 
             return new ObservableCollection<Person>(items);
+        }
+
+        public async Task<ObservableCollection<Sketch>> GetSketchsAsync(string personId, bool syncItems = false)
+        {
+            try
+            {
+#if OFFLINE_SYNC_ENABLED
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+#endif
+
+                var query = from item in _sketchTable
+                    where item.CreatedBy == personId
+                    orderby item.CreationDate descending 
+                    select item;
+
+                var sketches = await query.ToEnumerableAsync();
+
+                return new ObservableCollection<Sketch>(sketches);
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
         }
 
         public async Task<ObservableCollection<Sketch>> GetSketchsAsync(bool syncItems = false)
@@ -95,7 +105,7 @@ namespace UrbanSketchers
                     await this.SyncAsync();
                 }
 #endif
-                IEnumerable<Sketch> items = await sketchTable.ToEnumerableAsync();
+                var items = await _sketchTable.ToEnumerableAsync();
 
                 return new ObservableCollection<Sketch>(items);
             }
@@ -113,25 +123,17 @@ namespace UrbanSketchers
         public async Task SaveAsync(Sketch item)
         {
             if (item.Id == null)
-            {
-                await sketchTable.InsertAsync(item);
-            }
+                await _sketchTable.InsertAsync(item);
             else
-            {
-                await sketchTable.UpdateAsync(item);
-            }
+                await _sketchTable.UpdateAsync(item);
         }
 
         public async Task SaveAsync(Person item)
         {
             if (item.Id == null)
-            {
-                await peopleTable.InsertAsync(item);
-            }
+                await _peopleTable.InsertAsync(item);
             else
-            {
-                await peopleTable.UpdateAsync(item);
-            }
+                await _peopleTable.UpdateAsync(item);
         }
 
 

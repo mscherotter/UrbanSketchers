@@ -18,16 +18,8 @@
     
     <ListView.ItemTemplate>
       <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Title}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding CreatedByName, StringFormat='by {0}'}"
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-            <Label Text="{Binding Description}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-          </StackLayout>
-        </ViewCell>
+          <ImageCell Text="{Binding Path=Title}" ImageSource="{Binding ImageUrl}"
+                     Detail="{Binding CreatedByName, StringFormat='by {0}'}"/>
       </DataTemplate>
     </ListView.ItemTemplate>
     

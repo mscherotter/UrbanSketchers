@@ -15,5 +15,10 @@ namespace UrbanSketchers.Data
         public string ImageUrl { get; set; }
 
         public string PublicUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of sketches for the person
+        /// </summary>
+        public int SketchCount { get; set; }
     }
 }
