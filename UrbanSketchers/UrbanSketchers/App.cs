@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UrbanSketchers.Views;
 using Xamarin.Forms;
 
@@ -11,53 +10,53 @@ namespace UrbanSketchers
     }
 
     public class App : Application
-	{
-        public static IAuthenticate Authenticator { get; private set; }
-		public App ()
-		{
-			// The root page of your application
-			MainPage = new TabbedPage 
-			{
-			    Children =
-			    {
-			        new NavigationPage(new MapPage())
-			        {
-			            Title = "Sketch Map",
-			            Icon = Device.OnPlatform<string>("tab_feed.png",null,null)
-			        },
-			        new NavigationPage(new SketchesPage())
-			        {
-			            Title = "Sketches",
-			            Icon = Device.OnPlatform<string>("tab_about.png",null,null)
-			        },
-			        new NavigationPage(new PeoplePage())
-			        {
-			            Title = "Urban Sketchers",
-			            Icon = Device.OnPlatform<string>("tab_about.png",null,null)
-			        },
-			    }
-			};
+    {
+        public App()
+        {
+            // The root page of your application
+            MainPage = new TabbedPage
+            {
+                Children =
+                {
+                    new NavigationPage(new MapPage())
+                    {
+                        Title = "Sketch Map",
+                        Icon = Device.OnPlatform("tab_feed.png", null, null)
+                    },
+                    new NavigationPage(new SketchesPage())
+                    {
+                        Title = "Sketches",
+                        Icon = Device.OnPlatform("tab_about.png", null, null)
+                    },
+                    new NavigationPage(new PeoplePage())
+                    {
+                        Title = "Urban Sketchers",
+                        Icon = Device.OnPlatform("tab_about.png", null, null)
+                    }
+                }
+            };
         }
+
+        public static IAuthenticate Authenticator { get; private set; }
 
         public static void Init(IAuthenticate authenticator)
         {
             Authenticator = authenticator;
         }
 
-		protected override void OnStart ()
-		{
-			// Handle when your app starts
-		}
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
 
-		protected override void OnSleep ()
-		{
-			// Handle when your app sleeps
-		}
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
 
-		protected override void OnResume ()
-		{
-			// Handle when your app resumes
-		}
-	}
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
+    }
 }
-

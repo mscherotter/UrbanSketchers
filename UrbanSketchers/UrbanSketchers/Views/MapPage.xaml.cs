@@ -1,23 +1,22 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
-using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
     /// <summary>
-    /// Map Page
+    ///     Map Page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MapPage : ContentPage
+    public partial class MapPage
     {
-        private Sketch _sketch;
         private bool _authenticated;
         private string _personId;
+        private Sketch _sketch;
 
         public MapPage()
         {
@@ -45,7 +44,7 @@ namespace UrbanSketchers.Views
                     Address = sketch.Address
                 };
 
-            this.Map.Pins.SetRange(pins);
+            Map.Pins.SetRange(pins);
         }
 
         private async void OnRefresh(object sender, EventArgs e)
@@ -56,9 +55,7 @@ namespace UrbanSketchers.Views
         private async void OnAddSketch(object sender, EventArgs e)
         {
             if (!_authenticated)
-            {
                 _authenticated = await App.Authenticator.AuthenticateAsync();
-            }
 
             if (!_authenticated) return;
 
@@ -67,16 +64,14 @@ namespace UrbanSketchers.Views
                 var table = SketchManager.DefaultManager.CurrentClient.GetTable<Person>();
 
                 var query = from item in table
-                            where item.UserId == SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
-                            select item;
+                    where item.UserId == SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
+                    select item;
 
                 var results = await query.ToEnumerableAsync();
 
-                if (results.Any())
-                {
-                    _personId = results.First().Id;
-                }
-                else
+                var person = results.FirstOrDefault();
+
+                if (person == null)
                 {
                     //using (var client = new HttpClient())
                     //{
@@ -90,10 +85,9 @@ namespace UrbanSketchers.Views
 
                     //    var response = await client.GetStringAsync(requestUri);
 
-                        
 
                     //}
-                    var person = new Person
+                    person = new Person
                     {
                         UserId = SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
                     };
@@ -102,9 +96,13 @@ namespace UrbanSketchers.Views
 
                     _personId = person.Id;
                 }
+                else
+                {
+                    _personId = person.Id;
+                }
             }
 
-            this.EditSketchView.IsVisible = true;
+            EditSketchView.IsVisible = true;
 
             _sketch = new Sketch
             {
@@ -114,7 +112,7 @@ namespace UrbanSketchers.Views
 
             UpdateLocation();
 
-            this.EditSketchView.BindingContext = _sketch;
+            EditSketchView.BindingContext = _sketch;
         }
 
         private async void OnSketchSaved(object sender, EventArgs e)
@@ -124,15 +122,11 @@ namespace UrbanSketchers.Views
             _sketch = null;
         }
 
-        private void OnMapPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Map.VisibleRegion))
-            {
                 if (_sketch != null)
-                {
                     UpdateLocation();
-                }
-            }
         }
 
         private void UpdateLocation()
@@ -148,7 +142,6 @@ namespace UrbanSketchers.Views
 
         private void OnLogin(object sender, EventArgs e)
         {
-
         }
     }
 }

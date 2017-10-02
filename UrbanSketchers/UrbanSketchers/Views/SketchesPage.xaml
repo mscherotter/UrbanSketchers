@@ -22,6 +22,8 @@
           <StackLayout>
             <Label Text="{Binding Title}" 
                    Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding CreatedByName, StringFormat='by {0}'}"
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
             <Label Text="{Binding Description}" 
                    Style="{DynamicResource ListItemDetailTextStyle}"/>
           </StackLayout>

@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace UrbanSketchers.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditPersonView : ContentView
+    public partial class EditPersonView : Grid
     {
         public EditPersonView()
         {
