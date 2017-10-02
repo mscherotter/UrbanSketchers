@@ -41,10 +41,28 @@ namespace UrbanSketchers.Views
                     Position = new Position(sketch.Latitude, sketch.Longitude),
                     Label = sketch.Title,
                     Id = sketch.Id,
-                    Address = sketch.Address
+                    Address = sketch.Address,
                 };
 
-            Map.Pins.SetRange(pins);
+            var pinList = pins.ToList();
+
+            foreach (var pin in pinList)
+            {
+                pin.Clicked += Pin_Clicked;
+            }
+
+            Map.Pins.SetRange(pinList);
+        }
+
+        private async void Pin_Clicked(object sender, EventArgs e)
+        {
+            if (sender is Pin pin)
+            {
+                await Navigation.PushAsync(new SketchPage
+                {
+                    SketchId = pin.Id.ToString()
+                });
+            }
         }
 
         private async void OnRefresh(object sender, EventArgs e)
