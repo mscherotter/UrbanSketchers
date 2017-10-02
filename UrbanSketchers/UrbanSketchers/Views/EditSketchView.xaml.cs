@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,28 +6,39 @@ using Xamarin.Forms.Xaml;
 namespace UrbanSketchers.Views
 {
     /// <summary>
-    /// Edit sketch view
+    ///     Edit sketch view
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditSketchView : Grid
     {
         /// <summary>
-        /// Initializes a new instance of the EditSketchView class.
+        ///     Initializes a new instance of the EditSketchView class.
         /// </summary>
         public EditSketchView()
         {
             InitializeComponent();
+            this.PropertyChanged += EditSketchView_PropertyChanged;
+        }
+
+        private void EditSketchView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (BindingContext is Sketch sketch)
+            {
+                AddButton.Text = string.IsNullOrWhiteSpace(sketch.Id) ? "Add" : "Update";
+            }
         }
 
         /// <summary>
-        /// Sketch saved event handler
+        ///     Sketch saved event handler
         /// </summary>
         public event EventHandler SketchSaved;
 
         /// <summary>
-        /// Cancel event handler
+        ///     Cancel event handler
         /// </summary>
         public event EventHandler Canceled;
+
+        
 
         private async void OnAdd(object sender, EventArgs e)
         {

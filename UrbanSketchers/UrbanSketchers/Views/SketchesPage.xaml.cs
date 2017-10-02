@@ -81,7 +81,13 @@ namespace UrbanSketchers.Views
             if (e.SelectedItem == null)
                 return;
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            if (e.SelectedItem is Sketch sketch)
+            {
+                await Navigation.PushAsync(new SketchPage
+                {
+                    SketchId = sketch.Id
+                });
+            }
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

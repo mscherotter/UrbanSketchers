@@ -28,6 +28,6 @@ namespace UrbanSketchers.Data
         /// <summary>
         /// Azure version for online/offline sync
         /// </summary>
-        public string AzureVersion { get; set; }
+        //public string AzureVersion { get; set; }
     }
 }

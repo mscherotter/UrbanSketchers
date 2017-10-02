@@ -12,18 +12,17 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <StackLayout>
+    <StackLayout Grid.ColumnSpan="2">
         <Entry Placeholder="Title" Text="{Binding Title, Mode=TwoWay}"/>
-        <Entry Placeholder="Description" Text="{Binding Desription, Mode=TwoWay}"/>
+        <Entry Placeholder="Description" Text="{Binding Description, Mode=TwoWay}"/>
         <Entry Placeholder="Address" Text="{Binding Address, Mode=TwoWay}"/>
         <Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}"/>
-        <DatePicker Date="{Binding CreationDate, Mode=TwoWay}"/>
+        <DatePicker Date="{Binding CreationDate, Mode=TwoWay}" HorizontalOptions="Start"/>
     </StackLayout>
-    <Image Grid.Column="1" Source="{Binding ImageUrl}" VerticalOptions="Fill"/>
     <Label Text="Latitude" Grid.Row="1"/>
     <Entry Grid.Row="2" Text="{Binding Path=Latitude, Mode=TwoWay, StringFormat='{0:F5}'}" />
     <Label Text="Longitude" Grid.Column="1" Grid.Row="1"/>
     <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Path=Longitude, Mode=TwoWay, StringFormat='{0:F6}'}"/>
-    <Button Text="Add" Grid.Row="3" Clicked="OnAdd"/>
+    <Button Text="Add" Grid.Row="3" Clicked="OnAdd" x:Name="AddButton"/>
     <Button Text="Cancel" Grid.Row="3" Grid.Column="1" Clicked="OnCancel"/>
 </Grid>

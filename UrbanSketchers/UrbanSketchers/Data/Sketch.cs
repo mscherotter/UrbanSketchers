@@ -7,7 +7,9 @@ namespace UrbanSketchers.Data
     /// </summary>
     public class Sketch : BaseDataObject
     {
-        private string _imageUrl;
+        private string _address = string.Empty;
+        private string _description = string.Empty;
+        private string _imageUrl = string.Empty;
         private double _latitude;
         private double _longitude;
 
@@ -19,7 +21,11 @@ namespace UrbanSketchers.Data
         /// <summary>
         ///     Gets or sets the description of the sketch
         /// </summary>
-        public string Description { get; set; }
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
 
         /// <summary>
         ///     Gets or sets the creation date of the sketch
@@ -64,7 +70,12 @@ namespace UrbanSketchers.Data
         /// <summary>
         ///     Gets or sets the address
         /// </summary>
-        public string Address { get; set; }
+        public string Address
+        {
+            get => _address;
+
+            set => SetProperty(ref _address, value);
+        }
 
         public string CreatedByName { get; set; }
     }

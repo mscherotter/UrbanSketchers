@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:UrbanSketchers.Views"
+             x:Class="UrbanSketchers.Views.SketchPage"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Clicked="OnEdit"/>
+        <ToolbarItem Text="Refresh" Clicked="OnRefresh"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" />
+                <Label Text="{Binding Description}"/>
+                <Label Text="{Binding Address}" />
+            </StackLayout>
+            <Image Grid.Row="1" Source="{Binding ImageUrl}"/>
+            <views:EditSketchView IsVisible="False" Grid.Row="2" x:Name="EditSketch"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

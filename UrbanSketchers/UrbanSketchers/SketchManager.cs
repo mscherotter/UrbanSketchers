@@ -31,7 +31,7 @@ namespace UrbanSketchers
         private readonly IMobileServiceTable<Person> _peopleTable;
 #endif
 
-        private const string offlineDbPath = @"localstore.db";
+        private const string OfflineDbPath = @"localstore.db";
 
         private SketchManager()
         {
@@ -57,6 +57,10 @@ namespace UrbanSketchers
 
         public bool IsOfflineEnabled => _sketchTable is IMobileServiceSyncTable<Sketch>;
 
+        public Task<Sketch> GetSketchAsync(string id)
+        {
+            return _sketchTable.LookupAsync(id);
+        }
         public async Task<ObservableCollection<Person>> GetPeopleAsync()
         {
             var items = await _peopleTable.ToEnumerableAsync();
