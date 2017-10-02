@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
@@ -35,13 +36,17 @@ namespace UrbanSketchers.Views
             var sketches = await SketchManager.DefaultManager.GetSketchsAsync();
 
             var pins = from sketch in sketches
-                select new Pin
+                select new SketchPin()
                 {
-                    Type = PinType.Place,
-                    Position = new Position(sketch.Latitude, sketch.Longitude),
-                    Label = sketch.Title,
-                    Id = sketch.Id,
-                    Address = sketch.Address,
+                    Pin = new Pin
+                    { 
+                        Type = PinType.Place,
+                        Position = new Position(sketch.Latitude, sketch.Longitude),
+                        Label = sketch.Title,
+                        Id = sketch.Id,
+                        Address = sketch.Address,
+                    },
+                    Url = sketch.ImageUrl
                 };
 
             var pinList = pins.ToList();
@@ -51,16 +56,19 @@ namespace UrbanSketchers.Views
                 pin.Clicked += Pin_Clicked;
             }
 
-            Map.Pins.SetRange(pinList);
+            Map.CustomPins.SetRange(pinList);
+
+            //Map.Pins.SetRange(from pin in pinList
+            //    select pin.Pin);
         }
 
         private async void Pin_Clicked(object sender, EventArgs e)
         {
-            if (sender is Pin pin)
+            if (sender is SketchPin pin)
             {
                 await Navigation.PushAsync(new SketchPage
                 {
-                    SketchId = pin.Id.ToString()
+                    SketchId = pin.Pin.Id.ToString()
                 });
             }
         }
@@ -91,20 +99,6 @@ namespace UrbanSketchers.Views
 
                 if (person == null)
                 {
-                    //using (var client = new HttpClient())
-                    //{
-                    //    var userId = SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId;
-                    //    var accessToken = SketchManager.DefaultManager.CurrentClient.CurrentUser.MobileServiceAuthenticationToken;
-                    //    var facebookId = userId.Substring(userId.IndexOf(':') + 1);
-
-                    //    var requestUri = string.Format(
-                    //        "https://graph.facebook.com/v2.5/me?access_token={0}", 
-                    //        accessToken);
-
-                    //    var response = await client.GetStringAsync(requestUri);
-
-
-                    //}
                     person = new Person
                     {
                         UserId = SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
