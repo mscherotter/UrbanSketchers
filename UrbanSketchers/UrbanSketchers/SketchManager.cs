@@ -110,7 +110,7 @@ namespace UrbanSketchers
             return null;
         }
 
-        public async Task SaveSketchAsync(Sketch item)
+        public async Task SaveAsync(Sketch item)
         {
             if (item.Id == null)
             {
@@ -122,10 +122,18 @@ namespace UrbanSketchers
             }
         }
 
-        internal Task AddAsync(Sketch sketch)
+        public async Task SaveAsync(Person item)
         {
-            throw new NotImplementedException();
+            if (item.Id == null)
+            {
+                await peopleTable.InsertAsync(item);
+            }
+            else
+            {
+                await peopleTable.UpdateAsync(item);
+            }
         }
+
 
 #if OFFLINE_SYNC_ENABLED
         public async Task SyncAsync()

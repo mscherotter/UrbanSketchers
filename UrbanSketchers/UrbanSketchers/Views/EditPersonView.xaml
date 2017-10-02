@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UrbanSketchers.Views.EditPersonView">
+    <StackLayout>
+        <Entry Placeholder="Name" Text="{Binding Path=Name, Mode=TwoWay}"/>
+        <Entry Placeholder="Public URL" Text="{Binding Path=PublicUrl, Mode=TwoWay}"/>
+        <Entry Placeholder="Image URL" Text="{Binding Path=ImageUrl, Mode=TwoWay}"/>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Sign up"/>
+            <Button Text="Cancel"/>
+        </StackLayout>
+    </StackLayout>
+</Grid>

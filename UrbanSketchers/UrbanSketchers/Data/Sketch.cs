@@ -16,6 +16,11 @@ namespace UrbanSketchers.Data
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets the description of the sketch
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// Gets or sets the creation date of the sketch
         /// </summary>
         public DateTime CreationDate { get; set; }

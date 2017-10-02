@@ -1,11 +1,18 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UrbanSketchers.Views;
 using Xamarin.Forms;
 
 namespace UrbanSketchers
 {
-	public class App : Application
+    public interface IAuthenticate
+    {
+        Task<bool> AuthenticateAsync();
+    }
+
+    public class App : Application
 	{
+        public static IAuthenticate Authenticator { get; private set; }
 		public App ()
 		{
 			// The root page of your application
@@ -30,6 +37,11 @@ namespace UrbanSketchers
 			        },
 			    }
 			};
+        }
+
+        public static void Init(IAuthenticate authenticator)
+        {
+            Authenticator = authenticator;
         }
 
 		protected override void OnStart ()

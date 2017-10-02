@@ -6,6 +6,7 @@
              Title="Sketch Map"
              x:Class="UrbanSketchers.Views.MapPage">
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Login" Clicked="OnLogin"/>
         <ToolbarItem Text="Add Sketch" Clicked="OnAddSketch"/>
         <ToolbarItem Text="Locate me"/>
         <ToolbarItem Text="Refresh" Clicked="OnRefresh"/>

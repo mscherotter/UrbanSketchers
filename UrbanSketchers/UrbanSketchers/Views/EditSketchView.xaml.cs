@@ -27,7 +27,7 @@ namespace UrbanSketchers.Views
             {
                 if (string.IsNullOrWhiteSpace(sketch.Title)) return;
 
-                await SketchManager.DefaultManager.SaveSketchAsync(sketch);
+                await SketchManager.DefaultManager.SaveAsync(sketch);
 
                 IsVisible = false;
 

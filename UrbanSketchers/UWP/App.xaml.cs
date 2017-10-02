@@ -82,6 +82,19 @@ namespace UWP
             Window.Current.Activate();
         }
 
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                if (args is ProtocolActivatedEventArgs protocolArgs)
+                {
+                    UrbanSketchers.SketchManager.DefaultManager.CurrentClient.ResumeWithURL(protocolArgs.Uri);
+                }
+            }
+        }
+
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>

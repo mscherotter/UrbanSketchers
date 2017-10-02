@@ -7,7 +7,7 @@ namespace UrbanSketchers.Data
     {
         public BaseDataObject()
         {
-            Id = Guid.NewGuid().ToString();
+            //Id = Guid.NewGuid().ToString();
         }
 
         /// <summary>

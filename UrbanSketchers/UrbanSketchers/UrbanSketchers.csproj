@@ -45,6 +45,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="TodoItem.cs" />
     <Compile Include="SketchManager.cs" />
+    <Compile Include="Views\EditPersonView.xaml.cs">
+      <DependentUpon>EditPersonView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditSketchView.xaml.cs">
       <DependentUpon>EditSketchView.xaml</DependentUpon>
     </Compile>
@@ -89,5 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EditPersonView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
