@@ -58,6 +58,12 @@ namespace UrbanSketchers
 
         public bool IsOfflineEnabled => _sketchTable is IMobileServiceSyncTable<Sketch>;
 
+        public async Task<string> GetPhotosAsync()
+        {
+            var result = await CurrentClient.InvokeApiAsync("GetPhotos");
+
+            return result.ToString();
+        }
         public Task<Sketch> GetSketchAsync(string id)
         {
             return _sketchTable.LookupAsync(id);

@@ -8,7 +8,13 @@
              x:Class="UrbanSketchers.Views.MapPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Login" Clicked="OnLogin"/>
-        <ToolbarItem Text="Add Sketch" Clicked="OnAddSketch"/>
+        <ToolbarItem Text="Add Sketch" Clicked="OnAddSketch">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Add.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem Text="Locate me"/>
         <ToolbarItem Text="Refresh" Clicked="OnRefresh"/>
     </ContentPage.ToolbarItems>

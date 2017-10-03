@@ -31,7 +31,7 @@ namespace UWP
 
             FormsMaps.Init(BingMapsKey);
         }
-
+         
         public async Task<bool> AuthenticateAsync()
         {
             try

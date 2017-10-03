@@ -4,7 +4,8 @@
              x:Class="UrbanSketchers.Views.PersonPage"
              Title="{Binding Name}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Update"/>
+        <ToolbarItem Text="Update">
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
