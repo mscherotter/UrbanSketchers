@@ -22,7 +22,9 @@
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="urbansketchers" />
+          <uap:Protocol Name="urbansketchersauth">
+            <uap:DisplayName>Urban Sketchers Authorization</uap:DisplayName>
+          </uap:Protocol>
         </uap:Extension>
       </Extensions>
     </Application>

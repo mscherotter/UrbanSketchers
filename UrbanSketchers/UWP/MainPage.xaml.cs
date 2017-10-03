@@ -17,6 +17,8 @@ namespace UWP
                 "B6p5hudPVN61Ykpp6D7W~JW-lf-G0P7wmsDcDrMWFuw~AsZdr0PHfOeWe9qmPtHDbuONPySTrgN47oWYdvD84J67bvxcMbXDQEnZCz6XWwR1"
             ;
 
+        private const string UriScheme = "urbansketchersauth";
+
         private MobileServiceUser _user;
 
         public MainPage()
@@ -35,7 +37,7 @@ namespace UWP
             try
             {
                 _user = await SketchManager.DefaultManager.CurrentClient.LoginAsync(
-                    MobileServiceAuthenticationProvider.Facebook, "urbansketchers");
+                    MobileServiceAuthenticationProvider.Facebook, UriScheme);
 
                 if (_user != null)
                     return true;
