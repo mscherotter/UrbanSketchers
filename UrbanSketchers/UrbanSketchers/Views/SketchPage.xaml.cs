@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UrbanSketchers.Data;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
@@ -46,6 +47,17 @@ namespace UrbanSketchers.Views
         private async void OnRefresh(object sender, EventArgs e)
         {
             await RefreshAsync();
+        }
+
+        private async void OnTappedName(object sender, EventArgs e)
+        {
+            if (BindingContext is Sketch sketch)
+            {
+                await Navigation.PushAsync(new PersonPage
+                {
+                    PersonId = sketch.CreatedBy
+                });
+            }
         }
     }
 }

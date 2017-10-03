@@ -16,7 +16,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackLayout>
-                <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" />
+                <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue">
+                    <Label.GestureRecognizers>
+                       <TapGestureRecognizer Tapped="OnTappedName"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Text="{Binding Description}"/>
                 <Label Text="{Binding Address}" />
             </StackLayout>

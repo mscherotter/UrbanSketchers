@@ -3,11 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UrbanSketchers.Views.PersonPage"
              Title="{Binding Name}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Update"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Entry Text="{Binding Path=Name, Mode=TwoWay}"/>
-            <Entry Text="{Binding Path=ImageUrl, Mode=TwoWay}"/>
+            <Label Text="Public URL"/>
             <Entry Text="{Binding Path=PublicUrl, Mode=TwoWay}"/>
+            <Label Text="Image URL"/>
+            <Entry Text="{Binding Path=ImageUrl, Mode=TwoWay}"/>
+            <Image Source="{Binding Path=ImageUrl}" HeightRequest="100"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

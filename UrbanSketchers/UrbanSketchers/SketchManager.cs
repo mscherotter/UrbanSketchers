@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 using UrbanSketchers.Data;
+using UrbanSketchers.Views;
 
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
@@ -61,6 +62,8 @@ namespace UrbanSketchers
         {
             return _sketchTable.LookupAsync(id);
         }
+
+
         public async Task<ObservableCollection<Person>> GetPeopleAsync()
         {
             var items = await _peopleTable.ToEnumerableAsync();
@@ -138,6 +141,11 @@ namespace UrbanSketchers
                 await _peopleTable.InsertAsync(item);
             else
                 await _peopleTable.UpdateAsync(item);
+        }
+
+        internal Task<Person> GetPersonAsync(string personId)
+        {
+            return _peopleTable.LookupAsync(personId);
         }
 
 

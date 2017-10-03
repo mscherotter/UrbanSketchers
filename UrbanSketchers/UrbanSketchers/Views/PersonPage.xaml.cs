@@ -16,5 +16,14 @@ namespace UrbanSketchers.Views
         {
             InitializeComponent();
         }
+
+        public string PersonId { get; set; }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            BindingContext = await SketchManager.DefaultManager.GetPersonAsync(PersonId);
+        }
     }
 }
