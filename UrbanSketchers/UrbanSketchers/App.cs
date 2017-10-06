@@ -16,29 +16,46 @@ namespace UrbanSketchers
     {
         public App()
         {
+            var menuPage = new MenuPage();
+
+            NavigationPage = new NavigationPage(new HomePage());
+
+            var rootPage = new RootPage();
+
+            rootPage.Master = menuPage;
+            rootPage.Detail = NavigationPage;
+            //{
+            //    Master = menuPage,
+            //    Detail = NavigationPage
+            //};
+
+            MainPage = rootPage;
+
             // The root page of your application
-            MainPage = new TabbedPage
-            {
-                Children =
-                {
-                    new NavigationPage(new MapPage())
-                    {
-                        Title = "Sketch Map"
-                        //Icon = Xamarin.Forms.Device.OnPlatform("tab_feed.png", null, null)
-                    },
-                    new NavigationPage(new SketchesPage())
-                    {
-                        Title = "Sketches"
-                        //Icon = Xamarin.Forms.Device.OnPlatform("tab_about.png", null, null)
-                    },
-                    new NavigationPage(new PeoplePage())
-                    {
-                        Title = "Urban Sketchers"
-                        //Icon = Xamarin.Forms.Device.OnPlatform("tab_about.png", null, null)
-                    }
-                }
-            };
+            //MainPage = new TabbedPage
+            //{
+            //    Children =
+            //    {
+            //        new NavigationPage(new MapPage())
+            //        {
+            //            Title = "Sketch Map"
+            //            //Icon = Xamarin.Forms.Device.OnPlatform("tab_feed.png", null, null)
+            //        },
+            //        new NavigationPage(new SketchesPage())
+            //        {
+            //            Title = "Sketches"
+            //            //Icon = Xamarin.Forms.Device.OnPlatform("tab_about.png", null, null)
+            //        },
+            //        new NavigationPage(new PeoplePage())
+            //        {
+            //            Title = "Urban Sketchers"
+            //            //Icon = Xamarin.Forms.Device.OnPlatform("tab_about.png", null, null)
+            //        }
+            //    }
+            //};
         }
+
+        public static NavigationPage NavigationPage { get; private set; }
 
         public static IAuthenticate Authenticator { get; private set; }
 

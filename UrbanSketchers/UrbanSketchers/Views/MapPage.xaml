@@ -20,13 +20,13 @@
                 </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
-        <ToolbarItem Text="Locate me">
+        <!--<ToolbarItem Text="Locate me">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP">Assets/LocateMe.png</On>
                 </OnPlatform>
             </ToolbarItem.Icon>
-        </ToolbarItem>
+        </ToolbarItem>-->
         <ToolbarItem Text="Refresh" Clicked="OnRefresh">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">

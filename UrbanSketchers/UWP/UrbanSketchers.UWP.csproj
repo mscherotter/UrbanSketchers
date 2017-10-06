@@ -129,6 +129,9 @@
     <Content Include="Assets\LocateMe.png" />
     <Content Include="Assets\Refresh.png" />
     <Content Include="Assets\SignIn.png" />
+    <Content Include="Assets\Sketches.png" />
+    <Content Include="Assets\SketchMap.png" />
+    <Content Include="Assets\UrbanSketchers.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

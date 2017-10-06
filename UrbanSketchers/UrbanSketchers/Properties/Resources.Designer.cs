@@ -60,5 +60,41 @@ namespace UrbanSketchers.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Sketches.
+        /// </summary>
+        internal static string MySketches {
+            get {
+                return ResourceManager.GetString("MySketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sketches.
+        /// </summary>
+        internal static string Sketches {
+            get {
+                return ResourceManager.GetString("Sketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sketch Map.
+        /// </summary>
+        internal static string SketchMap {
+            get {
+                return ResourceManager.GetString("SketchMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Urban Sketchers.
+        /// </summary>
+        internal static string UrbanSketchers {
+            get {
+                return ResourceManager.GetString("UrbanSketchers", resourceCulture);
+            }
+        }
     }
 }
