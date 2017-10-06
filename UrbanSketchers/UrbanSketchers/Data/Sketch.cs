@@ -7,6 +7,7 @@ namespace UrbanSketchers.Data
     /// </summary>
     public class Sketch : BaseDataObject
     {
+        private string _title;
         private string _address = string.Empty;
         private string _description = string.Empty;
         private string _imageUrl = string.Empty;
@@ -16,7 +17,11 @@ namespace UrbanSketchers.Data
         /// <summary>
         ///     Gets or sets the title of the sketch
         /// </summary>
-        public string Title { get; set; }
+        public string Title
+        {
+            get => _title; 
+            set => SetProperty(ref _title, value);
+        }
 
         /// <summary>
         ///     Gets or sets the description of the sketch

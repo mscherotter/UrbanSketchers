@@ -46,10 +46,10 @@ namespace UrbanSketchers.Views
         {
             base.OnAppearing();
 
-            await RefreshItems(true, syncItems: true);
+            await RefreshItemsAsync(true, syncItems: true);
         }
 
-        private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
+        private async Task RefreshItemsAsync(bool showActivityIndicator, bool syncItems)
         {
             //using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
@@ -123,6 +123,11 @@ namespace UrbanSketchers.Views
                     indicatorDelay.ContinueWith(t => SetIndicatorActivity(false), TaskScheduler.FromCurrentSynchronizationContext());
                 }
             }
+        }
+
+        private async void OnRefresh(object sender, EventArgs e)
+        {
+            await RefreshItemsAsync(true, true);
         }
     }
 }
