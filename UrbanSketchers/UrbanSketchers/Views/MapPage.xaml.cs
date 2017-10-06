@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
-using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
@@ -43,15 +42,15 @@ namespace UrbanSketchers.Views
             var sketches = await SketchManager.DefaultManager.GetSketchsAsync();
 
             var pins = from sketch in sketches
-                select new SketchPin()
+                select new SketchPin
                 {
                     Pin = new Pin
-                    { 
+                    {
                         Type = PinType.Place,
                         Position = new Position(sketch.Latitude, sketch.Longitude),
                         Label = sketch.Title,
                         Id = sketch.Id,
-                        Address = sketch.Address,
+                        Address = sketch.Address
                     },
                     Url = sketch.ImageUrl
                 };
@@ -59,9 +58,7 @@ namespace UrbanSketchers.Views
             var pinList = pins.ToList();
 
             foreach (var pin in pinList)
-            {
                 pin.Clicked += Pin_Clicked;
-            }
 
             Map.CustomPins.SetRange(pinList);
 
@@ -72,12 +69,10 @@ namespace UrbanSketchers.Views
         private async void Pin_Clicked(object sender, EventArgs e)
         {
             if (sender is SketchPin pin)
-            {
                 await Navigation.PushAsync(new SketchPage
                 {
                     SketchId = pin.Pin.Id.ToString()
                 });
-            }
         }
 
         private async void OnRefresh(object sender, EventArgs e)

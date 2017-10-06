@@ -44,7 +44,7 @@ namespace UrbanSketchers.Views
                 switch (Device.RuntimePlatform)
                 {
                     case Device.UWP:
-                        LikeButton.Icon = new FileImageSource { File = "Assets/FilledHeart.png" };
+                        LikeButton.Icon = new FileImageSource {File = "Assets/FilledHeart.png"};
                         break;
                 }
             }
@@ -53,7 +53,7 @@ namespace UrbanSketchers.Views
                 switch (Device.RuntimePlatform)
                 {
                     case Device.UWP:
-                        LikeButton.Icon = new FileImageSource { File = "Assets/EmptyHeart.png" };
+                        LikeButton.Icon = new FileImageSource {File = "Assets/EmptyHeart.png"};
                         break;
                 }
             }
@@ -133,6 +133,34 @@ namespace UrbanSketchers.Views
                 UpdateLikeButton(rating);
 
                 LikeButton.IsEnabled = true;
+            }
+        }
+
+        private async void OnDelete(object sender, EventArgs e)
+        {
+            if (BindingContext is Sketch sketch)
+            {
+                var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+                if (person == null)
+                {
+                    if (await App.Authenticator.AuthenticateAsync())
+                    {
+                        person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+                    }
+                }
+
+                if (person == null)
+                {
+                    return;
+                }
+
+                if (person.Id == sketch.CreatedBy)
+                {
+                    await SketchManager.DefaultManager.DeleteAsync(sketch);
+
+                    await Navigation.PopAsync(true);
+                }
             }
         }
     }

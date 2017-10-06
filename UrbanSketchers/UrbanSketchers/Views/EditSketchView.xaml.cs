@@ -2,9 +2,12 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using UrbanSketchers.Data;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
@@ -73,7 +76,7 @@ namespace UrbanSketchers.Views
 
                 SketchSaved?.Invoke(this, new EventArgs());
 
-                _fileData = null;
+                ClearFileData();
             }
         }
 
@@ -81,11 +84,20 @@ namespace UrbanSketchers.Views
         {
             ImageUrlEntry.IsEnabled = true;
 
-            _fileData = null;
+            ClearFileData();
 
             Canceled?.Invoke(this, new EventArgs());
 
             IsVisible = false;
+        }
+
+        private void ClearFileData()
+        {
+            FilenameLabel.Text = string.Empty;
+
+            RemoveFileButton.IsVisible = false;
+
+            _fileData = null;
         }
 
         private async void OnSelectFile(object sender, EventArgs e)
@@ -97,7 +109,29 @@ namespace UrbanSketchers.Views
                 FilenameLabel.Text = _fileData.FileName;
                 ImageUrlEntry.IsEnabled = false;
                 RemoveFileButton.IsVisible = true;
+
+                Image.Source = new StreamImageSource
+                {
+                    Stream = GetImageStream
+                };
             }
+        }
+
+        private Task<Stream> GetImageStream(CancellationToken arg)
+        {
+            return Task.Run(delegate
+            {
+                Stream stream = null;
+
+                if (_fileData == null)
+                {
+                    return null;
+                }
+
+                stream = new MemoryStream(_fileData.DataArray);
+
+                return stream;
+            }, arg);
         }
 
         private void OnRemoveFile(object sender, EventArgs e)
@@ -108,6 +142,7 @@ namespace UrbanSketchers.Views
             FilenameLabel.Text = string.Empty;
 
             RemoveFileButton.IsVisible = false;
+            Image.Source = null;
         }
     }
 }

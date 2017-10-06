@@ -75,6 +75,11 @@ namespace UWP
                 return null;
             }
 
+            if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
+            {
+                return null;
+            }
+
             double maxSize = 300;
 
             if (Element is SketchMap sketchMap)

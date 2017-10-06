@@ -143,6 +143,11 @@ namespace UrbanSketchers
             return uri;
         }
 
+        internal Task DeleteAsync(Sketch sketch)
+        {
+            return _sketchTable.DeleteAsync(sketch);
+        }
+
         public static SketchManager DefaultManager { get; } = new SketchManager();
 
         public MobileServiceClient CurrentClient { get; }
