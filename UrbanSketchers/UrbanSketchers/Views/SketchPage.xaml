@@ -5,7 +5,7 @@
              x:Class="UrbanSketchers.Views.SketchPage"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Like" Clicked="OnLike">
+        <ToolbarItem Text="Like" Clicked="OnLike" x:Name="LikeButton">
             <ToolbarItem.Icon>
             <OnPlatform x:TypeArguments="FileImageSource">
                 <On Platform="UWP">Assets/EmptyHeart.png</On>

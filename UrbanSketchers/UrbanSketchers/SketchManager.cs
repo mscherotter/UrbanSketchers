@@ -238,6 +238,13 @@ namespace UrbanSketchers
             else
                 await _peopleTable.UpdateAsync(item);
         }
+        public async Task SaveAsync(Rating item)
+        {
+            if (item.Id == null)
+                await _ratingTable.InsertAsync(item);
+            else
+                await _ratingTable.UpdateAsync(item);
+        }
 
         internal Task<Person> GetPersonAsync(string personId)
         {

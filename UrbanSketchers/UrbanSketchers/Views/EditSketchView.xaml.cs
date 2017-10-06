@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
+using System.IO;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using UrbanSketchers.Data;
@@ -52,8 +54,18 @@ namespace UrbanSketchers.Views
                 if (_fileData == null && string.IsNullOrWhiteSpace(sketch.ImageUrl)) return;
 
                 if (_fileData != null)
+                {
+                    await SketchManager.DefaultManager.SaveAsync(sketch);
+
+                    var filename = string.Format(
+                        CultureInfo.InvariantCulture,
+                        "{0}{1}",
+                        sketch.Id,
+                        Path.GetExtension(_fileData.FileName));
+
                     sketch.ImageUrl =
-                        await SketchManager.DefaultManager.UploadAsync(_fileData.FileName, _fileData.DataArray);
+                        await SketchManager.DefaultManager.UploadAsync(filename, _fileData.DataArray);
+                }
 
                 await SketchManager.DefaultManager.SaveAsync(sketch);
 

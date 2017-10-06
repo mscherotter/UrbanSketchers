@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
@@ -26,7 +27,36 @@ namespace UrbanSketchers.Views
         {
             var sketch = await SketchManager.DefaultManager.GetSketchAsync(SketchId);
 
+            if (sketch != null)
+            {
+                var rating = await SketchManager.DefaultManager.GetRatingAsync(sketch.Id);
+
+                UpdateLikeButton(rating);
+            }
+
             BindingContext = sketch;
+        }
+
+        private void UpdateLikeButton(Rating rating)
+        {
+            if (rating != null && rating.IsHeart)
+            {
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.UWP:
+                        LikeButton.Icon = new FileImageSource { File = "Assets/FilledHeart.png" };
+                        break;
+                }
+            }
+            else
+            {
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.UWP:
+                        LikeButton.Icon = new FileImageSource { File = "Assets/EmptyHeart.png" };
+                        break;
+                }
+            }
         }
 
         private async void OnEdit(object sender, EventArgs e)
@@ -72,11 +102,37 @@ namespace UrbanSketchers.Views
             }
         }
 
+        /// <summary>
+        /// User likes or un-likes the photo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void OnLike(object sender, EventArgs e)
         {
             if (BindingContext is Sketch sketch)
             {
+                LikeButton.IsEnabled = false;
+
                 var rating = await SketchManager.DefaultManager.GetRatingAsync(sketch.Id);
+
+                if (rating == null)
+                {
+                    rating = new Rating
+                    {
+                        IsHeart = true,
+                        SketchId = sketch.Id,
+                    };
+                }
+                else
+                {
+                    rating.IsHeart = !rating.IsHeart;
+                }
+
+                await SketchManager.DefaultManager.SaveAsync(rating);
+
+                UpdateLikeButton(rating);
+
+                LikeButton.IsEnabled = true;
             }
         }
     }
