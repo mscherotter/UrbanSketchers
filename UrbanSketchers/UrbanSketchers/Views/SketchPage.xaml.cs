@@ -39,6 +39,18 @@ namespace UrbanSketchers.Views
                 {
                     return;
                 }
+
+                if (BindingContext is Sketch sketch)
+                {
+                    var currentUser = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+                    if (sketch.CreatedBy != currentUser.Id)
+                    {
+                        await DisplayAlert("Edit Sketch", "You can only edit sketches that you submitted.", "OK");
+
+                        return;
+                    }
+                }
             }
 
             EditSketch.IsVisible = true;

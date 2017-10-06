@@ -10,11 +10,16 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.Sync;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
 using UrbanSketchers.Data;
-using UrbanSketchers.Views;
 
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
@@ -52,6 +57,74 @@ namespace UrbanSketchers
 #endif
         }
 
+        internal async Task<Person> GetCurrentUserAsync()
+        {
+            if (CurrentClient.CurrentUser == null)
+            {
+                return null;
+            }
+
+            var query = from item in _peopleTable
+                where item.UserId == CurrentClient.CurrentUser.UserId
+                select item;
+
+            var users = await query.ToEnumerableAsync();
+
+            return users.FirstOrDefault();
+        }
+
+        /// <summary>Upload a file</summary>
+        /// <param name="fileName"></param>
+        /// <param name="dataArray"></param>
+        /// <returns>an async task with the Uri of the file uploaded.</returns>
+        /// <remarks>see <![CDATA[https://code.msdn.microsoft.com/windowsapps/Upload-File-to-Windows-c9169190]]> and <![CDATA[https://docs.microsoft.com/en-us/azure/storage/files/storage-dotnet-how-to-use-files]]></remarks>
+        internal async Task<string> UploadAsync(string fileName, byte[] dataArray)
+        {
+            var sketchFile = new SketchFile
+            {
+                BlobName = fileName,
+                Container = "sketches",
+                Permissions = "rw"
+            };
+
+            var response = await CurrentClient.InvokeApiAsync<SketchFile, GetSasTokenResponse>("GetUploadToken", sketchFile);
+
+            var sasUri = new Uri(response.Uri);
+
+            var sasToken = sasUri.Query.Substring(1);
+
+            var credentials = new StorageCredentials(sasToken);
+
+            var uriString = string.Format(
+                CultureInfo.InvariantCulture, 
+                "https://{0}/{1}", 
+                sasUri.Host, 
+                sketchFile.Container);
+
+            var container = new CloudBlobContainer(new Uri(uriString), credentials);
+
+            var blob = container.GetBlockBlobReference(fileName);
+
+            using (var stream = new MemoryStream(dataArray))
+            {
+                try
+                {
+                    await blob.UploadFromStreamAsync(stream);
+                }
+                catch (StorageException se)
+                {
+                    Debug.WriteLine($"Error uploading {fileName}: {se.RequestInformation.ExtendedErrorInformation.ErrorMessage}.");
+
+                    return null;
+                }
+
+            }
+
+            var uri = response.Uri.Substring(0, response.Uri.IndexOf('?'));
+
+            return uri;
+        }
+
         public static SketchManager DefaultManager { get; } = new SketchManager();
 
         public MobileServiceClient CurrentClient { get; }
@@ -68,7 +141,6 @@ namespace UrbanSketchers
         {
             return _sketchTable.LookupAsync(id);
         }
-
 
         public async Task<ObservableCollection<Person>> GetPeopleAsync()
         {

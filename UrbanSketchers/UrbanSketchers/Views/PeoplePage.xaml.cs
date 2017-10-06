@@ -34,22 +34,15 @@ namespace UrbanSketchers.Views
             Items.SetRange(people);
         }
 
-        private async void Handle_ItemTapped(object sender, SelectedItemChangedEventArgs e)
+        private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.SelectedItem == null)
-                return;
-
-            if (e.SelectedItem is Person person)
+            if (e.Item is Person person)
             {
                 await this.Navigation.PushAsync(new SketchesPage
                 {
                     PersonId = person.Id
                 }, true);
             }
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView) sender).SelectedItem = null;
         }
     }
 }

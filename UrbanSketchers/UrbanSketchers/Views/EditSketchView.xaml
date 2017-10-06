@@ -16,7 +16,12 @@
         <Entry Placeholder="Title" Text="{Binding Title, Mode=TwoWay}"/>
         <Entry Placeholder="Description" Text="{Binding Description, Mode=TwoWay}"/>
         <Entry Placeholder="Address" Text="{Binding Address, Mode=TwoWay}"/>
-        <Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}"/>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Select File" Clicked="OnSelectFile" HorizontalOptions="Start"/>
+            <Label x:Name="FilenameLabel"/>
+            <Button Text="Remove" Clicked="OnRemoveFile" x:Name="RemoveFileButton" IsVisible="False"/>
+        </StackLayout>
+        <Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}" x:Name="ImageUrlEntry"/>
         <DatePicker Date="{Binding CreationDate, Mode=TwoWay}" HorizontalOptions="Start"/>
     </StackLayout>
     <Label Text="Latitude" Grid.Row="1"/>

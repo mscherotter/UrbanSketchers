@@ -5,7 +5,13 @@
              x:Class="UrbanSketchers.Views.SketchPage"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Edit" Clicked="OnEdit"/>
+        <ToolbarItem x:Name="EditItem" Text="Edit" Clicked="OnEdit">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Edit.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem Text="Refresh" Clicked="OnRefresh"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

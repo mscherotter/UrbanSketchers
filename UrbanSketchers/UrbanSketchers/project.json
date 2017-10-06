@@ -1,7 +1,12 @@
 ﻿{
   "dependencies": {
+    "Microsoft.Azure.Mobile.Analytics": "0.16.0",
     "Microsoft.Azure.Mobile.Client": "4.0.1",
+    "Microsoft.Azure.Mobile.Crashes": "0.16.0",
     "NETStandard.Library": "2.0.0",
+    "PCLStorage": "1.0.2",
+    "WindowsAzure.Storage": "8.4.0",
+    "Xam.Plugin.FilePicker": "1.1.0",
     "Xamarin.Forms": "2.4.0.282",
     "Xamarin.Forms.Maps": "2.4.0.282"
   },

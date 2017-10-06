@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace UrbanSketchers
@@ -20,10 +21,12 @@ namespace UrbanSketchers
             {
                 collection.Clear();
 
-                if (range == null)
-                    return;
+                if (range == null) return;
 
-                range.ToList().ForEach(collection.Add);
+                foreach (var item in range)
+                {
+                    collection.Add(item);
+                }
             }
         }
 
@@ -40,7 +43,10 @@ namespace UrbanSketchers
                 if (range == null)
                     return;
 
-                range.ToList().ForEach(collection.Add);
+                foreach (var item in range)
+                {
+                    collection.Add(item);
+                }
             }
         }
     }

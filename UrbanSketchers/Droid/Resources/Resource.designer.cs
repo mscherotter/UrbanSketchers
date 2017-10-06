@@ -36,6 +36,8 @@ namespace UrbanSketchers.Droid
 			global::Xamarin.Auth._MobileServices.Resource.String.title_activity_webview = global::UrbanSketchers.Droid.Resource.String.title_activity_webview;
 			global::PCLCrypto.Resource.String.ApplicationName = global::UrbanSketchers.Droid.Resource.String.ApplicationName;
 			global::PCLCrypto.Resource.String.Hello = global::UrbanSketchers.Droid.Resource.String.Hello;
+			global::PCLStorage.Resource.String.ApplicationName = global::UrbanSketchers.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::UrbanSketchers.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::UrbanSketchers.Droid.Resource.Attribute.actionBarSize;
 		}
 		

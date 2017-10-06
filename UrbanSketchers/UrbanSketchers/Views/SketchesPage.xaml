@@ -3,19 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UrbanSketchers.Views.SketchesPage"
              Title="Sketches">
-  <ListView ItemsSource="{Binding Items}" RowHeight="48"
+    <ListView x:Name="SketchList" RowHeight="48"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
-            
-    <!--Built in Cells-->
-    <!--<ListView.ItemTemplate>
-      <DataTemplate>
-        <TextCell />
-      </DataTemplate>
-    </ListView.ItemTemplate>-->
-    
-    <!--Custom View Cells-->
-    
     <ListView.ItemTemplate>
       <DataTemplate>
           <ViewCell>
@@ -33,6 +23,5 @@
           </ViewCell>
       </DataTemplate>
     </ListView.ItemTemplate>
-    
   </ListView>
 </ContentPage>

@@ -56,11 +56,25 @@ namespace UWP
 
         private async void _pins_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            await UpdatePinsAsync();
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Reset:
+                    _nativeMap.Children.Clear();
+                    _nativeMap.MapElements.Clear();
+                    break;
+                case NotifyCollectionChangedAction.Add:
+                    await UpdatePinsAsync();
+                    break;
+            }
         }
 
         private async Task<RandomAccessStreamReference> ResizeImageAsync(string uri)
         {
+            if (string.IsNullOrWhiteSpace(uri))
+            {
+                return null;
+            }
+
             double maxSize = 300;
 
             if (Element is SketchMap sketchMap)
@@ -76,22 +90,32 @@ namespace UWP
 
                         var imageStream = inputStream.AsStreamForRead();
 
-                        var decoder = await BitmapDecoder.CreateAsync(imageStream.AsRandomAccessStream());
+                        try
+                        {
+                            var decoder = await BitmapDecoder.CreateAsync(imageStream.AsRandomAccessStream());
 
-                        var size = Math.Max(decoder.PixelHeight, decoder.PixelWidth);
+                        
+                            var size = Math.Max(decoder.PixelHeight, decoder.PixelWidth);
 
-                        var scale = maxSize / Convert.ToDouble(size);
+                            var scale = maxSize / Convert.ToDouble(size);
 
-                        var memStream = new InMemoryRandomAccessStream();
+                            var memStream = new InMemoryRandomAccessStream();
 
-                        var encoder = await BitmapEncoder.CreateForTranscodingAsync(memStream, decoder);
+                            var encoder = await BitmapEncoder.CreateForTranscodingAsync(memStream, decoder);
 
-                        encoder.BitmapTransform.ScaledWidth = Convert.ToUInt32(decoder.PixelWidth * scale);
-                        encoder.BitmapTransform.ScaledHeight = Convert.ToUInt32(decoder.PixelHeight * scale);
+                            encoder.BitmapTransform.ScaledWidth = Convert.ToUInt32(decoder.PixelWidth * scale);
+                            encoder.BitmapTransform.ScaledHeight = Convert.ToUInt32(decoder.PixelHeight * scale);
 
-                        await encoder.FlushAsync();
+                            await encoder.FlushAsync();
 
-                        return RandomAccessStreamReference.CreateFromStream(memStream);
+                            return RandomAccessStreamReference.CreateFromStream(memStream);
+                        }
+                        catch (Exception e)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Could not decode {uri}: {e.Message}.");
+
+                            return null;
+                        }
                     }
                 }
             }
@@ -101,7 +125,9 @@ namespace UWP
         {
             _nativeMap.Children.Clear();
 
-            foreach (var pin in _pins)
+            var pins = _pins.ToList();
+
+            foreach (var pin in pins)
             {
                 var position = new BasicGeoposition
                 {

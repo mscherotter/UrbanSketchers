@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:views="clr-namespace:UrbanSketchers.Views"
              xmlns:controls="clr-namespace:UrbanSketchers.Controls"
              Title="Sketch Map"
              x:Class="UrbanSketchers.Views.MapPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Login" Clicked="OnLogin"/>
+        <ToolbarItem Text="Sign in" Clicked="OnLogin" x:Name="SignInButton">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/SignIn.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem Text="Add Sketch" Clicked="OnAddSketch">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
@@ -15,8 +20,20 @@
                 </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
-        <ToolbarItem Text="Locate me"/>
-        <ToolbarItem Text="Refresh" Clicked="OnRefresh"/>
+        <ToolbarItem Text="Locate me">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/LocateMe.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem Text="Refresh" Clicked="OnRefresh">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Refresh.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid.RowDefinitions>

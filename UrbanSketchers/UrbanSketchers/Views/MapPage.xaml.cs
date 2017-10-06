@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
@@ -27,6 +28,12 @@ namespace UrbanSketchers.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            var user = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+            if (user != null)
+            {
+            }
 
             await RefreshAsync();
         }

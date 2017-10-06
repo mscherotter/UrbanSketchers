@@ -7,8 +7,8 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
 using Xamarin.Forms;
-//using Application = Windows.UI.Xaml.Application;
 using Frame = Windows.UI.Xaml.Controls.Frame;
+//using Application = Windows.UI.Xaml.Application;
 
 namespace UWP
 {

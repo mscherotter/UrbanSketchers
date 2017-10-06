@@ -10,18 +10,18 @@ using Xamarin.Forms.Xaml;
 namespace UrbanSketchers.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SketchesPage : ContentPage
+    public partial class SketchesPage
     {
         private SketchManager _sketchManager;
 
-        public ObservableCollection<Sketch> Items { get; set; }
+       // public ObservableCollection<Sketch> Items { get; set; }
         public string PersonId { get; internal set; }
 
         public SketchesPage()
         {
             InitializeComponent();
 
-            Items = new ObservableCollection<Sketch>();
+            //Items = new ObservableCollection<Sketch>();
 
             BindingContext = this;
 
@@ -57,7 +57,8 @@ namespace UrbanSketchers.Views
                 {
                     var sketches = await _sketchManager.GetSketchsAsync();
 
-                    Items.SetRange(sketches);
+                    this.SketchList.ItemsSource = sketches;
+                    
                 }
                 else
                 {
@@ -71,26 +72,20 @@ namespace UrbanSketchers.Views
                             sketches.First().CreatedByName);
                     }
 
-                    Items.SetRange(sketches);
+                    this.SketchList.ItemsSource = sketches;
                 }
             }
         }
 
-        async void Handle_ItemTapped(object sender, SelectedItemChangedEventArgs e)
+        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.SelectedItem == null)
-                return;
-
-            if (e.SelectedItem is Sketch sketch)
+            if (e.Item is Sketch sketch)
             {
                 await Navigation.PushAsync(new SketchPage
                 {
                     SketchId = sketch.Id
                 });
             }
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
         }
 
         private class ActivityIndicatorScope : IDisposable
