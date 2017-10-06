@@ -71,5 +71,13 @@ namespace UrbanSketchers.Views
                 });
             }
         }
+
+        private async void OnLike(object sender, EventArgs e)
+        {
+            if (BindingContext is Sketch sketch)
+            {
+                var rating = await SketchManager.DefaultManager.GetRatingAsync(sketch.Id);
+            }
+        }
     }
 }

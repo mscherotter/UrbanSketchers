@@ -117,6 +117,8 @@
   <ItemGroup>
     <Content Include="Assets\Add.png" />
     <Content Include="Assets\Edit.png" />
+    <Content Include="Assets\EmptyHeart.png" />
+    <Content Include="Assets\FilledHeart.png" />
     <Content Include="Assets\LocateMe.png" />
     <Content Include="Assets\Refresh.png" />
     <Content Include="Assets\SignIn.png" />

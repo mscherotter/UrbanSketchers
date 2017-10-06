@@ -35,6 +35,7 @@ namespace UrbanSketchers
 #else
         private readonly IMobileServiceTable<Sketch> _sketchTable;
         private readonly IMobileServiceTable<Person> _peopleTable;
+        private readonly IMobileServiceTable<Rating> _ratingTable;
 #endif
 
         private const string OfflineDbPath = @"localstore.db";
@@ -54,7 +55,24 @@ namespace UrbanSketchers
 #else
             _sketchTable = CurrentClient.GetTable<Sketch>();
             _peopleTable = CurrentClient.GetTable<Person>();
+            _ratingTable = CurrentClient.GetTable<Rating>();
 #endif
+        }
+
+        public async Task<Rating> GetRatingAsync(string sketchId)
+        {
+            var user = await GetCurrentUserAsync();
+
+            if (user == null) return null;
+
+            var query = from item in _ratingTable
+                where item.UserId == user.Id &&
+                      item.SketchId == sketchId
+                select item;
+
+            var rating = await query.ToEnumerableAsync();
+
+            return rating.FirstOrDefault();
         }
 
         internal async Task<Person> GetCurrentUserAsync()
