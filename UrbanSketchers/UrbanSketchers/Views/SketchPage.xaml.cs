@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
+using Plugin.Share;
+using Plugin.Share.Abstractions;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,9 +18,13 @@ namespace UrbanSketchers.Views
         public SketchPage()
         {
             InitializeComponent();
+
+            ShareItem.IsEnabled = CrossShare.IsSupported;
         }
 
         public string SketchId { get; internal set; }
+
+        public Sketch Sketch => BindingContext as Sketch;
 
         protected override async void OnAppearing()
         {
@@ -67,16 +74,16 @@ namespace UrbanSketchers.Views
                 if (!authenticated)
                     return;
 
-                if (BindingContext is Sketch sketch)
+                var currentUser = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+                if (Sketch != null && Sketch.CreatedBy != currentUser.Id)
                 {
-                    var currentUser = await SketchManager.DefaultManager.GetCurrentUserAsync();
+                    await DisplayAlert(
+                        Properties.Resources.EditSketch,
+                        Properties.Resources.OnlyEditOwnSketches,
+                        Properties.Resources.OK);
 
-                    if (sketch.CreatedBy != currentUser.Id)
-                    {
-                        await DisplayAlert("Edit Sketch", "You can only edit sketches that you submitted.", "OK");
-
-                        return;
-                    }
+                    return;
                 }
             }
 
@@ -90,11 +97,12 @@ namespace UrbanSketchers.Views
 
         private async void OnTappedName(object sender, EventArgs e)
         {
-            if (BindingContext is Sketch sketch)
-                await Navigation.PushAsync(new PersonPage
-                {
-                    PersonId = sketch.CreatedBy
-                });
+            if (Sketch == null) return;
+
+            await Navigation.PushAsync(new PersonPage
+            {
+                PersonId = Sketch.CreatedBy
+            });
         }
 
         /// <summary>
@@ -104,49 +112,64 @@ namespace UrbanSketchers.Views
         /// <param name="e"></param>
         private async void OnLike(object sender, EventArgs e)
         {
-            if (BindingContext is Sketch sketch)
-            {
-                LikeButton.IsEnabled = false;
+            if (Sketch == null) return;
 
-                var rating = await SketchManager.DefaultManager.GetRatingAsync(sketch.Id);
+            LikeButton.IsEnabled = false;
 
-                if (rating == null)
-                    rating = new Rating
-                    {
-                        IsHeart = true,
-                        SketchId = sketch.Id
-                    };
-                else
-                    rating.IsHeart = !rating.IsHeart;
+            var rating = await SketchManager.DefaultManager.GetRatingAsync(Sketch.Id);
 
-                await SketchManager.DefaultManager.SaveAsync(rating);
+            if (rating == null)
+                rating = new Rating
+                {
+                    IsHeart = true,
+                    SketchId = Sketch.Id
+                };
+            else
+                rating.IsHeart = !rating.IsHeart;
 
-                UpdateLikeButton(rating);
+            await SketchManager.DefaultManager.SaveAsync(rating);
 
-                LikeButton.IsEnabled = true;
-            }
+            UpdateLikeButton(rating);
+
+            LikeButton.IsEnabled = true;
         }
 
         private async void OnDelete(object sender, EventArgs e)
         {
-            if (BindingContext is Sketch sketch)
+            if (Sketch == null) return;
+
+            var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+            if (person == null)
+                if (await App.Authenticator.AuthenticateAsync())
+                    person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+            if (person == null)
+                return;
+
+            if (person.Id == Sketch.CreatedBy)
             {
-                var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+                await SketchManager.DefaultManager.DeleteAsync(Sketch);
 
-                if (person == null)
-                    if (await App.Authenticator.AuthenticateAsync())
-                        person = await SketchManager.DefaultManager.GetCurrentUserAsync();
-
-                if (person == null)
-                    return;
-
-                if (person.Id == sketch.CreatedBy)
-                {
-                    await SketchManager.DefaultManager.DeleteAsync(sketch);
-
-                    await Navigation.PopAsync(true);
-                }
+                await Navigation.PopAsync(true);
             }
+        }
+
+        private void OnShare(object sender, EventArgs e)
+        {
+            if (Sketch == null) return;
+
+            var message = new ShareMessage
+            {
+                Title = string.Format(
+                    CultureInfo.CurrentCulture,
+                    Properties.Resources.TitleBySketcher,
+                    Sketch.Title,
+                    Sketch.CreatedByName),
+                Url = Sketch.ImageUrl
+            };
+
+            CrossShare.Current.Share(message);
         }
     }
 }

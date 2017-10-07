@@ -71,11 +71,38 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Sketch.
+        /// </summary>
+        internal static string EditSketch {
+            get {
+                return ResourceManager.GetString("EditSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Sketches.
         /// </summary>
         internal static string MySketches {
             get {
                 return ResourceManager.GetString("MySketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only edit sketches that you submitted..
+        /// </summary>
+        internal static string OnlyEditOwnSketches {
+            get {
+                return ResourceManager.GetString("OnlyEditOwnSketches", resourceCulture);
             }
         }
         
@@ -103,6 +130,15 @@ namespace UrbanSketchers.Properties {
         internal static string SketchMap {
             get {
                 return ResourceManager.GetString("SketchMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} by {1}.
+        /// </summary>
+        internal static string TitleBySketcher {
+            get {
+                return ResourceManager.GetString("TitleBySketcher", resourceCulture);
             }
         }
         

@@ -139,4 +139,17 @@
     <value>{0} Sketches by {1}</value>
     <comment>10 Sketch by Michael Scherotter</comment>
   </data>
+  <data name="EditSketch" xml:space="preserve">
+    <value>Edit Sketch</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnlyEditOwnSketches" xml:space="preserve">
+    <value>You can only edit sketches that you submitted.</value>
+  </data>
+  <data name="TitleBySketcher" xml:space="preserve">
+    <value>{0} by {1}</value>
+    <comment>The Pantheon by Michael Scherotter</comment>
+  </data>
 </root>

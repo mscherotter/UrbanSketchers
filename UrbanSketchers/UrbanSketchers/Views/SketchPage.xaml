@@ -12,6 +12,13 @@
             </OnPlatform>
         </ToolbarItem.Icon>
         </ToolbarItem>
+        <ToolbarItem Text="Share" Clicked="OnShare" x:Name="ShareItem">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Share.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem x:Name="EditItem" Text="Edit" Clicked="OnEdit">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">

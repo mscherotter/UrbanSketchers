@@ -22,6 +22,19 @@
           <source>Urban Sketchers</source>
           <target state="new">Urban Sketchers</target>
         </trans-unit>
+        <trans-unit id="Add" translate="yes" xml:space="preserve">
+          <source>Add</source>
+          <target state="new">Add</target>
+        </trans-unit>
+        <trans-unit id="Update" translate="yes" xml:space="preserve">
+          <source>Update</source>
+          <target state="new">Update</target>
+        </trans-unit>
+        <trans-unit id="SketchesByFormat" translate="yes" xml:space="preserve">
+          <source>{0} Sketches by {1}</source>
+          <target state="new">{0} Sketches by {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">10 Sketch by Michael Scherotter</note>
+        </trans-unit>
       </group>
     </body>
   </file>
