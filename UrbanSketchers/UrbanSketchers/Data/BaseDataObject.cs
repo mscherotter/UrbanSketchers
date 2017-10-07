@@ -5,11 +5,6 @@ namespace UrbanSketchers.Data
 {
     public class BaseDataObject : ObservableObject
     {
-        public BaseDataObject()
-        {
-            //Id = Guid.NewGuid().ToString();
-        }
-
         /// <summary>
         /// Id for item
         /// </summary>

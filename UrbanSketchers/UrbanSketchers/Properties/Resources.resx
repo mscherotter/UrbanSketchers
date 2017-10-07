@@ -129,4 +129,14 @@
   <data name="UrbanSketchers" xml:space="preserve">
     <value>Urban Sketchers</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SketchesByFormat" xml:space="preserve">
+    <value>{0} Sketches by {1}</value>
+    <comment>10 Sketch by Michael Scherotter</comment>
+  </data>
 </root>

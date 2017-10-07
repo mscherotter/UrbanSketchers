@@ -42,7 +42,7 @@ namespace UrbanSketchers.Views
         {
             if (BindingContext is Sketch sketch)
             {
-                AddButton.Text = string.IsNullOrWhiteSpace(sketch.Id) ? "Add" : "Update";
+                AddButton.Text = string.IsNullOrWhiteSpace(sketch.Id) ? Properties.Resources.Add : Properties.Resources.Update;
             }
 
             if (e.PropertyName == nameof(IsVisible) && IsVisible)
@@ -143,14 +143,12 @@ namespace UrbanSketchers.Views
         {
             return Task.Run(delegate
             {
-                Stream stream = null;
-
                 if (_fileData == null)
                 {
                     return null;
                 }
 
-                stream = new MemoryStream(_fileData.DataArray);
+                Stream stream = new MemoryStream(_fileData.DataArray);
 
                 return stream;
             }, arg);
@@ -169,7 +167,7 @@ namespace UrbanSketchers.Views
 
         private void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (Map.IsVisible && BindingContext is Sketch sketch)
+            if (Map.IsVisible && BindingContext is Sketch)
             {
                 if (e.PropertyName == nameof(Map.VisibleRegion))
                 {

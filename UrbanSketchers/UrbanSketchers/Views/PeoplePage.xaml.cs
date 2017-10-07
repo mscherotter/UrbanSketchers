@@ -7,7 +7,7 @@ using Xamarin.Forms.Xaml;
 namespace UrbanSketchers.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PeoplePage : ContentPage
+    public partial class PeoplePage
     {
         public PeoplePage()
         {
@@ -37,12 +37,10 @@ namespace UrbanSketchers.Views
         private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item is Person person)
-            {
-                await this.Navigation.PushAsync(new SketchesPage
+                await Navigation.PushAsync(new SketchesPage
                 {
                     PersonId = person.Id
                 }, true);
-            }
         }
     }
 }

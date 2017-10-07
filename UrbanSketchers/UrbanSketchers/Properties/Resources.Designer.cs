@@ -62,6 +62,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Sketches.
         /// </summary>
         internal static string MySketches {
@@ -80,11 +89,29 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Sketches by {1}.
+        /// </summary>
+        internal static string SketchesByFormat {
+            get {
+                return ResourceManager.GetString("SketchesByFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sketch Map.
         /// </summary>
         internal static string SketchMap {
             get {
                 return ResourceManager.GetString("SketchMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

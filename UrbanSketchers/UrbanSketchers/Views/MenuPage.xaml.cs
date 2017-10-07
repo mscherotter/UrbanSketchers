@@ -23,14 +23,13 @@ namespace UrbanSketchers.Views
                     urbanSketchersIcon = "Assets/UrbanSketchers.png";
                     sketchesIcon = "Assets/Sketches.png";
                     break;
-
             }
 
             Items = new ObservableCollection<NavigationMenuItem>(new[]
             {
                 new NavigationMenuItem
                 {
-                    Label =  Properties.Resources.SketchMap,
+                    Label = Properties.Resources.SketchMap,
                     Command = new NavigationCommand<MapPage>(),
                     Icon = sketchMapIcon
                 },
@@ -39,14 +38,13 @@ namespace UrbanSketchers.Views
                     Label = Properties.Resources.Sketches,
                     Command = new NavigationCommand<SketchesPage>(),
                     Icon = sketchesIcon
-                    
                 },
                 new NavigationMenuItem
                 {
                     Label = Properties.Resources.UrbanSketchers,
                     Command = new NavigationCommand<PeoplePage>(),
                     Icon = urbanSketchersIcon
-                },
+                }
             });
 
             BindingContext = this;

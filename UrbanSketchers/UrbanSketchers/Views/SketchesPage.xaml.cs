@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
@@ -12,10 +11,7 @@ namespace UrbanSketchers.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchesPage
     {
-        private SketchManager _sketchManager;
-
-       // public ObservableCollection<Sketch> Items { get; set; }
-        public string PersonId { get; internal set; }
+        private readonly SketchManager _sketchManager;
 
         public SketchesPage()
         {
@@ -39,14 +35,16 @@ namespace UrbanSketchers.Views
 
                 //buttonsPanel.Children.Add(syncButton);
             }
-
         }
+
+        // public ObservableCollection<Sketch> Items { get; set; }
+        public string PersonId { get; internal set; }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            await RefreshItemsAsync(true, syncItems: true);
+            await RefreshItemsAsync(true, true);
         }
 
         private async Task RefreshItemsAsync(bool showActivityIndicator, bool syncItems)
@@ -57,42 +55,43 @@ namespace UrbanSketchers.Views
                 {
                     var sketches = await _sketchManager.GetSketchsAsync();
 
-                    this.SketchList.ItemsSource = sketches;
-                    
+                    SketchList.ItemsSource = sketches;
                 }
                 else
                 {
-                   var sketches = await _sketchManager.GetSketchsAsync(PersonId);
+                    var sketches = await _sketchManager.GetSketchsAsync(PersonId);
 
                     if (sketches.Any())
-                    {
-                        this.Title = string.Format(
-                            "{0} Sketches by {1}", 
+                        Title = string.Format(
+                            CultureInfo.CurrentCulture,
+                            Properties.Resources.SketchesByFormat,
                             sketches.Count,
                             sketches.First().CreatedByName);
-                    }
 
-                    this.SketchList.ItemsSource = sketches;
+                    SketchList.ItemsSource = sketches;
                 }
             }
         }
 
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item is Sketch sketch)
-            {
                 await Navigation.PushAsync(new SketchPage
                 {
                     SketchId = sketch.Id
                 });
-            }
+        }
+
+        private async void OnRefresh(object sender, EventArgs e)
+        {
+            await RefreshItemsAsync(true, true);
         }
 
         private class ActivityIndicatorScope : IDisposable
         {
-            private bool showIndicator;
-            private ActivityIndicator indicator;
-            private Task indicatorDelay;
+            private readonly ActivityIndicator indicator;
+            private readonly Task indicatorDelay;
+            private readonly bool showIndicator;
 
             public ActivityIndicatorScope(ActivityIndicator indicator, bool showIndicator)
             {
@@ -110,24 +109,18 @@ namespace UrbanSketchers.Views
                 }
             }
 
-            private void SetIndicatorActivity(bool isActive)
-            {
-                this.indicator.IsVisible = isActive;
-                this.indicator.IsRunning = isActive;
-            }
-
             public void Dispose()
             {
                 if (showIndicator)
-                {
-                    indicatorDelay.ContinueWith(t => SetIndicatorActivity(false), TaskScheduler.FromCurrentSynchronizationContext());
-                }
+                    indicatorDelay.ContinueWith(t => SetIndicatorActivity(false),
+                        TaskScheduler.FromCurrentSynchronizationContext());
             }
-        }
 
-        private async void OnRefresh(object sender, EventArgs e)
-        {
-            await RefreshItemsAsync(true, true);
+            private void SetIndicatorActivity(bool isActive)
+            {
+                indicator.IsVisible = isActive;
+                indicator.IsRunning = isActive;
+            }
         }
     }
 }

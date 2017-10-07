@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RootPage : MasterDetailPage
+    public partial class RootPage
     {
         public RootPage()
         {
@@ -39,12 +34,14 @@ namespace UrbanSketchers.Views
 
             var mapPage = new MapPage();
 
-            var navigation = Detail as NavigationPage;
-            var homePage = navigation.Navigation.NavigationStack.First();
+            if (Detail is NavigationPage navigation)
+            {
+                var homePage = navigation.Navigation.NavigationStack.First();
 
-            navigation.Navigation.InsertPageBefore(mapPage, homePage);
+                navigation.Navigation.InsertPageBefore(mapPage, homePage);
 
-            await navigation.PopToRootAsync(false);
+                await navigation.PopToRootAsync(false);
+            }
         }
     }
 }

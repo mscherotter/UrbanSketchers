@@ -6,6 +6,9 @@ using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    ///     Sketch page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchPage
     {
@@ -40,23 +43,19 @@ namespace UrbanSketchers.Views
         private void UpdateLikeButton(Rating rating)
         {
             if (rating != null && rating.IsHeart)
-            {
                 switch (Device.RuntimePlatform)
                 {
                     case Device.UWP:
                         LikeButton.Icon = new FileImageSource {File = "Assets/FilledHeart.png"};
                         break;
                 }
-            }
             else
-            {
                 switch (Device.RuntimePlatform)
                 {
                     case Device.UWP:
                         LikeButton.Icon = new FileImageSource {File = "Assets/EmptyHeart.png"};
                         break;
                 }
-            }
         }
 
         private async void OnEdit(object sender, EventArgs e)
@@ -66,9 +65,7 @@ namespace UrbanSketchers.Views
                 var authenticated = await App.Authenticator.AuthenticateAsync();
 
                 if (!authenticated)
-                {
                     return;
-                }
 
                 if (BindingContext is Sketch sketch)
                 {
@@ -94,16 +91,14 @@ namespace UrbanSketchers.Views
         private async void OnTappedName(object sender, EventArgs e)
         {
             if (BindingContext is Sketch sketch)
-            {
                 await Navigation.PushAsync(new PersonPage
                 {
                     PersonId = sketch.CreatedBy
                 });
-            }
         }
 
         /// <summary>
-        /// User likes or un-likes the photo
+        ///     User likes or un-likes the photo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -116,17 +111,13 @@ namespace UrbanSketchers.Views
                 var rating = await SketchManager.DefaultManager.GetRatingAsync(sketch.Id);
 
                 if (rating == null)
-                {
                     rating = new Rating
                     {
                         IsHeart = true,
-                        SketchId = sketch.Id,
+                        SketchId = sketch.Id
                     };
-                }
                 else
-                {
                     rating.IsHeart = !rating.IsHeart;
-                }
 
                 await SketchManager.DefaultManager.SaveAsync(rating);
 
@@ -143,17 +134,11 @@ namespace UrbanSketchers.Views
                 var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
                 if (person == null)
-                {
                     if (await App.Authenticator.AuthenticateAsync())
-                    {
                         person = await SketchManager.DefaultManager.GetCurrentUserAsync();
-                    }
-                }
 
                 if (person == null)
-                {
                     return;
-                }
 
                 if (person.Id == sketch.CreatedBy)
                 {
