@@ -8,6 +8,7 @@ using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
@@ -29,12 +30,33 @@ namespace UrbanSketchers.Views
             PropertyChanged += EditSketchView_PropertyChanged;
         }
 
+        public bool IsMapVisible
+        {
+            get { return Map.IsVisible; }
+            set { Map.IsVisible = value; }
+        }
+
+
+
         private void EditSketchView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (BindingContext is Sketch sketch)
+            {
                 AddButton.Text = string.IsNullOrWhiteSpace(sketch.Id) ? "Add" : "Update";
-        }
+            }
 
+            if (e.PropertyName == nameof(IsVisible) && IsVisible)
+            {
+                if (BindingContext is Sketch sketch2)
+                {
+                    var span = MapSpan.FromCenterAndRadius(new Position(sketch2.Latitude, sketch2.Longitude),
+                        Distance.FromMiles(1.0));
+
+                    Map.MoveToRegion(span);
+                }
+            }
+        }
+        
         /// <summary>
         ///     Sketch saved event handler
         /// </summary>
@@ -143,6 +165,26 @@ namespace UrbanSketchers.Views
 
             RemoveFileButton.IsVisible = false;
             Image.Source = null;
+        }
+
+        private void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (Map.IsVisible && BindingContext is Sketch sketch)
+            {
+                if (e.PropertyName == nameof(Map.VisibleRegion))
+                {
+                    UpdateLocation();
+                }
+            }
+        }
+
+        private void UpdateLocation()
+        {
+            if (BindingContext is Sketch sketch)
+            {
+                sketch.Latitude = Map.VisibleRegion.Center.Latitude;
+                sketch.Longitude = Map.VisibleRegion.Center.Longitude;
+            }
         }
     }
 }

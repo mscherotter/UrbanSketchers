@@ -18,22 +18,22 @@ namespace UrbanSketchers.Views
             //MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var item = e.SelectedItem as RootPageMenuItem;
-            if (item == null)
-                return;
+        //private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    var item = e.SelectedItem as RootPageMenuItem;
+        //    if (item == null)
+        //        return;
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
-            page.Title = item.Title;
+        //    var page = (Page)Activator.CreateInstance(item.TargetType);
+        //    page.Title = item.Title;
 
-            Detail = new NavigationPage(page);
-            IsPresented = false;
+        //    Detail = new NavigationPage(page);
+        //    IsPresented = false;
 
-            //MasterPage.ListView.SelectedItem = null;
-        }
+        //    //MasterPage.ListView.SelectedItem = null;
+        //}
 
-        protected async override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 

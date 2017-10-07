@@ -41,7 +41,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <StackLayout>
+            <StackLayout Padding="4">
                 <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue">
                     <Label.GestureRecognizers>
                        <TapGestureRecognizer Tapped="OnTappedName"/>
@@ -50,8 +50,10 @@
                 <Label Text="{Binding Description}"/>
                 <Label Text="{Binding Address}" />
             </StackLayout>
-            <Image Grid.Row="1" Source="{Binding ImageUrl}"/>
-            <views:EditSketchView IsVisible="False" Grid.Row="2" x:Name="EditSketch"/>
+            <Grid Grid.Row="1" Padding="4">
+                <Image  Source="{Binding ImageUrl}"/>
+            </Grid>
+            <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

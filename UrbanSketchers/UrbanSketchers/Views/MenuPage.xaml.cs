@@ -31,20 +31,20 @@ namespace UrbanSketchers.Views
                 new NavigationMenuItem
                 {
                     Label =  Properties.Resources.SketchMap,
-                    Command = new NavigationCommand<MapPage>("Map"),
+                    Command = new NavigationCommand<MapPage>(),
                     Icon = sketchMapIcon
                 },
                 new NavigationMenuItem
                 {
                     Label = Properties.Resources.Sketches,
-                    Command = new NavigationCommand<SketchesPage>("Sketches"),
+                    Command = new NavigationCommand<SketchesPage>(),
                     Icon = sketchesIcon
                     
                 },
                 new NavigationMenuItem
                 {
                     Label = Properties.Resources.UrbanSketchers,
-                    Command = new NavigationCommand<PeoplePage>("People"),
+                    Command = new NavigationCommand<PeoplePage>(),
                     Icon = urbanSketchersIcon
                 },
             });

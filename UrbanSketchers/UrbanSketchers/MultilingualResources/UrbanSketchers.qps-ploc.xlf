@@ -5,7 +5,24 @@
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6810.0" tool-company="Microsoft" />
     </header>
     <body>
-      <group id="URBANSKETCHERS/PROPERTIES/RESOURCES.RESX" />
+      <group id="URBANSKETCHERS/PROPERTIES/RESOURCES.RESX">
+        <trans-unit id="MySketches" translate="yes" xml:space="preserve">
+          <source>My Sketches</source>
+          <target state="new">My Sketches</target>
+        </trans-unit>
+        <trans-unit id="Sketches" translate="yes" xml:space="preserve">
+          <source>Sketches</source>
+          <target state="new">Sketches</target>
+        </trans-unit>
+        <trans-unit id="SketchMap" translate="yes" xml:space="preserve">
+          <source>Sketch Map</source>
+          <target state="new">Sketch Map</target>
+        </trans-unit>
+        <trans-unit id="UrbanSketchers" translate="yes" xml:space="preserve">
+          <source>Urban Sketchers</source>
+          <target state="new">Urban Sketchers</target>
+        </trans-unit>
+      </group>
     </body>
   </file>
 </xliff>
