@@ -7,35 +7,8 @@
     <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol"></script>
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-        var map;
-
-        function createImageAsync(url, done) {
-            var c = document.createElement('canvas');
-            c.width = 300;
-            c.height = 300;
-            var ctx = c.getContext('2d');
-            // Offset the canvas such that we will rotate around the center of our arrow
-            ctx.translate(c.width * 0.5, c.height * 0.5);
-            // Rotate the canvas by the desired heading
-            //ctx.rotate(heading * Math.PI / 180);
-            //Return the canvas offset back to it's original position
-            ctx.translate(-c.width * 0.5, -c.height * 0.5);
-            ctx.fillStyle = '#f00';
-            // Draw a path in the shape of an arrow.
-
-            var image = new Image();
-            image.src = url;
-            image.setAttribute('crossOrigin', 'anonymous');
-            image.onload = function() {
-                ctx.drawImage(image, 0, 0);
-                var dataUrl = c.toDataURL();
-
-                done(dataUrl);
-            };
-        }
-
         function onload() {
-            map = new Microsoft.Maps.Map(document.getElementById("myMap"),
+            var map = new Microsoft.Maps.Map(document.getElementById("myMap"),
                 {
                     credentials: "B6p5hudPVN61Ykpp6D7W~JW-lf-G0P7wmsDcDrMWFuw~AsZdr0PHfOeWe9qmPtHDbuONPySTrgN47oWYdvD84J67bvxcMbXDQEnZCz6XWwR1"
                 });
