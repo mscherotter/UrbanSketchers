@@ -28,7 +28,7 @@
             <Label Grid.Column="1" x:Name="FilenameLabel" VerticalTextAlignment="Center"/>
             <Button Grid.Column="2" Text="Remove" Clicked="OnRemoveFile" x:Name="RemoveFileButton" IsVisible="False"/>
         </Grid>
-        <Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}" x:Name="ImageUrlEntry"/>
+        <!--<Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}" x:Name="ImageUrlEntry"/>-->
         <DatePicker Date="{Binding CreationDate, Mode=TwoWay}" HorizontalOptions="StartAndExpand"/>
     </StackLayout>
     <Label Text="Latitude" Grid.Row="1" Grid.Column="0"/>

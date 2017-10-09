@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketchers.iOS", "iOS\U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketchers.Droid", "Droid\UrbanSketchers.Droid.csproj", "{34B9099E-4B00-4707-BFDE-0B95997F8893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketchers.UWP", "UWP\UrbanSketchers.UWP.csproj", "{0483302A-9154-434A-93EB-5633AAFD4409}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketches.UWP", "UWP\UrbanSketches.UWP.csproj", "{0483302A-9154-434A-93EB-5633AAFD4409}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41140DBF-CB9B-45E7-8F0B-944F62C969AF}"
 	ProjectSection(SolutionItems) = preProject

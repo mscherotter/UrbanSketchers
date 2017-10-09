@@ -121,10 +121,10 @@
     <value>Contribute to and browse a growing map of sketches from around the world.</value>
   </data>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>Sketch Map</value>
+    <value>Urban Sketches</value>
   </data>
   <data name="AuthProtocolDisplayName" xml:space="preserve">
-    <value>Sketch Map authorization protocol</value>
+    <value>Urban Sketches authorization protocol</value>
   </data>
   <data name="ShareDescription" xml:space="preserve">
     <value>Share a map</value>

@@ -13,6 +13,8 @@ Each *Sketch* has the following properties
 * Image Url (String)
 * Creation Date (Date/time)
 * Created By (Person)
+* Thumbnail Url (String)
+* Sector (integer)
 
 ## Person
 Each *Person* has the following properties

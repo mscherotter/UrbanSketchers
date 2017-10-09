@@ -72,7 +72,7 @@ namespace UrbanSketchers.Views
 
         private async void OnAdd(object sender, EventArgs e)
         {
-            ImageUrlEntry.IsEnabled = true;
+            //ImageUrlEntry.IsEnabled = true;
 
             if (BindingContext is Sketch sketch)
             {
@@ -122,7 +122,7 @@ namespace UrbanSketchers.Views
 
         private void OnCancel(object sender, EventArgs e)
         {
-            ImageUrlEntry.IsEnabled = true;
+            //ImageUrlEntry.IsEnabled = true;
 
             ClearFileData();
 
@@ -147,7 +147,7 @@ namespace UrbanSketchers.Views
             if (_fileData != null)
             {
                 FilenameLabel.Text = _fileData.FileName;
-                ImageUrlEntry.IsEnabled = false;
+                //ImageUrlEntry.IsEnabled = false;
                 RemoveFileButton.IsVisible = true;
 
                 Image.Source = new StreamImageSource
@@ -176,7 +176,7 @@ namespace UrbanSketchers.Views
         {
             _fileData = null;
 
-            ImageUrlEntry.IsEnabled = true;
+            //ImageUrlEntry.IsEnabled = true;
             FilenameLabel.Text = string.Empty;
 
             RemoveFileButton.IsVisible = false;

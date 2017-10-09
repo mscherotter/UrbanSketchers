@@ -41,6 +41,8 @@ namespace UrbanSketchers.Views
 
         private async Task RefreshAsync()
         {
+            if (Map.VisibleRegion == null) return;
+
             var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude, Map.VisibleRegion.Center.Longitude,
                 CustomIndexing.SectorSize);
 
