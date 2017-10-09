@@ -8,6 +8,9 @@ namespace UrbanSketchers.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage
     {
+        /// <summary>
+        /// Initializes a new instance of the MenuPage class.
+        /// </summary>
         public MenuPage()
         {
             InitializeComponent();
@@ -15,6 +18,7 @@ namespace UrbanSketchers.Views
             string sketchMapIcon = null;
             string urbanSketchersIcon = null;
             string sketchesIcon = null;
+            string aboutIcon = null;
 
             switch (Device.RuntimePlatform)
             {
@@ -22,6 +26,7 @@ namespace UrbanSketchers.Views
                     sketchMapIcon = "Assets/SketchMap.png";
                     urbanSketchersIcon = "Assets/UrbanSketchers.png";
                     sketchesIcon = "Assets/Sketches.png";
+                    aboutIcon = "Assets/About.png";
                     break;
             }
 
@@ -44,6 +49,12 @@ namespace UrbanSketchers.Views
                     Label = Properties.Resources.UrbanSketchers,
                     Command = new NavigationCommand<PeoplePage>(),
                     Icon = urbanSketchersIcon
+                },
+                new NavigationMenuItem
+                {
+                    Label = Properties.Resources.AboutUrbanSketches,
+                    Icon = aboutIcon,
+                    Command = new NavigationCommand<AboutPage>()
                 }
             });
 

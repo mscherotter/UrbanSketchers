@@ -8,11 +8,17 @@ using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    /// Sketches page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchesPage
     {
         private readonly SketchManager _sketchManager;
 
+        /// <summary>
+        /// Initializes a new instance of the SketchesPage class.
+        /// </summary>
         public SketchesPage()
         {
             InitializeComponent();
@@ -38,8 +44,15 @@ namespace UrbanSketchers.Views
         }
 
         // public ObservableCollection<Sketch> Items { get; set; }
+
+        /// <summary>
+        /// Gets the person Id
+        /// </summary>
         public string PersonId { get; internal set; }
 
+        /// <summary>
+        /// Refresh the items when appearing
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();

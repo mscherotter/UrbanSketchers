@@ -62,6 +62,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About Urban Sketches.
+        /// </summary>
+        internal static string AboutUrbanSketches {
+            get {
+                return ResourceManager.GetString("AboutUrbanSketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string Add {

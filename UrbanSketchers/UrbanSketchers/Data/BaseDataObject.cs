@@ -3,6 +3,9 @@ using UrbanSketchers.Helpers;
 
 namespace UrbanSketchers.Data
 {
+    /// <summary>
+    /// Base data object
+    /// </summary>
     public class BaseDataObject : ObservableObject
     {
         /// <summary>

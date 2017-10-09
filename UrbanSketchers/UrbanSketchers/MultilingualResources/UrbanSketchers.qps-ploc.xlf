@@ -74,6 +74,10 @@
 2. Sketches that are not submitted by the original artist.
 3. Sketches that are offensive.</target>
         </trans-unit>
+        <trans-unit id="AboutUrbanSketches" translate="yes" xml:space="preserve">
+          <source>About Urban Sketches</source>
+          <target state="new">About Urban Sketches</target>
+        </trans-unit>
       </group>
     </body>
   </file>

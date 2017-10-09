@@ -4,9 +4,15 @@ using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    /// the root page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RootPage
     {
+        /// <summary>
+        /// Initializes a new instance of the RootPage class.
+        /// </summary>
         public RootPage()
         {
             InitializeComponent();
@@ -28,6 +34,9 @@ namespace UrbanSketchers.Views
         //    //MasterPage.ListView.SelectedItem = null;
         //}
 
+        /// <summary>
+        /// Navigate to the map page
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();

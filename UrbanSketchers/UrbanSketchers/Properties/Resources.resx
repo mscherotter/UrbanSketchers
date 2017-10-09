@@ -167,4 +167,7 @@
 2. Sketches that are not submitted by the original artist.
 3. Sketches that are offensive.</value>
   </data>
+  <data name="AboutUrbanSketches" xml:space="preserve">
+    <value>About Urban Sketches</value>
+  </data>
 </root>

@@ -17,6 +17,9 @@ namespace UrbanSketchers.Views
     {
         private Rating _rating;
 
+        /// <summary>
+        /// Initializes a new instance of the SketchPage class.
+        /// </summary>
         public SketchPage()
         {
             InitializeComponent();
@@ -24,10 +27,19 @@ namespace UrbanSketchers.Views
             ShareItem.IsEnabled = CrossShare.IsSupported;
         }
 
+        /// <summary>
+        /// Gets the sketch Id
+        /// </summary>
         public string SketchId { get; internal set; }
 
+        /// <summary>
+        /// Gets the <see cref="Sketch"/> as the binding context
+        /// </summary>
         public Sketch Sketch => BindingContext as Sketch;
 
+        /// <summary>
+        /// Refresh when appearing
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
