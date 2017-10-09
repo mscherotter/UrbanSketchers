@@ -35,6 +35,45 @@
           <target state="new">{0} Sketches by {1}</target>
           <note from="MultilingualBuild" annotates="source" priority="2">10 Sketch by Michael Scherotter</note>
         </trans-unit>
+        <trans-unit id="EditSketch" translate="yes" xml:space="preserve">
+          <source>Edit Sketch</source>
+          <target state="new">Edit Sketch</target>
+        </trans-unit>
+        <trans-unit id="OK" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="new">OK</target>
+        </trans-unit>
+        <trans-unit id="OnlyEditOwnSketches" translate="yes" xml:space="preserve">
+          <source>You can only edit sketches that you submitted.</source>
+          <target state="new">You can only edit sketches that you submitted.</target>
+        </trans-unit>
+        <trans-unit id="TitleBySketcher" translate="yes" xml:space="preserve">
+          <source>{0} by {1}</source>
+          <target state="new">{0} by {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The Pantheon by Michael Scherotter</note>
+        </trans-unit>
+        <trans-unit id="AddCommentMessage" translate="yes" xml:space="preserve">
+          <source>Sketches flagged as inappropriate must have a comment.  {0}</source>
+          <target state="new">Sketches flagged as inappropriate must have a comment.  {0}</target>
+        </trans-unit>
+        <trans-unit id="EnterComment" translate="yes" xml:space="preserve">
+          <source>Enter Comment</source>
+          <target state="new">Enter Comment</target>
+        </trans-unit>
+        <trans-unit id="InappropraiteSketch" translate="yes" xml:space="preserve">
+          <source>Inappropriate Sketch</source>
+          <target state="new">Inappropriate Sketch</target>
+        </trans-unit>
+        <trans-unit id="InappropriateSketchDescription" translate="yes" xml:space="preserve">
+          <source>Inappropraite sketches include:
+1. Sketches that are not created on-site.
+2. Sketches that are not submitted by the original artist.
+3. Sketches that are offensive.</source>
+          <target state="new">Inappropraite sketches include:
+1. Sketches that are not created on-site.
+2. Sketches that are not submitted by the original artist.
+3. Sketches that are offensive.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

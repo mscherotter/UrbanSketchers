@@ -71,11 +71,50 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sketches flagged as inappropriate must have a comment.  {0}.
+        /// </summary>
+        internal static string AddCommentMessage {
+            get {
+                return ResourceManager.GetString("AddCommentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Sketch.
         /// </summary>
         internal static string EditSketch {
             get {
                 return ResourceManager.GetString("EditSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Comment.
+        /// </summary>
+        internal static string EnterComment {
+            get {
+                return ResourceManager.GetString("EnterComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inappropriate Sketch.
+        /// </summary>
+        internal static string InappropraiteSketch {
+            get {
+                return ResourceManager.GetString("InappropraiteSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inappropraite sketches include:
+        ///1. Sketches that are not created on-site.
+        ///2. Sketches that are not submitted by the original artist.
+        ///3. Sketches that are offensive..
+        /// </summary>
+        internal static string InappropriateSketchDescription {
+            get {
+                return ResourceManager.GetString("InappropriateSketchDescription", resourceCulture);
             }
         }
         

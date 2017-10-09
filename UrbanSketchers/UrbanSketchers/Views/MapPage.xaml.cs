@@ -16,7 +16,8 @@ namespace UrbanSketchers.Views
     public partial class MapPage
     {
         private bool _authenticated;
-        private string _personId;
+
+        //private string _personId;
         private Sketch _sketch;
 
         public MapPage()
@@ -87,41 +88,40 @@ namespace UrbanSketchers.Views
 
             if (!_authenticated) return;
 
-            if (string.IsNullOrWhiteSpace(_personId))
-            {
-                var table = SketchManager.DefaultManager.CurrentClient.GetTable<Person>();
+            //if (string.IsNullOrWhiteSpace(_personId))
+            //{
+            //    var table = SketchManager.DefaultManager.CurrentClient.GetTable<Person>();
 
-                var query = from item in table
-                    where item.UserId == SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
-                    select item;
+            //    var query = from item in table
+            //        where item.UserId == SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
+            //        select item;
 
-                var results = await query.ToEnumerableAsync();
+            //    var results = await query.ToEnumerableAsync();
 
-                var person = results.FirstOrDefault();
+            //    var person = results.FirstOrDefault();
 
-                if (person == null)
-                {
-                    person = new Person
-                    {
-                        UserId = SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
-                    };
+            //    if (person == null)
+            //    {
+            //        person = new Person
+            //        {
+            //            UserId = SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
+            //        };
 
-                    await SketchManager.DefaultManager.SaveAsync(person);
+            //        await SketchManager.DefaultManager.SaveAsync(person);
 
-                    _personId = person.Id;
-                }
-                else
-                {
-                    _personId = person.Id;
-                }
-            }
+            //        _personId = person.Id;
+            //    }
+            //    else
+            //    {
+            //        _personId = person.Id;
+            //    }
+            //}
 
             EditSketchView.IsVisible = true;
 
             _sketch = new Sketch
             {
-                CreationDate = DateTime.Now,
-                CreatedBy = _personId
+                CreationDate = DateTime.Now
             };
 
             UpdateLocation();

@@ -12,6 +12,14 @@
             </OnPlatform>
         </ToolbarItem.Icon>
         </ToolbarItem>
+        <ToolbarItem Text="Comment" Clicked="OnComment">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Comment.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
         <ToolbarItem Text="Share" Clicked="OnShare" x:Name="ShareItem">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
@@ -48,19 +56,54 @@
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             <StackLayout Padding="4">
-                <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue">
-                    <Label.GestureRecognizers>
-                       <TapGestureRecognizer Tapped="OnTappedName"/>
-                    </Label.GestureRecognizers>
-                </Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue">
+                        <Label.GestureRecognizers>
+                           <TapGestureRecognizer Tapped="OnTappedName"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="{Binding CreationDate, StringFormat='on {0:d}'}"/>
+                </StackLayout>
                 <Label Text="{Binding Description}"/>
                 <Label Text="{Binding Address}" />
             </StackLayout>
-            <Grid Grid.Row="1" Padding="4">
+            <Grid Grid.Row="1" Grid.Column="0" Padding="4">
                 <Image  Source="{Binding ImageUrl}"/>
             </Grid>
-            <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" />
+            <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" />
+            <StackLayout x:Name="CommentPanel" IsVisible="False" Padding="4" Grid.Row="2" Grid.Column="0">
+                <Label Text="Comment"/>
+                <Editor x:Name="CommentEditor"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Inappropriate" VerticalOptions="Center"/>
+                    <Switch x:Name="ViolationSwitch"/>
+                    <Button Text="..." VerticalOptions="Center" Clicked="OnInappropriate"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="OK" Clicked="OnAcceptComment"/>
+                    <Button Text="Cancel" Clicked="OnCancelComment"/>
+                </StackLayout>
+            </StackLayout>
+            <ListView x:Name="Comments" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="4">
+                                <Label Text="{Binding Comment}" Style="{DynamicResource ListItemTextStyle}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding PersonName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding UpdatedAt.LocalDateTime, StringFormat='on {0:d}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

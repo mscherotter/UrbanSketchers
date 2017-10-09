@@ -15,6 +15,8 @@ namespace UrbanSketchers.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchPage
     {
+        private Rating _rating;
+
         public SketchPage()
         {
             InitializeComponent();
@@ -37,14 +39,23 @@ namespace UrbanSketchers.Views
         {
             var sketch = await SketchManager.DefaultManager.GetSketchAsync(SketchId);
 
-            if (sketch != null)
+            BindingContext = sketch;
+
+            if (Sketch != null)
             {
-                var rating = await SketchManager.DefaultManager.GetRatingAsync(sketch.Id);
+                var rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
 
                 UpdateLikeButton(rating);
-            }
 
-            BindingContext = sketch;
+                await UpdateCommentsAsync();
+            }
+        }
+
+        private async Task UpdateCommentsAsync()
+        {
+            var allRatings = await SketchManager.DefaultManager.GetRatingsAsync(Sketch.Id);
+
+            Comments.ItemsSource = allRatings;
         }
 
         private void UpdateLikeButton(Rating rating)
@@ -116,13 +127,13 @@ namespace UrbanSketchers.Views
 
             LikeButton.IsEnabled = false;
 
-            var rating = await SketchManager.DefaultManager.GetRatingAsync(Sketch.Id);
+            var rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
 
             if (rating == null)
                 rating = new Rating
                 {
                     IsHeart = true,
-                    SketchId = Sketch.Id
+                    SketchId = SketchId
                 };
             else
                 rating.IsHeart = !rating.IsHeart;
@@ -170,6 +181,67 @@ namespace UrbanSketchers.Views
             };
 
             CrossShare.Current.Share(message);
+        }
+
+        private async void OnComment(object sender, EventArgs e)
+        {
+            _rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
+
+            if (_rating == null)
+                _rating = new Rating
+                {
+                    SketchId = SketchId
+                };
+
+            CommentEditor.Text = _rating.Comment;
+            ViolationSwitch.IsToggled = _rating.IsViolation;
+            CommentPanel.IsVisible = true;
+        }
+
+        private void OnCancelComment(object sender, EventArgs e)
+        {
+            CommentPanel.IsVisible = false;
+        }
+
+        /// <summary>
+        /// Save the rating
+        /// </summary>
+        /// <param name="sender">the button</param>
+        /// <param name="e">the event arguments</param>
+        private async void OnAcceptComment(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+
+            if (button != null)
+                button.IsEnabled = false;
+
+            _rating.Comment = CommentEditor.Text;
+            _rating.IsViolation = ViolationSwitch.IsToggled;
+
+            if (_rating.IsViolation && string.IsNullOrWhiteSpace(_rating.Comment))
+            {
+                await DisplayAlert(
+                    Properties.Resources.EnterComment,
+                    string.Format(CultureInfo.CurrentCulture, Properties.Resources.AddCommentMessage, Properties.Resources.InappropriateSketchDescription),
+                    Properties.Resources.OK);
+            }
+            else
+            {
+                await SketchManager.DefaultManager.SaveAsync(_rating);
+
+                CommentPanel.IsVisible = false;
+
+                await UpdateCommentsAsync();
+            }
+
+            if (button != null) button.IsEnabled = true;
+        }
+
+        private async void OnInappropriate(object sender, EventArgs e)
+        {
+            await DisplayAlert(Properties.Resources.InappropraiteSketch,
+                Properties.Resources.InappropriateSketchDescription,
+                Properties.Resources.OK);
         }
     }
 }

@@ -16,6 +16,14 @@ Each *Sketch* has the following properties
 
 ## Person
 Each *Person* has the following properties
-* Name
-* Image Url
-* Public Url
+* Name (String)
+* Image Url (String)
+* Public Url (String)
+
+## Rating
+Each *Rating* has the following properties
+* Sketch (String)
+* Person (String)
+* Like (Boolean)
+* Comment (String)
+* Is Violation (Boolean)

@@ -8,6 +8,7 @@
 //#define OFFLINE_SYNC_ENABLED
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -36,6 +37,16 @@ namespace UrbanSketchers
         private readonly IMobileServiceTable<Sketch> _sketchTable;
         private readonly IMobileServiceTable<Person> _peopleTable;
         private readonly IMobileServiceTable<Rating> _ratingTable;
+
+        internal async Task<IEnumerable<Rating>> GetRatingsAsync(string sketchId)
+        {
+            var query = from item in _ratingTable
+                      where item.SketchId == sketchId
+                      orderby item.UpdatedAt descending 
+                select item;
+
+            return await query.ToEnumerableAsync();
+        }
 #endif
 
         private const string OfflineDbPath = @"localstore.db";
@@ -66,7 +77,7 @@ namespace UrbanSketchers
             if (user == null) return null;
 
             var query = from item in _ratingTable
-                where item.UserId == user.Id &&
+                where item.PersonId == user.Id &&
                       item.SketchId == sketchId
                 select item;
 
@@ -93,10 +104,10 @@ namespace UrbanSketchers
 
         /// <summary>Upload a file</summary>
         /// <param name="fileName"></param>
-        /// <param name="dataArray"></param>
+        /// <param name="stream"></param>
         /// <returns>an async task with the Uri of the file uploaded.</returns>
         /// <remarks>see <![CDATA[https://code.msdn.microsoft.com/windowsapps/Upload-File-to-Windows-c9169190]]> and <![CDATA[https://docs.microsoft.com/en-us/azure/storage/files/storage-dotnet-how-to-use-files]]></remarks>
-        internal async Task<string> UploadAsync(string fileName, byte[] dataArray)
+        public async Task<string> UploadAsync(string fileName, Stream stream)
         {
             var sketchFile = new SketchFile
             {
@@ -123,19 +134,15 @@ namespace UrbanSketchers
 
             var blob = container.GetBlockBlobReference(fileName);
 
-            using (var stream = new MemoryStream(dataArray))
+            try
             {
-                try
-                {
-                    await blob.UploadFromStreamAsync(stream);
-                }
-                catch (StorageException se)
-                {
-                    Debug.WriteLine($"Error uploading {fileName}: {se.RequestInformation.ExtendedErrorInformation.ErrorMessage}.");
+                await blob.UploadFromStreamAsync(stream);
+            }
+            catch (StorageException se)
+            {
+                Debug.WriteLine($"Error uploading {fileName}: {se.RequestInformation.ExtendedErrorInformation.ErrorMessage}.");
 
-                    return null;
-                }
-
+                return null;
             }
 
             var uri = response.Uri.Substring(0, response.Uri.IndexOf('?'));
@@ -230,7 +237,7 @@ namespace UrbanSketchers
 
         public async Task SaveAsync(Sketch item)
         {
-            if (item.Id == null)
+            if (string.IsNullOrWhiteSpace(item.Id))
                 await _sketchTable.InsertAsync(item);
             else
                 await _sketchTable.UpdateAsync(item);

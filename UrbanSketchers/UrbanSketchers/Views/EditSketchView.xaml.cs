@@ -38,7 +38,7 @@ namespace UrbanSketchers.Views
 
 
 
-        private void EditSketchView_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void EditSketchView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (BindingContext is Sketch sketch)
             {
@@ -52,7 +52,9 @@ namespace UrbanSketchers.Views
                     var span = MapSpan.FromCenterAndRadius(new Position(sketch2.Latitude, sketch2.Longitude),
                         Distance.FromMiles(1.0));
 
-                    Map.MoveToRegion(span);
+                    await Task.Delay(TimeSpan.FromSeconds(0.5));
+
+                    Map.SetVisibleRegion(span);
                 }
             }
         }
@@ -80,16 +82,17 @@ namespace UrbanSketchers.Views
 
                 if (_fileData != null)
                 {
-                    await SketchManager.DefaultManager.SaveAsync(sketch);
-
                     var filename = string.Format(
                         CultureInfo.InvariantCulture,
                         "{0}{1}",
-                        sketch.Id,
+                        Guid.NewGuid().ToString(),
                         Path.GetExtension(_fileData.FileName));
 
-                    sketch.ImageUrl =
-                        await SketchManager.DefaultManager.UploadAsync(filename, _fileData.DataArray);
+                    using (var stream = new MemoryStream(_fileData.DataArray))
+                    {
+                        sketch.ImageUrl =
+                            await SketchManager.DefaultManager.UploadAsync(filename, stream);
+                    }
                 }
 
                 await SketchManager.DefaultManager.SaveAsync(sketch);
@@ -167,7 +170,7 @@ namespace UrbanSketchers.Views
 
         private void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (Map.IsVisible && BindingContext is Sketch)
+            if (Map.IsVisible && BindingContext is Sketch && Map.IsFocused)
             {
                 if (e.PropertyName == nameof(Map.VisibleRegion))
                 {
