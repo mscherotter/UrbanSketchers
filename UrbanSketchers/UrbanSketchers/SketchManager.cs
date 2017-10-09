@@ -21,6 +21,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using UrbanSketchers.Data;
+using UrbanSketchers.Services;
 
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
@@ -159,6 +160,8 @@ namespace UrbanSketchers
 
         public MobileServiceClient CurrentClient { get; }
 
+        public IThumbnailGenerator ThumbnailGenerator { get; set; }
+
         public bool IsOfflineEnabled => _sketchTable is IMobileServiceSyncTable<Sketch>;
 
         public async Task<string> GetPhotosAsync()
@@ -210,6 +213,16 @@ namespace UrbanSketchers
             return null;
         }
 
+        public async Task<ObservableCollection<Sketch>> GetSketchsAsync(int sector)
+        {
+            var items = from item in _sketchTable
+                where item.Sector == sector
+                select item;
+
+            return new ObservableCollection<Sketch>(await items.ToEnumerableAsync());
+        }
+
+
         public async Task<ObservableCollection<Sketch>> GetSketchsAsync(bool syncItems = false)
         {
             try
@@ -237,6 +250,8 @@ namespace UrbanSketchers
 
         public async Task SaveAsync(Sketch item)
         {
+            item.Sector = CustomIndexing.LatLonToSector(item.Latitude, item.Longitude, CustomIndexing.SectorSize);
+
             if (string.IsNullOrWhiteSpace(item.Id))
                 await _sketchTable.InsertAsync(item);
             else

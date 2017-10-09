@@ -83,5 +83,12 @@ namespace UrbanSketchers.Data
         }
 
         public string CreatedByName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the custom indexing sector
+        /// </summary>
+        public int Sector { get; set; }
+
+        public string ThumbnailUrl { get; set; }
     }
 }

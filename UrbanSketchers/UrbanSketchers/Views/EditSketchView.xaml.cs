@@ -82,16 +82,31 @@ namespace UrbanSketchers.Views
 
                 if (_fileData != null)
                 {
+                    var guid = Guid.NewGuid().ToString();
+
                     var filename = string.Format(
                         CultureInfo.InvariantCulture,
                         "{0}{1}",
-                        Guid.NewGuid().ToString(),
+                        guid,
                         Path.GetExtension(_fileData.FileName));
 
                     using (var stream = new MemoryStream(_fileData.DataArray))
                     {
                         sketch.ImageUrl =
                             await SketchManager.DefaultManager.UploadAsync(filename, stream);
+                    }
+
+                    using (var thumbnailStream =
+                        await SketchManager.DefaultManager.ThumbnailGenerator.CreateThumbnailAsync(_fileData.DataArray))
+                    {
+                        var thumbnailFilename = string.Format(
+                            CultureInfo.InvariantCulture,
+                            "{0}-t{1}",
+                            guid,
+                            Path.GetExtension(_fileData.FileName));
+
+                        sketch.ThumbnailUrl =
+                            await SketchManager.DefaultManager.UploadAsync(thumbnailFilename, thumbnailStream);
                     }
                 }
 

@@ -50,11 +50,11 @@ namespace UWP
 
                 _nativeMap.MapElementClick += OnMapElementClick;
 
-                await UpdatePinsAsync();
+                UpdatePinsAsync();
             }
         }
 
-        private async void _pins_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void _pins_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -63,7 +63,7 @@ namespace UWP
                     _nativeMap.MapElements.Clear();
                     break;
                 case NotifyCollectionChangedAction.Add:
-                    await UpdatePinsAsync();
+                    UpdatePinsAsync();
                     break;
             }
         }
@@ -126,7 +126,7 @@ namespace UWP
             }
         }
 
-        private async Task UpdatePinsAsync()
+        private void UpdatePinsAsync()
         {
             _nativeMap.Children.Clear();
 
@@ -142,9 +142,11 @@ namespace UWP
 
                 var point = new Geopoint(position);
 
+                var pinImage = string.IsNullOrWhiteSpace(pin.Url) ? null : RandomAccessStreamReference.CreateFromUri(new Uri(pin.Url));
+
                 var mapIcon = new MapIcon
                 {
-                    Image = await ResizeImageAsync(pin.Url),
+                    Image = pinImage, //await ResizeImageAsync(pin.Url),
                     CollisionBehaviorDesired = MapElementCollisionBehavior.RemainVisible,
                     Location = point,
                     NormalizedAnchorPoint = new Point(0.5, 1.0),

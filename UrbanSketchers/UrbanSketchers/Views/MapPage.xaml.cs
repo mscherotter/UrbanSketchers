@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
+using UrbanSketchers.Services;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
@@ -40,6 +41,9 @@ namespace UrbanSketchers.Views
 
         private async Task RefreshAsync()
         {
+            var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude, Map.VisibleRegion.Center.Longitude,
+                CustomIndexing.SectorSize);
+
             var sketches = await SketchManager.DefaultManager.GetSketchsAsync();
 
             var pins = from sketch in sketches
@@ -53,7 +57,7 @@ namespace UrbanSketchers.Views
                         Id = sketch.Id,
                         Address = sketch.Address
                     },
-                    Url = sketch.ImageUrl
+                    Url = sketch.ThumbnailUrl//.ImageUrl
                 };
 
             var pinList = pins.ToList();
@@ -124,7 +128,7 @@ namespace UrbanSketchers.Views
                 CreationDate = DateTime.Now
             };
 
-            UpdateLocation();
+            UpdateLocationAsync();
 
             EditSketchView.BindingContext = _sketch;
         }
@@ -136,17 +140,19 @@ namespace UrbanSketchers.Views
             _sketch = null;
         }
 
-        private void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Map.VisibleRegion))
                 if (_sketch != null)
-                    UpdateLocation();
+                    await UpdateLocationAsync();
         }
 
-        private void UpdateLocation()
+        private async Task UpdateLocationAsync()
         {
             _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
             _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
+
+            await RefreshAsync();
         }
 
         private void OnSketchCanceled(object sender, EventArgs e)

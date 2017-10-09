@@ -116,6 +116,7 @@
       <DependentUpon>ShareTargetPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SketchMapRenderer.cs" />
+    <Compile Include="ThumbnailGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

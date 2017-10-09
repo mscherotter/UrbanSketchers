@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
@@ -10,6 +11,11 @@ namespace UrbanSketchers
     public interface IAuthenticate
     {
         Task<bool> AuthenticateAsync();
+    }
+
+    public interface IThumbnailGenerator
+    {
+        Task<Stream> CreateThumbnailAsync(byte[] data);
     }
 
     public class App : Application

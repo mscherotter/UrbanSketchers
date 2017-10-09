@@ -28,6 +28,8 @@ namespace UWP
 
             UrbanSketchers.App.Init(this);
 
+            SketchManager.DefaultManager.ThumbnailGenerator = new ThumbnailGenerator();
+
             LoadApplication(new UrbanSketchers.App());
 
             var bingMapsKey = Application.Current.Resources["BingMapsKey"].ToString();
