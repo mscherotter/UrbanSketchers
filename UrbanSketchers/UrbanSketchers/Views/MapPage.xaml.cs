@@ -21,11 +21,17 @@ namespace UrbanSketchers.Views
         //private string _personId;
         private Sketch _sketch;
 
+        /// <summary>
+        /// Initializes a new instance of the MapPage class.
+        /// </summary>
         public MapPage()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Refresh the map pins when it appears
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -43,8 +49,8 @@ namespace UrbanSketchers.Views
         {
             if (Map.VisibleRegion == null) return;
 
-            var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude, Map.VisibleRegion.Center.Longitude,
-                CustomIndexing.SectorSize);
+            //var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude, Map.VisibleRegion.Center.Longitude,
+            //    CustomIndexing.SectorSize);
 
             var sketches = await SketchManager.DefaultManager.GetSketchsAsync();
 
@@ -59,7 +65,7 @@ namespace UrbanSketchers.Views
                         Id = sketch.Id,
                         Address = sketch.Address
                     },
-                    Url = sketch.ThumbnailUrl//.ImageUrl
+                    Url = sketch.ThumbnailUrl
                 };
 
             var pinList = pins.ToList();
@@ -131,12 +137,12 @@ namespace UrbanSketchers.Views
                 CreationDate = DateTime.Now
             };
 
-            UpdateLocationAsync();
+            await UpdateLocationAsync();
 
             EditSketchView.BindingContext = _sketch;
         }
 
-        private async void OnSketchSaved(object sender, EventArgs e)
+        private async void OnSketchSaved(object sender, TypedEventArgs<Sketch> e)
         {
             Crosshair.IsVisible = false;
 

@@ -72,6 +72,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="TodoItem.cs" />
     <Compile Include="SketchManager.cs" />
+    <Compile Include="TypedEventArgs.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

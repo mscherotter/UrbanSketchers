@@ -62,7 +62,7 @@ namespace UrbanSketchers.Views
         /// <summary>
         ///     Sketch saved event handler
         /// </summary>
-        public event EventHandler SketchSaved;
+        public event EventHandler<TypedEventArgs<Sketch>> SketchSaved;
 
         /// <summary>
         ///     Cancel event handler
@@ -94,19 +94,8 @@ namespace UrbanSketchers.Views
                     {
                         sketch.ImageUrl =
                             await SketchManager.DefaultManager.UploadAsync(filename, stream);
-                    }
 
-                    using (var thumbnailStream =
-                        await SketchManager.DefaultManager.ThumbnailGenerator.CreateThumbnailAsync(_fileData.DataArray))
-                    {
-                        var thumbnailFilename = string.Format(
-                            CultureInfo.InvariantCulture,
-                            "{0}-t{1}",
-                            guid,
-                            Path.GetExtension(_fileData.FileName));
-
-                        sketch.ThumbnailUrl =
-                            await SketchManager.DefaultManager.UploadAsync(thumbnailFilename, thumbnailStream);
+                        sketch.ThumbnailUrl = sketch.ImageUrl.Replace("/sketches/", "/thumbnails/");
                     }
                 }
 
@@ -114,7 +103,7 @@ namespace UrbanSketchers.Views
 
                 IsVisible = false;
 
-                SketchSaved?.Invoke(this, new EventArgs());
+                SketchSaved?.Invoke(this, new TypedEventArgs<Sketch>(sketch));
 
                 ClearFileData();
             }

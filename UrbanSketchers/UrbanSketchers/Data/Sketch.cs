@@ -11,6 +11,7 @@ namespace UrbanSketchers.Data
         private string _address = string.Empty;
         private string _description = string.Empty;
         private string _imageUrl = string.Empty;
+        private string _thumbnailUrl = string.Empty;
         private double _latitude;
         private double _longitude;
 
@@ -89,6 +90,13 @@ namespace UrbanSketchers.Data
         /// </summary>
         public int Sector { get; set; }
 
-        public string ThumbnailUrl { get; set; }
+        /// <summary>
+        /// Gets or sets the thumbnail Url
+        /// </summary>
+        public string ThumbnailUrl
+        {
+            get => _thumbnailUrl;
+            set => SetProperty(ref _thumbnailUrl, value);
+        }
     }
 }
