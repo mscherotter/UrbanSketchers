@@ -124,6 +124,7 @@ namespace UrbanSketchers.Views
             //}
 
             EditSketchView.IsVisible = true;
+            Crosshair.IsVisible = true;
 
             _sketch = new Sketch
             {
@@ -137,6 +138,8 @@ namespace UrbanSketchers.Views
 
         private async void OnSketchSaved(object sender, EventArgs e)
         {
+            Crosshair.IsVisible = false;
+
             await RefreshAsync();
 
             _sketch = null;
@@ -159,6 +162,8 @@ namespace UrbanSketchers.Views
 
         private void OnSketchCanceled(object sender, EventArgs e)
         {
+            Crosshair.IsVisible = false;
+
             _sketch = null;
         }
 

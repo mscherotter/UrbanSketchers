@@ -46,6 +46,7 @@
     <Compile Include="Controls\SketchPin.cs" />
     <Compile Include="Data\BaseDataObject.cs" />
     <Compile Include="Data\GetSasTokenResponse.cs" />
+    <Compile Include="Data\Link.cs" />
     <Compile Include="Data\Person.cs" />
     <Compile Include="Data\Rating.cs" />
     <Compile Include="Data\Sketch.cs" />

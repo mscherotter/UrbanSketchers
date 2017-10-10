@@ -1,12 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UrbanSketchers.Views.AboutPage">
+             x:Class="UrbanSketchers.Views.AboutPage"
+             Title="About Urban Sketches">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="About Urban Sketches"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="8">
+            <Label Text="Created by Michael S. Scherotter"/>
+            <Label Text="Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world."/>
+            <ListView ItemSelected="OnItemSelected" ItemsSource="{Binding Links}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Title}" Detail="{Binding Details}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

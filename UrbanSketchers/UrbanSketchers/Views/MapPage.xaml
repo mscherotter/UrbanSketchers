@@ -41,9 +41,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <controls:SketchMap x:Name="Map" MaxImageSize="320" IsShowingUser="True" MapType="Hybrid" PropertyChanged="OnMapPropertyChanged"  />
+        <Image Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Crosshair" IsVisible="False">
+            <Image.Source>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="UWP">Assets/Crosshair.png</On>
+                </OnPlatform>
+            </Image.Source>
+        </Image>
         <!--<maps:Map />-->
         
-        <views:EditSketchView IsVisible="False" Grid.Row="1" x:Name="EditSketchView" SketchSaved="OnSketchSaved"
+        <views:EditSketchView Margin="8" IsVisible="False" Grid.Row="1" x:Name="EditSketchView" SketchSaved="OnSketchSaved"
                               Canceled="OnSketchCanceled"/>
     </Grid>
 </ContentPage>
