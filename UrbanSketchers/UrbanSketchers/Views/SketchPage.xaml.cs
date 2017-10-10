@@ -25,6 +25,19 @@ namespace UrbanSketchers.Views
             InitializeComponent();
 
             ShareItem.IsEnabled = CrossShare.IsSupported;
+
+            Image.PropertyChanged += Image_PropertyChanged;
+        }
+
+        private void Image_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsLoading")
+            {
+                if (!Image.IsLoading)
+                {
+                    Image.StartConnectedAnimation("image");
+                }
+            }
         }
 
         /// <summary>

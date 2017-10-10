@@ -85,7 +85,7 @@ namespace UrbanSketchers.Views
                 await Navigation.PushAsync(new SketchPage
                 {
                     SketchId = pin.Pin.Id.ToString()
-                });
+                }, false);
         }
 
         private async void OnRefresh(object sender, EventArgs e)

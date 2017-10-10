@@ -108,6 +108,7 @@
     <Compile Include="DrawingPage.xaml.cs">
       <DependentUpon>DrawingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConnectedImageRenderer.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

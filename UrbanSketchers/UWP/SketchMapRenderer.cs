@@ -6,15 +6,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
+using Windows.Foundation.Metadata;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Maps;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.Web.Http;
 using UrbanSketchers.Controls;
 using UWP;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.UWP;
 using Xamarin.Forms.Platform.UWP;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 [assembly: ExportRenderer(typeof(SketchMap), typeof(SketchMapRenderer))]
 
@@ -23,7 +29,9 @@ namespace UWP
     public class SketchMapRenderer : MapRenderer
     {
         private MapControl _nativeMap;
+        private Canvas _sourceCanvas;
         private ObservableCollection<SketchPin> _pins;
+        private Image _sourceImage;
 
         protected override async void OnElementChanged(ElementChangedEventArgs<Map> e)
         {
@@ -48,6 +56,18 @@ namespace UWP
 
                 _nativeMap = Control;
 
+                _sourceCanvas = new Canvas();
+
+                _sourceImage = new Image
+                {
+                    IsHitTestVisible = false,
+                    //Visibility = Visibility.Collapsed
+                };
+
+                _sourceCanvas.Children.Add(_sourceImage);
+
+                _nativeMap.Children.Add(_sourceCanvas);
+
                 _nativeMap.MapElementClick += OnMapElementClick;
 
                 UpdatePinsAsync();
@@ -59,7 +79,7 @@ namespace UWP
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Reset:
-                    _nativeMap.Children.Clear();
+                    //_nativeMap.Children.Clear();
                     _nativeMap.MapElements.Clear();
                     break;
                 case NotifyCollectionChangedAction.Add:
@@ -128,7 +148,7 @@ namespace UWP
 
         private void UpdatePinsAsync()
         {
-            _nativeMap.Children.Clear();
+            //_nativeMap.Children.Clear();
 
             var pins = _pins.ToList();
 
@@ -159,7 +179,7 @@ namespace UWP
             }
         }
 
-        private void OnMapElementClick(MapControl sender, MapElementClickEventArgs args)
+        private async void OnMapElementClick(MapControl sender, MapElementClickEventArgs args)
         {
             var icon = args.MapElements.OfType<MapIcon>().FirstOrDefault();
 
@@ -167,7 +187,39 @@ namespace UWP
             {
                 var sketchPin = MapIconProperties.GetSketchPin(icon);
 
-                sketchPin.InvokeClick();
+                if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.Animation.ConnectedAnimationService"))
+                {
+                    var bitmapImage = new BitmapImage();
+
+                    await bitmapImage.SetSourceAsync(await icon.Image.OpenReadAsync());
+
+                    _sourceImage.Visibility = Visibility.Visible;
+                    
+                    _sourceImage.Source = bitmapImage;
+
+                    Point point;
+
+                    _nativeMap.GetOffsetFromLocation(icon.Location, out point);
+
+                    Canvas.SetLeft(_sourceImage, point.X - bitmapImage.PixelWidth / 2.0);
+
+                    Canvas.SetTop(_sourceImage, point.Y - bitmapImage.PixelHeight);
+                    
+                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("image", _sourceImage);
+
+                    sketchPin.InvokeClick();
+
+                    await Control.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async delegate
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(1));
+
+                        _sourceImage.Visibility = Visibility.Collapsed;
+                    });
+                }
+                else
+                {
+                    sketchPin.InvokeClick();
+                }
             }
         }
     }

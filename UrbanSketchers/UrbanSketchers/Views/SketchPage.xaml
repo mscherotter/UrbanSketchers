@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:UrbanSketchers.Views"
+             xmlns:controls="clr-namespace:UrbanSketchers.Controls"
              x:Class="UrbanSketchers.Views.SketchPage"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
@@ -73,7 +74,7 @@
                 <Label Text="{Binding Address}" />
             </StackLayout>
             <Grid Grid.Row="1" Grid.Column="0" Padding="4">
-                <Image  Source="{Binding ImageUrl}"/>
+                <controls:ConnectedImage  Source="{Binding ImageUrl}" x:Name="Image"/>
             </Grid>
             <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" />
             <StackLayout x:Name="CommentPanel" IsVisible="False" Padding="4" Grid.Row="2" Grid.Column="0">
