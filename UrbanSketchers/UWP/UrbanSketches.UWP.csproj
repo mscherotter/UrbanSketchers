@@ -138,6 +138,7 @@
     <Content Include="Assets\EmptyHeart.png" />
     <Content Include="Assets\FilledHeart.png" />
     <Content Include="Assets\LocateMe.png" />
+    <Content Include="Assets\Logo.png" />
     <Content Include="Assets\Refresh.png" />
     <Content Include="Assets\Share.png" />
     <Content Include="Assets\SignIn.png" />
@@ -186,7 +187,7 @@
       <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>2.4.0.282</Version>

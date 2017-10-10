@@ -3,7 +3,7 @@
     "Microsoft.Azure.Mobile.Analytics": "0.16.0",
     "Microsoft.Azure.Mobile.Client": "4.0.1",
     "Microsoft.Azure.Mobile.Crashes": "0.16.0",
-    "NETStandard.Library": "2.0.0",
+    "NETStandard.Library": "2.0.1",
     "PCLStorage": "1.0.2",
     "Plugin.Share": "7.0.1",
     "WindowsAzure.Storage": "8.5.0",
