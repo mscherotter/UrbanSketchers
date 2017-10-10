@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Security.Credentials;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
@@ -108,6 +110,42 @@ namespace UWP
             }
 
             return false;
+        }
+
+        private void UIElement_OnDrop(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.Bitmap))
+            {
+                
+            }
+        }
+
+        private async void OnDragOver(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.Bitmap))
+            {
+                e.AcceptedOperation = DataPackageOperation.Copy;
+
+                return;
+            }
+
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                var deferral = e.GetDeferral();
+
+                var storageItems  = await e.DataView.GetStorageItemsAsync();
+
+                var imageFiles = from item in storageItems.OfType<StorageFile>()
+                                 where item.ContentType.StartsWith("image/")
+                                 select item;
+
+                if (imageFiles.Any())
+                {
+                    e.AcceptedOperation = DataPackageOperation.Copy;
+                }
+
+                deferral.Complete();
+            }
         }
     }
 }
