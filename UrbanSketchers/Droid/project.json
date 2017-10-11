@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.Azure.Mobile.Client": "4.0.1",
+    "Xamarin.Android.Support.CustomTabs": "25.4.0.2",
     "Xamarin.Android.Support.Design": "25.4.0.2",
     "Xamarin.Android.Support.v4": "25.4.0.2",
     "Xamarin.Android.Support.v7.AppCompat": "25.4.0.2",
