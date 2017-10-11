@@ -27,6 +27,17 @@ namespace UrbanSketchers.Views
         public MapPage()
         {
             InitializeComponent();
+
+            EditSketchView.ShouldUpload = ShouldUpload;
+        }
+
+        private Task<bool> ShouldUpload(Sketch arg)
+        {
+            return DisplayAlert(
+                Properties.Resources.UploadSketch, 
+                Properties.Resources.UploadMessage,
+                Properties.Resources.OK, 
+                Properties.Resources.Cancel);
         }
 
         /// <summary>

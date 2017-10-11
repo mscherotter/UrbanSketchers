@@ -69,6 +69,7 @@ namespace UrbanSketchers.Views
         /// </summary>
         public event EventHandler Canceled;
 
+        public Func<Sketch, Task<bool>> ShouldUpload;
 
         private async void OnAdd(object sender, EventArgs e)
         {
@@ -79,6 +80,14 @@ namespace UrbanSketchers.Views
                 if (string.IsNullOrWhiteSpace(sketch.Title)) return;
 
                 if (_fileData == null && string.IsNullOrWhiteSpace(sketch.ImageUrl)) return;
+
+                if (ShouldUpload != null)
+                {
+                    if (!await ShouldUpload(sketch))
+                    {
+                        return;
+                    }
+                }
 
                 if (_fileData != null)
                 {

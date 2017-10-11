@@ -89,6 +89,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Sketch.
         /// </summary>
         internal static string EditSketch {
@@ -117,9 +126,8 @@ namespace UrbanSketchers.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Inappropraite sketches include:
-        ///1. Sketches that are not created on-site.
-        ///2. Sketches that are not submitted by the original artist.
-        ///3. Sketches that are offensive..
+        ///1. Sketches that are not submitted by the original artist.
+        ///2. Sketches that are offensive..
         /// </summary>
         internal static string InappropriateSketchDescription {
             get {
@@ -196,6 +204,32 @@ namespace UrbanSketchers.Properties {
         internal static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are about to upload a picture to the Urban Sketches service at
+        ///http://urbansketchers.azurewebsites.net.
+        ///
+        ///Please follow these rules when sharing sketches:
+        ///1. The sketches should represent actual places that can be mapped on the Earth.
+        ///2. You should only upload pictures of sketches that you created.
+        ///3. Offensive or pornographic images are not allowed.
+        ///4. Place the pictures with an appropriate location, title, and date created.  Description and address are optional.
+        ///5. the Urban Sketches App, Site, [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string UploadMessage {
+            get {
+                return ResourceManager.GetString("UploadMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Sketch.
+        /// </summary>
+        internal static string UploadSketch {
+            get {
+                return ResourceManager.GetString("UploadSketch", resourceCulture);
             }
         }
         

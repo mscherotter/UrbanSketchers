@@ -8,6 +8,8 @@ namespace UrbanSketchers.Controls
     /// </summary>
     public class ConnectedImage : Image
     {
+        private bool _started = false;
+
         /// <summary>
         ///     Gets or sets the native control
         /// </summary>
@@ -30,7 +32,14 @@ namespace UrbanSketchers.Controls
         /// <param name="name">the name of the animation</param>
         public void StartConnectedAnimation(string name)
         {
+            if (_started)
+            {
+                return;
+            }
+
             Animate?.Invoke(Control, new TypedEventArgs<string>(name));
+
+            _started = true;
         }
 
         /// <summary>

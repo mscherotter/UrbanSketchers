@@ -31,7 +31,9 @@ namespace UrbanSketchers.Views
 
         private void Image_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (!Image.IsLoading && Image.Width > 0 && Image.Height > 0)
+            if (e.PropertyName == "Renderer") return;
+
+            if (!Image.IsLoading && Image.Width > 0 && Image.Height > 0 && Image.Control != null && Image.Source != null)
             {
                 Image.StartConnectedAnimation("image");
             }

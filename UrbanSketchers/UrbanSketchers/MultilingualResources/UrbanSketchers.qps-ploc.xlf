@@ -8,75 +8,107 @@
       <group id="URBANSKETCHERS/PROPERTIES/RESOURCES.RESX">
         <trans-unit id="MySketches" translate="yes" xml:space="preserve">
           <source>My Sketches</source>
-          <target state="new">My Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[05740][!!_Μý Śќéťćĥêŝ_!!]</target>
         </trans-unit>
         <trans-unit id="Sketches" translate="yes" xml:space="preserve">
           <source>Sketches</source>
-          <target state="new">Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[5C02B][!!_Şĸèťċħéš_!!]</target>
         </trans-unit>
         <trans-unit id="SketchMap" translate="yes" xml:space="preserve">
           <source>Sketch Map</source>
-          <target state="new">Sketch Map</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[D8CD3][!!_Śķęτĉћ Μàρ_!!]</target>
         </trans-unit>
         <trans-unit id="UrbanSketchers" translate="yes" xml:space="preserve">
           <source>Urban Sketchers</source>
-          <target state="new">Urban Sketchers</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[BB2B8][!!_Ûŕъáи Šќèţćћéŗš_!!]</target>
         </trans-unit>
         <trans-unit id="Add" translate="yes" xml:space="preserve">
           <source>Add</source>
-          <target state="new">Add</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[40FA6][!!_Áðď_!!]</target>
         </trans-unit>
         <trans-unit id="Update" translate="yes" xml:space="preserve">
           <source>Update</source>
-          <target state="new">Update</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[61F2E][!!_Úрďáţę_!!]</target>
         </trans-unit>
         <trans-unit id="SketchesByFormat" translate="yes" xml:space="preserve">
           <source>{0} Sketches by {1}</source>
-          <target state="new">{0} Sketches by {1}</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[45465][!!_{0} Ŝĸèτċħęŝ ъў {1}_!!]</target>
           <note from="MultilingualBuild" annotates="source" priority="2">10 Sketch by Michael Scherotter</note>
         </trans-unit>
         <trans-unit id="EditSketch" translate="yes" xml:space="preserve">
           <source>Edit Sketch</source>
-          <target state="new">Edit Sketch</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[6D873][!!_Èđíţ Ŝĸèťċђ_!!]</target>
         </trans-unit>
         <trans-unit id="OK" translate="yes" xml:space="preserve">
           <source>OK</source>
-          <target state="new">OK</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[4485B][!!_ÕΚ_!!]</target>
         </trans-unit>
         <trans-unit id="OnlyEditOwnSketches" translate="yes" xml:space="preserve">
           <source>You can only edit sketches that you submitted.</source>
-          <target state="new">You can only edit sketches that you submitted.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[E2AAC][!!_Ўóû ĉáη òηľý ęđîτ şќèţċнęŝ ţнàť ўóû śµъмìτтèđ._!!]</target>
         </trans-unit>
         <trans-unit id="TitleBySketcher" translate="yes" xml:space="preserve">
           <source>{0} by {1}</source>
-          <target state="new">{0} by {1}</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[6D28D][!!_{0} БУ {1}_!!]</target>
           <note from="MultilingualBuild" annotates="source" priority="2">The Pantheon by Michael Scherotter</note>
         </trans-unit>
         <trans-unit id="AddCommentMessage" translate="yes" xml:space="preserve">
           <source>Sketches flagged as inappropriate must have a comment.  {0}</source>
-          <target state="new">Sketches flagged as inappropriate must have a comment.  {0}</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[A9683][!!_Şќêťċĥęś ƒľâģğéð âŝ įйãρþŗòþřįãτê múšţ нãνé â ćõmмêйť.  {0}_!!]</target>
         </trans-unit>
         <trans-unit id="EnterComment" translate="yes" xml:space="preserve">
           <source>Enter Comment</source>
-          <target state="new">Enter Comment</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[8602F][!!_Ęήτêř Ĉômмéиţ_!!]</target>
         </trans-unit>
         <trans-unit id="InappropraiteSketch" translate="yes" xml:space="preserve">
           <source>Inappropriate Sketch</source>
-          <target state="new">Inappropriate Sketch</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[E6B13][!!_Ìйâрþŗòρřįáťé Ŝķêтćђ_!!]</target>
         </trans-unit>
         <trans-unit id="InappropriateSketchDescription" translate="yes" xml:space="preserve">
           <source>Inappropraite sketches include:
-1. Sketches that are not created on-site.
-2. Sketches that are not submitted by the original artist.
-3. Sketches that are offensive.</source>
-          <target state="new">Inappropraite sketches include:
-1. Sketches that are not created on-site.
-2. Sketches that are not submitted by the original artist.
-3. Sketches that are offensive.</target>
+1. Sketches that are not submitted by the original artist.
+2. Sketches that are offensive.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[718F8][!!_Įйáрþŕòþřàíţé šќéтćђèś îηćĺûđê:
+1. Śķêτċħêś τђãτ ãѓę ηõť ĉŕèãтèð óй-ŝîťę.
+2. Şкéтĉђęş ţћãť âřé ήòţ şùьмįτтęđ ъŷ τĥę óѓîģįηãł àŕτíşť.
+3. Şĸéτčĥèş тħãť àŗé õƒƒęиŝíνè._!!]</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="AboutUrbanSketches" translate="yes" xml:space="preserve">
           <source>About Urban Sketches</source>
-          <target state="new">About Urban Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[6A852][!!_ÃБòµτ Üŗьãή Ŝķéţċћęš_!!]</target>
+        </trans-unit>
+        <trans-unit id="Cancel" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="new">Cancel</target>
+        </trans-unit>
+        <trans-unit id="UploadMessage" translate="yes" xml:space="preserve">
+          <source>You are about to upload a picture to the Urban Sketches service at
+http://urbansketchers.azurewebsites.net.
+
+Please follow these rules when sharing sketches:
+1. The sketches should represent actual places that can be mapped on the Earth.
+2. You should only upload pictures of sketches that you created.
+3. Offensive or pornographic images are not allowed.
+4. Place the pictures with an appropriate location, title, and date created.  Description and address are optional.
+5. the Urban Sketches App, Site, or the app's developer, Michael Scherotter do not assume ownership of the images uploaded.  You can remove the sketches at any time from the app.
+
+Press OK to continue uploading the sketch, affirming that you have read this and agree to the terms.</source>
+          <target state="new">You are about to upload a picture to the Urban Sketches service at
+http://urbansketchers.azurewebsites.net.
+
+Please follow these rules when sharing sketches:
+1. The sketches should represent actual places that can be mapped on the Earth.
+2. You should only upload pictures of sketches that you created.
+3. Offensive or pornographic images are not allowed.
+4. Place the pictures with an appropriate location, title, and date created.  Description and address are optional.
+5. the Urban Sketches App, Site, or the app's developer, Michael Scherotter do not assume ownership of the images uploaded.  You can remove the sketches at any time from the app.
+
+Press OK to continue uploading the sketch, affirming that you have read this and agree to the terms.</target>
+        </trans-unit>
+        <trans-unit id="UploadSketch" translate="yes" xml:space="preserve">
+          <source>Upload Sketch</source>
+          <target state="new">Upload Sketch</target>
         </trans-unit>
       </group>
     </body>

@@ -163,11 +163,29 @@
   </data>
   <data name="InappropriateSketchDescription" xml:space="preserve">
     <value>Inappropraite sketches include:
-1. Sketches that are not created on-site.
-2. Sketches that are not submitted by the original artist.
-3. Sketches that are offensive.</value>
+1. Sketches that are not submitted by the original artist.
+2. Sketches that are offensive.</value>
   </data>
   <data name="AboutUrbanSketches" xml:space="preserve">
     <value>About Urban Sketches</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>You are about to upload a picture to the Urban Sketches service at
+http://urbansketchers.azurewebsites.net.
+
+Please follow these rules when sharing sketches:
+1. The sketches should represent actual places that can be mapped on the Earth.
+2. You should only upload pictures of sketches that you created.
+3. Offensive or pornographic images are not allowed.
+4. Place the pictures with an appropriate location, title, and date created.  Description and address are optional.
+5. the Urban Sketches App, Site, or the app's developer, Michael Scherotter do not assume ownership of the images uploaded.  You can remove the sketches at any time from the app.
+
+Press OK to continue uploading the sketch, affirming that you have read this and agree to the terms.</value>
+  </data>
+  <data name="UploadSketch" xml:space="preserve">
+    <value>Upload Sketch</value>
   </data>
 </root>
