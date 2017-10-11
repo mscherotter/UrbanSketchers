@@ -9,6 +9,6 @@
     "Xamarin.Forms": "2.4.0.282"
   },
   "frameworks": {
-    "MonoAndroid,Version=v7.1": {}
+    "MonoAndroid,Version=v8.0": {}
   }
 }
