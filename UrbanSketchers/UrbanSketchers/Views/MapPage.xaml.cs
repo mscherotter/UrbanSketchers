@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
-using UrbanSketchers.Services;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
@@ -16,11 +16,18 @@ namespace UrbanSketchers.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage
     {
+        #region Fields
+
         //private string _personId;
         private Sketch _sketch;
+        private MemoryStream _imageStream;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the MapPage class.
+        ///     Initializes a new instance of the MapPage class.
         /// </summary>
         public MapPage()
         {
@@ -29,29 +36,53 @@ namespace UrbanSketchers.Views
             EditSketchView.ShouldUpload = ShouldUpload;
         }
 
-        private Task<bool> ShouldUpload(Sketch arg)
-        {
-            return DisplayAlert(
-                Properties.Resources.UploadSketch, 
-                Properties.Resources.UploadMessage,
-                Properties.Resources.OK, 
-                Properties.Resources.Cancel);
-        }
+        #endregion
+
+        #region Methods
 
         /// <summary>
-        /// Refresh the map pins when it appears
+        ///     Refresh the map pins when it appears
         /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            var user = await SketchManager.DefaultManager.GetCurrentUserAsync();
-
-            if (user != null)
+            if (_imageStream != null && _imageStream.Length > 0)
             {
+                EditSketchView.LoadImageStream(_imageStream);
+
+                _imageStream = null;
+
+                OnAddSketch(null, null);
             }
 
-            await RefreshAsync();
+            try
+            {
+                var user = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+                if (user != null)
+                {
+                }
+
+                await RefreshAsync();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
+        #endregion
+
+        #region Implementation
+
+        private Task<bool> ShouldUpload(Sketch arg)
+        {
+            return DisplayAlert(
+                Properties.Resources.UploadSketch,
+                Properties.Resources.UploadMessage,
+                Properties.Resources.OK,
+                Properties.Resources.Cancel);
         }
 
         private async Task RefreshAsync()
@@ -62,6 +93,9 @@ namespace UrbanSketchers.Views
             //    CustomIndexing.SectorSize);
 
             var sketches = await SketchManager.DefaultManager.GetSketchsAsync();
+
+            if (sketches == null)
+                return;
 
             var pins = from sketch in sketches
                 select new SketchPin
@@ -109,9 +143,7 @@ namespace UrbanSketchers.Views
                 var authenticated = App.Authenticator.Authenticate();
 
                 if (!authenticated)
-                {
                     return;
-                }
             }
 
             //if (string.IsNullOrWhiteSpace(_personId))
@@ -187,8 +219,16 @@ namespace UrbanSketchers.Views
             _sketch = null;
         }
 
-        private void OnLogin(object sender, EventArgs e)
+        #endregion
+
+        private async void OnDrawSketch(object sender, EventArgs e)
         {
+            _imageStream = new MemoryStream();
+
+            await Navigation.PushModalAsync(new DrawingPage
+            {
+                ImageStream = _imageStream
+            }, true);
         }
     }
 }

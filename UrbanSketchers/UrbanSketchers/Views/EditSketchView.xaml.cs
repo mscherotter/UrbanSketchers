@@ -36,7 +36,7 @@ namespace UrbanSketchers.Views
             set { Map.IsVisible = value; }
         }
 
-
+        public Stream ImageStream { get; set; }
 
         private async void EditSketchView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -58,7 +58,20 @@ namespace UrbanSketchers.Views
                 }
             }
         }
-        
+
+        internal void LoadImageStream(Stream imageStream)
+        {
+            _fileData = new FileData
+            {
+                DataArray = new byte[imageStream.Length],
+                FileName = "Sketch.png"
+            };
+
+            imageStream.Read(_fileData.DataArray, 0, Convert.ToInt32(imageStream.Length));
+
+            LoadFileData();
+        }
+
         /// <summary>
         ///     Sketch saved event handler
         /// </summary>
@@ -153,15 +166,20 @@ namespace UrbanSketchers.Views
 
             if (_fileData != null)
             {
-                FilenameLabel.Text = _fileData.FileName;
-                //ImageUrlEntry.IsEnabled = false;
-                RemoveFileButton.IsVisible = true;
-
-                Image.Source = new StreamImageSource
-                {
-                    Stream = GetImageStream
-                };
+                LoadFileData();
             }
+        }
+
+        private void LoadFileData()
+        {
+            FilenameLabel.Text = _fileData.FileName;
+            //ImageUrlEntry.IsEnabled = false;
+            RemoveFileButton.IsVisible = true;
+
+            Image.Source = new StreamImageSource
+            {
+                Stream = GetImageStream
+            };
         }
 
         private Task<Stream> GetImageStream(CancellationToken arg)

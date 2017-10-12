@@ -248,6 +248,11 @@ namespace UrbanSketchers
             return null;
         }
 
+        /// <summary>
+        /// Insert or update the sketch
+        /// </summary>
+        /// <param name="item">the sketch</param>
+        /// <returns>an async task</returns>
         public async Task SaveAsync(Sketch item)
         {
             item.Sector = CustomIndexing.LatLonToSector(item.Latitude, item.Longitude, CustomIndexing.SectorSize);

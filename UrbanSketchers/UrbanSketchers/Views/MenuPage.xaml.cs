@@ -104,25 +104,32 @@ namespace UrbanSketchers.Views
 
         private async Task UpdateUserAsync()
         {
-            var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
-
-            if (person == null)
+            try
             {
-                UserImage.Source = new FileImageSource
-                {
-                    File = "Assets/SignedIn.png"
-                };
+                var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
-                UserName.Text = "Sign out";
+                if (person == null)
+                {
+                    UserImage.Source = new FileImageSource
+                    {
+                        File = "Assets/SignedIn.png"
+                    };
+
+                    UserName.Text = "Sign out";
+                }
+                else
+                {
+                    UserImage.Source = new UriImageSource
+                    {
+                        Uri = new Uri(person.ImageUrl)
+                    };
+
+                    UserName.Text = person.Name;
+                }
             }
-            else
+            catch (Exception)
             {
-                UserImage.Source = new UriImageSource
-                {
-                    Uri = new Uri(person.ImageUrl)
-                };
-
-                UserName.Text = person.Name;
+                // ignored
             }
         }
 

@@ -43,6 +43,7 @@
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\ConnectedImage.cs" />
+    <Compile Include="Controls\DrawingCanvas.cs" />
     <Compile Include="Controls\SketchMap.cs" />
     <Compile Include="Controls\SketchPin.cs" />
     <Compile Include="Data\BaseDataObject.cs" />
@@ -76,6 +77,9 @@
     <Compile Include="TypedEventArgs.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DrawingPage.xaml.cs">
+      <DependentUpon>DrawingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditPersonView.xaml.cs">
       <DependentUpon>EditPersonView.xaml</DependentUpon>
@@ -190,6 +194,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\AboutPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\DrawingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

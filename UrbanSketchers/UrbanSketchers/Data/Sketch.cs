@@ -82,7 +82,9 @@ namespace UrbanSketchers.Data
 
             set => SetProperty(ref _address, value);
         }
-
+        /// <summary>
+        /// Gets the name of the sketch's creator
+        /// </summary>
         public string CreatedByName { get; set; }
 
         /// <summary>

@@ -10,6 +10,8 @@ namespace UrbanSketchers.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RootPage
     {
+        private bool _isFirst = true;
+
         /// <summary>
         /// Initializes a new instance of the RootPage class.
         /// </summary>
@@ -41,15 +43,20 @@ namespace UrbanSketchers.Views
         {
             base.OnAppearing();
 
-            var mapPage = new MapPage();
-
-            if (Detail is NavigationPage navigation)
+            if (_isFirst)
             {
-                var homePage = navigation.Navigation.NavigationStack.First();
+                var mapPage = new MapPage();
 
-                navigation.Navigation.InsertPageBefore(mapPage, homePage);
+                if (Detail is NavigationPage navigation)
+                {
+                    var homePage = navigation.Navigation.NavigationStack.First();
 
-                await navigation.PopToRootAsync(false);
+                    navigation.Navigation.InsertPageBefore(mapPage, homePage);
+
+                    await navigation.PopToRootAsync(false);
+                }
+
+                _isFirst = false;
             }
         }
     }

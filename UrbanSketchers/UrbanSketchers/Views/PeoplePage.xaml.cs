@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
@@ -20,11 +21,21 @@ namespace UrbanSketchers.Views
 
         public ObservableCollection<Person> Items { get; set; }
 
+        /// <summary>
+        /// Refresh the people
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            await RefreshAsync();
+            try
+            {
+                await RefreshAsync();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
 
         private async Task RefreshAsync()

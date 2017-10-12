@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:UrbanSketchers.Controls"
+             Title="Draw a Sketch"
+             x:Class="UrbanSketchers.Views.DrawingPage">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
+            <controls:DrawingCanvas x:Name="DrawingCanvas" BackgroundColor="LightCyan"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start" Margin="4">
+                <Button Text="Accept" Clicked="OnAccept"/>
+                <Button Text="Cancel" Clicked="OnCancel"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

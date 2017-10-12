@@ -3,17 +3,18 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using UrbanSketchers;
 using UrbanSketchers.Data;
-using Windows.UI.Xaml.Controls;
 
 namespace UWP
 {
@@ -25,8 +26,12 @@ namespace UWP
         private readonly MobileServiceInit _mobileServiceInit;
         private readonly Sketch _sketch;
         private MemoryStream _imageStream;
+        private bool _isAdding;
         private ShareOperation _shareOperation;
 
+        /// <summary>
+        /// Initializes a new instance of the ShareTargetPage class.
+        /// </summary>
         public ShareTargetPage()
         {
             InitializeComponent();
@@ -39,8 +44,20 @@ namespace UWP
             DataContext = _sketch;
 
             _mobileServiceInit = new MobileServiceInit();
+
+            _mobileServiceInit.SignedIn += _mobileServiceInit_SignedIn;
         }
 
+        private async void _mobileServiceInit_SignedIn(object sender, EventArgs e)
+        {
+            if (_isAdding)
+                await AddAsync();
+        }
+
+        /// <summary>
+        /// Navigate to the page
+        /// </summary>
+        /// <param name="e">the navigation event arguments</param>
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             _shareOperation = e.Parameter as ShareOperation;
@@ -104,9 +121,7 @@ namespace UWP
             }
 
             if (_imageStream == null)
-            {
                 AddButton.IsEnabled = false;
-            }
 
             base.OnNavigatedTo(e);
         }
@@ -119,6 +134,18 @@ namespace UWP
 
         private async void OnAdd(object sender, RoutedEventArgs e)
         {
+            if (!_mobileServiceInit.Authenticate())
+            {
+                _isAdding = true;
+
+                return;
+            }
+
+            await AddAsync();
+        }
+
+        private async Task AddAsync()
+        {
             ProgressRing.IsActive = true;
 
             AddButton.IsEnabled = false;
@@ -129,26 +156,23 @@ namespace UWP
 
             try
             {
-                if (_mobileServiceInit.Authenticate())
-                {
-                    ProgressBar.Value = 33;
+                ProgressBar.Value = 33;
 
-                    var filename = string.Format(
-                        CultureInfo.InvariantCulture,
-                        "{0}{1}",
-                        Guid.NewGuid().ToString(),
-                        ".bmp");
+                var filename = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "{0}{1}",
+                    Guid.NewGuid().ToString(),
+                    ".bmp");
 
-                    _sketch.ImageUrl = await SketchManager.DefaultManager.UploadAsync(filename, _imageStream);
+                _sketch.ImageUrl = await SketchManager.DefaultManager.UploadAsync(filename, _imageStream);
 
-                    ProgressBar.Value = 66;
+                ProgressBar.Value = 66;
 
-                    await SketchManager.DefaultManager.SaveAsync(_sketch);
+                await SketchManager.DefaultManager.SaveAsync(_sketch);
 
-                    ProgressBar.Value = 100;
+                ProgressBar.Value = 100;
 
-                    _shareOperation.ReportCompleted();
-                }
+                _shareOperation.ReportCompleted();
             }
             catch (Exception exception)
             {

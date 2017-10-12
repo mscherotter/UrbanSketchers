@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UrbanSketchers.Data
+﻿namespace UrbanSketchers.Data
 {
     /// <summary>
-    /// A sketch rating
+    ///     A sketch rating
     /// </summary>
     public class Rating : BaseDataObject
     {
@@ -20,12 +14,12 @@ namespace UrbanSketchers.Data
         public bool IsHeart { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the rating is a violation of terms
+        ///     Gets or sets a value indicating whether the rating is a violation of terms
         /// </summary>
         public bool IsViolation { get; set; }
 
         /// <summary>
-        /// Gets or sets the Person.Name
+        ///     Gets or sets the Person.Name
         /// </summary>
         public string PersonName { get; set; }
     }
