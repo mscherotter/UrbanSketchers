@@ -63,18 +63,18 @@
             </Grid.ColumnDefinitions>
             <StackLayout Padding="4">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue">
+                    <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue" Style="{DynamicResource CaptionStyle}">
                         <Label.GestureRecognizers>
                            <TapGestureRecognizer Tapped="OnTappedName"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label Text="{Binding CreationDate, StringFormat='on {0:d}'}"/>
+                    <Label Text="{Binding CreationDate, StringFormat='on {0:d}'}" Style="{DynamicResource CaptionStyle}"/>
                 </StackLayout>
-                <Label Text="{Binding Description}"/>
-                <Label Text="{Binding Address}" />
+                <Label Text="{Binding Description}" Style="{DynamicResource CaptionStyle}"/>
+                <Label Text="{Binding Address}" Style="{DynamicResource CaptionStyle}" />
             </StackLayout>
             <Grid Grid.Row="1" Grid.Column="0" Padding="4">
-                <controls:ConnectedImage  Source="{Binding ImageUrl}" x:Name="Image"/>
+                <controls:ConnectedImage  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
             </Grid>
             <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" />
             <StackLayout x:Name="CommentPanel" IsVisible="False" Padding="4" Grid.Row="2" Grid.Column="0">

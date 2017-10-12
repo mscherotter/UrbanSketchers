@@ -30,12 +30,18 @@ namespace UrbanSketchers.Views
             PropertyChanged += EditSketchView_PropertyChanged;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the map is visible
+        /// </summary>
         public bool IsMapVisible
         {
-            get { return Map.IsVisible; }
-            set { Map.IsVisible = value; }
+            get => Map.IsVisible;
+            set => Map.IsVisible = value;
         }
 
+        /// <summary>
+        /// Gets or sets the image stream filled by a modal page (like the DrawingPage)
+        /// </summary>
         public Stream ImageStream { get; set; }
 
         private async void EditSketchView_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -82,6 +88,9 @@ namespace UrbanSketchers.Views
         /// </summary>
         public event EventHandler Canceled;
 
+        /// <summary>
+        /// should the sketch be uploaded?
+        /// </summary>
         public Func<Sketch, Task<bool>> ShouldUpload;
 
         private async void OnAdd(object sender, EventArgs e)

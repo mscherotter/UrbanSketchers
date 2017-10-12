@@ -10,7 +10,7 @@ using UrbanSketchers.Controls;
 namespace UWP
 {
     /// <summary>
-    ///     Drawing control
+    ///     Drawing control with an InkCanvas and InkToolbar
     /// </summary>
     public sealed partial class DrawingControl
     {
@@ -47,7 +47,7 @@ namespace UWP
             {
                 using (var ds = offscreen.CreateDrawingSession())
                 {
-                    if (this.Background is SolidColorBrush brush)
+                    if (Background is SolidColorBrush brush)
                     {
                         ds.Clear(brush.Color);    
                     }

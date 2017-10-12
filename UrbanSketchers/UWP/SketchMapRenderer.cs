@@ -1,39 +1,44 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
-using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.Web.Http;
+using Windows.UI.Xaml.Media.Imaging;
 using UrbanSketchers.Controls;
 using UWP;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.UWP;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
 
 [assembly: ExportRenderer(typeof(SketchMap), typeof(SketchMapRenderer))]
 
 namespace UWP
 {
+    /// <summary>
+    ///     <see cref="SketchMap" /> renderer for UWP Platform
+    /// </summary>
     public class SketchMapRenderer : MapRenderer
     {
         private MapControl _nativeMap;
-        private Canvas _sourceCanvas;
         private ObservableCollection<SketchPin> _pins;
+        private Canvas _sourceCanvas;
         private Image _sourceImage;
 
-        protected override async void OnElementChanged(ElementChangedEventArgs<Map> e)
+        /// <summary>
+        ///     Map element changed
+        /// </summary>
+        /// <param name="e">the element changed event arguments</param>
+        protected override void OnElementChanged(ElementChangedEventArgs<Map> e)
         {
             base.OnElementChanged(e);
 
@@ -60,7 +65,7 @@ namespace UWP
 
                 _sourceImage = new Image
                 {
-                    IsHitTestVisible = false,
+                    IsHitTestVisible = false
                     //Visibility = Visibility.Collapsed
                 };
 
@@ -88,63 +93,63 @@ namespace UWP
             }
         }
 
-        private async Task<RandomAccessStreamReference> ResizeImageAsync(string uri)
-        {
-            if (string.IsNullOrWhiteSpace(uri))
-            {
-                return null;
-            }
+        //private async Task<RandomAccessStreamReference> ResizeImageAsync(string uri)
+        //{
+        //    if (string.IsNullOrWhiteSpace(uri))
+        //    {
+        //        return null;
+        //    }
 
-            if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
-            {
-                return null;
-            }
+        //    if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
+        //    {
+        //        return null;
+        //    }
 
-            double maxSize = 300;
+        //    double maxSize = 300;
 
-            if (Element is SketchMap sketchMap)
-                maxSize = sketchMap.MaxImageSize;
+        //    if (Element is SketchMap sketchMap)
+        //        maxSize = sketchMap.MaxImageSize;
 
-            using (var client = new HttpClient())
-            {
-                using (var response = await client.GetAsync(new Uri(uri)))
-                {
-                    using (var inputStream = new InMemoryRandomAccessStream())
-                    {
-                        await response.Content.WriteToStreamAsync(inputStream.GetOutputStreamAt(0));
+        //    using (var client = new HttpClient())
+        //    {
+        //        using (var response = await client.GetAsync(new Uri(uri)))
+        //        {
+        //            using (var inputStream = new InMemoryRandomAccessStream())
+        //            {
+        //                await response.Content.WriteToStreamAsync(inputStream.GetOutputStreamAt(0));
 
-                        var imageStream = inputStream.AsStreamForRead();
+        //                var imageStream = inputStream.AsStreamForRead();
 
-                        try
-                        {
-                            var decoder = await BitmapDecoder.CreateAsync(imageStream.AsRandomAccessStream());
+        //                try
+        //                {
+        //                    var decoder = await BitmapDecoder.CreateAsync(imageStream.AsRandomAccessStream());
 
-                        
-                            var size = Math.Max(decoder.PixelHeight, decoder.PixelWidth);
 
-                            var scale = maxSize / Convert.ToDouble(size);
+        //                    var size = Math.Max(decoder.PixelHeight, decoder.PixelWidth);
 
-                            var memStream = new InMemoryRandomAccessStream();
+        //                    var scale = maxSize / Convert.ToDouble(size);
 
-                            var encoder = await BitmapEncoder.CreateForTranscodingAsync(memStream, decoder);
+        //                    var memStream = new InMemoryRandomAccessStream();
 
-                            encoder.BitmapTransform.ScaledWidth = Convert.ToUInt32(decoder.PixelWidth * scale);
-                            encoder.BitmapTransform.ScaledHeight = Convert.ToUInt32(decoder.PixelHeight * scale);
+        //                    var encoder = await BitmapEncoder.CreateForTranscodingAsync(memStream, decoder);
 
-                            await encoder.FlushAsync();
+        //                    encoder.BitmapTransform.ScaledWidth = Convert.ToUInt32(decoder.PixelWidth * scale);
+        //                    encoder.BitmapTransform.ScaledHeight = Convert.ToUInt32(decoder.PixelHeight * scale);
 
-                            return RandomAccessStreamReference.CreateFromStream(memStream);
-                        }
-                        catch (Exception e)
-                        {
-                            System.Diagnostics.Debug.WriteLine($"Could not decode {uri}: {e.Message}.");
+        //                    await encoder.FlushAsync();
 
-                            return null;
-                        }
-                    }
-                }
-            }
-        }
+        //                    return RandomAccessStreamReference.CreateFromStream(memStream);
+        //                }
+        //                catch (Exception e)
+        //                {
+        //                    System.Diagnostics.Debug.WriteLine($"Could not decode {uri}: {e.Message}.");
+
+        //                    return null;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         private void UpdatePinsAsync()
         {
@@ -162,7 +167,9 @@ namespace UWP
 
                 var point = new Geopoint(position);
 
-                var pinImage = string.IsNullOrWhiteSpace(pin.Url) ? null : RandomAccessStreamReference.CreateFromUri(new Uri(pin.Url));
+                var pinImage = string.IsNullOrWhiteSpace(pin.Url)
+                    ? null
+                    : RandomAccessStreamReference.CreateFromUri(new Uri(pin.Url));
 
                 var mapIcon = new MapIcon
                 {
@@ -194,7 +201,7 @@ namespace UWP
                     await bitmapImage.SetSourceAsync(await icon.Image.OpenReadAsync());
 
                     _sourceImage.Visibility = Visibility.Visible;
-                    
+
                     _sourceImage.Source = bitmapImage;
 
                     Point point;
@@ -204,8 +211,17 @@ namespace UWP
                     Canvas.SetLeft(_sourceImage, point.X - bitmapImage.PixelWidth / 2.0);
 
                     Canvas.SetTop(_sourceImage, point.Y - bitmapImage.PixelHeight);
-                    
-                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("image", _sourceImage);
+
+                    var animationService = ConnectedAnimationService.GetForCurrentView();
+
+                    try
+                    {
+                        animationService.PrepareToAnimate("image", _sourceImage);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"Error preparing animation: " + e.Message);
+                    }
 
                     sketchPin.InvokeClick();
 
