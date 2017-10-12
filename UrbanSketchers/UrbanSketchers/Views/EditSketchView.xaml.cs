@@ -108,11 +108,20 @@ namespace UrbanSketchers.Views
                     }
                 }
 
-                await SketchManager.DefaultManager.SaveAsync(sketch);
+                try
+                {
+
+                    await SketchManager.DefaultManager.SaveAsync(sketch);
+                    SketchSaved?.Invoke(this, new TypedEventArgs<Sketch>(sketch));
+                }
+                catch (Exception exception)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error saving sketch: " + exception.Message);
+
+                    return;
+                }
 
                 IsVisible = false;
-
-                SketchSaved?.Invoke(this, new TypedEventArgs<Sketch>(sketch));
 
                 ClearFileData();
             }

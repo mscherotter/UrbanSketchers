@@ -25,6 +25,11 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="urbansketchesauth">
+            <uap:DisplayName>ms-resource:AuthProtocolDisplayName</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget Description="ms-resource:ShareDescription">
             <uap:SupportedFileTypes>
@@ -34,11 +39,6 @@
             </uap:SupportedFileTypes>
             <uap:DataFormat>Bitmap</uap:DataFormat>
           </uap:ShareTarget>
-        </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="urbansketchersauth">
-            <uap:DisplayName>ms-resource:AuthProtocolDisplayName</uap:DisplayName>
-          </uap:Protocol>
         </uap:Extension>
       </Extensions>
     </Application>

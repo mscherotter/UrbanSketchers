@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="MapIconProperties.cs" />
     <Compile Include="MobileServiceInit.cs" />
+    <Compile Include="PinToStartCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShareTargetPage.xaml.cs">
       <DependentUpon>ShareTargetPage.xaml</DependentUpon>
@@ -140,8 +141,10 @@
     <Content Include="Assets\FilledHeart.png" />
     <Content Include="Assets\LocateMe.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\PinToStart.png" />
     <Content Include="Assets\Refresh.png" />
     <Content Include="Assets\Share.png" />
+    <Content Include="Assets\SignedIn.png" />
     <Content Include="Assets\SignIn.png" />
     <Content Include="Assets\Sketches.png" />
     <Content Include="Assets\SketchMap.png" />

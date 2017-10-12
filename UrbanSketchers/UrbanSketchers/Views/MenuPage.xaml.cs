@@ -1,15 +1,20 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using UrbanSketchers.Commands;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    ///     Menu page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage
     {
         /// <summary>
-        /// Initializes a new instance of the MenuPage class.
+        ///     Initializes a new instance of the MenuPage class.
         /// </summary>
         public MenuPage()
         {
@@ -19,6 +24,7 @@ namespace UrbanSketchers.Views
             string urbanSketchersIcon = null;
             string sketchesIcon = null;
             string aboutIcon = null;
+            string pinToStartIcon = null;
 
             switch (Device.RuntimePlatform)
             {
@@ -27,6 +33,7 @@ namespace UrbanSketchers.Views
                     urbanSketchersIcon = "Assets/UrbanSketchers.png";
                     sketchesIcon = "Assets/Sketches.png";
                     aboutIcon = "Assets/About.png";
+                    pinToStartIcon = "Assets/PinToStart.png";
                     break;
             }
 
@@ -49,29 +56,73 @@ namespace UrbanSketchers.Views
                     Label = Properties.Resources.UrbanSketchers,
                     Command = new NavigationCommand<PeoplePage>(),
                     Icon = urbanSketchersIcon
-                },
-                new NavigationMenuItem
+                }
+            });
+
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                Items.Add(new NavigationMenuItem
+                {
+                    Label = "Pin to start",
+                    Icon = pinToStartIcon,
+                    Command = App.PinToStartCommand
+                });
+            }
+
+            Items.Add(new NavigationMenuItem
                 {
                     Label = Properties.Resources.AboutUrbanSketches,
                     Icon = aboutIcon,
                     Command = new NavigationCommand<AboutPage>()
                 }
-            });
+            );
 
             BindingContext = this;
+
+            App.Authenticator.SignedIn += Authenticator_SignedIn;
         }
 
+        /// <summary>
+        ///     Gets the navigation menu items
+        /// </summary>
         public ObservableCollection<NavigationMenuItem> Items { get; }
 
-        private void OnItemTapped(object sender, ItemTappedEventArgs e)
+        /// <summary>
+        ///     Update the user
+        /// </summary>
+        protected override async void OnAppearing()
         {
-            if (e.Item is NavigationMenuItem item)
-            {
-                if (item.Command.CanExecute(null))
-                    item.Command.Execute(null);
+            base.OnAppearing();
 
-                if (sender is ListView listView)
-                    listView.SelectedItem = null;
+            await UpdateUserAsync();
+        }
+
+        private async void Authenticator_SignedIn(object sender, EventArgs e)
+        {
+            await UpdateUserAsync();
+        }
+
+        private async Task UpdateUserAsync()
+        {
+            var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+            if (person == null)
+            {
+                UserImage.Source = new FileImageSource
+                {
+                    File = "Assets/SignedIn.png"
+                };
+
+                UserName.Text = "Sign out";
+            }
+            else
+            {
+                UserImage.Source = new UriImageSource
+                {
+                    Uri = new Uri(person.ImageUrl)
+                };
+
+                UserName.Text = person.Name;
             }
         }
 
@@ -85,6 +136,11 @@ namespace UrbanSketchers.Views
                 if (sender is ListView listView)
                     listView.SelectedItem = null;
             }
+        }
+
+        private void SignIn(object sender, EventArgs e)
+        {
+            App.Authenticator.Authenticate();
         }
     }
 }

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UrbanSketchers.Views.MenuPage"
-             Title ="Urban Sketchers">
+             Title ="Urban Sketches">
     <ContentPage.Resources>
         <!--<DataTemplate x:Key="ItemTemplate">
             <ViewCell IsEnabled="{Binding IsEnabled}">
@@ -24,17 +24,18 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListView ItemsSource="{Binding Items}" ItemSelected="OnItemSelected" RowHeight="48">
+            <ListView ItemsSource="{Binding Items}" ItemSelected="OnItemSelected" RowHeight="32">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell IsEnabled="{Binding IsEnabled}">
                             <Grid Padding="4">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="48"/>
+                                    <ColumnDefinition Width="32"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Icon}" VerticalOptions="FillAndExpand"/>
+                                <Image Margin="4" Source="{Binding Icon}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
                                 <StackLayout Grid.Column="1" Padding="4,0,0,0" VerticalOptions="Center">
                                     <Label Text="{Binding Label}"/>
                                 </StackLayout>
@@ -43,6 +44,17 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Grid Grid.Row="2" Margin="4">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SignIn"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image WidthRequest="28" HeightRequest="28" Source="Assets/SignIn.png" x:Name="UserImage"/>
+                <Label Margin="4" VerticalOptions="Center" x:Name="UserName" Grid.Column="1" Text="Sign in"/>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

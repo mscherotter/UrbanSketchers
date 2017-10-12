@@ -16,8 +16,6 @@ namespace UrbanSketchers.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage
     {
-        private bool _authenticated;
-
         //private string _personId;
         private Sketch _sketch;
 
@@ -106,10 +104,15 @@ namespace UrbanSketchers.Views
 
         private async void OnAddSketch(object sender, EventArgs e)
         {
-            if (!_authenticated)
-                _authenticated = await App.Authenticator.AuthenticateAsync();
+            if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+            {
+                var authenticated = App.Authenticator.Authenticate();
 
-            if (!_authenticated) return;
+                if (!authenticated)
+                {
+                    return;
+                }
+            }
 
             //if (string.IsNullOrWhiteSpace(_personId))
             //{

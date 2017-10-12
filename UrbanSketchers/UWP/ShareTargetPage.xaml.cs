@@ -129,7 +129,7 @@ namespace UWP
 
             try
             {
-                if (await _mobileServiceInit.AuthenticateAsync())
+                if (_mobileServiceInit.Authenticate())
                 {
                     ProgressBar.Value = 33;
 

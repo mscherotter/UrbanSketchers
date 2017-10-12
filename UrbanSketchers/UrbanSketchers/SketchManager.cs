@@ -258,6 +258,11 @@ namespace UrbanSketchers
                 await _sketchTable.UpdateAsync(item);
         }
 
+        /// <summary>
+        /// Insert or update a Person
+        /// </summary>
+        /// <param name="item">a person</param>
+        /// <returns>an async task</returns>
         public async Task SaveAsync(Person item)
         {
             if (item.Id == null)

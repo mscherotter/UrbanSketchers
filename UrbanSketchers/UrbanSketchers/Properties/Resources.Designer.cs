@@ -163,6 +163,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign in.
+        /// </summary>
+        internal static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sketches.
         /// </summary>
         internal static string Sketches {

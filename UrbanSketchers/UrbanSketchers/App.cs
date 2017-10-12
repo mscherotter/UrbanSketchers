@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
@@ -10,7 +12,9 @@ namespace UrbanSketchers
 {
     public interface IAuthenticate
     {
-        Task<bool> AuthenticateAsync();
+        bool Authenticate();
+
+        event EventHandler SignedIn;
     }
 
     public interface IThumbnailGenerator
@@ -64,6 +68,11 @@ namespace UrbanSketchers
         public static NavigationPage NavigationPage { get; private set; }
 
         public static IAuthenticate Authenticator { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the pin to start command
+        /// </summary>
+        public static ICommand PinToStartCommand { get; set; }
 
         public static void Init(IAuthenticate authenticator)
         {

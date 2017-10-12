@@ -104,7 +104,7 @@ namespace UrbanSketchers.Views
         {
             if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
             {
-                var authenticated = await App.Authenticator.AuthenticateAsync();
+                var authenticated = App.Authenticator.Authenticate();
 
                 if (!authenticated)
                     return;
@@ -176,7 +176,7 @@ namespace UrbanSketchers.Views
             var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
             if (person == null)
-                if (await App.Authenticator.AuthenticateAsync())
+                if (App.Authenticator.Authenticate())
                     person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
             if (person == null)

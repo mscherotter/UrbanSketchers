@@ -2,9 +2,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Security.Authentication.Web.Core;
 using Windows.Security.Credentials;
 using Windows.Storage;
+using Windows.UI.ApplicationSettings;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
 using Xamarin;
@@ -14,21 +18,30 @@ namespace UWP
     /// <summary>
     ///     An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : IAuthenticate
+    public sealed partial class MainPage
     {
-        private const string UriScheme = "urbansketchersauth";
+        private const string UriScheme = "urbansketchesauth";
 
-        private MobileServiceUser _user;
+        //private MobileServiceUser _user;
 
-        private readonly PasswordVault _passwordVault;
+        //private readonly PasswordVault _passwordVault;
 
+        //public event EventHandler SignedIn;
+
+        private readonly MobileServiceInit _mobileServiceInit = new MobileServiceInit();
+
+        /// <summary>
+        /// Initializes a new instance of the MainPage class.
+        /// </summary>
         public MainPage()
         {
-            _passwordVault = new PasswordVault();
+            //_passwordVault = new PasswordVault();
 
             InitializeComponent();
 
-            UrbanSketchers.App.Init(this);
+            UrbanSketchers.App.Init(this._mobileServiceInit);
+
+            UrbanSketchers.App.PinToStartCommand = new PinToStartCommand();
 
             SketchManager.DefaultManager.ThumbnailGenerator = new ThumbnailGenerator();
 
@@ -37,80 +50,127 @@ namespace UWP
             var bingMapsKey = Application.Current.Resources["BingMapsKey"].ToString();
 
             FormsMaps.Init(bingMapsKey);
-
-            InitializeMobileService();
         }
 
-        private bool InitializeMobileService()
-        {
-            var resourceName = MobileServiceAuthenticationProvider.Facebook.ToString();
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested += MainPage_AccountCommandsRequested;
+        //}
 
-            try
-            {
-                var credentials = _passwordVault.FindAllByResource(resourceName);
+        //protected override void OnNavigatedFrom(NavigationEventArgs e)
+        //{
+        //    AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested -= MainPage_AccountCommandsRequested;
+        //}
 
-                var credential = credentials.FirstOrDefault();
+        //private async void MainPage_AccountCommandsRequested(AccountsSettingsPane sender, AccountsSettingsPaneCommandsRequestedEventArgs args)
+        //{
+        //    var deferral = args.GetDeferral();
 
-                if (credential != null)
-                {
-                    var user = new MobileServiceUser(credential.UserName);
+        //    var msaProvider =
+        //        await WebAuthenticationCoreManager.FindAccountProviderAsync("https://login.microsoft.com", "consumers");
 
-                    credential.RetrievePassword();
+        //    var command = new WebAccountProviderCommand(msaProvider, GetMsaTokenAsync);
 
-                    user.MobileServiceAuthenticationToken = credential.Password;
+        //    args.WebAccountProviderCommands.Add(command);
 
-                    _user = user;
+        //    var facebookProvider =
+        //        await WebAuthenticationCoreManager.FindAccountProviderAsync("https://www.facebook.com");
 
-                    SketchManager.DefaultManager.CurrentClient.CurrentUser = _user;
+        //    args.WebAccountProviderCommands.Add (new WebAccountProviderCommand(facebookProvider, FacebookLogin));
 
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                // Exception is thrown if no credentials are found
-            }
+        //    deferral.Complete();
+        //}
 
-            return false;
-        }
+        //private async void FacebookLogin(WebAccountProviderCommand command)
+        //{
+        //    await LoginAsync(MobileServiceAuthenticationProvider.Facebook);
+        //}
+
+        //private async void GetMsaTokenAsync(WebAccountProviderCommand command)
+        //{
+        //    await LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
+        //}
+
+        //private async Task LoginAsync(MobileServiceAuthenticationProvider provider)
+        //{ 
+        //    try
+        //    {
+        //        var resourceName = provider.ToString();
+
+        //        _user = await SketchManager.DefaultManager.CurrentClient.LoginAsync(
+        //            provider, UriScheme);
+
+        //        if (_user != null)
+        //        {
+        //            var credential = new PasswordCredential(
+        //                resourceName,
+        //                _user.UserId,
+        //                _user.MobileServiceAuthenticationToken);
+
+        //            _passwordVault.Add(credential);
+
+        //            ApplicationData.Current.LocalSettings.Values["MobileServiceAuthenticationProvider"] = resourceName;
+
+        //            SignedIn?.Invoke(this, new EventArgs());
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        // ignored
+        //    }
+        //}
+
+        //private bool InitializeMobileService()
+        //{
+        //    if (!ApplicationData.Current.LocalSettings.Values.TryGetValue("MobileServiceAuthenticationProvider",
+        //        out object value)) return false;
+
+        //    var resourceName = value.ToString();
+
+        //    try
+        //    {
+        //        var credentials = _passwordVault.FindAllByResource(resourceName);
+
+        //        var credential = credentials.FirstOrDefault();
+
+        //        if (credential != null)
+        //        {
+        //            var user = new MobileServiceUser(credential.UserName);
+
+        //            credential.RetrievePassword();
+
+        //            user.MobileServiceAuthenticationToken = credential.Password;
+
+        //            _user = user;
+
+        //            SketchManager.DefaultManager.CurrentClient.CurrentUser = _user;
+
+        //            return true;
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        // Exception is thrown if no credentials are found
+        //    }
+
+        //    return false;
+        //}
 
         /// <summary>
         /// Authenticate the mobile app with Facebook.
         /// </summary>
         /// <returns>an async task with a boolean value indicating whether the authentication was successful.</returns>
-        public async Task<bool> AuthenticateAsync()
-        {
-            if (InitializeMobileService())
-            {
-                return true;
-            }
+        //public bool Authenticate()
+        //{
+        //    if (_mobileServiceInit.Initialize())
+        //    {
+        //        return true;
+        //    }
 
-            try
-            {
-                var resourceName = MobileServiceAuthenticationProvider.Facebook.ToString();
+        //    AccountsSettingsPane.Show();
 
-                _user = await SketchManager.DefaultManager.CurrentClient.LoginAsync(
-                    MobileServiceAuthenticationProvider.Facebook, UriScheme);
-
-                if (_user != null)
-                {
-                    var credential = new PasswordCredential(
-                        resourceName,
-                        _user.UserId, 
-                        _user.MobileServiceAuthenticationToken);
-
-                    _passwordVault.Add(credential);
-
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            return false;
-        }
+        //    return false;
+        //}
 
         private void UIElement_OnDrop(object sender, DragEventArgs e)
         {
