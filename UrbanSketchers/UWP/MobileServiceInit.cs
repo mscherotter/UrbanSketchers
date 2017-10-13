@@ -140,5 +140,42 @@ namespace UWP
                 // ignored
             }
         }
+
+        public async Task LogoutAsync()
+        {
+            if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+            {
+                return;
+            }
+
+            await SketchManager.DefaultManager.CurrentClient.LogoutAsync();
+
+            if (ApplicationData.Current.LocalSettings.Values.TryGetValue("MobileServiceAuthenticationProvider",
+                out object value))
+            {
+                try
+                {
+                    var resourceName = value.ToString();
+
+                    var credentials = _passwordVault.FindAllByResource(resourceName);
+
+                    var credential = credentials.FirstOrDefault();
+
+                    if (credential != null)
+                    {
+                        _passwordVault.Remove(credential);
+                    }
+                    var keyValue = (from item in ApplicationData.Current.LocalSettings.Values
+                        where item.Key == "MobileServiceAuthenticationProvider"
+                        select item).FirstOrDefault();
+
+                    ApplicationData.Current.LocalSettings.Values.Remove(keyValue);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+        }
     }
 }

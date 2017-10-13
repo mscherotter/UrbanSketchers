@@ -1,14 +1,20 @@
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
+using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
-//using Application = Windows.UI.Xaml.Application;
 
 namespace UWP
 {
@@ -47,16 +53,171 @@ namespace UWP
             Window.Current.Activate();
         }
 
+        /// <summary>
+        ///     Background activated
+        /// </summary>
+        /// <param name="args">the background activated event arguments</param>
+        protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails details)
+                details.AppServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
+        }
+
+        private async void AppServiceConnection_RequestReceived(AppServiceConnection sender,
+            AppServiceRequestReceivedEventArgs args)
+        {
+            var deferral = args.GetDeferral();
+
+            var request = args.Request;
+
+            var message = request.Message;
+
+            if (message.TryGetValue("Method", out object value))
+            {
+                var method = value.ToString();
+
+                if (method == "Upload")
+                    await UploadAsync(request, message);
+                else
+                    await SendFailureResponseAsync(request, "The only valid Method is 'Upload'");
+            }
+            else
+            {
+                await SendFailureResponseAsync(request, "The Message must contain a Method, FileToken and Title");
+            }
+
+            deferral.Complete();
+        }
+
+        private static async Task SendFailureResponseAsync(AppServiceRequest request, string message)
+        {
+            var response = new ValueSet
+            {
+                ["ErrorMessage"] = message,
+                ["Succeeded"] = false
+            };
+
+            await request.SendResponseAsync(response);
+        }
+
+    ////async Task UploadAsync(StorageFile fileToUpload)
+    ////{
+    ////    using (var connection = new AppServiceConnection
+    ////    {
+    ////        AppServiceName = "Upload.1",
+    ////        PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm"
+    ////    })
+    ////    {
+    ////        var status = await connection.OpenAsync();
+
+    ////        if (status == AppServiceConnectionStatus.Success)
+    ////        {
+    ////            var message = new ValueSet
+    ////            {
+    ////                ["Method"] = "Upload",
+    ////                ["Title"] = "A sketch",
+    ////                ["Address"] = "Optional address",
+    ////                ["CreationDate"] = DateTime.UtcNow,
+    ////                ["Description"] = "Optional description",
+    ////                ["FileToken"] = SharedStorageAccessManager.AddFile(fileToUpload),
+    ////                ["Latitude"] = 40.0,
+    ////                ["Longitude"] = 100.3
+    ////            };
+
+    ////            var response = await connection.SendMessageAsync(message);
+
+    ////            bool succeeded = (bool) response.Message["Success"];
+    ////        }
+    ////    }
+    ////}
+
+        /// <summary>
+        /// Upload 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        private static async Task UploadAsync(AppServiceRequest request, ValueSet message)
+        {
+            var sketch = new Sketch
+            {
+                CreationDate = DateTime.UtcNow
+            };
+
+            if (message.TryGetValue("Title", out object title))
+                sketch.Title = title.ToString();
+
+            if (message.TryGetValue("CreationDate", out object dateCreated))
+                sketch.CreationDate = (DateTime) dateCreated;
+
+            if (message.TryGetValue("Address", out object address))
+                sketch.Address = address.ToString();
+
+            if (message.TryGetValue("Latitude", out object latitude))
+                sketch.Latitude = (double) latitude;
+
+            if (message.TryGetValue("Longitude", out object longitude))
+                sketch.Longitude = (double) longitude;
+
+            if (message.TryGetValue("Description", out object description))
+                sketch.Description = description.ToString();
+
+            
+            StorageFile file = null;
+
+            if (message.TryGetValue("FileToken", out object fileToken))
+                file = await SharedStorageAccessManager.RedeemTokenForFileAsync(fileToken.ToString());
+
+            if (string.IsNullOrWhiteSpace(sketch.Title) || file == null)
+            {
+                await SendFailureResponseAsync(request, "The Message must contain a FileToken and Title");
+            }
+            else
+            {
+                using (var stream = await file.OpenStreamForReadAsync())
+                {
+                    try
+                    {
+                        sketch.ImageUrl = await SketchManager.DefaultManager.UploadAsync(file.Name, stream);
+
+                        await SketchManager.DefaultManager.SaveAsync(sketch);
+                    }
+                    catch (Exception e)
+                    {
+                        await SendFailureResponseAsync(request, e.Message);
+
+                        return;
+                    }
+                }
+
+                var response = new ValueSet
+                {
+                    ["Succeeded"] = true
+                };
+
+                await request.SendResponseAsync(response);
+            }
+        }
+
+        /// <summary>
+        ///     Activated
+        /// </summary>
+        /// <param name="args">the activated event arguments</param>
         protected override void OnActivated(IActivatedEventArgs args)
         {
             base.OnActivated(args);
 
-            if (args.Kind == ActivationKind.Protocol)
-                if (args is ProtocolActivatedEventArgs protocolArgs)
-                    SketchManager.DefaultManager.CurrentClient.ResumeWithURL(protocolArgs.Uri);
+            switch (args.Kind)
+            {
+                case ActivationKind.Protocol:
+                    if (args is ProtocolActivatedEventArgs protocolArgs)
+                        if (protocolArgs.Uri.ToString().StartsWith("urbansketchesauth:"))
+                            SketchManager.DefaultManager.CurrentClient.ResumeWithURL(protocolArgs.Uri);
+                    break;
+            }
         }
 
-        Frame CreateRootFrame(LaunchActivatedEventArgs e)
+        private Frame CreateRootFrame(LaunchActivatedEventArgs e)
         {
             var rootFrame = Window.Current.Content as Frame;
 
@@ -86,6 +247,10 @@ namespace UWP
             return rootFrame;
         }
 
+        /// <summary>
+        ///     Share target activated
+        /// </summary>
+        /// <param name="args">the share target activated event arguments</param>
         protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
             var frame = CreateRootFrame(null);

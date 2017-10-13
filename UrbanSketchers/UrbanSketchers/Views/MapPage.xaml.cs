@@ -21,6 +21,7 @@ namespace UrbanSketchers.Views
         //private string _personId;
         private Sketch _sketch;
         private MemoryStream _imageStream;
+        private MemoryStream _inkStream;
 
         #endregion
 
@@ -51,6 +52,8 @@ namespace UrbanSketchers.Views
             {
                 EditSketchView.LoadImageStream(_imageStream);
 
+                _imageStream.Dispose();
+                
                 _imageStream = null;
 
                 OnAddSketch(null, null);
@@ -194,6 +197,13 @@ namespace UrbanSketchers.Views
 
             await RefreshAsync();
 
+            if (_inkStream != null)
+            {
+                _inkStream.Dispose();
+
+                _inkStream = null;
+            }
+
             _sketch = null;
         }
 
@@ -225,9 +235,15 @@ namespace UrbanSketchers.Views
         {
             _imageStream = new MemoryStream();
 
+            if (_inkStream == null)
+            {
+                _inkStream = new MemoryStream();
+            }
+
             await Navigation.PushModalAsync(new DrawingPage
             {
-                ImageStream = _imageStream
+                ImageStream = _imageStream,
+                InkStream = _inkStream
             }, true);
         }
     }

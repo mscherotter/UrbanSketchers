@@ -21,11 +21,6 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding Items}" ItemSelected="OnItemSelected" RowHeight="32">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -44,17 +39,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid Grid.Row="2" Margin="4">
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="SignIn"/>
-                </Grid.GestureRecognizers>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image WidthRequest="28" HeightRequest="28" Source="Assets/SignIn.png" x:Name="UserImage"/>
-                <Label Margin="4" VerticalOptions="Center" x:Name="UserName" Grid.Column="1" Text="Sign in"/>
-            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

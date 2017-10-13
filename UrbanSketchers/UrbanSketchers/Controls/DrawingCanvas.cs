@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace UrbanSketchers.Controls
 {
     /// <summary>
-    /// Drawing canvas
+    ///     Drawing canvas
     /// </summary>
     public class DrawingCanvas : View
     {
+        private MemoryStream _inkStream;
+
         /// <summary>
-        /// Initializes a new instance of the DrawingCanvas class.
+        ///     Initializes a new instance of the DrawingCanvas class.
         /// </summary>
         public DrawingCanvas()
         {
@@ -22,39 +21,25 @@ namespace UrbanSketchers.Controls
         }
 
         /// <summary>
-        /// the bitmap file format
+        ///     The function to get an image of the ink in a specific format
         /// </summary>
-        public enum BitmapFileFormat
-        {
-            /// <summary>
-            /// Windows Bitmap format
-            /// </summary>
-            Bmp,
-            /// <summary>
-            /// Portable Network Graphics format
-            /// </summary>
-            Png,
-            /// <summary>
-            /// JPEG format
-            /// </summary>
-            Jpeg,
-            /// <summary>
-            /// TIFF format
-            /// </summary>
-            Tiff,
-            /// <summary>
-            /// GIF format
-            /// </summary>
-            Gif,
-            /// <summary>
-            /// JPEG XR Format
-            /// </summary>
-            JpegXR
-        };
+        public Func<Stream, DrawingFileFormat, Task<bool>> GetImageFunc { get; set; }
 
         /// <summary>
-        /// The function to get an image of the ink in a specific format
+        ///     Gets or sets the ISF ink stream
         /// </summary>
-        public Func<Stream, BitmapFileFormat, Task<bool>> GetImageFunc { get; set; }
+        public MemoryStream InkStream
+        {
+            get => _inkStream;
+            set
+            {
+                if (_inkStream != value)
+                {
+                    _inkStream = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
     }
 }

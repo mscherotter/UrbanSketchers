@@ -44,6 +44,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\ConnectedImage.cs" />
     <Compile Include="Controls\DrawingCanvas.cs" />
+    <Compile Include="Controls\DrawingFileFormat.cs" />
     <Compile Include="Controls\SketchMap.cs" />
     <Compile Include="Controls\SketchPin.cs" />
     <Compile Include="Data\BaseDataObject.cs" />

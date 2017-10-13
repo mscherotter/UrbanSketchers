@@ -37,7 +37,7 @@ namespace UWP
         /// </summary>
         /// <param name="sender">the sender</param>
         /// <param name="e">the property changed event arguments</param>
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected async override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
@@ -48,6 +48,10 @@ namespace UWP
                 var backgroundColor = colorConverter.Convert(Element.BackgroundColor, null, null, string.Empty);
 
                 _drawingControl.Background = new SolidColorBrush((Color) backgroundColor);
+            }
+            if (e.PropertyName == "InkStream")
+            {
+                await _drawingControl.LoadAsync(Element.InkStream);
             }
         }
     }

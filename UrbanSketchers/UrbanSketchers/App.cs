@@ -10,11 +10,23 @@ using Xamarin.Forms;
 
 namespace UrbanSketchers
 {
+    /// <summary>
+    /// Authenticate interface
+    /// </summary>
     public interface IAuthenticate
     {
+        /// <summary>
+        /// Authenticate Azure Mobile App
+        /// </summary>
+        /// <returns>true if successful</returns>
         bool Authenticate();
 
+        /// <summary>
+        /// Signed in event
+        /// </summary>
         event EventHandler SignedIn;
+
+        Task LogoutAsync();
     }
 
     public interface IThumbnailGenerator

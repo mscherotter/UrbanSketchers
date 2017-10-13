@@ -11,14 +11,21 @@ namespace UrbanSketchers
     {
         private ICommand _command;
 
+        private string _label;
+
+        private string _icon;
+
         private bool _isEnabled = true;
 
         /// <summary>
         /// Gets or sets the label
         /// </summary>
-        public string Label { get; set; }
+        public string Label {
+            get { return _label; } set { SetProperty(ref _label, value); } }
 
-        public string Icon { get; set; }
+        public string Icon {
+            get { return _icon; }
+            set { SetProperty(ref _icon, value); } }
 
         /// <summary>
         /// Gets or sets the command
@@ -38,6 +45,9 @@ namespace UrbanSketchers
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the menu item is enabled.
+        /// </summary>
         public bool IsEnabled
         {
             get => _isEnabled;

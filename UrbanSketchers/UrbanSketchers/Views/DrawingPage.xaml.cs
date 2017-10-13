@@ -25,6 +25,18 @@ namespace UrbanSketchers.Views
         public Stream ImageStream { get; set; }
 
         /// <summary>
+        /// Gets or sets the ink stream
+        /// </summary>
+        public MemoryStream InkStream { get; set; }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            DrawingCanvas.InkStream = InkStream;
+        }
+
+        /// <summary>
         ///     Fills the image stream with the sketch and pops the modal navigation
         /// </summary>
         /// <param name="sender">the button</param>
@@ -32,7 +44,11 @@ namespace UrbanSketchers.Views
         private async void OnAccept(object sender, EventArgs e)
         {
             if (DrawingCanvas.GetImageFunc != null)
-                await DrawingCanvas.GetImageFunc(ImageStream, DrawingCanvas.BitmapFileFormat.Png);
+            {
+                await DrawingCanvas.GetImageFunc(ImageStream, DrawingFileFormat.Png);
+
+                await DrawingCanvas.GetImageFunc(InkStream, DrawingFileFormat.Isf);
+            }
 
             await Navigation.PopModalAsync(true);
         }

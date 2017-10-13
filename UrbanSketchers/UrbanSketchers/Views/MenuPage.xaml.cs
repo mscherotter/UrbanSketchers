@@ -25,6 +25,7 @@ namespace UrbanSketchers.Views
             string sketchesIcon = null;
             string aboutIcon = null;
             string pinToStartIcon = null;
+            string signInIcon = null;
 
             switch (Device.RuntimePlatform)
             {
@@ -34,8 +35,16 @@ namespace UrbanSketchers.Views
                     sketchesIcon = "Assets/Sketches.png";
                     aboutIcon = "Assets/About.png";
                     pinToStartIcon = "Assets/PinToStart.png";
+                    signInIcon = "Assets/SignIn.png";
                     break;
             }
+
+            _signInItem = new NavigationMenuItem()
+            {
+                Label = Properties.Resources.SignIn,
+                Icon = signInIcon,
+                Command = new RelayCommand<object>(SignIn)
+            };
 
             Items = new ObservableCollection<NavigationMenuItem>(new[]
             {
@@ -69,18 +78,23 @@ namespace UrbanSketchers.Views
                 });
             }
 
-            Items.Add(new NavigationMenuItem
+            Items.AddRange(new [] 
+            {
+                new NavigationMenuItem
                 {
                     Label = Properties.Resources.AboutUrbanSketches,
                     Icon = aboutIcon,
                     Command = new NavigationCommand<AboutPage>()
-                }
-            );
+                },
+                _signInItem
+            });
 
             BindingContext = this;
 
             App.Authenticator.SignedIn += Authenticator_SignedIn;
         }
+
+        private NavigationMenuItem _signInItem;
 
         /// <summary>
         ///     Gets the navigation menu items
@@ -110,26 +124,41 @@ namespace UrbanSketchers.Views
 
                 if (person == null)
                 {
-                    UserImage.Source = new FileImageSource
+                    if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
                     {
-                        File = "Assets/SignedIn.png"
-                    };
-
-                    UserName.Text = "Sign out";
+                        _signInItem.Icon = "Assets/SignIn.png";
+                        _signInItem.Label = "Sign in";
+                    }
+                    else
+                    {
+                        _signInItem.Icon = "Assets/SignedIn.png";
+                        _signInItem.Label = "Sign out";
+                    }
                 }
                 else
                 {
-                    UserImage.Source = new UriImageSource
-                    {
-                        Uri = new Uri(person.ImageUrl)
-                    };
+                    _signInItem.Icon = "Assets/SignedIn.png";
+                    _signInItem.Label = person.Name;
+                    //UserButton.Image = new UriImageSource
+                    //{
+                    //    Uri = new Uri(person.ImageUrl)
+                    //};
 
-                    UserName.Text = person.Name;
+                    //UserButton.Text = person.Name;
                 }
             }
             catch (Exception)
             {
-                // ignored
+                if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+                {
+                    _signInItem.Icon = "Assets/SignIn.png";
+                    _signInItem.Label = "Sign in";
+                }
+                else
+                {
+                    _signInItem.Icon = "Assets/SignedIn.png";
+                    _signInItem.Label = "Sign out";
+                }
             }
         }
 
@@ -145,9 +174,18 @@ namespace UrbanSketchers.Views
             }
         }
 
-        private void SignIn(object sender, EventArgs e)
+        private async void SignIn(object parameter)
         {
-            App.Authenticator.Authenticate();
+            if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+            {
+                App.Authenticator.Authenticate();
+            }
+            else
+            {
+                await App.Authenticator.LogoutAsync();
+
+                await UpdateUserAsync();
+            }
         }
     }
 }
