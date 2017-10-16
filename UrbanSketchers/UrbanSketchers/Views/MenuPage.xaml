@@ -21,6 +21,10 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding Items}" ItemSelected="OnItemSelected" RowHeight="32">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -39,6 +43,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Command="{Binding SignInCommand}" HorizontalOptions="Start" x:Name="SignInButton" Grid.Row="1" HeightRequest="32"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

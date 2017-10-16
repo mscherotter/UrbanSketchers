@@ -39,7 +39,14 @@ namespace UWP
             if (Initialize())
                 return true;
 
-            AccountsSettingsPane.Show();
+            try
+            {
+                AccountsSettingsPane.Show();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
 
             return false;
         }

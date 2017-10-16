@@ -151,7 +151,9 @@
     <Content Include="Assets\PinToStart.png" />
     <Content Include="Assets\Refresh.png" />
     <Content Include="Assets\Share.png" />
+    <Content Include="Assets\SignedIn.24.png" />
     <Content Include="Assets\SignedIn.png" />
+    <Content Include="Assets\SignIn.24.png" />
     <Content Include="Assets\SignIn.png" />
     <Content Include="Assets\Sketches.png" />
     <Content Include="Assets\SketchMap.png" />

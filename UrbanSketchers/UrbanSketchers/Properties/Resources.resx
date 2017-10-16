@@ -191,4 +191,16 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="SignOutQuestion" xml:space="preserve">
+    <value>Would you like to sign out of Urban Sketches?  You need to be signed in to upload and comment on sketches.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

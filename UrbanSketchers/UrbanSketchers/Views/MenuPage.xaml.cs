@@ -13,6 +13,8 @@ namespace UrbanSketchers.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage
     {
+        private object _lastItemSelected;
+
         /// <summary>
         ///     Initializes a new instance of the MenuPage class.
         /// </summary>
@@ -25,7 +27,7 @@ namespace UrbanSketchers.Views
             string sketchesIcon = null;
             string aboutIcon = null;
             string pinToStartIcon = null;
-            string signInIcon = null;
+            //string signInIcon = null;
 
             switch (Device.RuntimePlatform)
             {
@@ -35,16 +37,16 @@ namespace UrbanSketchers.Views
                     sketchesIcon = "Assets/Sketches.png";
                     aboutIcon = "Assets/About.png";
                     pinToStartIcon = "Assets/PinToStart.png";
-                    signInIcon = "Assets/SignIn.png";
+                    //signInIcon = "Assets/SignIn.png";
                     break;
             }
 
-            _signInItem = new NavigationMenuItem()
-            {
-                Label = Properties.Resources.SignIn,
-                Icon = signInIcon,
-                Command = new RelayCommand<object>(SignIn)
-            };
+            //_signInItem = new NavigationMenuItem()
+            //{
+            //    Label = Properties.Resources.SignIn,
+            //    Icon = signInIcon,
+            //    Command = new RelayCommand<object>(SignIn)
+            //};
 
             Items = new ObservableCollection<NavigationMenuItem>(new[]
             {
@@ -78,23 +80,25 @@ namespace UrbanSketchers.Views
                 });
             }
 
-            Items.AddRange(new [] 
+            Items.Add(new NavigationMenuItem
             {
-                new NavigationMenuItem
-                {
-                    Label = Properties.Resources.AboutUrbanSketches,
-                    Icon = aboutIcon,
-                    Command = new NavigationCommand<AboutPage>()
-                },
-                _signInItem
+                Label = Properties.Resources.AboutUrbanSketches,
+                Icon = aboutIcon,
+                Command = new NavigationCommand<AboutPage>()
             });
+
+            SignInCommand = new RelayCommand<object>(SignIn);
 
             BindingContext = this;
 
             App.Authenticator.SignedIn += Authenticator_SignedIn;
+
         }
 
-        private NavigationMenuItem _signInItem;
+        /// <summary>
+        /// Gets the sign-in/sign-out command
+        /// </summary>
+        public RelayCommand<object> SignInCommand { get; private set; }
 
         /// <summary>
         ///     Gets the navigation menu items
@@ -126,19 +130,19 @@ namespace UrbanSketchers.Views
                 {
                     if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
                     {
-                        _signInItem.Icon = "Assets/SignIn.png";
-                        _signInItem.Label = "Sign in";
+                        SignInButton.Image = "Assets/SignIn.24.png";
+                        SignInButton.Text = Properties.Resources.SignIn;
                     }
                     else
                     {
-                        _signInItem.Icon = "Assets/SignedIn.png";
-                        _signInItem.Label = "Sign out";
+                        SignInButton.Image = "Assets/SignedIn.24.png";
+                        SignInButton.Text = Properties.Resources.SignOut;
                     }
                 }
                 else
                 {
-                    _signInItem.Icon = "Assets/SignedIn.png";
-                    _signInItem.Label = person.Name;
+                    SignInButton.Image = "Assets/SignedIn.24.png";
+                    SignInButton.Text = person.Name;
                     //UserButton.Image = new UriImageSource
                     //{
                     //    Uri = new Uri(person.ImageUrl)
@@ -151,26 +155,36 @@ namespace UrbanSketchers.Views
             {
                 if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
                 {
-                    _signInItem.Icon = "Assets/SignIn.png";
-                    _signInItem.Label = "Sign in";
+                    SignInButton.Image = "Assets/SignIn.24.png";
+                    SignInButton.Text = Properties.Resources.SignIn;
                 }
                 else
                 {
-                    _signInItem.Icon = "Assets/SignedIn.png";
-                    _signInItem.Label = "Sign out";
+                    SignInButton.Image = "Assets/SignedIn.24.png";
+                    SignInButton.Text = Properties.Resources.SignOut;
                 }
             }
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItem == _lastItemSelected)
+            {
+                // https://bugzilla.xamarin.com/show_bug.cgi?id=58898
+                // https://bugzilla.xamarin.com/show_bug.cgi?id=44886
+                // ListView will send two ItemSelected events
+                return;
+            }
+
+            _lastItemSelected = e.SelectedItem;
+
             if (e.SelectedItem is NavigationMenuItem item)
             {
                 if (item.Command.CanExecute(null))
                     item.Command.Execute(null);
 
-                if (sender is ListView listView)
-                    listView.SelectedItem = null;
+                //if (sender is ListView listView)
+                //    listView.SelectedItem = null;
             }
         }
 
@@ -182,6 +196,12 @@ namespace UrbanSketchers.Views
             }
             else
             {
+                if (!await DisplayAlert(
+                    Properties.Resources.SignOut,
+                    Properties.Resources.SignOutQuestion,
+                    Properties.Resources.Yes,
+                    Properties.Resources.No)) return;
+
                 await App.Authenticator.LogoutAsync();
 
                 await UpdateUserAsync();

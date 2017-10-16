@@ -114,6 +114,22 @@ Press OK to continue uploading the sketch, affirming that you have read this and
           <source>Sign in</source>
           <target state="new">Sign in</target>
         </trans-unit>
+        <trans-unit id="No" translate="yes" xml:space="preserve">
+          <source>No</source>
+          <target state="new">No</target>
+        </trans-unit>
+        <trans-unit id="SignOut" translate="yes" xml:space="preserve">
+          <source>Sign out</source>
+          <target state="new">Sign out</target>
+        </trans-unit>
+        <trans-unit id="SignOutQuestion" translate="yes" xml:space="preserve">
+          <source>Would you like to sign out of Urban Sketches?  You need to be signed in to upload and comment on sketches.</source>
+          <target state="new">Would you like to sign out of Urban Sketches?  You need to be signed in to upload and comment on sketches.</target>
+        </trans-unit>
+        <trans-unit id="Yes" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="new">Yes</target>
+        </trans-unit>
       </group>
     </body>
   </file>

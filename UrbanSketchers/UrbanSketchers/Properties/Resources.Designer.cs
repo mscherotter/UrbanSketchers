@@ -145,6 +145,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string OK {
@@ -168,6 +177,24 @@ namespace UrbanSketchers.Properties {
         internal static string SignIn {
             get {
                 return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign out.
+        /// </summary>
+        internal static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to sign out of Urban Sketches?  You need to be signed in to upload and comment on sketches..
+        /// </summary>
+        internal static string SignOutQuestion {
+            get {
+                return ResourceManager.GetString("SignOutQuestion", resourceCulture);
             }
         }
         
@@ -248,6 +275,15 @@ namespace UrbanSketchers.Properties {
         internal static string UrbanSketchers {
             get {
                 return ResourceManager.GetString("UrbanSketchers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
