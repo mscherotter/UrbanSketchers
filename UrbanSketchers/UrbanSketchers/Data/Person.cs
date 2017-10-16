@@ -11,7 +11,7 @@
         public string Name { get; set; }
 
         /// <summary>
-        ///     Gets or sets the user Id
+        ///     Gets or sets the user Id from Azure
         /// </summary>
         public string UserId { get; set; }
 

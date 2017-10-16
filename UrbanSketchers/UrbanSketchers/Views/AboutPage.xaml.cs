@@ -1,13 +1,21 @@
-﻿using Plugin.Share;
+﻿using System;
+using System.Threading.Tasks;
+using Plugin.Share;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    ///     About page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutPage : ContentPage
+    public partial class AboutPage
     {
+        /// <summary>
+        ///     Initializes a new instnace of the AboutPage class.
+        /// </summary>
         public AboutPage()
         {
             InitializeComponent();
@@ -18,18 +26,20 @@ namespace UrbanSketchers.Views
                 {
                     Title = "The Urban Sketches Map",
                     Details = "See the Urban sketch map on the web at urbansketchers.azurewebsites.net",
-                    Url="http://urbansketchers.azurewebsites.net"
+                    Url = "http://urbansketchers.azurewebsites.net"
                 },
                 new Link
                 {
                     Title = "About Michael Scherotter",
-                    Details = "Learn about Michael Scherotter, the creator of Urban Sketchers on his website charette.com.",
+                    Details =
+                        "Learn about Michael Scherotter, the creator of Urban Sketchers on his website charette.com.",
                     Url = "http://charette.com"
                 },
                 new Link
                 {
                     Title = "Source Code",
-                    Details = "Contribute to the code for Urban Sketchers on GitHub.  Urban Sketches is built using Xamarin Forms and I need a little help with completing and publishing the iOS and Android version.",
+                    Details =
+                        "Contribute to the code for Urban Sketchers on GitHub.  Urban Sketches is built using Xamarin Forms and I need a little help with completing and publishing the iOS and Android version.",
                     Url = "https://github.com/mscherotter/UrbanSketchers"
                 },
                 new Link
@@ -61,10 +71,36 @@ namespace UrbanSketchers.Views
         /// </summary>
         public Link[] Links { get; }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await UpdateDeleteUserButtonAsync();
+        }
+
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (CrossShare.IsSupported && e.SelectedItem is Link link)
                 await CrossShare.Current.OpenBrowser(link.Url);
+        }
+
+        private async void OnRemoveUser(object sender, EventArgs e)
+        {
+            if (!await DisplayAlert("Remove User",
+                "Press OK to remove the current user data from Urban Sketches, including all sketches and ratings.",
+                Properties.Resources.OK, Properties.Resources.Cancel))
+                return;
+
+            await SketchManager.DefaultManager.DeleteCurrentUserAsync();
+
+            await UpdateDeleteUserButtonAsync();
+        }
+
+        private async Task UpdateDeleteUserButtonAsync()
+        {
+            var user = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+            DeleteUserButton.IsEnabled = user != null;
         }
     }
 }

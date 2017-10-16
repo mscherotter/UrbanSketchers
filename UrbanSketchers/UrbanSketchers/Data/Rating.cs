@@ -5,12 +5,24 @@
     /// </summary>
     public class Rating : BaseDataObject
     {
+        /// <summary>
+        ///     Gets or sets the sketch Id
+        /// </summary>
         public string SketchId { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the person Id
+        /// </summary>
         public string PersonId { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the comment
+        /// </summary>
         public string Comment { get; set; } = string.Empty;
 
+        /// <summary>
+        ///     Gets or sets the favorite/heart flag
+        /// </summary>
         public bool IsHeart { get; set; }
 
         /// <summary>

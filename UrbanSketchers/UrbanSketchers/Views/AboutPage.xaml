@@ -14,6 +14,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Margin="4" x:Name="DeleteUserButton" Text="Remove user, sketches, and ratings." Clicked="OnRemoveUser"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

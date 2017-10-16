@@ -71,6 +71,22 @@ namespace UrbanSketchers
 #endif
         }
 
+        /// <summary>
+        /// Delete the current user
+        /// </summary>
+        /// <returns>an async task</returns>
+        public async Task DeleteCurrentUserAsync()
+        {
+            var user = await GetCurrentUserAsync();
+
+            if (user == null)
+            {
+                return;
+            }
+
+            await _peopleTable.DeleteAsync(user);
+        }
+
         public async Task<Rating> GetRatingAsync(string sketchId)
         {
             var user = await GetCurrentUserAsync();
