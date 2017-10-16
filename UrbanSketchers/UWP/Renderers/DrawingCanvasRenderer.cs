@@ -2,22 +2,20 @@
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using UrbanSketchers.Controls;
-using UWP;
+using UWP.Renderers;
 using Xamarin.Forms.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(DrawingCanvas), typeof(DrawingCanvasRenderer))]
 
-namespace UWP
+namespace UWP.Renderers
 {
     /// <summary>
-    /// <see cref="DrawingCanvas"/> renderer for UWP platform
+    ///     <see cref="DrawingCanvas" /> renderer for UWP platform
     /// </summary>
     public class DrawingCanvasRenderer : ViewRenderer<DrawingCanvas, DrawingControl>
     {
-        private readonly DrawingControl _drawingControl = new DrawingControl();
-
         /// <summary>
-        /// <see cref="DrawingCanvas"/> element changed.
+        ///     <see cref="DrawingCanvas" /> element changed.
         /// </summary>
         /// <param name="e">the element changed event arguments</param>
         protected override void OnElementChanged(ElementChangedEventArgs<DrawingCanvas> e)
@@ -26,18 +24,20 @@ namespace UWP
 
             if (e.NewElement != null)
             {
-                e.NewElement.GetImageFunc = _drawingControl.GetImageAsync;
+                var control = new DrawingControl();
 
-                SetNativeControl(_drawingControl);
+                SetNativeControl(control);
+
+                e.NewElement.GetImageFunc = control.GetImageAsync;
             }
         }
 
         /// <summary>
-        /// DrawingCanvas property changed
+        ///     DrawingCanvas property changed
         /// </summary>
         /// <param name="sender">the sender</param>
         /// <param name="e">the property changed event arguments</param>
-        protected async override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
@@ -47,12 +47,10 @@ namespace UWP
 
                 var backgroundColor = colorConverter.Convert(Element.BackgroundColor, null, null, string.Empty);
 
-                _drawingControl.Background = new SolidColorBrush((Color) backgroundColor);
+                Control.Background = new SolidColorBrush((Color) backgroundColor);
             }
             if (e.PropertyName == "InkStream")
-            {
-                await _drawingControl.LoadAsync(Element.InkStream);
-            }
+                await Control.LoadAsync(Element.InkStream);
         }
     }
 }

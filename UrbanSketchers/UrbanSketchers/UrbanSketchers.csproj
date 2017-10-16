@@ -42,6 +42,7 @@
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Controls\ColorPickerView.cs" />
     <Compile Include="Controls\ConnectedImage.cs" />
     <Compile Include="Controls\DrawingCanvas.cs" />
     <Compile Include="Controls\DrawingFileFormat.cs" />

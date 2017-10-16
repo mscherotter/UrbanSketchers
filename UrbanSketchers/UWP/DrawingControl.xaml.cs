@@ -2,8 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Input.Inking;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Microsoft.Graphics.Canvas;
 using UrbanSketchers.Controls;
@@ -16,7 +19,7 @@ namespace UWP
     public sealed partial class DrawingControl
     {
         /// <summary>
-        /// Initializes a new instance of the DrawingControl class.
+        ///     Initializes a new instance of the DrawingControl class.
         /// </summary>
         public DrawingControl()
         {
@@ -26,9 +29,7 @@ namespace UWP
         internal async Task LoadAsync(Stream stream)
         {
             if (stream == null || stream.Length == 0)
-            {
                 return;
-            }
 
             stream.Seek(0, SeekOrigin.Begin);
 
@@ -36,7 +37,7 @@ namespace UWP
         }
 
         /// <summary>
-        /// Get the ink image
+        ///     Get the ink image
         /// </summary>
         /// <param name="stream">the stream [in,out]</param>
         /// <param name="format">the format</param>
@@ -44,20 +45,20 @@ namespace UWP
         internal async Task<bool> GetImageAsync(Stream stream, DrawingFileFormat format)
         {
             if (stream == null)
-            {
                 return false;
-            }
 
             stream.Seek(0, SeekOrigin.Begin);
 
             switch (format)
             {
                 case DrawingFileFormat.Isf:
-                    await DrawingCanvas.InkPresenter.StrokeContainer.SaveAsync(stream.AsOutputStream(), InkPersistenceFormat.Isf);
+                    await DrawingCanvas.InkPresenter.StrokeContainer.SaveAsync(stream.AsOutputStream(),
+                        InkPersistenceFormat.Isf);
                     return true;
 
                 case DrawingFileFormat.GifWithEmbeddedIsf:
-                    await DrawingCanvas.InkPresenter.StrokeContainer.SaveAsync(stream.AsOutputStream(), InkPersistenceFormat.GifWithEmbeddedIsf);
+                    await DrawingCanvas.InkPresenter.StrokeContainer.SaveAsync(stream.AsOutputStream(),
+                        InkPersistenceFormat.GifWithEmbeddedIsf);
                     return true;
             }
 
@@ -85,13 +86,9 @@ namespace UWP
                 using (var ds = offscreen.CreateDrawingSession())
                 {
                     if (Background is SolidColorBrush brush)
-                    {
                         ds.Clear(brush.Color);
-                    }
                     else
-                    {
                         ds.Clear(Colors.White);
-                    }
 
                     ds.DrawInk(strokes);
                 }
@@ -105,6 +102,58 @@ namespace UWP
 
                 return true;
             }
+        }
+
+        private void OnBackgroundColorClicked(object sender, RoutedEventArgs e)
+        {
+            Control picker;
+
+            var color = Colors.White;
+
+            if (Background is SolidColorBrush brush)
+                color = brush.Color;
+
+            if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Controls.ColorPicker"))
+            {
+                var newPicker = new ColorPicker
+                {
+                    Color = color,
+                    Width = 300,
+                    Height = 300
+                };
+
+                newPicker.ColorChanged += NewPicker_ColorChanged;
+                picker = newPicker;
+            }
+            else
+            {
+                var newPicker = new Coding4Fun.Toolkit.Controls.ColorPicker
+                {
+                    Color = color,
+                    Width = 300,
+                    Height = 300
+                };
+
+                newPicker.ColorChanged += NewPicker_ColorChanged1;
+                picker = newPicker;
+            }
+
+            BackgroundColorButton.ContextFlyout = new Flyout
+            {
+                Content = picker
+            };
+
+            BackgroundColorButton.ContextFlyout.ShowAt(BackgroundColorButton);
+        }
+
+        private void NewPicker_ColorChanged1(object sender, Color color)
+        {
+            Background = new SolidColorBrush(color);
+        }
+
+        private void NewPicker_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
+        {
+            Background = new SolidColorBrush(args.NewColor);
         }
     }
 }
