@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
@@ -72,6 +74,22 @@ namespace UrbanSketchers.Views
                 UpdateLikeButton(rating);
 
                 await UpdateCommentsAsync();
+
+                var position = new Position(Sketch.Latitude, Sketch.Longitude);
+
+                var span = MapSpan.FromCenterAndRadius(position,
+                    Distance.FromMiles(1.0));
+
+                Map.MoveToRegion(span);
+
+                var pushpin = new Pin
+                {
+                    Position = position,
+                    Address = Sketch.Address,
+                    Label = Sketch.Title
+                };
+
+                Map.Pins.Add(pushpin);
             }
         }
 
@@ -80,6 +98,8 @@ namespace UrbanSketchers.Views
             var allRatings = await SketchManager.DefaultManager.GetRatingsAsync(Sketch.Id);
 
             Comments.ItemsSource = allRatings;
+
+            Comments.IsVisible = allRatings.Any();
         }
 
         private void UpdateLikeButton(Rating rating)

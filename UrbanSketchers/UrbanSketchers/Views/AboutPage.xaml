@@ -10,11 +10,12 @@
             <ListView ItemSelected="OnItemSelected" ItemsSource="{Binding Links}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
+                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
                         <TextCell Text="{Binding Title}" Detail="{Binding Details}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Margin="4" x:Name="DeleteUserButton" Text="Remove user, sketches, and ratings." Clicked="OnRemoveUser"/>
+            <Button Margin="4" x:Name="DeleteUserButton" Text="Remove user, sketches, and ratings." Clicked="OnRemoveUser" HorizontalOptions="Start"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -130,6 +130,14 @@ Press OK to continue uploading the sketch, affirming that you have read this and
           <source>Yes</source>
           <target state="new">Yes</target>
         </trans-unit>
+        <trans-unit id="RemoveUser" translate="yes" xml:space="preserve">
+          <source>Remove User</source>
+          <target state="new">Remove User</target>
+        </trans-unit>
+        <trans-unit id="RemoveUserQuestion" translate="yes" xml:space="preserve">
+          <source>Press OK to remove the current user data from Urban Sketches, including all sketches and ratings.</source>
+          <target state="new">Press OK to remove the current user data from Urban Sketches, including all sketches and ratings.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

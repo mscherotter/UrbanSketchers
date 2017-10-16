@@ -86,8 +86,8 @@ namespace UrbanSketchers.Views
 
         private async void OnRemoveUser(object sender, EventArgs e)
         {
-            if (!await DisplayAlert("Remove User",
-                "Press OK to remove the current user data from Urban Sketches, including all sketches and ratings.",
+            if (!await DisplayAlert(Properties.Resources.RemoveUser,
+                Properties.Resources.RemoveUserQuestion,
                 Properties.Resources.OK, Properties.Resources.Cancel))
                 return;
 

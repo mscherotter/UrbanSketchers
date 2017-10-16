@@ -203,4 +203,10 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="RemoveUser" xml:space="preserve">
+    <value>Remove User</value>
+  </data>
+  <data name="RemoveUserQuestion" xml:space="preserve">
+    <value>Press OK to remove the current user data from Urban Sketches, including all sketches and ratings.</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:UrbanSketchers.Views"
              xmlns:controls="clr-namespace:UrbanSketchers.Controls"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="UrbanSketchers.Views.SketchPage"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
@@ -58,7 +59,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <StackLayout Padding="4">
@@ -73,11 +75,11 @@
                 <Label Text="{Binding Description}" Style="{DynamicResource CaptionStyle}"/>
                 <Label Text="{Binding Address}" Style="{DynamicResource CaptionStyle}" />
             </StackLayout>
-            <Grid Grid.Row="1" Grid.Column="0" Padding="4">
-                <controls:ConnectedImage  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-            </Grid>
-            <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" />
-            <StackLayout x:Name="CommentPanel" IsVisible="False" Padding="4" Grid.Row="2" Grid.Column="0">
+            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <maps:Map Grid.Row="1" Grid.Column="1" Margin="4" x:Name="Map">
+            </maps:Map>
+            <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" Grid.ColumnSpan="2" />
+            <StackLayout x:Name="CommentPanel" IsVisible="False" Padding="4" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                 <Label Text="Comment"/>
                 <Editor x:Name="CommentEditor"/>
                 <StackLayout Orientation="Horizontal">
@@ -90,7 +92,7 @@
                     <Button Text="Cancel" Clicked="OnCancelComment"/>
                 </StackLayout>
             </StackLayout>
-            <ListView x:Name="Comments" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
+            <ListView x:Name="Comments" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" WidthRequest="320">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

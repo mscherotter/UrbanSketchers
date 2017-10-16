@@ -172,6 +172,24 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove User.
+        /// </summary>
+        internal static string RemoveUser {
+            get {
+                return ResourceManager.GetString("RemoveUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press OK to remove the current user data from Urban Sketches, including all sketches and ratings..
+        /// </summary>
+        internal static string RemoveUserQuestion {
+            get {
+                return ResourceManager.GetString("RemoveUserQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign in.
         /// </summary>
         internal static string SignIn {
