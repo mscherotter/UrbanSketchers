@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
@@ -9,32 +8,22 @@ using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    /// Sketches page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SketchesPage : ContentPage
+    public partial class SketchesPage
     {
-        private SketchManager _sketchManager;
+        private readonly SketchManager _sketchManager;
 
-        public ObservableCollection<Sketch> Items { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the SketchesPage class.
+        /// </summary>
         public SketchesPage()
         {
             InitializeComponent();
 
-            Items = new ObservableCollection<Sketch>
-            {
-                new Sketch
-                {
-                    Title = "Sagrada Familia"
-                },
-                new Sketch
-                {
-                    Title = "Barcelona Pavillion"
-                },
-                new Sketch
-                {
-                    Title = "Barcelona Cathedral"
-                }
-            };
+            //Items = new ObservableCollection<Sketch>();
 
             BindingContext = this;
 
@@ -52,42 +41,70 @@ namespace UrbanSketchers.Views
 
                 //buttonsPanel.Children.Add(syncButton);
             }
-
         }
 
+        // public ObservableCollection<Sketch> Items { get; set; }
+
+        /// <summary>
+        /// Gets the person Id
+        /// </summary>
+        public string PersonId { get; internal set; }
+
+        /// <summary>
+        /// Refresh the items when appearing
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            await RefreshItems(true, syncItems: true);
+            await RefreshItemsAsync(true, true);
         }
 
-        private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
+        private async Task RefreshItemsAsync(bool showActivityIndicator, bool syncItems)
         {
             //using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
-                var sketches = await _sketchManager.GetSketchsAsync();
+                if (string.IsNullOrWhiteSpace(PersonId))
+                {
+                    var sketches = await _sketchManager.GetSketchsAsync();
 
-                Items.SetRange(sketches);
+                    SketchList.ItemsSource = sketches;
+                }
+                else
+                {
+                    var sketches = await _sketchManager.GetSketchsAsync(PersonId);
+
+                    if (sketches.Any())
+                        Title = string.Format(
+                            CultureInfo.CurrentCulture,
+                            Properties.Resources.SketchesByFormat,
+                            sketches.Count,
+                            sketches.First().CreatedByName);
+
+                    SketchList.ItemsSource = sketches;
+                }
             }
         }
 
-        async void Handle_ItemTapped(object sender, SelectedItemChangedEventArgs e)
+        private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.SelectedItem == null)
-                return;
+            if (e.Item is Sketch sketch)
+                await Navigation.PushAsync(new SketchPage
+                {
+                    SketchId = sketch.Id
+                });
+        }
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
+        private async void OnRefresh(object sender, EventArgs e)
+        {
+            await RefreshItemsAsync(true, true);
         }
 
         private class ActivityIndicatorScope : IDisposable
         {
-            private bool showIndicator;
-            private ActivityIndicator indicator;
-            private Task indicatorDelay;
+            private readonly ActivityIndicator indicator;
+            private readonly Task indicatorDelay;
+            private readonly bool showIndicator;
 
             public ActivityIndicatorScope(ActivityIndicator indicator, bool showIndicator)
             {
@@ -105,18 +122,17 @@ namespace UrbanSketchers.Views
                 }
             }
 
-            private void SetIndicatorActivity(bool isActive)
-            {
-                this.indicator.IsVisible = isActive;
-                this.indicator.IsRunning = isActive;
-            }
-
             public void Dispose()
             {
                 if (showIndicator)
-                {
-                    indicatorDelay.ContinueWith(t => SetIndicatorActivity(false), TaskScheduler.FromCurrentSynchronizationContext());
-                }
+                    indicatorDelay.ContinueWith(t => SetIndicatorActivity(false),
+                        TaskScheduler.FromCurrentSynchronizationContext());
+            }
+
+            private void SetIndicatorActivity(bool isActive)
+            {
+                indicator.IsVisible = isActive;
+                indicator.IsRunning = isActive;
             }
         }
     }

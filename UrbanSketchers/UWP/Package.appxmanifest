@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="43e3c925-1cf2-4e0e-92ff-74d3a13fcfa3" Publisher="CN=mischero" Version="1.2.0.0" />
-  <mp:PhoneIdentity PhoneProductId="160b6a80-7a3b-4992-86ea-4e482f867b0a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="MichaelS.Scherotter.UrbanSketches" Publisher="CN=9ABF1D81-CCC5-4B47-904F-BFF5B3A88B37" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="493eedf2-c46f-49c3-9aa0-10c83ac28199" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>UWP</DisplayName>
-    <PublisherDisplayName>AzureMobileApp</PublisherDisplayName>
+    <DisplayName>Urban Sketches</DisplayName>
+    <PublisherDisplayName>Michael S. Scherotter</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,14 +15,33 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UWP.App">
-      <uap:VisualElements DisplayName="UrbanSketchers" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Xamarin Azure Todo Universal Windows App" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+      <uap:VisualElements DisplayName="ms-resources:AppDisplayName" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ms-resource:AppDescription" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
+          <uap:TileUpdate Recurrence="daily" UriTemplate="https://urbansketchers.azurewebsites.net/api/GetTiles?lang={language}&amp;region={region}" />
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="Upload.1" />
+        </uap:Extension>
+        <uap:Extension Category="windows.shareTarget">
+          <uap:ShareTarget Description="ms-resource:ShareDescription">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.png</uap:FileType>
+              <uap:FileType>.jpg</uap:FileType>
+              <uap:FileType>.jpeg</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DataFormat>Bitmap</uap:DataFormat>
+          </uap:ShareTarget>
+        </uap:Extension>
         <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="urbansketchers" />
+          <uap:Protocol Name="urbansketchesauth">
+            <uap:DisplayName>ms-resource:AuthProtocolDisplayName</uap:DisplayName>
+          </uap:Protocol>
         </uap:Extension>
       </Extensions>
     </Application>

@@ -1,0 +1,50 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:data="using:UrbanSketchers.Data"
+    x:Class="UWP.ShareTargetPage"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignInstance Type=data:Sketch}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel >
+            <TextBox Header="Title" Text="{Binding Title, Mode=TwoWay}"/>
+            <TextBox Header="Description" Text="{Binding Description, Mode=TwoWay}"/>
+            <TextBox Header="Address" Text="{Binding Address, Mode=TwoWay}"/>
+            <DatePicker Header="Date created" Date="{Binding CreationDate, Mode=TwoWay}" Margin="4"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Header="Latitude" Text="{Binding Latitude, Mode=TwoWay}" InputScope="Number"  />
+                <TextBox Header="Longitude"  Text="{Binding Longitude, Mode=TwoWay}" Grid.Column="1" InputScope="Number"/>
+                <Button FontFamily="Segoe MDL2 Assets" Content="&#xE1D2;" Grid.Column="2" VerticalAlignment="Bottom" Margin="4" Height="35" Click="OnLocateMe" ToolTipService.ToolTip="Locate me" />
+            </Grid>
+        </StackPanel>
+        <Image x:Name="Image" Stretch="Uniform" MaxHeight="200" Margin="4" Grid.Column="1" Grid.Row="0"/>
+        <maps:MapControl Margin="4" MapServiceToken="{StaticResource BingMapsKey}" x:Name="Map" CenterChanged="OnCenterChanged" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+            <Button Content="Add" Margin="4" Click="OnAdd" x:Name="AddButton"/>
+            <ProgressRing x:Name="ProgressRing" Margin="4"/>
+            <ProgressBar x:Name="ProgressBar" Width="100" Maximum="100" Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
+</Page>

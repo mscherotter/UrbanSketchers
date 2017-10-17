@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:UrbanSketchers.Views"
+             xmlns:controls="clr-namespace:UrbanSketchers.Controls"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             x:Class="UrbanSketchers.Views.SketchPage"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Like" Clicked="OnLike" x:Name="LikeButton">
+            <ToolbarItem.Icon>
+            <OnPlatform x:TypeArguments="FileImageSource">
+                <On Platform="UWP">Assets/EmptyHeart.png</On>
+            </OnPlatform>
+        </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem Text="Comment" Clicked="OnComment">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Comment.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem Text="Share" Clicked="OnShare" x:Name="ShareItem">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Share.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem x:Name="EditItem" Text="Edit" Clicked="OnEdit">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Edit.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem Text="Refresh" Clicked="OnRefresh">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Refresh.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem Text="Delete" Clicked="OnDelete">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Delete.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Padding="4">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue" Style="{DynamicResource CaptionStyle}">
+                        <Label.GestureRecognizers>
+                           <TapGestureRecognizer Tapped="OnTappedName"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="{Binding CreationDate, StringFormat='on {0:d}'}" Style="{DynamicResource CaptionStyle}"/>
+                </StackLayout>
+                <Label Text="{Binding Description}" Style="{DynamicResource CaptionStyle}"/>
+                <Label Text="{Binding Address}" Style="{DynamicResource CaptionStyle}" />
+            </StackLayout>
+            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <maps:Map Grid.Row="1" Grid.Column="1" Margin="4" x:Name="Map">
+            </maps:Map>
+            <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" Grid.ColumnSpan="2" />
+            <StackLayout x:Name="CommentPanel" IsVisible="False" Padding="4" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <Label Text="Comment"/>
+                <Editor x:Name="CommentEditor"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Inappropriate" VerticalOptions="Center"/>
+                    <Switch x:Name="ViolationSwitch"/>
+                    <Button Text="..." VerticalOptions="Center" Clicked="OnInappropriate"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="OK" Clicked="OnAcceptComment"/>
+                    <Button Text="Cancel" Clicked="OnCancelComment"/>
+                </StackLayout>
+            </StackLayout>
+            <ListView x:Name="Comments" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" WidthRequest="320">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="4">
+                                <Label Text="{Binding Comment}" Style="{DynamicResource ListItemTextStyle}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding PersonName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding UpdatedAt.LocalDateTime, StringFormat='on {0:d}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="UWP.DrawingControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" x:Name="Control">
+
+    <Grid Background="{Binding ElementName=Control, Path=Background}">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <InkToolbar HorizontalAlignment="Right"  Grid.Row="0" TargetInkCanvas="{x:Bind DrawingCanvas}" InitialControls="None">
+            <InkToolbarBallpointPenButton/>
+            <InkToolbarPencilButton/>
+            <InkToolbarHighlighterButton/>
+            <InkToolbarEraserButton/>
+            <InkToolbarStencilButton/>
+            <InkToolbarCustomToolButton x:Name="BackgroundColorButton" ToolTipService.ToolTip="Background Color" 
+                                  Click="OnBackgroundColorClicked">
+                <Rectangle Width="30" Height="20" Fill="{Binding ElementName=Control, Path=Background}" Stroke="Gray" StrokeThickness="1"/>
+            </InkToolbarCustomToolButton>
+        </InkToolbar>
+        <ScrollViewer Grid.Row="1" ZoomMode="Enabled">
+            <InkCanvas x:Name="DrawingCanvas" Width="1024" Height="768"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

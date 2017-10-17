@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Urban Sketches</title>
+    <meta name="description" content="A sketch" />
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol"></script>
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function getParameters() {
+            var search = location.search;
+            var parameters = search.substr(1).split("&");
+
+            var params = {};
+
+            for (var i = 0; i < parameters.length; i++) {
+                var param = parameters[i];
+                var keyValue = param.split("=");
+                params[keyValue[0]] = keyValue[1];
+            }
+
+            return params;
+        }
+
+        function onload() {
+            var map = new Microsoft.Maps.Map(document.getElementById("Map"),
+                {
+                    credentials: "B6p5hudPVN61Ykpp6D7W~JW-lf-G0P7wmsDcDrMWFuw~AsZdr0PHfOeWe9qmPtHDbuONPySTrgN47oWYdvD84J67bvxcMbXDQEnZCz6XWwR1"
+                });
+
+            var params = getParameters();
+
+            var id = params["id"];
+
+            $.ajax({
+                url: "https://urbansketchers.azurewebsites.net/tables/Sketch/" + id,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("ZUMO-API-VERSION", "2.0.0");
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Accept-Encoding", "gzip");
+                    xhr.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:63388");
+                    xhr.setRequestHeader("Cache-Control", "no-cache");
+                },
+                success: function (result) {
+                    $("#Image").attr("src", result.ImageUrl);
+                    $("#Image").attr("alt", result.Title);
+                    $("#Title").text(result.Title);
+                    $("#CreatedBy").text(result.CreatedByName);
+                    $("#CreationDate").text(new Date(result.CreationDate).toLocaleDateString());
+                    $("#Address").text(result.Address);
+                    $("#Description").text(result.Description);
+
+                    map.setView({
+                        center: new Microsoft.Maps.Location(result.Latitude, result.Longitude),
+                        zoom: 10
+                    });
+
+                    var center = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
+
+                    var pushpin = new Microsoft.Maps.Pushpin(center,
+                        {
+                            title: result.Title,
+                            subTitle: "by " + result.CreatedByName
+                        });
+
+                    map.entities.push(pushpin);
+                }
+            }
+            );
+        }
+    </script>
+</head>
+<body onload="onload();">
+    <img id="Image" style="height: calc(100vh - 232px); position: absolute; left: 8px; top: 200px;"/>
+    <div>
+        <h1>Urban Sketches</h1>
+        <h2 id="Title"></h2>
+        <h3>
+            Sketched by&nbsp;<span id="CreatedBy"></span>&nbsp;on&nbsp;<span id="CreationDate"></span>
+        </h3>
+        <h3 id="Address"></h3>
+        <h4 id="Description"></h4>
+    </div>
+    <div id="Map" style="margin-left: 50vw;  width: 50vw; height: calc(100vh - 32px); position: absolute; top: 0px;"></div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketchers", "UrbanSketchers\UrbanSketchers.csproj", "{3AFA591D-C115-4AC9-9519-F788373ECDE9}"
 EndProject
@@ -9,11 +9,33 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketchers.iOS", "iOS\U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketchers.Droid", "Droid\UrbanSketchers.Droid.csproj", "{34B9099E-4B00-4707-BFDE-0B95997F8893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketchers.UWP", "UWP\UrbanSketchers.UWP.csproj", "{0483302A-9154-434A-93EB-5633AAFD4409}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanSketches.UWP", "UWP\UrbanSketches.UWP.csproj", "{0483302A-9154-434A-93EB-5633AAFD4409}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41140DBF-CB9B-45E7-8F0B-944F62C969AF}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "..\WebSite\", "{D786DA51-768A-48F8-B98F-156551F6353C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_63388"
+		Debug.AspNetCompiler.PhysicalPath = "..\WebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63388\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_63388"
+		Release.AspNetCompiler.PhysicalPath = "..\WebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63388\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "63388"
+		SlnRelativePath = "..\WebSite\"
+		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
 Global
@@ -53,6 +75,7 @@ Global
 		{3AFA591D-C115-4AC9-9519-F788373ECDE9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3AFA591D-C115-4AC9-9519-F788373ECDE9}.Release|x64.ActiveCfg = Release|Any CPU
 		{3AFA591D-C115-4AC9-9519-F788373ECDE9}.Release|x86.ActiveCfg = Release|Any CPU
+		{3AFA591D-C115-4AC9-9519-F788373ECDE9}.Release|x86.Build.0 = Release|Any CPU
 		{5FA0219F-B063-4D07-800B-CC38BDB5B916}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
 		{5FA0219F-B063-4D07-800B-CC38BDB5B916}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{5FA0219F-B063-4D07-800B-CC38BDB5B916}.Debug|ARM.ActiveCfg = Debug|iPhone
@@ -88,6 +111,7 @@ Global
 		{34B9099E-4B00-4707-BFDE-0B95997F8893}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{34B9099E-4B00-4707-BFDE-0B95997F8893}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{34B9099E-4B00-4707-BFDE-0B95997F8893}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{34B9099E-4B00-4707-BFDE-0B95997F8893}.Debug|x86.Build.0 = Debug|Any CPU
 		{34B9099E-4B00-4707-BFDE-0B95997F8893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34B9099E-4B00-4707-BFDE-0B95997F8893}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34B9099E-4B00-4707-BFDE-0B95997F8893}.Release|ARM.ActiveCfg = Release|Any CPU
@@ -130,6 +154,34 @@ Global
 		{0483302A-9154-434A-93EB-5633AAFD4409}.Release|x86.ActiveCfg = Release|x86
 		{0483302A-9154-434A-93EB-5633AAFD4409}.Release|x86.Build.0 = Release|x86
 		{0483302A-9154-434A-93EB-5633AAFD4409}.Release|x86.Deploy.0 = Release|x86
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|ARM.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|x64.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Debug|x86.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|ARM.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|ARM.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|iPhone.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|iPhone.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|x64.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|x64.Build.0 = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|x86.ActiveCfg = Debug|Any CPU
+		{D786DA51-768A-48F8-B98F-156551F6353C}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

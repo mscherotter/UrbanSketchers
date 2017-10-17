@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Urban Sketches</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol"></script>
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function onload() {
+            var map = new Microsoft.Maps.Map(document.getElementById("myMap"),
+                {
+                    credentials: "B6p5hudPVN61Ykpp6D7W~JW-lf-G0P7wmsDcDrMWFuw~AsZdr0PHfOeWe9qmPtHDbuONPySTrgN47oWYdvD84J67bvxcMbXDQEnZCz6XWwR1"
+                });
+
+            console.log("Getting sketches...");
+
+            $.ajax({
+                url: "https://urbansketchers.azurewebsites.net/tables/Sketch",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader("ZUMO-API-VERSION", "2.0.0");
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Accept-Encoding", "gzip");
+                    xhr.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:63388");
+                    xhr.setRequestHeader("Cache-Control", "no-cache");
+                },
+                success: function (result) {
+                    for (var index = 0; index < result.length; index++) {
+                        var sketch = result[index];
+                        var center = new Microsoft.Maps.Location(sketch.Latitude, sketch.Longitude);
+                        var pushpin = new Microsoft.Maps.Pushpin(center,
+                            {
+                                title: sketch.Title,
+                                subTitle: "by " + sketch.CreatedByName,
+                                icon: sketch.ThumbnailUrl
+                            });
+
+                        Microsoft.Maps.Events.addHandler(pushpin,
+                            "click",
+                            function() {
+                                window.location.href = "sketch.html?id=" + sketch.id;
+                            });
+
+                        map.entities.push(pushpin);
+                    }
+                },
+                error: function(data) {
+                    console.error("Error " + data.status + ": " + data.statusText);
+                }
+            });
+        }
+    </script>
+</head>
+<body onload="onload();">
+<div id="myMap" style="width: 100vw; height: 100vh;"></div>     
+</body>
+</html>

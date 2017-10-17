@@ -3,13 +3,11 @@ using UrbanSketchers.Helpers;
 
 namespace UrbanSketchers.Data
 {
+    /// <summary>
+    /// Base data object
+    /// </summary>
     public class BaseDataObject : ObservableObject
     {
-        public BaseDataObject()
-        {
-            //Id = Guid.NewGuid().ToString();
-        }
-
         /// <summary>
         /// Id for item
         /// </summary>
@@ -28,6 +26,6 @@ namespace UrbanSketchers.Data
         /// <summary>
         /// Azure version for online/offline sync
         /// </summary>
-        public string AzureVersion { get; set; }
+        //public string AzureVersion { get; set; }
     }
 }

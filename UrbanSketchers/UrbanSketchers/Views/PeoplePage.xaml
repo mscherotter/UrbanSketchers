@@ -9,14 +9,8 @@
             
     <ListView.ItemTemplate>
       <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Name}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <!--<Label Text="{Binding Detail}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>-->
-          </StackLayout>
-        </ViewCell>
+          <ImageCell Text="{Binding Path=Name}" ImageSource="{Binding ImageUrl}"
+                     Detail="{Binding Path=SketchCount, StringFormat='{0} sketches'}"/>
       </DataTemplate>
     </ListView.ItemTemplate>
     
