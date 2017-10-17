@@ -42,10 +42,12 @@
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ConnectedAnimations.cs" />
     <Compile Include="Controls\ColorPickerView.cs" />
     <Compile Include="Controls\ConnectedImage.cs" />
     <Compile Include="Controls\DrawingCanvas.cs" />
     <Compile Include="Controls\DrawingFileFormat.cs" />
+    <Compile Include="Controls\PrepareConnectedAnimationData.cs" />
     <Compile Include="Controls\SketchMap.cs" />
     <Compile Include="Controls\SketchPin.cs" />
     <Compile Include="Data\BaseDataObject.cs" />

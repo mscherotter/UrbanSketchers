@@ -7,19 +7,21 @@ using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    /// People page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PeoplePage
     {
+        /// <summary>
+        /// Initializes a new instance of the PeoplePage class.
+        /// </summary>
         public PeoplePage()
         {
             InitializeComponent();
 
-            Items = new ObservableCollection<Person>();
-
             BindingContext = this;
         }
-
-        public ObservableCollection<Person> Items { get; set; }
 
         /// <summary>
         /// Refresh the people
@@ -42,13 +44,13 @@ namespace UrbanSketchers.Views
         {
             var people = await SketchManager.DefaultManager.GetPeopleAsync();
 
-            Items.SetRange(people);
+            People.ItemsSource = people;
         }
 
         private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item is Person person)
-                await Navigation.PushAsync(new SketchesPage
+                await Navigation.PushAsync(new PersonPage
                 {
                     PersonId = person.Id
                 }, true);

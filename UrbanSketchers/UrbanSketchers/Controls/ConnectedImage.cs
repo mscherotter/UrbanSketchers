@@ -15,6 +15,8 @@ namespace UrbanSketchers.Controls
         /// </summary>
         public object Control { get; set; }
 
+        public string Name { get; set; }
+
         /// <summary>
         ///     Event to animate the destination control
         /// </summary>

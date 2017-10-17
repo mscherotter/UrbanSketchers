@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:UrbanSketchers.Controls"
              x:Class="UrbanSketchers.Views.PersonPage"
              Title="{Binding Name}">
     <ContentPage.ToolbarItems>
@@ -8,13 +9,45 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Entry Text="{Binding Path=Name, Mode=TwoWay}"/>
-            <Label Text="Public URL"/>
-            <Entry Text="{Binding Path=PublicUrl, Mode=TwoWay}"/>
-            <Label Text="Image URL"/>
-            <Entry Text="{Binding Path=ImageUrl, Mode=TwoWay}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Image Source="{Binding Path=ImageUrl}" HeightRequest="100"/>
-        </StackLayout>
+            <StackLayout Grid.Column="1">
+                <Entry Text="{Binding Path=Name, Mode=TwoWay}"/>
+                <Label Text="Public URL"/>
+                <Entry Text="{Binding Path=PublicUrl, Mode=TwoWay}"/>
+                <Label Text="Image URL"/>
+                <Entry Text="{Binding Path=ImageUrl, Mode=TwoWay}"/>
+            </StackLayout>
+            <ListView Margin="4" Grid.Row="1" x:Name="Sketches" Grid.ColumnSpan="2" ItemSelected="OnSketchSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding ThumbnailUrl}" Text="{Binding Title}"
+                                   Detail="{Binding Address}"/>
+                        <!--<ViewCell>
+                            <Grid Padding="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="48"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <controls:ConnectedImage Name="Sketch" Source="{Binding ImageUrl}" VerticalOptions="FillAndExpand"/>
+                                <StackLayout Grid.Column="1" Padding="4,0,0,0">
+                                    <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"/>
+                                    <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>-->
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>

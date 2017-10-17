@@ -221,7 +221,10 @@ namespace UrbanSketchers.Views
                     Properties.Resources.TitleBySketcher,
                     Sketch.Title,
                     Sketch.CreatedByName),
-                Url = string.Format(CultureInfo.InvariantCulture, "http://urbansketchers.azurewebsites.net/sketch.html?id={0}", Sketch.Id)
+                Url = string.Format(
+                    CultureInfo.InvariantCulture, 
+                    "http://urbansketchers.azurewebsites.net/sketch.html?id={0}", 
+                    Sketch.Id)
             };
 
             CrossShare.Current.Share(message);

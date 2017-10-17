@@ -14,6 +14,7 @@ using UWP;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 using UrbanSketchers;
+using Xamarin.Forms.Internals;
 
 [assembly: ExportRenderer(typeof(ConnectedImage), typeof(ConnectedImageRenderer))]
 
@@ -40,6 +41,8 @@ namespace UWP
                 var nativeImage = this.GetNativeElement();
 
                 connectedImage.Control = nativeImage;
+
+                nativeImage.SetValue(NameProperty, connectedImage.Name);
             }
         }
 

@@ -229,8 +229,6 @@ namespace UrbanSketchers.Views
             _sketch = null;
         }
 
-        #endregion
-
         private async void OnDrawSketch(object sender, EventArgs e)
         {
             _imageStream = new MemoryStream();
@@ -246,5 +244,6 @@ namespace UrbanSketchers.Views
                 InkStream = _inkStream
             }, true);
         }
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using UrbanSketchers.Data;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
@@ -30,6 +31,26 @@ namespace UrbanSketchers.Views
             base.OnAppearing();
 
             BindingContext = await SketchManager.DefaultManager.GetPersonAsync(PersonId);
+
+            var sketches = await SketchManager.DefaultManager.GetSketchsAsync(PersonId);
+
+            Sketches.ItemsSource = sketches;
+        }
+
+        private async void OnSketchSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem is Sketch sketch)
+            {
+                // This won't work because the Xamarain x:Name "Image" isn't put onto the UWP Xaml Image
+                //var data = new Controls.PrepareConnectedAnimationData("image2", sketch, "Sketch");
+
+                //ConnectedAnimations.SetPrepareConnectedAnimation(Sketches, data);
+
+                await Navigation.PushAsync(new SketchPage
+                {
+                    SketchId = sketch.Id
+                }, true);
+            }
         }
     }
 }

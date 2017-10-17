@@ -111,6 +111,7 @@
       <DependentUpon>DrawingControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Renderers\ColorPickerRenderer.cs" />
+    <Compile Include="Renderers\ConnectedAnimationSourceListViewRenderer.cs" />
     <Compile Include="Renderers\ConnectedImageRenderer.cs" />
     <Compile Include="Renderers\DrawingCanvasRenderer.cs" />
     <Compile Include="MainPage.xaml.cs">
