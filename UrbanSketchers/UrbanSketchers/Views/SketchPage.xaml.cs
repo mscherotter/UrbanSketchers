@@ -95,7 +95,7 @@ namespace UrbanSketchers.Views
 
         private async Task UpdateCommentsAsync()
         {
-            var allRatings = await SketchManager.DefaultManager.GetRatingsAsync(Sketch.Id);
+            var allRatings = (await SketchManager.DefaultManager.GetRatingsAsync(Sketch.Id)).ToArray();
 
             Comments.ItemsSource = allRatings;
 
