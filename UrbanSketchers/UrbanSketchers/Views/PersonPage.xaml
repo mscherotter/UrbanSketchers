@@ -5,7 +5,13 @@
              x:Class="UrbanSketchers.Views.PersonPage"
              Title="{Binding Name}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Update">
+        <ToolbarItem Text="Update"/>
+        <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Refresh.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -18,13 +24,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Image Source="{Binding Path=ImageUrl}" HeightRequest="100"/>
+            <Image Source="{Binding Path=Person.ImageUrl}" HeightRequest="100"/>
             <StackLayout Grid.Column="1">
-                <Entry Text="{Binding Path=Name, Mode=TwoWay}"/>
+                <Entry Text="{Binding Path=Person.Name, Mode=TwoWay}"/>
                 <Label Text="Public URL"/>
-                <Entry Text="{Binding Path=PublicUrl, Mode=TwoWay}"/>
+                <Entry Text="{Binding Path=Person.PublicUrl, Mode=TwoWay}"/>
                 <Label Text="Image URL"/>
-                <Entry Text="{Binding Path=ImageUrl, Mode=TwoWay}"/>
+                <Entry Text="{Binding Path=Person.ImageUrl, Mode=TwoWay}"/>
             </StackLayout>
             <ListView Margin="4" Grid.Row="1" x:Name="Sketches" Grid.ColumnSpan="2" ItemSelected="OnSketchSelected">
                 <ListView.ItemTemplate>
