@@ -30,6 +30,9 @@ using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace UrbanSketchers
 {
+    /// <summary>
+    ///     The sketch manager
+    /// </summary>
     public class SketchManager
     {
 #if OFFLINE_SYNC_ENABLED
@@ -42,14 +45,15 @@ namespace UrbanSketchers
         internal async Task<IEnumerable<Rating>> GetRatingsAsync(string sketchId)
         {
             var query = from item in _ratingTable
-                      where item.SketchId == sketchId
-                      orderby item.UpdatedAt descending 
+                where item.SketchId == sketchId
+                orderby item.UpdatedAt descending
                 select item;
 
             return await query.ToEnumerableAsync();
         }
 #endif
 
+        // ReSharper disable once UnusedMember.Local
         private const string OfflineDbPath = @"localstore.db";
 
         private SketchManager()
@@ -72,7 +76,7 @@ namespace UrbanSketchers
         }
 
         /// <summary>
-        /// Delete the current user
+        ///     Delete the current user
         /// </summary>
         /// <returns>an async task</returns>
         public async Task DeleteCurrentUserAsync()
@@ -80,13 +84,16 @@ namespace UrbanSketchers
             var user = await GetCurrentUserAsync();
 
             if (user == null)
-            {
                 return;
-            }
 
             await _peopleTable.DeleteAsync(user);
         }
 
+        /// <summary>
+        ///     Gets the rating for a sketch
+        /// </summary>
+        /// <param name="sketchId">the sketch Id</param>
+        /// <returns>an async task with the rating</returns>
         public async Task<Rating> GetRatingAsync(string sketchId)
         {
             var user = await GetCurrentUserAsync();
@@ -106,9 +113,7 @@ namespace UrbanSketchers
         internal async Task<Person> GetCurrentUserAsync()
         {
             if (CurrentClient.CurrentUser == null)
-            {
                 return null;
-            }
 
             var query = from item in _peopleTable
                 where item.UserId == CurrentClient.CurrentUser.UserId
@@ -123,7 +128,8 @@ namespace UrbanSketchers
         /// <param name="fileName"></param>
         /// <param name="stream"></param>
         /// <returns>an async task with the Uri of the file uploaded.</returns>
-        /// <remarks>see <![CDATA[https://code.msdn.microsoft.com/windowsapps/Upload-File-to-Windows-c9169190]]> and <![CDATA[https://docs.microsoft.com/en-us/azure/storage/files/storage-dotnet-how-to-use-files]]></remarks>
+        /// <remarks>
+        ///     see <![CDATA[https://code.msdn.microsoft.com/windowsapps/Upload-File-to-Windows-c9169190]]> and <![CDATA[https://docs.microsoft.com/en-us/azure/storage/files/storage-dotnet-how-to-use-files]]></remarks>
         public async Task<string> UploadAsync(string fileName, Stream stream)
         {
             var sketchFile = new SketchFile
@@ -133,7 +139,8 @@ namespace UrbanSketchers
                 Permissions = "rw"
             };
 
-            var response = await CurrentClient.InvokeApiAsync<SketchFile, GetSasTokenResponse>("GetUploadToken", sketchFile);
+            var response =
+                await CurrentClient.InvokeApiAsync<SketchFile, GetSasTokenResponse>("GetUploadToken", sketchFile);
 
             var sasUri = new Uri(response.Uri);
 
@@ -142,9 +149,9 @@ namespace UrbanSketchers
             var credentials = new StorageCredentials(sasToken);
 
             var uriString = string.Format(
-                CultureInfo.InvariantCulture, 
-                "https://{0}/{1}", 
-                sasUri.Host, 
+                CultureInfo.InvariantCulture,
+                "https://{0}/{1}",
+                sasUri.Host,
                 sketchFile.Container);
 
             var container = new CloudBlobContainer(new Uri(uriString), credentials);
@@ -157,7 +164,8 @@ namespace UrbanSketchers
             }
             catch (StorageException se)
             {
-                Debug.WriteLine($"Error uploading {fileName}: {se.RequestInformation.ExtendedErrorInformation.ErrorMessage}.");
+                Debug.WriteLine(
+                    $"Error uploading {fileName}: {se.RequestInformation.ExtendedErrorInformation.ErrorMessage}.");
 
                 return null;
             }
@@ -172,32 +180,58 @@ namespace UrbanSketchers
             return _sketchTable.DeleteAsync(sketch);
         }
 
+        /// <summary>
+        ///     Gets the singleton Sketch Manager
+        /// </summary>
         public static SketchManager DefaultManager { get; } = new SketchManager();
 
+        /// <summary>
+        ///     Gets the current Mobile service client
+        /// </summary>
         public MobileServiceClient CurrentClient { get; }
 
+        /// <summary>
+        ///     Gets or sets the thumbnail generator
+        /// </summary>
         public IThumbnailGenerator ThumbnailGenerator { get; set; }
 
+        /// <summary>
+        ///     Gets a value indicating whether offline support is enabled
+        /// </summary>
+        // ReSharper disable once SuspiciousTypeConversion.Global
         public bool IsOfflineEnabled => _sketchTable is IMobileServiceSyncTable<Sketch>;
 
-        public async Task<string> GetPhotosAsync()
-        {
-            var result = await CurrentClient.InvokeApiAsync("GetPhotos");
-
-            return result.ToString();
-        }
+        /// <summary>
+        ///     Get a sketch
+        /// </summary>
+        /// <param name="id">the sketch Id</param>
+        /// <returns>an async task with the sketch</returns>
         public Task<Sketch> GetSketchAsync(string id)
         {
             return _sketchTable.LookupAsync(id);
         }
 
+        /// <summary>
+        ///     Gets the people who are sketchers
+        /// </summary>
+        /// <returns>an async task with an observable collection of people</returns>
         public async Task<ObservableCollection<Person>> GetPeopleAsync()
         {
-            var items = await _peopleTable.ToEnumerableAsync();
+            var query = from item in _peopleTable
+                orderby item.Name
+                select item;
+
+            var items = await query.ToEnumerableAsync();
 
             return new ObservableCollection<Person>(items);
         }
 
+        /// <summary>
+        ///     Gets the sketches
+        /// </summary>
+        /// <param name="personId">the person who created the sketches</param>
+        /// <param name="syncItems">true to sync the offline items</param>
+        /// <returns>an async task with an observable collection of sketches</returns>
         public async Task<ObservableCollection<Sketch>> GetSketchsAsync(string personId, bool syncItems = false)
         {
             try
@@ -211,7 +245,7 @@ namespace UrbanSketchers
 
                 var query = from item in _sketchTable
                     where item.CreatedBy == personId
-                    orderby item.CreationDate descending 
+                    orderby item.CreationDate descending
                     select item;
 
                 var sketches = await query.ToEnumerableAsync();
@@ -229,6 +263,11 @@ namespace UrbanSketchers
             return null;
         }
 
+        /// <summary>
+        ///     Get the sketches in a specific sector
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <returns>an async task with an observable collection of sketches</returns>
         public async Task<ObservableCollection<Sketch>> GetSketchsAsync(int sector)
         {
             var items = from item in _sketchTable
@@ -238,7 +277,11 @@ namespace UrbanSketchers
             return new ObservableCollection<Sketch>(await items.ToEnumerableAsync());
         }
 
-
+        /// <summary>
+        ///     Gets the sketches
+        /// </summary>
+        /// <param name="syncItems">true to sync offline items</param>
+        /// <returns>an async task with an observable collection of sketches</returns>
         public async Task<ObservableCollection<Sketch>> GetSketchsAsync(bool syncItems = false)
         {
             try
@@ -265,7 +308,7 @@ namespace UrbanSketchers
         }
 
         /// <summary>
-        /// Insert or update the sketch
+        ///     Insert or update the sketch
         /// </summary>
         /// <param name="item">the sketch</param>
         /// <returns>an async task</returns>
@@ -280,7 +323,7 @@ namespace UrbanSketchers
         }
 
         /// <summary>
-        /// Insert or update a Person
+        ///     Insert or update a Person
         /// </summary>
         /// <param name="item">a person</param>
         /// <returns>an async task</returns>
@@ -291,6 +334,12 @@ namespace UrbanSketchers
             else
                 await _peopleTable.UpdateAsync(item);
         }
+
+        /// <summary>
+        ///     Insert or update a rating
+        /// </summary>
+        /// <param name="item">the rating</param>
+        /// <returns>an async task</returns>
         public async Task SaveAsync(Rating item)
         {
             if (item.Id == null)

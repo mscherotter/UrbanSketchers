@@ -8,8 +8,8 @@
     "Plugin.Share": "7.0.1",
     "WindowsAzure.Storage": "8.5.0",
     "Xam.Plugin.FilePicker": "1.1.0",
-    "Xamarin.Forms": "2.4.0.282",
-    "Xamarin.Forms.Maps": "2.4.0.282"
+    "Xamarin.Forms": "2.4.0.18342",
+    "Xamarin.Forms.Maps": "2.4.0.18342"
   },
   "frameworks": {
     "netstandard1.4": {

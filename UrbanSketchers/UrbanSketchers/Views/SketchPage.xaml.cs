@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace UrbanSketchers.Views
         private Rating _rating;
 
         /// <summary>
-        /// Initializes a new instance of the SketchPage class.
+        ///     Initializes a new instance of the SketchPage class.
         /// </summary>
         public SketchPage()
         {
@@ -31,28 +32,27 @@ namespace UrbanSketchers.Views
             Image.PropertyChanged += Image_PropertyChanged;
         }
 
-        private void Image_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Renderer") return;
-
-            if (!Image.IsLoading && Image.Width > 0 && Image.Height > 0 && Image.Control != null && Image.Source != null)
-            {
-                Image.StartConnectedAnimation("image");
-            }
-        }
-
         /// <summary>
-        /// Gets the sketch Id
+        ///     Gets the sketch Id
         /// </summary>
         public string SketchId { get; internal set; }
 
         /// <summary>
-        /// Gets the <see cref="Sketch"/> as the binding context
+        ///     Gets the <see cref="Sketch" /> as the binding context
         /// </summary>
         public Sketch Sketch => BindingContext as Sketch;
 
+        private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Renderer") return;
+
+            if (!Image.IsLoading && Image.Width > 0 && Image.Height > 0 && Image.Control != null &&
+                Image.Source != null)
+                Image.StartConnectedAnimation("image");
+        }
+
         /// <summary>
-        /// Refresh when appearing
+        ///     Refresh when appearing
         /// </summary>
         protected override async void OnAppearing()
         {
@@ -222,8 +222,8 @@ namespace UrbanSketchers.Views
                     Sketch.Title,
                     Sketch.CreatedByName),
                 Url = string.Format(
-                    CultureInfo.InvariantCulture, 
-                    "http://urbansketchers.azurewebsites.net/sketch.html?id={0}", 
+                    CultureInfo.InvariantCulture,
+                    "http://urbansketchers.azurewebsites.net/sketch.html?id={0}",
                     Sketch.Id)
             };
 
@@ -251,7 +251,7 @@ namespace UrbanSketchers.Views
         }
 
         /// <summary>
-        /// Save the rating
+        ///     Save the rating
         /// </summary>
         /// <param name="sender">the button</param>
         /// <param name="e">the event arguments</param>
@@ -269,7 +269,8 @@ namespace UrbanSketchers.Views
             {
                 await DisplayAlert(
                     Properties.Resources.EnterComment,
-                    string.Format(CultureInfo.CurrentCulture, Properties.Resources.AddCommentMessage, Properties.Resources.InappropriateSketchDescription),
+                    string.Format(CultureInfo.CurrentCulture, Properties.Resources.AddCommentMessage,
+                        Properties.Resources.InappropriateSketchDescription),
                     Properties.Resources.OK);
             }
             else
