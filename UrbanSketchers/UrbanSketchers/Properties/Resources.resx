@@ -209,4 +209,19 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="RemoveUserQuestion" xml:space="preserve">
     <value>Press OK to remove the current user data from Urban Sketches, including all sketches and ratings.</value>
   </data>
+  <data name="AddSketch" xml:space="preserve">
+    <value>Add sketch</value>
+  </data>
+  <data name="DrawSketch" xml:space="preserve">
+    <value>Draw sketch</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="AboutUrbanSketchers" xml:space="preserve">
+    <value>About Urban Sketches</value>
+  </data>
+  <data name="CreatedByMichaelScherotter" xml:space="preserve">
+    <value>Created by Michael S. Scherotter</value>
+  </data>
 </root>

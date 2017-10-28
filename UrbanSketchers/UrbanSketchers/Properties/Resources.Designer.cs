@@ -64,6 +64,15 @@ namespace UrbanSketchers.Properties {
         /// <summary>
         ///   Looks up a localized string similar to About Urban Sketches.
         /// </summary>
+        internal static string AboutUrbanSketchers {
+            get {
+                return ResourceManager.GetString("AboutUrbanSketchers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Urban Sketches.
+        /// </summary>
         internal static string AboutUrbanSketches {
             get {
                 return ResourceManager.GetString("AboutUrbanSketches", resourceCulture);
@@ -89,11 +98,38 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add sketch.
+        /// </summary>
+        internal static string AddSketch {
+            get {
+                return ResourceManager.GetString("AddSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created by Michael S. Scherotter.
+        /// </summary>
+        internal static string CreatedByMichaelScherotter {
+            get {
+                return ResourceManager.GetString("CreatedByMichaelScherotter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Draw sketch.
+        /// </summary>
+        internal static string DrawSketch {
+            get {
+                return ResourceManager.GetString("DrawSketch", resourceCulture);
             }
         }
         
@@ -168,6 +204,15 @@ namespace UrbanSketchers.Properties {
         internal static string OnlyEditOwnSketches {
             get {
                 return ResourceManager.GetString("OnlyEditOwnSketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        internal static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
             }
         }
         

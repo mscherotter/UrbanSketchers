@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MySketches" xml:space="preserve">
+    <value>Mes croquis</value>
+  </data>
+  <data name="Sketches" xml:space="preserve">
+    <value>Croquis</value>
+  </data>
+  <data name="SketchMap" xml:space="preserve">
+    <value>Croquis cartographique</value>
+  </data>
+  <data name="UrbanSketchers" xml:space="preserve">
+    <value>Urbains Sketchers</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Mise à jour</value>
+  </data>
+  <data name="SketchesByFormat" xml:space="preserve">
+    <value>Croquis de {0} de {1}</value>
+    <comment>10 Sketch by Michael Scherotter</comment>
+  </data>
+  <data name="EditSketch" xml:space="preserve">
+    <value>Modifier esquisse</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnlyEditOwnSketches" xml:space="preserve">
+    <value>Vous ne pouvez modifier que les croquis que vous avez soumis.</value>
+  </data>
+  <data name="TitleBySketcher" xml:space="preserve">
+    <value>{0} par {1}</value>
+    <comment>The Pantheon by Michael Scherotter</comment>
+  </data>
+  <data name="AddCommentMessage" xml:space="preserve">
+    <value>Croquis, signalés comme inapproprié doivent avoir un commentaire.  {0}</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Entrez le commentaire</value>
+  </data>
+  <data name="InappropraiteSketch" xml:space="preserve">
+    <value>Sketch inapproprié</value>
+  </data>
+  <data name="InappropriateSketchDescription" xml:space="preserve">
+    <value>Inappropraite croquis comprennent :
+1. croquis qui ne sont pas soumises par l’artiste original.
+ 2. croquis qui portent atteinte.</value>
+  </data>
+  <data name="AboutUrbanSketches" xml:space="preserve">
+    <value>Sur croquis urbains</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>Vous êtes sur le point de télécharger une photo sur le service de croquis urbains au
+http://urbansketchers.azurewebsites.net.
+ 
+S’il vous plaît suivez ces règles lors du partage d’esquisses :
+1. croquis devraient représenter des lieux réels qui peuvent être mappées sur la terre.
+ 2. vous devez seulement télécharger photos de croquis que vous avez créé. 
+3. images offensants ou pornographiques ne sont pas autorisés. 
+4. Placer les photos avec un emplacement approprié, titre et date de création.  Description et adresse sont facultatifs. 
+5. l’App de croquis urbains, Site ou développeur de l’application, Michael Scherotter ne supposez pas propriétaire des images téléchargées.  Vous pouvez supprimer les esquisses à tout moment de l’app
+
+Appuyez sur OK pour continuer le téléchargement de l’esquisse, confirmant que vous avez lu cela et j’accepte les conditions.</value>
+  </data>
+  <data name="UploadSketch" xml:space="preserve">
+    <value>Télécharger Sketch</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="SignOutQuestion" xml:space="preserve">
+    <value>Vous souhaitez vous déconnecter de croquis urbains ?  Vous devez être connecté à télécharger et à commenter les esquisses.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="RemoveUser" xml:space="preserve">
+    <value>Supprimer l’utilisateur</value>
+  </data>
+  <data name="RemoveUserQuestion" xml:space="preserve">
+    <value>Appuyez sur OK pour supprimer les données de l’utilisateur actuel de croquis urbains, y compris toutes les esquisses et les qualifications.</value>
+  </data>
+  <data name="AddSketch" xml:space="preserve">
+    <value>Ajouter esquisse</value>
+  </data>
+  <data name="DrawSketch" xml:space="preserve">
+    <value>Dessiner des croquis</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Actualiser</value>
+  </data>
+  <data name="AboutUrbanSketchers" xml:space="preserve">
+    <value>Sur croquis urbains</value>
+  </data>
+  <data name="CreatedByMichaelScherotter" xml:space="preserve">
+    <value>Créé par Michael S. Scherotter</value>
+  </data>
+</root>

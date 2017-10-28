@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="es" original="URBANSKETCHERS/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6810.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="URBANSKETCHERS/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="MySketches" translate="yes" xml:space="preserve">
+          <source>My Sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Mis bocetos</target>
+        </trans-unit>
+        <trans-unit id="Sketches" translate="yes" xml:space="preserve">
+          <source>Sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bocetos</target>
+        </trans-unit>
+        <trans-unit id="SketchMap" translate="yes" xml:space="preserve">
+          <source>Sketch Map</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Mapa de bosquejo</target>
+        </trans-unit>
+        <trans-unit id="UrbanSketchers" translate="yes" xml:space="preserve">
+          <source>Urban Sketchers</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Urbanas Sketchers</target>
+        </trans-unit>
+        <trans-unit id="Add" translate="yes" xml:space="preserve">
+          <source>Add</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Agregar</target>
+        </trans-unit>
+        <trans-unit id="Update" translate="yes" xml:space="preserve">
+          <source>Update</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Actualizar</target>
+        </trans-unit>
+        <trans-unit id="SketchesByFormat" translate="yes" xml:space="preserve">
+          <source>{0} Sketches by {1}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bocetos de {0} de {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">10 Sketch by Michael Scherotter</note>
+        </trans-unit>
+        <trans-unit id="EditSketch" translate="yes" xml:space="preserve">
+          <source>Edit Sketch</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Editar esbozo</target>
+        </trans-unit>
+        <trans-unit id="OK" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Aceptar</target>
+        </trans-unit>
+        <trans-unit id="OnlyEditOwnSketches" translate="yes" xml:space="preserve">
+          <source>You can only edit sketches that you submitted.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Sólo pueden editar los bocetos que presentaron.</target>
+        </trans-unit>
+        <trans-unit id="TitleBySketcher" translate="yes" xml:space="preserve">
+          <source>{0} by {1}</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">{0} por {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The Pantheon by Michael Scherotter</note>
+        </trans-unit>
+        <trans-unit id="AddCommentMessage" translate="yes" xml:space="preserve">
+          <source>Sketches flagged as inappropriate must have a comment.  {0}</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Dibujos bandera como inadecuado deben tener un comentario.  {0}</target>
+        </trans-unit>
+        <trans-unit id="EnterComment" translate="yes" xml:space="preserve">
+          <source>Enter Comment</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Escribir comentario</target>
+        </trans-unit>
+        <trans-unit id="InappropraiteSketch" translate="yes" xml:space="preserve">
+          <source>Inappropriate Sketch</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Esquema inadecuado</target>
+        </trans-unit>
+        <trans-unit id="InappropriateSketchDescription" translate="yes" xml:space="preserve">
+          <source>Inappropraite sketches include:
+1. Sketches that are not submitted by the original artist.
+2. Sketches that are offensive.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bocetos de Inappropraite incluyen:
+1. bocetos que no los huéspedes son enviadas por el artista original.
+ 2. bosquejos que son ofensivos.</target>
+        </trans-unit>
+        <trans-unit id="AboutUrbanSketches" translate="yes" xml:space="preserve">
+          <source>About Urban Sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Sobre bocetos urbanos</target>
+        </trans-unit>
+        <trans-unit id="Cancel" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Cancelar</target>
+        </trans-unit>
+        <trans-unit id="UploadMessage" translate="yes" xml:space="preserve">
+          <source>You are about to upload a picture to the Urban Sketches service at
+http://urbansketchers.azurewebsites.net.
+
+Please follow these rules when sharing sketches:
+1. The sketches should represent actual places that can be mapped on the Earth.
+2. You should only upload pictures of sketches that you created.
+3. Offensive or pornographic images are not allowed.
+4. Place the pictures with an appropriate location, title, and date created.  Description and address are optional.
+5. the Urban Sketches App, Site, or the app's developer, Michael Scherotter do not assume ownership of the images uploaded.  You can remove the sketches at any time from the app.
+
+Press OK to continue uploading the sketch, affirming that you have read this and agree to the terms.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Usted está a punto de subir una foto al servicio urbano bocetos en
+http://urbansketchers.azurewebsites.net.
+ 
+Por favor siga estas reglas al compartir bosquejos:
+1. los dibujos deben representar lugares reales que pueden asignarse en el
+ de la tierra. 2. usted sólo debe enviar imágenes de bocetos que creó. 
+3. imágenes ofensivas o pornográficos no están permitidos. 
+4. Coloque las fotos con un lugar apropiado, el título y la fecha de creación.  Dirección y descripción son opcionales. 
+5. la aplicación de esquemas urbanos, sitio o desarrollador de la aplicación, Michael Scherotter no asumen la propiedad de las imágenes subidas.  Puede quitar los bocetos en cualquier momento de la aplicación
+
+presione OK para continuar subiendo el bosquejo, afirmando que ha leído y acepta los términos.</target>
+        </trans-unit>
+        <trans-unit id="UploadSketch" translate="yes" xml:space="preserve">
+          <source>Upload Sketch</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Añadir Sketch</target>
+        </trans-unit>
+        <trans-unit id="SignIn" translate="yes" xml:space="preserve">
+          <source>Sign in</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Iniciar sesión</target>
+        </trans-unit>
+        <trans-unit id="No" translate="yes" xml:space="preserve">
+          <source>No</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">No</target>
+        </trans-unit>
+        <trans-unit id="SignOut" translate="yes" xml:space="preserve">
+          <source>Sign out</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Cerrar sesión</target>
+        </trans-unit>
+        <trans-unit id="SignOutQuestion" translate="yes" xml:space="preserve">
+          <source>Would you like to sign out of Urban Sketches?  You need to be signed in to upload and comment on sketches.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">¿Te gustaría salir de croquis urbano?  Usted necesita la firma subir y comentar en bocetos.</target>
+        </trans-unit>
+        <trans-unit id="Yes" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Sí</target>
+        </trans-unit>
+        <trans-unit id="RemoveUser" translate="yes" xml:space="preserve">
+          <source>Remove User</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Quitar usuario</target>
+        </trans-unit>
+        <trans-unit id="RemoveUserQuestion" translate="yes" xml:space="preserve">
+          <source>Press OK to remove the current user data from Urban Sketches, including all sketches and ratings.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pulse OK para eliminar los datos del usuario actual de bocetos urbanos, incluyendo todos los bocetos y calificaciones.</target>
+        </trans-unit>
+        <trans-unit id="AddSketch" translate="yes" xml:space="preserve">
+          <source>Add sketch</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Añadir sketch</target>
+        </trans-unit>
+        <trans-unit id="DrawSketch" translate="yes" xml:space="preserve">
+          <source>Draw sketch</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Dibujar boceto</target>
+        </trans-unit>
+        <trans-unit id="Refresh" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Actualizar</target>
+        </trans-unit>
+        <trans-unit id="AboutUrbanSketchers" translate="yes" xml:space="preserve">
+          <source>About Urban Sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Sobre bocetos urbanos</target>
+        </trans-unit>
+        <trans-unit id="CreatedByMichaelScherotter" translate="yes" xml:space="preserve">
+          <source>Created by Michael S. Scherotter</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Creado por Michael S. Scherotter</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

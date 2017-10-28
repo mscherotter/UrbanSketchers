@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MySketches" xml:space="preserve">
+    <value>Mis bocetos</value>
+  </data>
+  <data name="Sketches" xml:space="preserve">
+    <value>Bocetos</value>
+  </data>
+  <data name="SketchMap" xml:space="preserve">
+    <value>Mapa de bosquejo</value>
+  </data>
+  <data name="UrbanSketchers" xml:space="preserve">
+    <value>Urbanas Sketchers</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="SketchesByFormat" xml:space="preserve">
+    <value>Bocetos de {0} de {1}</value>
+    <comment>10 Sketch by Michael Scherotter</comment>
+  </data>
+  <data name="EditSketch" xml:space="preserve">
+    <value>Editar esbozo</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="OnlyEditOwnSketches" xml:space="preserve">
+    <value>Sólo pueden editar los bocetos que presentaron.</value>
+  </data>
+  <data name="TitleBySketcher" xml:space="preserve">
+    <value>{0} por {1}</value>
+    <comment>The Pantheon by Michael Scherotter</comment>
+  </data>
+  <data name="AddCommentMessage" xml:space="preserve">
+    <value>Dibujos bandera como inadecuado deben tener un comentario.  {0}</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Escribir comentario</value>
+  </data>
+  <data name="InappropraiteSketch" xml:space="preserve">
+    <value>Esquema inadecuado</value>
+  </data>
+  <data name="InappropriateSketchDescription" xml:space="preserve">
+    <value>Bocetos de Inappropraite incluyen:
+1. bocetos que no los huéspedes son enviadas por el artista original.
+ 2. bosquejos que son ofensivos.</value>
+  </data>
+  <data name="AboutUrbanSketches" xml:space="preserve">
+    <value>Sobre bocetos urbanos</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>Usted está a punto de subir una foto al servicio urbano bocetos en
+http://urbansketchers.azurewebsites.net.
+ 
+Por favor siga estas reglas al compartir bosquejos:
+1. los dibujos deben representar lugares reales que pueden asignarse en el
+ de la tierra. 2. usted sólo debe enviar imágenes de bocetos que creó. 
+3. imágenes ofensivas o pornográficos no están permitidos. 
+4. Coloque las fotos con un lugar apropiado, el título y la fecha de creación.  Dirección y descripción son opcionales. 
+5. la aplicación de esquemas urbanos, sitio o desarrollador de la aplicación, Michael Scherotter no asumen la propiedad de las imágenes subidas.  Puede quitar los bocetos en cualquier momento de la aplicación
+
+presione OK para continuar subiendo el bosquejo, afirmando que ha leído y acepta los términos.</value>
+  </data>
+  <data name="UploadSketch" xml:space="preserve">
+    <value>Añadir Sketch</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+  <data name="SignOutQuestion" xml:space="preserve">
+    <value>¿Te gustaría salir de croquis urbano?  Usted necesita la firma subir y comentar en bocetos.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="RemoveUser" xml:space="preserve">
+    <value>Quitar usuario</value>
+  </data>
+  <data name="RemoveUserQuestion" xml:space="preserve">
+    <value>Pulse OK para eliminar los datos del usuario actual de bocetos urbanos, incluyendo todos los bocetos y calificaciones.</value>
+  </data>
+  <data name="AddSketch" xml:space="preserve">
+    <value>Añadir sketch</value>
+  </data>
+  <data name="DrawSketch" xml:space="preserve">
+    <value>Dibujar boceto</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="AboutUrbanSketchers" xml:space="preserve">
+    <value>Sobre bocetos urbanos</value>
+  </data>
+  <data name="CreatedByMichaelScherotter" xml:space="preserve">
+    <value>Creado por Michael S. Scherotter</value>
+  </data>
+</root>

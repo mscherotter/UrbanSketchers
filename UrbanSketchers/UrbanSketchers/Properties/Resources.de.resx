@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MySketches" xml:space="preserve">
+    <value>Meine Skizzen</value>
+  </data>
+  <data name="Sketches" xml:space="preserve">
+    <value>Skizzen</value>
+  </data>
+  <data name="SketchMap" xml:space="preserve">
+    <value>Kartenskizze</value>
+  </data>
+  <data name="UrbanSketchers" xml:space="preserve">
+    <value>Urban Sketchers</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SketchesByFormat" xml:space="preserve">
+    <value>Skizzen von {0} von {1}</value>
+    <comment>10 Sketch by Michael Scherotter</comment>
+  </data>
+  <data name="EditSketch" xml:space="preserve">
+    <value>Skizze bearbeiten</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnlyEditOwnSketches" xml:space="preserve">
+    <value>Sie können nur Skizzen bearbeiten, die Sie eingereicht.</value>
+  </data>
+  <data name="TitleBySketcher" xml:space="preserve">
+    <value>{0} von {1}</value>
+    <comment>The Pantheon by Michael Scherotter</comment>
+  </data>
+  <data name="AddCommentMessage" xml:space="preserve">
+    <value>Skizzen, die als unangemessen gekennzeichnet müssen einen Kommentar.  {0}</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Kommentar eingeben</value>
+  </data>
+  <data name="InappropraiteSketch" xml:space="preserve">
+    <value>Unangemessene Skizze</value>
+  </data>
+  <data name="InappropriateSketchDescription" xml:space="preserve">
+    <value>Bestimmungsgemäße Skizzen enthalten:
+1. Skizzen, die nicht von den ursprünglichen Künstler
+ eingereicht werden (2) Zeichnungen, die beleidigend sind.</value>
+  </data>
+  <data name="AboutUrbanSketches" xml:space="preserve">
+    <value>Über Urban Skizzen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>Sie sind im Begriff, ein Bild hochzuladen, der städtischen Skizzen Service im
+http://urbansketchers.azurewebsites.net.
+ 
+Bitte befolgen Sie diese Regeln beim Skizzen zu teilen:
+1. Skizzen darstellen sollte tatsächliche Orte, die auf der Erde.
+ zugeordnet werden können 2. Sie sollten nur Bilder von Skizzen hochladen, die Sie erstellt. 
+3. beleidigende oder pornographische Bilder sind nicht erlaubt. 
+4. Legen Sie die Bilder mit einer geeigneten Stelle, Titel und Datum erstellt.  Beschreibung und Adresse sind optional. 
+5. Urban Skizzen App, Website oder app Entwickler, Michael Scherotter übernehmen keine Eigentum der hochgeladenen Bilder.  Sie können die Skizzen zu jeder Zeit entfernen, ab ca.
+
+OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen haben und die Bedingungen akzeptieren.</value>
+  </data>
+  <data name="UploadSketch" xml:space="preserve">
+    <value>Skizze hochladen</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="SignOutQuestion" xml:space="preserve">
+    <value>Möchten Sie von städtischen Skizzen abmelden?  Du musst angemeldet sein, hochladen und kommentieren Skizzen.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="RemoveUser" xml:space="preserve">
+    <value>Benutzer entfernen</value>
+  </data>
+  <data name="RemoveUserQuestion" xml:space="preserve">
+    <value>Drücken Sie OK, um die aktuellen Benutzerdaten aus städtischen Skizzen, wie alle Sketche und Bewertungen zu entfernen.</value>
+  </data>
+  <data name="AddSketch" xml:space="preserve">
+    <value>Fügen Sie Skizze</value>
+  </data>
+  <data name="DrawSketch" xml:space="preserve">
+    <value>Skizze zu zeichnen</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Auffrischen</value>
+  </data>
+  <data name="AboutUrbanSketchers" xml:space="preserve">
+    <value>Über Urban Skizzen</value>
+  </data>
+  <data name="CreatedByMichaelScherotter" xml:space="preserve">
+    <value>Erstellt von Michael S. Scherotter</value>
+  </data>
+</root>

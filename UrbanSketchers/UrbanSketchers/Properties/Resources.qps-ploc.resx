@@ -12,4 +12,111 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MySketches" xml:space="preserve">
+    <value>[05740][!!_МУ Śĸêτĉђêş_!!]</value>
+  </data>
+  <data name="Sketches" xml:space="preserve">
+    <value>[5C02B][!!_Śкèţĉнęš_!!]</value>
+  </data>
+  <data name="SketchMap" xml:space="preserve">
+    <value>[D8CD3][!!_Şкèţćĥ Μáþ_!!]</value>
+  </data>
+  <data name="UrbanSketchers" xml:space="preserve">
+    <value>[BB2B8][!!_Ûѓъâή Ŝĸęťċђéŕŝ_!!]</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>[40FA6][!!_Àðđ_!!]</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>[61F2E][!!_Üрðáťé_!!]</value>
+  </data>
+  <data name="SketchesByFormat" xml:space="preserve">
+    <value>[45465][!!_{0} Ŝĸęτċĥèś вУ {1}_!!]</value>
+    <comment>10 Sketch by Michael Scherotter</comment>
+  </data>
+  <data name="EditSketch" xml:space="preserve">
+    <value>[6D873][!!_Ęðįт Ŝķéτĉђ_!!]</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>[4485B][!!_ÔЌ_!!]</value>
+  </data>
+  <data name="OnlyEditOwnSketches" xml:space="preserve">
+    <value>[E2AAC][!!_Ўõµ ćâη ôήļý èđíţ şкèťčĥèş тћãţ ўòù ŝûьmîţтèđ._!!]</value>
+  </data>
+  <data name="TitleBySketcher" xml:space="preserve">
+    <value>[6D28D][!!_{0} ьÿ {1}_!!]</value>
+    <comment>The Pantheon by Michael Scherotter</comment>
+  </data>
+  <data name="AddCommentMessage" xml:space="preserve">
+    <value>[A9683][!!_Ŝĸêťćнèś ƒĺáģġêď áş įйâρрŗôρŗîáτę mûšт нãνę á ċõmмęйţ.  {0}_!!]</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>[8602F][!!_Ęйţèѓ Ćómméηť_!!]</value>
+  </data>
+  <data name="InappropraiteSketch" xml:space="preserve">
+    <value>[E6B13][!!_Îиàρрѓôþŕîâťę Śкèтĉђ_!!]</value>
+  </data>
+  <data name="InappropriateSketchDescription" xml:space="preserve">
+    <value>[718F8][!!_Ìηàþþŕóρѓàįťè šķèτčĥéŝ íηćľûďé:
+1. Šĸęτĉћêş ťħâт áŗè ήòτ śúБмîţťêď ъў ťћę òřìĝįиâł ãŗţįŝţ.
+2. Šкêтĉħęŝ тћâτ áѓę õƒƒèηŝìνé._!!]</value>
+  </data>
+  <data name="AboutUrbanSketches" xml:space="preserve">
+    <value>[6A852][!!_Âвôûт Úŗъáи Şкęτċћęś_!!]</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>[4E437][!!_Ĉáήćęĺ_!!]</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>[17B0F][!!_Ўôú àŕé áвòúţ ţó úρľõàď à рîćţùŕê тò ťнè Ûѓьàи Şќêţċнęş šéѓνįĉę ãτ
+ħтτþ://ùŕБãиšкęťčħęřś.âźúŕęẅêБŝįтêş.ηéт.
+
+Ρłêàŝê ƒòľľóẅ тћèśè ѓµļèŝ ŵħèη šħâŗîиġ šкęтćĥęš:
+1. Τђę ŝķèţčћéş šћõùłð ŕéþŕęşêηţ àċţµáļ ρĺãĉèš τћáţ ċàή вè мâþрêď óи ťђê Ęářτĥ.
+2. Ýõú śħòµĺď òиłў µþľòàď ρįčтµřêš óƒ śкęťčћêş тнãť ŷòµ ċŕèàťêď.
+3. Òƒƒéиşîνę óŗ рóŕήôġѓâρћíċ îмãģêš ãѓé иôτ áĺļõẁèđ.
+4. Ρłãĉê ţнę ρíčťúŗéś ẁįţћ áи âþрѓòρѓįáτè ĺòĉáťįõи, τíťĺé, àηď đâтè ĉŕèáτèð.  Ðęšćŗįþţíôή âηď áđďѓèśŝ ãŕê óþτįòήàľ.
+5. ťĥè ÛŗБâη Śķęтčħèš Àрρ, Śîťê, òř ťĥé ãρр'š ďęνèļôþęѓ, Мíćнâêļ Şčĥêŕóţťêŗ đõ иòτ âšŝµмé òẃήéřšћíþ òƒ ťнè ìmàġęş µþľõàđêð.  Ўóµ ĉáй ŗêмòνę τħê ŝкéţćħéŝ âτ âήŷ τíмę ƒřõm τħę âþþ.
+
+Рřèşš ÒК ţõ ċõиţįηúę úрłõâđíиĝ τĥê šĸèţċћ, áƒƒìѓmįηĝ ťĥáт ÿôú ђâνè ŗęâď ţħįş àήđ ãğŗêè τõ ţђé ťêŗmş._!!]</value>
+  </data>
+  <data name="UploadSketch" xml:space="preserve">
+    <value>[D38E8][!!_Üрľôáđ Ŝќęťčн_!!]</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>[98D9A][!!_Ŝįģи įη_!!]</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>[D5A5A][!!_Ńô_!!]</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>[D82EB][!!_Šíġή õµť_!!]</value>
+  </data>
+  <data name="SignOutQuestion" xml:space="preserve">
+    <value>[EAA39][!!_Ẃóùĺđ ўóú łìķè τò śìġй òùτ òƒ Ùŕвàй Şкèţċнęś?  Ýôû иêęđ тò Бê şįġήęď ìй ţô ûрļóâď ãήď ċôмmèиţ óή şĸêťĉнéş._!!]</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>[27ED1][!!_Ўęś_!!]</value>
+  </data>
+  <data name="RemoveUser" xml:space="preserve">
+    <value>[1C6B8][!!_Ѓęмõνé Üšêŗ_!!]</value>
+  </data>
+  <data name="RemoveUserQuestion" xml:space="preserve">
+    <value>[E700F][!!_Ρŗèŝś ÔК тó řémôνê ťћé ćûŗѓéηť µšèѓ đáťâ ƒѓóm Üŕъãй Śķęτĉħéš, ìиčĺúðìηĝ ãĺł şĸêţćћęš àиð ŕáţíиĝŝ._!!]</value>
+  </data>
+  <data name="AddSketch" xml:space="preserve">
+    <value>[891C6][!!_Ãðđ şќęτčн_!!]</value>
+  </data>
+  <data name="DrawSketch" xml:space="preserve">
+    <value>[1974B][!!_Ðѓâẁ šќèτčћ_!!]</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>[E052E][!!_Ѓèƒŗęśн_!!]</value>
+  </data>
+  <data name="AboutUrbanSketchers" xml:space="preserve">
+    <value>[591CB][!!_Ãъôûť Ûŗъãй Śкęťĉнèš_!!]</value>
+  </data>
+  <data name="CreatedByMichaelScherotter" xml:space="preserve">
+    <value>[0EF30][!!_Ćŗęàťêď вŷ Μîćĥâęľ Ş. Śčћéřóτтêŗ_!!]</value>
+  </data>
 </root>

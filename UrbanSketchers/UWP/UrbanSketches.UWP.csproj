@@ -101,6 +101,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <PRIResource Include="Strings\qps-ploc\Resources.resw" />
+    <PRIResource Include="Strings\fr\Resources.resw" />
+    <PRIResource Include="Strings\de\Resources.resw" />
+    <PRIResource Include="Strings\es\Resources.resw" />
     <None Include="UrbanSketches.UWP_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +216,12 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>2.4.0.18342</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="MultilingualResources\UrbanSketches.UWP.de.xlf" />
+    <XliffResource Include="MultilingualResources\UrbanSketches.UWP.es.xlf" />
+    <XliffResource Include="MultilingualResources\UrbanSketches.UWP.fr.xlf" />
+    <XliffResource Include="MultilingualResources\UrbanSketches.UWP.qps-ploc.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

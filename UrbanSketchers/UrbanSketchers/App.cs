@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -34,10 +35,24 @@ namespace UrbanSketchers
         Task<Stream> CreateThumbnailAsync(byte[] data);
     }
 
+    /// <summary>
+    /// Urban sketchers app
+    /// </summary>
     public class App : Application
     {
+        /// <summary>
+        /// Initializes a new instance of the App class
+        /// </summary>
         public App()
         {
+            if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS || Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.Android)
+            {
+                // determine the correct, supported .NET culture
+                var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+                UrbanSketchers.Properties.Resources.Culture = ci; // set the RESX for resource localization
+                DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
+            }
+
             var menuPage = new MenuPage();
 
             NavigationPage = new NavigationPage(new HomePage());

@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:usk="clr-namespace:UrbanSketchers"
              x:Class="UrbanSketchers.Views.AboutPage"
-             Title="About Urban Sketches">
+             Title="{usk:Translate AboutUrbanSketchers}">
     <ContentPage.Content>
         <StackLayout Margin="8">
-            <Label Text="Created by Michael S. Scherotter"/>
+            <Label Text="{usk:Translate CreatedByMichaelScherotter}"/>
             <Label Text="Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world."/>
             <ListView ItemSelected="OnItemSelected" ItemsSource="{Binding Links}">
                 <ListView.ItemTemplate>
