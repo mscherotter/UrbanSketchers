@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout Margin="8">
             <Label Text="{usk:Translate CreatedByMichaelScherotter}"/>
-            <Label Text="Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world."/>
+            <Label Text="{usk:Translate AppDescription}"/>
             <ListView ItemSelected="OnItemSelected" ItemsSource="{Binding Links}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -16,7 +16,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Margin="4" x:Name="DeleteUserButton" Text="Remove user, sketches, and ratings." Clicked="OnRemoveUser" HorizontalOptions="Start"/>
+            <Button Margin="4" x:Name="DeleteUserButton" Text="{usk:Translate DeleteUserText}" Clicked="OnRemoveUser" HorizontalOptions="Start"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

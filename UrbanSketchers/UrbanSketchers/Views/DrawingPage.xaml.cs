@@ -29,6 +29,9 @@ namespace UrbanSketchers.Views
         /// </summary>
         public MemoryStream InkStream { get; set; }
 
+        /// <summary>
+        /// update the drawing canvas when the page appears
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();

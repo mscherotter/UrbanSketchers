@@ -13,13 +13,26 @@ namespace UrbanSketchers.Commands
     {
         private bool _isBusy;
 
+        /// <summary>
+        /// Can execute changed event handler
+        /// </summary>
+
         public event EventHandler CanExecuteChanged;
 
+        /// <summary>
+        /// Can the command exeucte
+        /// </summary>
+        /// <param name="parameter">the parameter is not used</param>
+        /// <returns>true if the command is not busy</returns>
         public bool CanExecute(object parameter)
         {
             return !_isBusy;
         }
 
+        /// <summary>
+        /// Navigate to a page
+        /// </summary>
+        /// <param name="parameter">the parameter is not used</param>
         public async void Execute(object parameter)
         {
             if (App.NavigationPage.CurrentPage is T) return;

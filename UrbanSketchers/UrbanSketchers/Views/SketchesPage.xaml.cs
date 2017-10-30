@@ -28,19 +28,6 @@ namespace UrbanSketchers.Views
             BindingContext = this;
 
             _sketchManager = SketchManager.DefaultManager;
-
-            // OnPlatform<T> doesn't currently support the "Windows" target platform, so we have this check here.
-            if (_sketchManager.IsOfflineEnabled && Device.OS == TargetPlatform.Windows)
-            {
-                var syncButton = new Button
-                {
-                    Text = "Sync items",
-                    HeightRequest = 30
-                };
-                ////syncButton.Clicked += OnSyncItems;
-
-                //buttonsPanel.Children.Add(syncButton);
-            }
         }
 
         // public ObservableCollection<Sketch> Items { get; set; }

@@ -107,6 +107,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world..
+        /// </summary>
+        internal static string AppDescription {
+            get {
+                return ResourceManager.GetString("AppDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -121,6 +130,15 @@ namespace UrbanSketchers.Properties {
         internal static string CreatedByMichaelScherotter {
             get {
                 return ResourceManager.GetString("CreatedByMichaelScherotter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove user, sketches, and ratings..
+        /// </summary>
+        internal static string DeleteUserText {
+            get {
+                return ResourceManager.GetString("DeleteUserText", resourceCulture);
             }
         }
         

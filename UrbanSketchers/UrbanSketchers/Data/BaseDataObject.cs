@@ -26,6 +26,11 @@ namespace UrbanSketchers.Data
         /// <summary>
         /// Azure version for online/offline sync
         /// </summary>
-        //public string AzureVersion { get; set; }
+        public string Version { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the item was deleted
+        /// </summary>
+        public bool Deleted { get; set; }
     }
 }

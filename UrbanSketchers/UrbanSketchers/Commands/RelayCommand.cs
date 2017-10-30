@@ -24,13 +24,16 @@ namespace UrbanSketchers.Commands
         /// <summary>
         ///     can execute function
         /// </summary>
-        private readonly Func<T, bool> canExecute;
+        private readonly Func<T, bool> _canExecute;
 
         /// <summary>
         ///     execute action
         /// </summary>
-        private readonly Action<T> execute;
+        private readonly Action<T> _execute;
 
+        /// <summary>
+        ///     Initializes a new instance of the RelayCommand class.
+        /// </summary>
         public RelayCommand()
         {
         }
@@ -51,8 +54,8 @@ namespace UrbanSketchers.Commands
         /// <param name="canExecute">The execution status logic.</param>
         public RelayCommand(Action<T> execute, Func<T, bool> canExecute)
         {
-            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            this.canExecute = canExecute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
         }
 
         /// <summary>
@@ -66,7 +69,7 @@ namespace UrbanSketchers.Commands
         public event EventHandler CanExecuteChanged;
 
         /// <summary>
-        ///     Determines whether this <see cref="RelayCommand" /> can execute in its current state.
+        ///     Determines whether this command can execute in its current state.
         /// </summary>
         /// <param name="parameter">
         ///     Data used by the command. If the command does not require data to be passed, this object can be set to null.
@@ -74,18 +77,18 @@ namespace UrbanSketchers.Commands
         /// <returns>true if this command can be executed; otherwise, false.</returns>
         public bool CanExecute(object parameter)
         {
-            return canExecute == null ? true : canExecute((T) parameter);
+            return _canExecute == null ? true : _canExecute((T) parameter);
         }
 
         /// <summary>
-        ///     Executes the <see cref="RelayCommand" /> on the current command target.
+        ///     Executes the command on the current command target.
         /// </summary>
         /// <param name="parameter">
         ///     Data used by the command. If the command does not require data to be passed, this object can be set to null.
         /// </param>
         public void Execute(object parameter)
         {
-            execute((T) parameter);
+            _execute((T) parameter);
         }
 
         /// <summary>

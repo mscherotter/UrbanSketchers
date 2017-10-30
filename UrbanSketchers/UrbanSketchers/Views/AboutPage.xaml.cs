@@ -71,6 +71,10 @@ namespace UrbanSketchers.Views
         /// </summary>
         public Link[] Links { get; }
 
+
+        /// <summary>
+        /// Update the delete user button when the page appears
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();

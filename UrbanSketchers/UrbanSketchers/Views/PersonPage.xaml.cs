@@ -154,7 +154,14 @@ namespace UrbanSketchers.Views
                 }
             }
 
+            /// <summary>
+            /// Gets the update command
+            /// </summary>
             public RelayCommand<object> UpdateCommand { get; internal set; }
+
+            /// <summary>
+            /// Gets the delete command
+            /// </summary>
             public RelayCommand<object> DeleteCommand { get; internal set; }
         }
     }

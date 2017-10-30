@@ -1,15 +1,8 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Security.Authentication.Web.Core;
-using Windows.Security.Credentials;
 using Windows.Storage;
-using Windows.UI.ApplicationSettings;
-using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
 using Xamarin;
 
@@ -20,7 +13,7 @@ namespace UWP
     /// </summary>
     public sealed partial class MainPage
     {
-        private const string UriScheme = "urbansketchesauth";
+        //private const string UriScheme = "urbansketchesauth";
 
         //private MobileServiceUser _user;
 
@@ -31,7 +24,7 @@ namespace UWP
         private readonly MobileServiceInit _mobileServiceInit = new MobileServiceInit();
 
         /// <summary>
-        /// Initializes a new instance of the MainPage class.
+        ///     Initializes a new instance of the MainPage class.
         /// </summary>
         public MainPage()
         {
@@ -39,7 +32,7 @@ namespace UWP
 
             InitializeComponent();
 
-            UrbanSketchers.App.Init(this._mobileServiceInit);
+            UrbanSketchers.App.Init(_mobileServiceInit);
 
             UrbanSketchers.App.PinToStartCommand = new PinToStartCommand();
 
@@ -157,7 +150,7 @@ namespace UWP
         //}
 
         /// <summary>
-        /// Authenticate the mobile app with Facebook.
+        ///     Authenticate the mobile app with Facebook.
         /// </summary>
         /// <returns>an async task with a boolean value indicating whether the authentication was successful.</returns>
         //public bool Authenticate()
@@ -171,12 +164,10 @@ namespace UWP
 
         //    return false;
         //}
-
         private void UIElement_OnDrop(object sender, DragEventArgs e)
         {
             if (e.DataView.Contains(StandardDataFormats.Bitmap))
             {
-                
             }
         }
 
@@ -193,16 +184,14 @@ namespace UWP
             {
                 var deferral = e.GetDeferral();
 
-                var storageItems  = await e.DataView.GetStorageItemsAsync();
+                var storageItems = await e.DataView.GetStorageItemsAsync();
 
                 var imageFiles = from item in storageItems.OfType<StorageFile>()
-                                 where item.ContentType.StartsWith("image/")
-                                 select item;
+                    where item.ContentType.StartsWith("image/")
+                    select item;
 
                 if (imageFiles.Any())
-                {
                     e.AcceptedOperation = DataPackageOperation.Copy;
-                }
 
                 deferral.Complete();
             }

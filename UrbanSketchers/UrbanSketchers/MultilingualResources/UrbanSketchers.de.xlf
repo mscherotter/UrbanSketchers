@@ -156,6 +156,14 @@ OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen h
           <source>Created by Michael S. Scherotter</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Erstellt von Michael S. Scherotter</target>
         </trans-unit>
+        <trans-unit id="AppDescription" translate="yes" xml:space="preserve">
+          <source>Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</source>
+          <target state="new">Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</target>
+        </trans-unit>
+        <trans-unit id="DeleteUserText" translate="yes" xml:space="preserve">
+          <source>Remove user, sketches, and ratings.</source>
+          <target state="new">Remove user, sketches, and ratings.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

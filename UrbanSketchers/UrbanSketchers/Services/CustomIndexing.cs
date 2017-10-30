@@ -181,6 +181,12 @@ namespace UrbanSketchers.Services
             else return false;
         }
 
+        /// <summary>
+        /// Is the sector on the right edge
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>true if the sector is in the right edge</returns>
         public static bool IsRightEdge(int sector, double fraction)
         {
             if (IsLeftEdge(sector + 1, fraction) == true)
@@ -191,9 +197,16 @@ namespace UrbanSketchers.Services
             else return false;
         }
 
+        /// <summary>
+        /// Is the sector in the top row?
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>true if this sector is in the top row</returns>
         public static bool IsTopRow(int sector, double fraction)
         {
             int numColumns = (int)(1.0 / fraction) * 360;
+
             if (sector >= 0 && sector <= numColumns - 1)
             {
                 return true;

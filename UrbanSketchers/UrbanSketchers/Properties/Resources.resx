@@ -224,4 +224,10 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="CreatedByMichaelScherotter" xml:space="preserve">
     <value>Created by Michael S. Scherotter</value>
   </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</value>
+  </data>
+  <data name="DeleteUserText" xml:space="preserve">
+    <value>Remove user, sketches, and ratings.</value>
+  </data>
 </root>
