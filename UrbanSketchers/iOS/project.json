@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "Microsoft.Azure.Mobile.Analytics": "0.17.1",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
     "Xamarin.Forms": "2.4.0.38779"
   },

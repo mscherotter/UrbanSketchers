@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "Microsoft.Azure.Mobile.Analytics": "0.17.1",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
     "Xamarin.Android.Support.CustomTabs": "26.1.0.1",
     "Xamarin.Android.Support.Design": "26.1.0.1",
