@@ -1,16 +1,16 @@
 ﻿{
   "dependencies": {
-    "Microsoft.Azure.Mobile.Analytics": "0.16.0",
+    "Microsoft.Azure.Mobile.Analytics": "0.17.1",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
-    "Microsoft.Azure.Mobile.Crashes": "0.16.0",
+    "Microsoft.Azure.Mobile.Crashes": "0.17.1",
     "NETStandard.Library": "2.0.1",
     "PCLStorage": "1.0.2",
     "Plugin.Share": "7.0.1",
     "System.ComponentModel": "4.3.0",
     "WindowsAzure.Storage": "8.5.0",
     "Xam.Plugin.FilePicker": "1.1.0",
-    "Xamarin.Forms": "2.4.0.18342",
-    "Xamarin.Forms.Maps": "2.4.0.18342"
+    "Xamarin.Forms": "2.4.0.38779",
+    "Xamarin.Forms.Maps": "2.4.0.38779"
   },
   "frameworks": {
     "netstandard1.4": {
