@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UWP.App">
-      <uap:VisualElements DisplayName="ms-resources:AppDisplayName" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ms-resource:AppDescription" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="ms-resource:AppDisplayName" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ms-resource:AppDescription" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
           <uap:TileUpdate Recurrence="daily" UriTemplate="https://urbansketchers.azurewebsites.net/api/GetTiles?lang={language}&amp;region={region}" />
           <uap:ShowNameOnTiles>
@@ -25,8 +25,10 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.appService">
-          <uap:AppService Name="Upload.1" />
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="urbansketchesauth">
+            <uap:DisplayName>ms-resource:AuthProtocolDisplayName</uap:DisplayName>
+          </uap:Protocol>
         </uap:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget Description="ms-resource:ShareDescription">
@@ -38,10 +40,8 @@
             <uap:DataFormat>Bitmap</uap:DataFormat>
           </uap:ShareTarget>
         </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="urbansketchesauth">
-            <uap:DisplayName>ms-resource:AuthProtocolDisplayName</uap:DisplayName>
-          </uap:Protocol>
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="Upload.1" />
         </uap:Extension>
       </Extensions>
     </Application>
