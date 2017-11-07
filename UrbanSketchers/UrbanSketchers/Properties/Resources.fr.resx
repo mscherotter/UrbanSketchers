@@ -119,4 +119,16 @@ Appuyez sur OK pour continuer le téléchargement de l’esquisse, confirmant qu
   <data name="CreatedByMichaelScherotter" xml:space="preserve">
     <value>Créé par Michael S. Scherotter</value>
   </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Les croquis urbains est une app pour les personnes de contribuer et d’explorer une carte croissante des croquis de partout dans le monde.</value>
+  </data>
+  <data name="DeleteUserText" xml:space="preserve">
+    <value>Supprimer l’utilisateur, croquis et notes.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="UrbanSketches" xml:space="preserve">
+    <value>Croquis urbains</value>
+  </data>
 </root>

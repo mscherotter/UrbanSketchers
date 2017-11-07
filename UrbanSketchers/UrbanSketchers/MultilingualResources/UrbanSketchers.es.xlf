@@ -158,19 +158,23 @@ presione OK para continuar subiendo el bosquejo, afirmando que ha leído y acept
         </trans-unit>
         <trans-unit id="AppDescription" translate="yes" xml:space="preserve">
           <source>Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</source>
-          <target state="new">Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Croquis urbanos es una aplicación para personas contribuir y explorar un mapa creciente de bocetos de todo el mundo.</target>
         </trans-unit>
         <trans-unit id="DeleteUserText" translate="yes" xml:space="preserve">
           <source>Remove user, sketches, and ratings.</source>
-          <target state="new">Remove user, sketches, and ratings.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Eliminar usuario, esquemas y clasificaciones.</target>
         </trans-unit>
         <trans-unit id="Search" translate="yes" xml:space="preserve">
           <source>Search</source>
-          <target state="new">Search</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Buscar</target>
         </trans-unit>
         <trans-unit id="UrbanSketches" translate="yes" xml:space="preserve">
           <source>Urban Sketches</source>
-          <target state="new">Urban Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Croquis urbanos</target>
+        </trans-unit>
+        <trans-unit id="XResultsForY" translate="yes" xml:space="preserve">
+          <source>{0} results for "{1}"</source>
+          <target state="new">{0} results for "{1}"</target>
         </trans-unit>
       </group>
     </body>

@@ -119,4 +119,16 @@
   <data name="CreatedByMichaelScherotter" xml:space="preserve">
     <value>[0EF30][!!_Ćŗęàťêď вŷ Μîćĥâęľ Ş. Śčћéřóτтêŗ_!!]</value>
   </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>[BB2C9][!!_ÚŕБãη Şķéтċђêś íŝ ãη âþρ ƒõŗ рêóþļę тô ĉòйтřįвùτé âηđ ê×þłòřè â ġřõẅįηģ màр ôƒ ŝкéţĉħęŝ ƒŗôм ãѓõùηď τђé ẃòŕłď._!!]</value>
+  </data>
+  <data name="DeleteUserText" xml:space="preserve">
+    <value>[C364E][!!_Ŗémóνè úŝèѓ, śĸêťĉђèś, àйð řàтíήģŝ._!!]</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>[F0199][!!_Ŝęãѓĉн_!!]</value>
+  </data>
+  <data name="UrbanSketches" xml:space="preserve">
+    <value>[27DD6][!!_Úřвáή Šķęťċħêś_!!]</value>
+  </data>
 </root>

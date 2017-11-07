@@ -158,19 +158,23 @@ OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen h
         </trans-unit>
         <trans-unit id="AppDescription" translate="yes" xml:space="preserve">
           <source>Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</source>
-          <target state="new">Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Städtischen Skizzen ist eine app für die Menschen zu tragen und eine wachsende Karte Skizzen aus der ganzen Welt erkunden.</target>
         </trans-unit>
         <trans-unit id="DeleteUserText" translate="yes" xml:space="preserve">
           <source>Remove user, sketches, and ratings.</source>
-          <target state="new">Remove user, sketches, and ratings.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Entfernen Sie Benutzer, Skizzen und Bewertungen.</target>
         </trans-unit>
         <trans-unit id="Search" translate="yes" xml:space="preserve">
           <source>Search</source>
-          <target state="new">Search</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Suchen</target>
         </trans-unit>
         <trans-unit id="UrbanSketches" translate="yes" xml:space="preserve">
           <source>Urban Sketches</source>
-          <target state="new">Urban Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Städtischen Skizzen</target>
+        </trans-unit>
+        <trans-unit id="XResultsForY" translate="yes" xml:space="preserve">
+          <source>{0} results for "{1}"</source>
+          <target state="new">{0} results for "{1}"</target>
         </trans-unit>
       </group>
     </body>

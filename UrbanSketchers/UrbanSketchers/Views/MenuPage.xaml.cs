@@ -16,6 +16,7 @@ namespace UrbanSketchers.Views
         private object _lastItemSelected;
         private string _signInText;
         private string _signInImage;
+        private string _searchText;
 
         /// <summary>
         ///     Initializes a new instance of the MenuPage class.
@@ -97,6 +98,21 @@ namespace UrbanSketchers.Views
 
         }
 
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    OnPropertyChanging();
+
+                    _searchText = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
         /// <summary>
         /// Gets the sign-in/sign-out command
         /// </summary>
@@ -248,6 +264,29 @@ namespace UrbanSketchers.Views
 
                 await UpdateUserAsync();
             }
+        }
+
+        private async void SearchEntryCompleted(object sender, EventArgs e)
+        {
+            await NavigateToSearchResultsAsync();
+        }
+
+        private async Task NavigateToSearchResultsAsync()
+        {
+            await App.NavigationPage.PushAsync(new SketchesPage
+            {
+                SearchText = this.SearchText
+            });
+
+            if (App.Current.MainPage is MasterDetailPage masterDetailPage)
+            {
+                masterDetailPage.IsPresented = false;
+            }
+        }
+
+        private async void OnSearch(object sender, EventArgs e)
+        {
+            await NavigateToSearchResultsAsync();
         }
     }
 }

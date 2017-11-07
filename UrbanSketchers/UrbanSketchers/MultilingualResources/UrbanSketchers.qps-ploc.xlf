@@ -158,19 +158,23 @@ Press OK to continue uploading the sketch, affirming that you have read this and
         </trans-unit>
         <trans-unit id="AppDescription" translate="yes" xml:space="preserve">
           <source>Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</source>
-          <target state="new">Urban Sketches is an app for people to contribute and explore a growing map of sketches from around the world.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[BB2C9][!!_ÚŕБãη Şķéтċђêś íŝ ãη âþρ ƒõŗ рêóþļę тô ĉòйтřįвùτé âηđ ê×þłòřè â ġřõẅįηģ màр ôƒ ŝкéţĉħęŝ ƒŗôм ãѓõùηď τђé ẃòŕłď._!!]</target>
         </trans-unit>
         <trans-unit id="DeleteUserText" translate="yes" xml:space="preserve">
           <source>Remove user, sketches, and ratings.</source>
-          <target state="new">Remove user, sketches, and ratings.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[C364E][!!_Ŗémóνè úŝèѓ, śĸêťĉђèś, àйð řàтíήģŝ._!!]</target>
         </trans-unit>
         <trans-unit id="Search" translate="yes" xml:space="preserve">
           <source>Search</source>
-          <target state="new">Search</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[F0199][!!_Ŝęãѓĉн_!!]</target>
         </trans-unit>
         <trans-unit id="UrbanSketches" translate="yes" xml:space="preserve">
           <source>Urban Sketches</source>
-          <target state="new">Urban Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[27DD6][!!_Úřвáή Šķęťċħêś_!!]</target>
+        </trans-unit>
+        <trans-unit id="XResultsForY" translate="yes" xml:space="preserve">
+          <source>{0} results for "{1}"</source>
+          <target state="new">{0} results for "{1}"</target>
         </trans-unit>
       </group>
     </body>

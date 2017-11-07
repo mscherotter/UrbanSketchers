@@ -9,7 +9,7 @@ using Xamarin.Forms.Xaml;
 namespace UrbanSketchers.Views
 {
     /// <summary>
-    /// Sketches page
+    ///     Sketches page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchesPage
@@ -17,7 +17,7 @@ namespace UrbanSketchers.Views
         private readonly SketchManager _sketchManager;
 
         /// <summary>
-        /// Initializes a new instance of the SketchesPage class.
+        ///     Initializes a new instance of the SketchesPage class.
         /// </summary>
         public SketchesPage()
         {
@@ -33,12 +33,17 @@ namespace UrbanSketchers.Views
         // public ObservableCollection<Sketch> Items { get; set; }
 
         /// <summary>
-        /// Gets the person Id
+        ///     Gets the person Id
         /// </summary>
         public string PersonId { get; internal set; }
 
         /// <summary>
-        /// Refresh the items when appearing
+        /// Gets or sets the search text
+        /// </summary>
+        public string SearchText { get; set; }
+
+        /// <summary>
+        ///     Refresh the items when appearing
         /// </summary>
         protected override async void OnAppearing()
         {
@@ -51,13 +56,19 @@ namespace UrbanSketchers.Views
         {
             //using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
-                if (string.IsNullOrWhiteSpace(PersonId))
+                if (!string.IsNullOrWhiteSpace(SearchText))
                 {
-                    var sketches = await _sketchManager.GetSketchsAsync();
+                    var results = await SketchManager.DefaultManager.SearchAsync(SearchText);
 
-                    SketchList.ItemsSource = sketches;
+                    Title = string.Format(
+                        CultureInfo.CurrentCulture,
+                        Properties.Resources.XResultsForY,
+                        results.TotalCount,
+                        SearchText);
+
+                    SketchList.ItemsSource = results;
                 }
-                else
+                else if (!string.IsNullOrWhiteSpace(PersonId))
                 {
                     var sketches = await _sketchManager.GetSketchsAsync(PersonId);
 
@@ -67,6 +78,12 @@ namespace UrbanSketchers.Views
                             Properties.Resources.SketchesByFormat,
                             sketches.Count,
                             sketches.First().CreatedByName);
+
+                    SketchList.ItemsSource = sketches;
+                }
+                else
+                {
+                    var sketches = await _sketchManager.GetSketchsAsync();
 
                     SketchList.ItemsSource = sketches;
                 }
@@ -87,6 +104,9 @@ namespace UrbanSketchers.Views
             await RefreshItemsAsync(true, true);
         }
 
+        /// <summary>
+        /// Activity indicator scope
+        /// </summary>
         private class ActivityIndicatorScope : IDisposable
         {
             private readonly ActivityIndicator indicator;

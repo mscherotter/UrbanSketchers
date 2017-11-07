@@ -378,6 +378,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} results for &quot;{1}&quot;.
+        /// </summary>
+        internal static string XResultsForY {
+            get {
+                return ResourceManager.GetString("XResultsForY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         internal static string Yes {

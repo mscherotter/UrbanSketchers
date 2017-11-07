@@ -18,8 +18,13 @@
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Entry Placeholder="{usk:Translate Search}"/>
-            <ListView ItemsSource="{Binding Items}" ItemSelected="OnItemSelected" RowHeight="32" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Entry Margin="4" Placeholder="{usk:Translate Search}" Text="{Binding SearchText, Mode=TwoWay}"   Completed="SearchEntryCompleted"/>
+            <Button Text="?" Grid.Column="1" Grid.Row="0" Clicked="OnSearch" Margin="0,4,4,4" />
+            <ListView ItemsSource="{Binding Items}" Grid.Column="0" Grid.ColumnSpan="2" ItemSelected="OnItemSelected" RowHeight="32" 
                       Grid.Row="1"
                       >
                 <ListView.ItemTemplate>
@@ -39,7 +44,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Command="{Binding SignInCommand}" HorizontalOptions="Start" Grid.Row="2" HeightRequest="32" Text="{Binding SignInText}" Image="{Binding SignInImage}"/>
+            <Button Command="{Binding SignInCommand}" HorizontalOptions="Start" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HeightRequest="32" Text="{Binding SignInText}" Image="{Binding SignInImage}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -75,6 +75,17 @@ namespace UrbanSketchers
 #endif
         }
 
+        public Task<MobileServiceCollection<Sketch, Sketch>> SearchAsync(string text)
+        {
+            text = text.ToLower();
+
+            var query = from item in _sketchTable
+                where item.Title.ToLower().Contains(text) || 
+                item.Description.ToLower().Contains(text)
+                select item;
+
+            return query.IncludeTotalCount().ToCollectionAsync();
+        }
         /// <summary>
         ///     Delete the current user
         /// </summary>

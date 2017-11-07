@@ -236,4 +236,7 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="UrbanSketches" xml:space="preserve">
     <value>Urban Sketches</value>
   </data>
+  <data name="XResultsForY" xml:space="preserve">
+    <value>{0} results for "{1}"</value>
+  </data>
 </root>

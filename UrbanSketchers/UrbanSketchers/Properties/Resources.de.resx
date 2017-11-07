@@ -119,4 +119,16 @@ OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen h
   <data name="CreatedByMichaelScherotter" xml:space="preserve">
     <value>Erstellt von Michael S. Scherotter</value>
   </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Städtischen Skizzen ist eine app für die Menschen zu tragen und eine wachsende Karte Skizzen aus der ganzen Welt erkunden.</value>
+  </data>
+  <data name="DeleteUserText" xml:space="preserve">
+    <value>Entfernen Sie Benutzer, Skizzen und Bewertungen.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Suchen</value>
+  </data>
+  <data name="UrbanSketches" xml:space="preserve">
+    <value>Städtischen Skizzen</value>
+  </data>
 </root>

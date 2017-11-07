@@ -119,4 +119,16 @@ presione OK para continuar subiendo el bosquejo, afirmando que ha leído y acept
   <data name="CreatedByMichaelScherotter" xml:space="preserve">
     <value>Creado por Michael S. Scherotter</value>
   </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Croquis urbanos es una aplicación para personas contribuir y explorar un mapa creciente de bocetos de todo el mundo.</value>
+  </data>
+  <data name="DeleteUserText" xml:space="preserve">
+    <value>Eliminar usuario, esquemas y clasificaciones.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="UrbanSketches" xml:space="preserve">
+    <value>Croquis urbanos</value>
+  </data>
 </root>
