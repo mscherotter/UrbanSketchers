@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <InkToolbar HorizontalAlignment="Right"  Grid.Row="0" TargetInkCanvas="{x:Bind DrawingCanvas}" InitialControls="None">
+        <InkToolbar HorizontalAlignment="Right"  Grid.Row="0" TargetInkCanvas="{x:Bind DrawingCanvas}" InitialControls="None" x:Name="InkToolbar">
             <InkToolbarBallpointPenButton/>
             <InkToolbarPencilButton/>
             <InkToolbarHighlighterButton/>

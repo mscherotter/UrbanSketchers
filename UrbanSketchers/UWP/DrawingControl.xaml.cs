@@ -143,7 +143,14 @@ namespace UWP
                 Content = picker
             };
 
+            BackgroundColorButton.ContextFlyout.Closed += ContextFlyout_Closed;
+
             BackgroundColorButton.ContextFlyout.ShowAt(BackgroundColorButton);
+        }
+
+        private void ContextFlyout_Closed(object sender, object e)
+        {
+            InkToolbar.ActiveTool = InkToolbar.GetToolButton(InkToolbarTool.BallpointPen);
         }
 
         private void NewPicker_ColorChanged1(object sender, Color color)
