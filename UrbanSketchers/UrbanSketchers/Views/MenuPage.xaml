@@ -2,30 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UrbanSketchers.Views.MenuPage"
+             xmlns:usk="clr-namespace:UrbanSketchers"
              Title ="Urban Sketches">
     <ContentPage.Resources>
-        <!--<DataTemplate x:Key="ItemTemplate">
-            <ViewCell IsEnabled="{Binding IsEnabled}">
-                <Grid Padding="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="48"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="{Binding Icon}" VerticalOptions="FillAndExpand"/>
-                    <StackLayout Grid.Column="1" Padding="4,0,0,0" VerticalOptions="Center">
-                        <Label Text="{Binding Label}"/>
-                    </StackLayout>
-                </Grid>
-            </ViewCell>
-        </DataTemplate>-->
+        <ResourceDictionary>
+            <DataTemplate x:Key="MenuItemTemplate">
+                <ImageCell ImageSource="{Binding Icon}" Text="{Binding Label}"/>
+            </DataTemplate>
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListView ItemsSource="{Binding Items}" ItemSelected="OnItemSelected" RowHeight="32">
+            <Entry Placeholder="{usk:Translate Search}"/>
+            <ListView ItemsSource="{Binding Items}" ItemSelected="OnItemSelected" RowHeight="32" 
+                      Grid.Row="1"
+                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell IsEnabled="{Binding IsEnabled}">
@@ -43,7 +39,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Command="{Binding SignInCommand}" HorizontalOptions="Start" x:Name="SignInButton" Grid.Row="1" HeightRequest="32"/>
+            <Button Command="{Binding SignInCommand}" HorizontalOptions="Start" Grid.Row="2" HeightRequest="32" Text="{Binding SignInText}" Image="{Binding SignInImage}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

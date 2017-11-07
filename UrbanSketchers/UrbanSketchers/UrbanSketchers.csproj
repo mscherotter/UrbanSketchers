@@ -169,7 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\MapPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SketchesPage.xaml">

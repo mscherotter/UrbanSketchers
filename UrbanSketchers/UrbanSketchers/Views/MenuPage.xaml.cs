@@ -14,6 +14,8 @@ namespace UrbanSketchers.Views
     public partial class MenuPage
     {
         private object _lastItemSelected;
+        private string _signInText;
+        private string _signInImage;
 
         /// <summary>
         ///     Initializes a new instance of the MenuPage class.
@@ -106,6 +108,46 @@ namespace UrbanSketchers.Views
         public ObservableCollection<NavigationMenuItem> Items { get; }
 
         /// <summary>
+        /// Gets or set sthe sign-in image
+        /// </summary>
+        public string SignInImage
+        {
+            get => _signInImage;
+
+            private set
+            {
+                if (_signInImage != value)
+                {
+                    OnPropertyChanging();
+
+                    _signInImage = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the sign-in text
+        /// </summary>
+        public string SignInText
+        {
+            get => _signInText;
+
+            set
+            {
+                if (_signInText != value)
+                {
+                    OnPropertyChanging();
+
+                    _signInText = value;
+
+                    OnPropertyChanged();
+                }    
+            }
+        }
+
+        /// <summary>
         ///     Update the user
         /// </summary>
         protected override async void OnAppearing()
@@ -130,19 +172,19 @@ namespace UrbanSketchers.Views
                 {
                     if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
                     {
-                        SignInButton.Image = "Assets/SignIn.24.png";
-                        SignInButton.Text = Properties.Resources.SignIn;
+                        SignInImage = "Assets/SignIn.24.png";
+                        SignInText = Properties.Resources.SignIn;
                     }
                     else
                     {
-                        SignInButton.Image = "Assets/SignedIn.24.png";
-                        SignInButton.Text = Properties.Resources.SignOut;
+                        SignInImage = "Assets/SignedIn.24.png";
+                        SignInText = Properties.Resources.SignOut;
                     }
                 }
                 else
                 {
-                    SignInButton.Image = "Assets/SignedIn.24.png";
-                    SignInButton.Text = person.Name;
+                    SignInImage = "Assets/SignedIn.24.png";
+                    SignInText = person.Name;
                     //UserButton.Image = new UriImageSource
                     //{
                     //    Uri = new Uri(person.ImageUrl)
@@ -155,13 +197,13 @@ namespace UrbanSketchers.Views
             {
                 if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
                 {
-                    SignInButton.Image = "Assets/SignIn.24.png";
-                    SignInButton.Text = Properties.Resources.SignIn;
+                    SignInImage = "Assets/SignIn.24.png";
+                    SignInText = Properties.Resources.SignIn;
                 }
                 else
                 {
-                    SignInButton.Image = "Assets/SignedIn.24.png";
-                    SignInButton.Text = Properties.Resources.SignOut;
+                    SignInImage = "Assets/SignedIn.24.png";
+                    SignInText = Properties.Resources.SignOut;
                 }
             }
         }

@@ -2,17 +2,18 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UrbanSketchers.Views.RootPage"
+                  xmlns:usk="clr-namespace:UrbanSketchers"
              MasterBehavior="Popover"
-                  Title ="Urban Sketchers"
+                  Title ="{usk:Translate UrbanSketches}"
              xmlns:pages="clr-namespace:UrbanSketchers.Views">
-  <!--<MasterDetailPage.Master>
+  <MasterDetailPage.Master>
     <pages:MenuPage x:Name="MasterPage" />
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
     <NavigationPage>
       <x:Arguments>
-        <pages:MapPage />
+        <pages:HomePage />
       </x:Arguments>
     </NavigationPage>
-  </MasterDetailPage.Detail>-->
+  </MasterDetailPage.Detail>
 </MasterDetailPage>

@@ -164,6 +164,14 @@ Press OK to continue uploading the sketch, affirming that you have read this and
           <source>Remove user, sketches, and ratings.</source>
           <target state="new">Remove user, sketches, and ratings.</target>
         </trans-unit>
+        <trans-unit id="Search" translate="yes" xml:space="preserve">
+          <source>Search</source>
+          <target state="new">Search</target>
+        </trans-unit>
+        <trans-unit id="UrbanSketches" translate="yes" xml:space="preserve">
+          <source>Urban Sketches</source>
+          <target state="new">Urban Sketches</target>
+        </trans-unit>
       </group>
     </body>
   </file>

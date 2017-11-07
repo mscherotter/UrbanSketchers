@@ -253,6 +253,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign in.
         /// </summary>
         internal static string SignIn {
@@ -356,6 +365,15 @@ namespace UrbanSketchers.Properties {
         internal static string UrbanSketchers {
             get {
                 return ResourceManager.GetString("UrbanSketchers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Urban Sketches.
+        /// </summary>
+        internal static string UrbanSketches {
+            get {
+                return ResourceManager.GetString("UrbanSketches", resourceCulture);
             }
         }
         

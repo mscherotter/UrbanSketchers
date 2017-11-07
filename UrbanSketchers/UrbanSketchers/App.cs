@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -8,44 +7,57 @@ using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
 using UrbanSketchers.Views;
 using Xamarin.Forms;
+using Device = Xamarin.Forms.Device;
 
 namespace UrbanSketchers
 {
     /// <summary>
-    /// Authenticate interface
+    ///     Authenticate interface
     /// </summary>
     public interface IAuthenticate
     {
         /// <summary>
-        /// Authenticate Azure Mobile App
+        ///     Authenticate Azure Mobile App
         /// </summary>
         /// <returns>true if successful</returns>
         bool Authenticate();
 
         /// <summary>
-        /// Signed in event
+        ///     Signed in event
         /// </summary>
         event EventHandler SignedIn;
 
+        /// <summary>
+        /// logout of Azure Mobile Service
+        /// </summary>
+        /// <returns>an async task</returns>
         Task LogoutAsync();
     }
 
+    /// <summary>
+    /// Thumbnail generator interface
+    /// </summary>
     public interface IThumbnailGenerator
     {
+        /// <summary>
+        /// Creates a thumbnail
+        /// </summary>
+        /// <param name="data">the image data</param>
+        /// <returns>an async task with the image stream of the thumbnail</returns>
         Task<Stream> CreateThumbnailAsync(byte[] data);
     }
 
     /// <summary>
-    /// Urban sketchers app
+    ///     Urban sketchers app
     /// </summary>
     public class App : Application
     {
         /// <summary>
-        /// Initializes a new instance of the App class
+        ///     Initializes a new instance of the App class
         /// </summary>
         public App()
         {
-            if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS || Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.Android)
+            if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
             {
                 // determine the correct, supported .NET culture
                 var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
@@ -53,14 +65,14 @@ namespace UrbanSketchers
                 DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
             }
 
-            var menuPage = new MenuPage();
+            //var menuPage = new MenuPage();
 
-            NavigationPage = new NavigationPage(new HomePage());
+            //NavigationPage = new NavigationPage(new HomePage());
 
             var rootPage = new RootPage();
 
-            rootPage.Master = menuPage;
-            rootPage.Detail = NavigationPage;
+            NavigationPage = rootPage.Detail as NavigationPage;
+
             //{
             //    Master = menuPage,
             //    Detail = NavigationPage
@@ -92,15 +104,25 @@ namespace UrbanSketchers
             //};
         }
 
+        /// <summary>
+        ///     Gets the navigation page
+        /// </summary>
         public static NavigationPage NavigationPage { get; private set; }
 
+        /// <summary>
+        ///     Gets the authenticator
+        /// </summary>
         public static IAuthenticate Authenticator { get; private set; }
 
         /// <summary>
-        /// Gets or sets the pin to start command
+        ///     Gets or sets the pin to start command
         /// </summary>
         public static ICommand PinToStartCommand { get; set; }
 
+        /// <summary>
+        ///     Initialize the authenticator
+        /// </summary>
+        /// <param name="authenticator">the authenticator</param>
         public static void Init(IAuthenticate authenticator)
         {
             Authenticator = authenticator;
