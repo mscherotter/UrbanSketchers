@@ -7,7 +7,19 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MenuItemTemplate">
-                <ImageCell ImageSource="{Binding Icon}" Text="{Binding Label}"/>
+                <ViewCell IsEnabled="{Binding IsEnabled}">
+                    <Grid Padding="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Margin="4" Source="{Binding Icon}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                        <StackLayout Grid.Column="1" Padding="4,0,0,0" VerticalOptions="Center">
+                            <Label Text="{Binding Label}"/>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+                <!--<ImageCell ImageSource="{Binding Icon}" Text="{Binding Label}"/>-->
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -25,24 +37,11 @@
             <Entry Margin="4" Placeholder="{usk:Translate Search}" Text="{Binding SearchText, Mode=TwoWay}"   Completed="SearchEntryCompleted"/>
             <Button Text="?" Grid.Column="1" Grid.Row="0" Clicked="OnSearch" Margin="0,4,4,4" />
             <ListView ItemsSource="{Binding Items}" Grid.Column="0" Grid.ColumnSpan="2" ItemSelected="OnItemSelected" RowHeight="32" 
-                      Grid.Row="1"
-                      >
-                <ListView.ItemTemplate>
+                      Grid.Row="1" ItemTemplate="{StaticResource MenuItemTemplate}">
+                <!--<ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell IsEnabled="{Binding IsEnabled}">
-                            <Grid Padding="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Image Margin="4" Source="{Binding Icon}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-                                <StackLayout Grid.Column="1" Padding="4,0,0,0" VerticalOptions="Center">
-                                    <Label Text="{Binding Label}"/>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </ListView.ItemTemplate>-->
             </ListView>
             <Button Command="{Binding SignInCommand}" HorizontalOptions="Start" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HeightRequest="32" Text="{Binding SignInText}" Image="{Binding SignInImage}"/>
         </Grid>

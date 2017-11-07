@@ -3,6 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UrbanSketchers.Views.SketchesPage"
              Title="Sketches">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="SketchTemplate">
+                <!--<ImageCell ImageSource="{Binding ThumbnailUrl}" Text="{Binding Title}" Detail="{Binding CreatedByName, StringFormat='by {0}'}"/>-->
+                <ViewCell>
+                    <Grid Padding="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding ThumbnailUrl}" VerticalOptions="FillAndExpand"/>
+                        <StackLayout Grid.Column="1" Padding="4,0,0,0">
+                            <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"/>
+                            <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Refresh" Clicked="OnRefresh">
             <ToolbarItem.Icon>
@@ -14,8 +34,8 @@
     </ContentPage.ToolbarItems>
     <ListView x:Name="SketchList" RowHeight="48"
             ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement">
-    <ListView.ItemTemplate>
+            CachingStrategy="RecycleElement" ItemTemplate="{StaticResource SketchTemplate}">
+    <!--<ListView.ItemTemplate>
       <DataTemplate>
           <ViewCell>
               <Grid Padding="4">
@@ -31,6 +51,6 @@
               </Grid>
           </ViewCell>
       </DataTemplate>
-    </ListView.ItemTemplate>
+    </ListView.ItemTemplate>-->
   </ListView>
 </ContentPage>
