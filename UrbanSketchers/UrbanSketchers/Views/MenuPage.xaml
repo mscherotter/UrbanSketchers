@@ -21,6 +21,12 @@
                 </ViewCell>
                 <!--<ImageCell ImageSource="{Binding Icon}" Text="{Binding Label}"/>-->
             </DataTemplate>
+            <Style x:Key="MenuButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+                <Setter Property="HeightRequest" Value="32"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -37,13 +43,22 @@
             <Entry Margin="4" Placeholder="{usk:Translate Search}" Text="{Binding SearchText, Mode=TwoWay}"   Completed="SearchEntryCompleted"/>
             <Button Text="?" Grid.Column="1" Grid.Row="0" Clicked="OnSearch" Margin="0,4,4,4" />
             <ListView ItemsSource="{Binding Items}" Grid.Column="0" Grid.ColumnSpan="2" ItemSelected="OnItemSelected" RowHeight="32" 
-                      Grid.Row="1" ItemTemplate="{StaticResource MenuItemTemplate}">
-                <!--<ListView.ItemTemplate>
-                    <DataTemplate>
-                    </DataTemplate>
-                </ListView.ItemTemplate>-->
-            </ListView>
-            <Button Command="{Binding SignInCommand}" HorizontalOptions="Start" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HeightRequest="32" Text="{Binding SignInText}" Image="{Binding SignInImage}"/>
+                      Grid.Row="1" ItemTemplate="{StaticResource MenuItemTemplate}"/>
+            <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
+                <Button Command="{Binding SignInCommand}" Text="{Binding SignInText}" Image="{Binding SignInImage}" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Text="{usk:Translate PinToStart}" Style="{StaticResource MenuButtonStyle}" x:Name="PinToStartButton">
+                    <Button.Image>
+                        <OnPlatform x:TypeArguments="FileImageSource">
+                            <On Platform="UWP">Assets/PinToStart.png</On>
+                        </OnPlatform>
+                    </Button.Image>
+                    <Button.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean">
+                            <On Platform="UWP" Value="True"/>
+                        </OnPlatform>
+                    </Button.IsVisible>
+                </Button>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -25,11 +25,13 @@ namespace UrbanSketchers.Views
         {
             InitializeComponent();
 
+            PinToStartButton.Command = App.PinToStartCommand;
+
             string sketchMapIcon = null;
             string urbanSketchersIcon = null;
             string sketchesIcon = null;
             string aboutIcon = null;
-            string pinToStartIcon = null;
+            //string pinToStartIcon = null;
             //string signInIcon = null;
 
             switch (Device.RuntimePlatform)
@@ -39,7 +41,7 @@ namespace UrbanSketchers.Views
                     urbanSketchersIcon = "Assets/UrbanSketchers.png";
                     sketchesIcon = "Assets/Sketches.png";
                     aboutIcon = "Assets/About.png";
-                    pinToStartIcon = "Assets/PinToStart.png";
+                    //pinToStartIcon = "Assets/PinToStart.png";
                     //signInIcon = "Assets/SignIn.png";
                     break;
             }
@@ -73,15 +75,16 @@ namespace UrbanSketchers.Views
                 }
             });
 
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                Items.Add(new NavigationMenuItem
-                {
-                    Label = "Pin to start",
-                    Icon = pinToStartIcon,
-                    Command = App.PinToStartCommand
-                });
-            }
+            //PinToStartButton.IsVisible = Device.RuntimePlatform == Device.UWP)
+            //{
+                
+            //    Items.Add(new NavigationMenuItem
+            //    {
+            //        Label = "Pin to start",
+            //        Icon = pinToStartIcon,
+            //        Command = App.PinToStartCommand
+            //    });
+            //}
 
             Items.Add(new NavigationMenuItem
             {
@@ -98,6 +101,9 @@ namespace UrbanSketchers.Views
 
         }
 
+        /// <summary>
+        /// Gets or sets the search text.
+        /// </summary>
         public string SearchText
         {
             get => _searchText;

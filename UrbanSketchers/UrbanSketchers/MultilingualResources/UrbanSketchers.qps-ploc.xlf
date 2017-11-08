@@ -176,6 +176,10 @@ Press OK to continue uploading the sketch, affirming that you have read this and
           <source>{0} results for "{1}"</source>
           <target state="new">{0} results for "{1}"</target>
         </trans-unit>
+        <trans-unit id="PinToStart" translate="yes" xml:space="preserve">
+          <source>Pin to start</source>
+          <target state="new">Pin to start</target>
+        </trans-unit>
       </group>
     </body>
   </file>

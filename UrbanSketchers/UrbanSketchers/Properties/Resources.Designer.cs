@@ -226,6 +226,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pin to start.
+        /// </summary>
+        internal static string PinToStart {
+            get {
+                return ResourceManager.GetString("PinToStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
         internal static string Refresh {
