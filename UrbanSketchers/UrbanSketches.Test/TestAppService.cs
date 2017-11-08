@@ -67,9 +67,7 @@ namespace UrbanSketches.Test
                     return;
                 }
 
-                var message = new ValueSet
-                {
-                };
+                var message = new ValueSet();
 
                 var response = await connection.SendMessageAsync(message);
 
