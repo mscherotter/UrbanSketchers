@@ -15,6 +15,8 @@ using UrbanSketchers;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
+using Microsoft.Azure.Mobile;
+using Microsoft.Azure.Mobile.Analytics;
 
 namespace UWP
 {
@@ -31,6 +33,8 @@ namespace UWP
         {
             InitializeComponent();
             Suspending += OnSuspending;
+
+            MobileCenter.Start("aefb0a99-2ded-4ae7-a6b9-23beb92efdae", typeof(Analytics));
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace UWP
             {
                 var method = value.ToString();
 
-                if (method == "Upload")
+                if (method.Equals("upload", StringComparison.OrdinalIgnoreCase))
                     await UploadAsync(request, message);
                 else
                     await SendFailureResponseAsync(request, "The only valid Method is 'Upload'");
@@ -143,37 +147,68 @@ namespace UWP
             {
                 CreationDate = DateTime.UtcNow
             };
-
-            if (message.TryGetValue("Title", out object title))
-                sketch.Title = title.ToString();
-
-            if (message.TryGetValue("CreationDate", out object dateCreated))
-                sketch.CreationDate = (DateTime) dateCreated;
-
-            if (message.TryGetValue("Address", out object address))
-                sketch.Address = address.ToString();
-
-            if (message.TryGetValue("Latitude", out object latitude))
-                sketch.Latitude = (double) latitude;
-
-            if (message.TryGetValue("Longitude", out object longitude))
-                sketch.Longitude = (double) longitude;
-
-            if (message.TryGetValue("Description", out object description))
-                sketch.Description = description.ToString();
-
             
             StorageFile file = null;
 
             if (message.TryGetValue("FileToken", out object fileToken))
                 file = await SharedStorageAccessManager.RedeemTokenForFileAsync(fileToken.ToString());
 
-            if (string.IsNullOrWhiteSpace(sketch.Title) || file == null)
+            if (file == null)
             {
-                await SendFailureResponseAsync(request, "The Message must contain a FileToken and Title");
+                await SendFailureResponseAsync(request, "The Message must contain a FileToken");
             }
             else
             {
+                var imageProperties = await file.Properties.GetImagePropertiesAsync();
+
+                if (message.TryGetValue("Title", out object title))
+                {
+                    sketch.Title = title.ToString();
+                }
+                else
+                {
+                    sketch.Title = imageProperties.Title;
+                }
+
+                if (string.IsNullOrWhiteSpace(sketch.Title))
+                {
+                    await SendFailureResponseAsync(request, "Message must have a Title property or the image must have a Title EXIF property.");
+
+                    return;
+                }
+
+                if (message.TryGetValue("CreationDate", out object dateCreated))
+                {
+                    sketch.CreationDate = (DateTime) dateCreated;
+                }
+                else
+                {
+                    sketch.CreationDate = imageProperties.DateTaken.ToUniversalTime().DateTime;
+                }
+                if (message.TryGetValue("Address", out object address))
+                    sketch.Address = address.ToString();
+
+                if (message.TryGetValue("Latitude", out object latitude))
+                {
+                    sketch.Latitude = (double) latitude;
+                }
+                else if (imageProperties.Latitude.HasValue)
+                {
+                    sketch.Latitude = imageProperties.Latitude.Value;
+                }
+
+                if (message.TryGetValue("Longitude", out object longitude))
+                {
+                    sketch.Longitude = (double) longitude;
+                }
+                else if (imageProperties.Longitude.HasValue)
+                {
+                    sketch.Longitude = imageProperties.Longitude.Value;
+                }
+
+                if (message.TryGetValue("Description", out object description))
+                    sketch.Description = description.ToString();
+
                 using (var stream = await file.OpenStreamForReadAsync())
                 {
                     try
