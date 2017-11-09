@@ -5,7 +5,8 @@
              Title="Sketchers">
   <ListView x:Name="People"
             ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement">
+            CachingStrategy="RecycleElement"
+            Margin="4">
             
     <ListView.ItemTemplate>
       <DataTemplate>

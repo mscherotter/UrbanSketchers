@@ -291,30 +291,18 @@ namespace UrbanSketchers
         /// <summary>
         ///     Gets the sketches
         /// </summary>
-        /// <param name="syncItems">true to sync offline items</param>
-        /// <returns>an async task with an observable collection of sketches</returns>
-        public async Task<ObservableCollection<Sketch>> GetSketchsAsync(bool syncItems = false)
+        /// <returns>an async task with a collection of sketches</returns>
+        public Task<MobileServiceCollection<Sketch, Sketch>> GetSketchsAsync()
         {
             try
             {
-#if OFFLINE_SYNC_ENABLED
-                if (syncItems)
-                {
-                    await this.SyncAsync();
-                }
-#endif
-                var items = await _sketchTable.ToEnumerableAsync();
-
-                return new ObservableCollection<Sketch>(items);
-            }
-            catch (MobileServiceInvalidOperationException msioe)
-            {
-                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+                return _sketchTable.IncludeTotalCount().ToCollectionAsync();
             }
             catch (Exception e)
             {
                 Debug.WriteLine(@"Sync error: {0}", e.Message);
             }
+
             return null;
         }
 

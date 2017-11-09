@@ -242,4 +242,7 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="PinToStart" xml:space="preserve">
     <value>Pin to start</value>
   </data>
+  <data name="NSketches" xml:space="preserve">
+    <value>{0} Sketches</value>
+  </data>
 </root>

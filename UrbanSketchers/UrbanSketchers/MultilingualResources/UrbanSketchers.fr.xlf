@@ -180,6 +180,10 @@ Appuyez sur OK pour continuer le téléchargement de l’esquisse, confirmant qu
           <source>Pin to start</source>
           <target state="new">Pin to start</target>
         </trans-unit>
+        <trans-unit id="NSketches" translate="yes" xml:space="preserve">
+          <source>{0} Sketches</source>
+          <target state="new">{0} Sketches</target>
+        </trans-unit>
       </group>
     </body>
   </file>

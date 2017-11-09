@@ -14,9 +14,9 @@ namespace UrbanSketchers.Views
     public partial class MenuPage
     {
         private object _lastItemSelected;
-        private string _signInText;
-        private string _signInImage;
         private string _searchText;
+        private string _signInImage;
+        private string _signInText;
 
         /// <summary>
         ///     Initializes a new instance of the MenuPage class.
@@ -77,7 +77,7 @@ namespace UrbanSketchers.Views
 
             //PinToStartButton.IsVisible = Device.RuntimePlatform == Device.UWP)
             //{
-                
+
             //    Items.Add(new NavigationMenuItem
             //    {
             //        Label = "Pin to start",
@@ -98,11 +98,10 @@ namespace UrbanSketchers.Views
             BindingContext = this;
 
             App.Authenticator.SignedIn += Authenticator_SignedIn;
-
         }
 
         /// <summary>
-        /// Gets or sets the search text.
+        ///     Gets or sets the search text.
         /// </summary>
         public string SearchText
         {
@@ -119,10 +118,11 @@ namespace UrbanSketchers.Views
                 }
             }
         }
+
         /// <summary>
-        /// Gets the sign-in/sign-out command
+        ///     Gets the sign-in/sign-out command
         /// </summary>
-        public RelayCommand<object> SignInCommand { get; private set; }
+        public RelayCommand<object> SignInCommand { get; }
 
         /// <summary>
         ///     Gets the navigation menu items
@@ -130,7 +130,7 @@ namespace UrbanSketchers.Views
         public ObservableCollection<NavigationMenuItem> Items { get; }
 
         /// <summary>
-        /// Gets or set sthe sign-in image
+        ///     Gets or set sthe sign-in image
         /// </summary>
         public string SignInImage
         {
@@ -150,7 +150,7 @@ namespace UrbanSketchers.Views
         }
 
         /// <summary>
-        /// Gets or sets the sign-in text
+        ///     Gets or sets the sign-in text
         /// </summary>
         public string SignInText
         {
@@ -165,7 +165,7 @@ namespace UrbanSketchers.Views
                     _signInText = value;
 
                     OnPropertyChanged();
-                }    
+                }
             }
         }
 
@@ -233,12 +233,7 @@ namespace UrbanSketchers.Views
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == _lastItemSelected)
-            {
-                // https://bugzilla.xamarin.com/show_bug.cgi?id=58898
-                // https://bugzilla.xamarin.com/show_bug.cgi?id=44886
-                // ListView will send two ItemSelected events
                 return;
-            }
 
             _lastItemSelected = e.SelectedItem;
 
@@ -247,8 +242,8 @@ namespace UrbanSketchers.Views
                 if (item.Command.CanExecute(null))
                     item.Command.Execute(null);
 
-                //if (sender is ListView listView)
-                //    listView.SelectedItem = null;
+                if (sender is ListView listView)
+                    listView.SelectedItem = null;
             }
         }
 
@@ -281,13 +276,11 @@ namespace UrbanSketchers.Views
         {
             await App.NavigationPage.PushAsync(new SketchesPage
             {
-                SearchText = this.SearchText
+                SearchText = SearchText
             });
 
-            if (App.Current.MainPage is MasterDetailPage masterDetailPage)
-            {
+            if (Application.Current.MainPage is MasterDetailPage masterDetailPage)
                 masterDetailPage.IsPresented = false;
-            }
         }
 
         private async void OnSearch(object sender, EventArgs e)

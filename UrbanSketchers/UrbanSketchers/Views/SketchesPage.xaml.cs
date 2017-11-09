@@ -49,10 +49,10 @@ namespace UrbanSketchers.Views
         {
             base.OnAppearing();
 
-            await RefreshItemsAsync(true, true);
+            await RefreshItemsAsync();
         }
 
-        private async Task RefreshItemsAsync(bool showActivityIndicator, bool syncItems)
+        private async Task RefreshItemsAsync()
         {
             //using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
@@ -85,6 +85,11 @@ namespace UrbanSketchers.Views
                 {
                     var sketches = await _sketchManager.GetSketchsAsync();
 
+                    Title = string.Format(
+                        CultureInfo.CurrentCulture,
+                        Properties.Resources.NSketches,
+                        sketches?.TotalCount ?? 0);
+
                     SketchList.ItemsSource = sketches;
                 }
             }
@@ -101,46 +106,43 @@ namespace UrbanSketchers.Views
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            await RefreshItemsAsync(true, true);
+            await RefreshItemsAsync();
         }
 
-        /// <summary>
-        /// Activity indicator scope
-        /// </summary>
-        private class ActivityIndicatorScope : IDisposable
-        {
-            private readonly ActivityIndicator indicator;
-            private readonly Task indicatorDelay;
-            private readonly bool showIndicator;
+        //private class ActivityIndicatorScope : IDisposable
+        //{
+        //    private readonly ActivityIndicator indicator;
+        //    private readonly Task indicatorDelay;
+        //    private readonly bool showIndicator;
 
-            public ActivityIndicatorScope(ActivityIndicator indicator, bool showIndicator)
-            {
-                this.indicator = indicator;
-                this.showIndicator = showIndicator;
+        //    public ActivityIndicatorScope(ActivityIndicator indicator, bool showIndicator)
+        //    {
+        //        this.indicator = indicator;
+        //        this.showIndicator = showIndicator;
 
-                if (showIndicator)
-                {
-                    indicatorDelay = Task.Delay(2000);
-                    SetIndicatorActivity(true);
-                }
-                else
-                {
-                    indicatorDelay = Task.FromResult(0);
-                }
-            }
+        //        if (showIndicator)
+        //        {
+        //            indicatorDelay = Task.Delay(2000);
+        //            SetIndicatorActivity(true);
+        //        }
+        //        else
+        //        {
+        //            indicatorDelay = Task.FromResult(0);
+        //        }
+        //    }
 
-            public void Dispose()
-            {
-                if (showIndicator)
-                    indicatorDelay.ContinueWith(t => SetIndicatorActivity(false),
-                        TaskScheduler.FromCurrentSynchronizationContext());
-            }
+        //    public void Dispose()
+        //    {
+        //        if (showIndicator)
+        //            indicatorDelay.ContinueWith(t => SetIndicatorActivity(false),
+        //                TaskScheduler.FromCurrentSynchronizationContext());
+        //    }
 
-            private void SetIndicatorActivity(bool isActive)
-            {
-                indicator.IsVisible = isActive;
-                indicator.IsRunning = isActive;
-            }
-        }
+        //    private void SetIndicatorActivity(bool isActive)
+        //    {
+        //        indicator.IsVisible = isActive;
+        //        indicator.IsRunning = isActive;
+        //    }
+        //}
     }
 }

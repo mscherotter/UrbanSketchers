@@ -208,6 +208,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Sketches.
+        /// </summary>
+        internal static string NSketches {
+            get {
+                return ResourceManager.GetString("NSketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string OK {
