@@ -184,6 +184,14 @@ OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen h
           <source>{0} Sketches</source>
           <target state="new">{0} Sketches</target>
         </trans-unit>
+        <trans-unit id="UploadToUrbanSketches" translate="yes" xml:space="preserve">
+          <source>Upload to Urban Sketches</source>
+          <target state="new">Upload to Urban Sketches</target>
+        </trans-unit>
+        <trans-unit id="UploadToUrbanSketchesDescription" translate="yes" xml:space="preserve">
+          <source>Upload an image to Urban Sketches.</source>
+          <target state="new">Upload an image to Urban Sketches.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

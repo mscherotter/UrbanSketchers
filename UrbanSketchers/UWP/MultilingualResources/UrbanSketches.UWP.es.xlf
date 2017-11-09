@@ -22,6 +22,42 @@
           <source>Share a map</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Compartir mapa</target>
         </trans-unit>
+        <trans-unit id="AddressTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Address</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Direccion</target>
+        </trans-unit>
+        <trans-unit id="DateCreatedTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Date created</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Fecha de creación</target>
+        </trans-unit>
+        <trans-unit id="DescriptionTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Descripción</target>
+        </trans-unit>
+        <trans-unit id="LatitudeTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Latitude</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Latitud</target>
+        </trans-unit>
+        <trans-unit id="LongitudeTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Longitude</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Longitud</target>
+        </trans-unit>
+        <trans-unit id="TitleTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Title</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Título</target>
+        </trans-unit>
+        <trans-unit id="UploadButton.Content" translate="yes" xml:space="preserve">
+          <source>Upload</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Cargar</target>
+        </trans-unit>
+        <trans-unit id="UploadToUrbanSketches" translate="yes" xml:space="preserve">
+          <source>Upload to Urban Sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Subir a bocetos urbanos</target>
+        </trans-unit>
+        <trans-unit id="UploadToUrbanSketchesDescription" translate="yes" xml:space="preserve">
+          <source>Upload an image to Urban Sketches.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Subir una imagen a dibujos urbanos.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

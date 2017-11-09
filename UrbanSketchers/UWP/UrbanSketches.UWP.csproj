@@ -223,6 +223,9 @@
     <XliffResource Include="MultilingualResources\UrbanSketches.UWP.fr.xlf" />
     <XliffResource Include="MultilingualResources\UrbanSketches.UWP.qps-ploc.xlf" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Public\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -22,6 +22,42 @@
           <source>Share a map</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">[3F260][!!_Šнãŕé ã мáρ_!!]</target>
         </trans-unit>
+        <trans-unit id="AddressTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Address</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[29AC4][!!_Ãđđřéśş_!!]</target>
+        </trans-unit>
+        <trans-unit id="DateCreatedTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Date created</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[BC6B6][!!_Đáτè ċŕęàτéđ_!!]</target>
+        </trans-unit>
+        <trans-unit id="DescriptionTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[BCA90][!!_Ðêŝčŕîþťîôή_!!]</target>
+        </trans-unit>
+        <trans-unit id="LatitudeTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Latitude</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[163DC][!!_Ĺãτįťµďê_!!]</target>
+        </trans-unit>
+        <trans-unit id="LongitudeTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Longitude</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[83B5F][!!_Ļòήģíтµďê_!!]</target>
+        </trans-unit>
+        <trans-unit id="TitleTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Title</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[7070F][!!_Ţìţłê_!!]</target>
+        </trans-unit>
+        <trans-unit id="UploadButton.Content" translate="yes" xml:space="preserve">
+          <source>Upload</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[F3417][!!_Üþľóãð_!!]</target>
+        </trans-unit>
+        <trans-unit id="UploadToUrbanSketches" translate="yes" xml:space="preserve">
+          <source>Upload to Urban Sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[15012][!!_Ùþĺóàď тò ÛŕБâη Šĸęţćħèś_!!]</target>
+        </trans-unit>
+        <trans-unit id="UploadToUrbanSketchesDescription" translate="yes" xml:space="preserve">
+          <source>Upload an image to Urban Sketches.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[56C6E][!!_Ùрľóâđ âή íмâģé τó Üřьãη Şќéтĉħèś._!!]</target>
+        </trans-unit>
       </group>
     </body>
   </file>

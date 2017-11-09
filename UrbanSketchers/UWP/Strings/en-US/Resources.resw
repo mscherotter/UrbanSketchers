@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressTextBox.Header" xml:space="preserve">
+    <value>Address</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>Contribute to and browse a growing map of sketches from around the world.</value>
   </data>
@@ -126,7 +129,31 @@
   <data name="AuthProtocolDisplayName" xml:space="preserve">
     <value>Urban Sketches authorization protocol</value>
   </data>
+  <data name="DateCreatedTextBox.Header" xml:space="preserve">
+    <value>Date created</value>
+  </data>
+  <data name="DescriptionTextBox.Header" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="LatitudeTextBox.Header" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="LongitudeTextBox.Header" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
   <data name="ShareDescription" xml:space="preserve">
     <value>Share a map</value>
+  </data>
+  <data name="TitleTextBox.Header" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="UploadButton.Content" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="UploadToUrbanSketches" xml:space="preserve">
+    <value>Upload to Urban Sketches</value>
+  </data>
+  <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
+    <value>Upload an image to Urban Sketches.</value>
   </data>
 </root>

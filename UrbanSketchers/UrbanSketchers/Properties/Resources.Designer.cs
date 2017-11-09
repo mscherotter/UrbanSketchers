@@ -378,6 +378,24 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload to Urban Sketches.
+        /// </summary>
+        internal static string UploadToUrbanSketches {
+            get {
+                return ResourceManager.GetString("UploadToUrbanSketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload an image to Urban Sketches..
+        /// </summary>
+        internal static string UploadToUrbanSketchesDescription {
+            get {
+                return ResourceManager.GetString("UploadToUrbanSketchesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Urban Sketchers.
         /// </summary>
         internal static string UrbanSketchers {
