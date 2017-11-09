@@ -12,13 +12,16 @@ namespace UrbanSketches.Test
     [TestClass]
     public class TestAppService
     {
+        private const string AppServiceName = "UrbanSketches.1";
+        private const string PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm";
+
         [TestMethod]
         public async Task TestUploadAsync()
         {
             using (var connection = new AppServiceConnection
             {
-                AppServiceName = "Upload.1",
-                PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm"
+                AppServiceName = AppServiceName,
+                PackageFamilyName = PackageFamilyName
             })
             {
                 var openStatus = await connection.OpenAsync();
@@ -54,8 +57,8 @@ namespace UrbanSketches.Test
         {
             using (var connection = new AppServiceConnection
             {
-                AppServiceName = "Upload.1",
-                PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm"
+                AppServiceName = AppServiceName,
+                PackageFamilyName = PackageFamilyName
             })
             {
                 var openStatus = await connection.OpenAsync();
@@ -84,8 +87,8 @@ namespace UrbanSketches.Test
         {
             using (var connection = new AppServiceConnection
             {
-                AppServiceName = "Upload.1",
-                PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm"
+                AppServiceName = AppServiceName,
+                PackageFamilyName = PackageFamilyName
             })
             {
                 var openStatus = await connection.OpenAsync();
@@ -117,8 +120,8 @@ namespace UrbanSketches.Test
         {
             using (var connection = new AppServiceConnection
             {
-                AppServiceName = "Upload.1",
-                PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm"
+                AppServiceName = AppServiceName,
+                PackageFamilyName = PackageFamilyName
             })
             {
                 var openStatus = await connection.OpenAsync();
