@@ -279,13 +279,13 @@ namespace UrbanSketchers
         /// </summary>
         /// <param name="sector">the sector</param>
         /// <returns>an async task with an observable collection of sketches</returns>
-        public async Task<ObservableCollection<Sketch>> GetSketchsAsync(int sector)
+        public Task<MobileServiceCollection<Sketch, Sketch>> GetSketchsAsync(int sector)
         {
             var items = from item in _sketchTable
                 where item.Sector == sector
                 select item;
 
-            return new ObservableCollection<Sketch>(await items.ToEnumerableAsync());
+            return items.ToCollectionAsync();
         }
 
         /// <summary>
@@ -297,14 +297,6 @@ namespace UrbanSketchers
             try
             {
                 var collection = await _sketchTable.IncludeTotalCount().ToCollectionAsync();
-
-                foreach (var item in collection)
-                {
-                    if (string.IsNullOrWhiteSpace(item.ThumbnailUrl))
-                    {
-                        item.ThumbnailUrl = item.ImageUrl;
-                    }
-                }
 
                 return collection;
             }

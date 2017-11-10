@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Services\CustomIndexing.cs" />
     <Compile Include="Support\ActivityIndicatorScope.cs" />
+    <Compile Include="Support\CustomIndexing.cs" />
     <Compile Include="TodoList.xaml.cs">
       <DependentUpon>TodoList.xaml</DependentUpon>
     </Compile>

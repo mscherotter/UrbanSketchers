@@ -3,8 +3,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
+using UrbanSketchers.Services;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
@@ -92,10 +94,28 @@ namespace UrbanSketchers.Views
         {
             if (Map.VisibleRegion == null) return;
 
-            //var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude, Map.VisibleRegion.Center.Longitude,
-            //    CustomIndexing.SectorSize);
+            var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude, Map.VisibleRegion.Center.Longitude,
+                CustomIndexing.SectorSize);
 
-            var sketches = await SketchManager.DefaultManager.GetSketchsAsync();
+
+            var sectorArea = CustomIndexing.Area(sector, CustomIndexing.SectorSize);
+
+            var radius = Map.VisibleRegion.Radius.Kilometers;
+
+            var visibleArea = Math.Pow(radius * 2.0, 2.0);
+
+            MobileServiceCollection<Sketch, Sketch> sketches;
+
+            System.Diagnostics.Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
+
+            if (visibleArea > sectorArea)
+            {
+                sketches = await SketchManager.DefaultManager.GetSketchsAsync();
+            }
+            else
+            {
+                sketches = await SketchManager.DefaultManager.GetSketchsAsync(sector);
+            }
 
             if (sketches == null)
                 return;
@@ -210,14 +230,16 @@ namespace UrbanSketchers.Views
         private async void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Map.VisibleRegion))
-                if (_sketch != null)
-                    await UpdateLocationAsync();
+                await UpdateLocationAsync();
         }
 
         private async Task UpdateLocationAsync()
         {
-            _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
-            _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
+            if (_sketch != null)
+            {
+                _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
+                _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
+            }
 
             await RefreshAsync();
         }
