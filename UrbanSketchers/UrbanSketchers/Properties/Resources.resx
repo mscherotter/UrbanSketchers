@@ -251,4 +251,10 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
     <value>Upload an image to Urban Sketches.</value>
   </data>
+  <data name="DeleteSketch" xml:space="preserve">
+    <value>Delete Sketch</value>
+  </data>
+  <data name="PressOKToDeleteSketch" xml:space="preserve">
+    <value>Press OK to delete the sketch.</value>
+  </data>
 </root>

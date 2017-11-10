@@ -202,12 +202,22 @@ namespace UrbanSketchers.Views
             if (person == null)
                 return;
 
-            if (person.Id == Sketch.CreatedBy)
+            if (person.Id != Sketch.CreatedBy)
             {
-                await SketchManager.DefaultManager.DeleteAsync(Sketch);
-
-                await Navigation.PopAsync(true);
+                return;
             }
+
+            var response = await DisplayAlert(
+                Properties.Resources.DeleteSketch,
+                Properties.Resources.PressOKToDeleteSketch, 
+                Properties.Resources.OK, 
+                Properties.Resources.Cancel);
+
+            if (!response) return;
+
+            await SketchManager.DefaultManager.DeleteAsync(Sketch);
+
+            await Navigation.PopAsync(true);
         }
 
         private void OnShare(object sender, EventArgs e)

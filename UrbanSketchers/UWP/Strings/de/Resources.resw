@@ -24,4 +24,31 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>Geben Sie eine Karte</value>
   </data>
+  <data name="AddressTextBox.Header" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="DateCreatedTextBox.Header" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="DescriptionTextBox.Header" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="LatitudeTextBox.Header" xml:space="preserve">
+    <value>Breitengrad</value>
+  </data>
+  <data name="LongitudeTextBox.Header" xml:space="preserve">
+    <value>Längengrad</value>
+  </data>
+  <data name="TitleTextBox.Header" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="UploadButton.Content" xml:space="preserve">
+    <value>Hochladen</value>
+  </data>
+  <data name="UploadToUrbanSketches" xml:space="preserve">
+    <value>Zu den städtischen Skizzen hochladen</value>
+  </data>
+  <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
+    <value>Hochladen Sie zu den städtischen Skizzen ein Bild.</value>
+  </data>
 </root>

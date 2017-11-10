@@ -292,11 +292,21 @@ namespace UrbanSketchers
         ///     Gets the sketches
         /// </summary>
         /// <returns>an async task with a collection of sketches</returns>
-        public Task<MobileServiceCollection<Sketch, Sketch>> GetSketchsAsync()
+        public async Task<MobileServiceCollection<Sketch, Sketch>> GetSketchsAsync()
         {
             try
             {
-                return _sketchTable.IncludeTotalCount().ToCollectionAsync();
+                var collection = await _sketchTable.IncludeTotalCount().ToCollectionAsync();
+
+                foreach (var item in collection)
+                {
+                    if (string.IsNullOrWhiteSpace(item.ThumbnailUrl))
+                    {
+                        item.ThumbnailUrl = item.ImageUrl;
+                    }
+                }
+
+                return collection;
             }
             catch (Exception e)
             {

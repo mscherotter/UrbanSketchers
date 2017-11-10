@@ -24,4 +24,31 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>Compartir mapa</value>
   </data>
+  <data name="AddressTextBox.Header" xml:space="preserve">
+    <value>Direccion</value>
+  </data>
+  <data name="DateCreatedTextBox.Header" xml:space="preserve">
+    <value>Fecha de creación</value>
+  </data>
+  <data name="DescriptionTextBox.Header" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="LatitudeTextBox.Header" xml:space="preserve">
+    <value>Latitud</value>
+  </data>
+  <data name="LongitudeTextBox.Header" xml:space="preserve">
+    <value>Longitud</value>
+  </data>
+  <data name="TitleTextBox.Header" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="UploadButton.Content" xml:space="preserve">
+    <value>Cargar</value>
+  </data>
+  <data name="UploadToUrbanSketches" xml:space="preserve">
+    <value>Subir a bocetos urbanos</value>
+  </data>
+  <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
+    <value>Subir una imagen a dibujos urbanos.</value>
+  </data>
 </root>

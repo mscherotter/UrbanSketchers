@@ -134,6 +134,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Sketch.
+        /// </summary>
+        internal static string DeleteSketch {
+            get {
+                return ResourceManager.GetString("DeleteSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove user, sketches, and ratings..
         /// </summary>
         internal static string DeleteUserText {
@@ -240,6 +249,15 @@ namespace UrbanSketchers.Properties {
         internal static string PinToStart {
             get {
                 return ResourceManager.GetString("PinToStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press OK to delete the sketch..
+        /// </summary>
+        internal static string PressOKToDeleteSketch {
+            get {
+                return ResourceManager.GetString("PressOKToDeleteSketch", resourceCulture);
             }
         }
         
