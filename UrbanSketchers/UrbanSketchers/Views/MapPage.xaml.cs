@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
-using UrbanSketchers.Services;
+using UrbanSketchers.Support;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 

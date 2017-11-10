@@ -21,7 +21,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using UrbanSketchers.Data;
-using UrbanSketchers.Services;
+using UrbanSketchers.Support;
 
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
@@ -75,17 +75,24 @@ namespace UrbanSketchers
 #endif
         }
 
+        /// <summary>
+        /// search for a sketch with the text in the title, address, or description
+        /// </summary>
+        /// <param name="text">the text</param>
+        /// <returns>an async task with a collection of sketches</returns>
         public Task<MobileServiceCollection<Sketch, Sketch>> SearchAsync(string text)
         {
             text = text.ToLower();
 
             var query = from item in _sketchTable
                 where item.Title.ToLower().Contains(text) || 
-                item.Description.ToLower().Contains(text)
+                item.Description.ToLower().Contains(text) ||
+                item.Address.ToLower().Contains(text)
                 select item;
 
             return query.IncludeTotalCount().ToCollectionAsync();
         }
+
         /// <summary>
         ///     Delete the current user
         /// </summary>
