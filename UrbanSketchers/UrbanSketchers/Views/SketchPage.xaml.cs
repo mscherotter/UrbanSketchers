@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using UrbanSketchers.Data;
+using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;

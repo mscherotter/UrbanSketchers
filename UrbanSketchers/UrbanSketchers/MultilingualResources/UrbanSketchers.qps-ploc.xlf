@@ -192,6 +192,14 @@ Press OK to continue uploading the sketch, affirming that you have read this and
           <source>Upload an image to Urban Sketches.</source>
           <target state="new">Upload an image to Urban Sketches.</target>
         </trans-unit>
+        <trans-unit id="DeleteSketch" translate="yes" xml:space="preserve">
+          <source>Delete Sketch</source>
+          <target state="new">Delete Sketch</target>
+        </trans-unit>
+        <trans-unit id="PressOKToDeleteSketch" translate="yes" xml:space="preserve">
+          <source>Press OK to delete the sketch.</source>
+          <target state="new">Press OK to delete the sketch.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

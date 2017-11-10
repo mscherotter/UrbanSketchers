@@ -32,25 +32,12 @@
             </ToolbarItem.Icon>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
+    <ActivityIndicator x:Name="ActivityIndicator" 
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       IsVisible="False"
+                       IsEnabled="True" />
     <ListView x:Name="SketchList" RowHeight="48"
-            ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement" ItemTemplate="{StaticResource SketchTemplate}">
-    <!--<ListView.ItemTemplate>
-      <DataTemplate>
-          <ViewCell>
-              <Grid Padding="4">
-                  <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="48"/>
-                      <ColumnDefinition/>
-                  </Grid.ColumnDefinitions>
-                  <Image Source="{Binding ImageUrl}" VerticalOptions="FillAndExpand"/>
-                  <StackLayout Grid.Column="1" Padding="4,0,0,0">
-                      <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"/>
-                      <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
-                  </StackLayout>
-              </Grid>
-          </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>-->
-  </ListView>
+              ItemTapped="Handle_ItemTapped"
+              CachingStrategy="RecycleElement" ItemTemplate="{StaticResource SketchTemplate}"/>
 </ContentPage>

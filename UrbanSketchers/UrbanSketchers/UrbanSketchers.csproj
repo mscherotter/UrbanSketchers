@@ -89,6 +89,7 @@
       <DependentUpon>Resources.qps-ploc.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\CustomIndexing.cs" />
+    <Compile Include="Support\ActivityIndicatorScope.cs" />
     <Compile Include="TodoList.xaml.cs">
       <DependentUpon>TodoList.xaml</DependentUpon>
     </Compile>

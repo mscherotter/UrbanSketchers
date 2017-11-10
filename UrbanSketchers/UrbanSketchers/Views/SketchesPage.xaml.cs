@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
+using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -54,43 +55,46 @@ namespace UrbanSketchers.Views
 
         private async Task RefreshItemsAsync()
         {
-            //using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
+            using (new ActivityIndicatorScope(ActivityIndicator, true))
             {
-                if (!string.IsNullOrWhiteSpace(SearchText))
+                //using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
                 {
-                    var results = await SketchManager.DefaultManager.SearchAsync(SearchText);
+                    if (!string.IsNullOrWhiteSpace(SearchText))
+                    {
+                        var results = await SketchManager.DefaultManager.SearchAsync(SearchText);
 
-                    Title = string.Format(
-                        CultureInfo.CurrentCulture,
-                        Properties.Resources.XResultsForY,
-                        results.TotalCount,
-                        SearchText);
-
-                    SketchList.ItemsSource = results;
-                }
-                else if (!string.IsNullOrWhiteSpace(PersonId))
-                {
-                    var sketches = await _sketchManager.GetSketchsAsync(PersonId);
-
-                    if (sketches.Any())
                         Title = string.Format(
                             CultureInfo.CurrentCulture,
-                            Properties.Resources.SketchesByFormat,
-                            sketches.Count,
-                            sketches.First().CreatedByName);
+                            Properties.Resources.XResultsForY,
+                            results.TotalCount,
+                            SearchText);
 
-                    SketchList.ItemsSource = sketches;
-                }
-                else
-                {
-                    var sketches = await _sketchManager.GetSketchsAsync();
+                        SketchList.ItemsSource = results;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(PersonId))
+                    {
+                        var sketches = await _sketchManager.GetSketchsAsync(PersonId);
 
-                    Title = string.Format(
-                        CultureInfo.CurrentCulture,
-                        Properties.Resources.NSketches,
-                        sketches?.TotalCount ?? 0);
+                        if (sketches.Any())
+                            Title = string.Format(
+                                CultureInfo.CurrentCulture,
+                                Properties.Resources.SketchesByFormat,
+                                sketches.Count,
+                                sketches.First().CreatedByName);
 
-                    SketchList.ItemsSource = sketches;
+                        SketchList.ItemsSource = sketches;
+                    }
+                    else
+                    {
+                        var sketches = await _sketchManager.GetSketchsAsync();
+
+                        Title = string.Format(
+                            CultureInfo.CurrentCulture,
+                            Properties.Resources.NSketches,
+                            sketches?.TotalCount ?? 0);
+
+                        SketchList.ItemsSource = sketches;
+                    }
                 }
             }
         }
