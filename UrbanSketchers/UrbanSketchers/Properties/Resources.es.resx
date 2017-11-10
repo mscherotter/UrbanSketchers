@@ -131,4 +131,28 @@ presione OK para continuar subiendo el bosquejo, afirmando que ha leído y acept
   <data name="UrbanSketches" xml:space="preserve">
     <value>Croquis urbanos</value>
   </data>
+  <data name="XResultsForY" xml:space="preserve">
+    <value>{0} resultados para "{1}"</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Anclar a Inicio</value>
+  </data>
+  <data name="NSketches" xml:space="preserve">
+    <value>Bocetos de {0}</value>
+  </data>
+  <data name="UploadToUrbanSketches" xml:space="preserve">
+    <value>Subir a bocetos urbanos</value>
+  </data>
+  <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
+    <value>Subir una imagen a dibujos urbanos.</value>
+  </data>
+  <data name="DeleteSketch" xml:space="preserve">
+    <value>Borrar dibujo</value>
+  </data>
+  <data name="PressOKToDeleteSketch" xml:space="preserve">
+    <value>Pulse OK para borrar el boceto.</value>
+  </data>
+  <data name="SketchMapNSketches" xml:space="preserve">
+    <value>Mapa de bosquejo: croquis {0}</value>
+  </data>
 </root>

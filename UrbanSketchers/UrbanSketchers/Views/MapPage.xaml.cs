@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -119,6 +120,9 @@ namespace UrbanSketchers.Views
 
             if (sketches == null)
                 return;
+
+            Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
+                sketches.TotalCount);
 
             var pins = from sketch in sketches
                 select new SketchPin

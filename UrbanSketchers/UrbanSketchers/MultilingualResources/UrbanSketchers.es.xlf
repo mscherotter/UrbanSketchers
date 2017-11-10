@@ -174,31 +174,35 @@ presione OK para continuar subiendo el bosquejo, afirmando que ha leído y acept
         </trans-unit>
         <trans-unit id="XResultsForY" translate="yes" xml:space="preserve">
           <source>{0} results for "{1}"</source>
-          <target state="new">{0} results for "{1}"</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} resultados para "{1}"</target>
         </trans-unit>
         <trans-unit id="PinToStart" translate="yes" xml:space="preserve">
           <source>Pin to start</source>
-          <target state="new">Pin to start</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Anclar a Inicio</target>
         </trans-unit>
         <trans-unit id="NSketches" translate="yes" xml:space="preserve">
           <source>{0} Sketches</source>
-          <target state="new">{0} Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Bocetos de {0}</target>
         </trans-unit>
         <trans-unit id="UploadToUrbanSketches" translate="yes" xml:space="preserve">
           <source>Upload to Urban Sketches</source>
-          <target state="new">Upload to Urban Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Subir a bocetos urbanos</target>
         </trans-unit>
         <trans-unit id="UploadToUrbanSketchesDescription" translate="yes" xml:space="preserve">
           <source>Upload an image to Urban Sketches.</source>
-          <target state="new">Upload an image to Urban Sketches.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Subir una imagen a dibujos urbanos.</target>
         </trans-unit>
         <trans-unit id="DeleteSketch" translate="yes" xml:space="preserve">
           <source>Delete Sketch</source>
-          <target state="new">Delete Sketch</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Borrar dibujo</target>
         </trans-unit>
         <trans-unit id="PressOKToDeleteSketch" translate="yes" xml:space="preserve">
           <source>Press OK to delete the sketch.</source>
-          <target state="new">Press OK to delete the sketch.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pulse OK para borrar el boceto.</target>
+        </trans-unit>
+        <trans-unit id="SketchMapNSketches" translate="yes" xml:space="preserve">
+          <source>Sketch Map: {0} sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Mapa de bosquejo: croquis {0}</target>
         </trans-unit>
       </group>
     </body>

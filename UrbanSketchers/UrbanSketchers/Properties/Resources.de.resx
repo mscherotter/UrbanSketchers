@@ -131,4 +131,28 @@ OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen h
   <data name="UrbanSketches" xml:space="preserve">
     <value>Städtischen Skizzen</value>
   </data>
+  <data name="XResultsForY" xml:space="preserve">
+    <value>{0} Ergebnisse für "{1}"</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>An „Start“ anheften</value>
+  </data>
+  <data name="NSketches" xml:space="preserve">
+    <value>{0} Skizzen</value>
+  </data>
+  <data name="UploadToUrbanSketches" xml:space="preserve">
+    <value>Zu den städtischen Skizzen hochladen</value>
+  </data>
+  <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
+    <value>Hochladen Sie zu den städtischen Skizzen ein Bild.</value>
+  </data>
+  <data name="DeleteSketch" xml:space="preserve">
+    <value>Löschen Sie Skizze</value>
+  </data>
+  <data name="PressOKToDeleteSketch" xml:space="preserve">
+    <value>Drücken Sie OK, um die Skizze nicht löschen.</value>
+  </data>
+  <data name="SketchMapNSketches" xml:space="preserve">
+    <value>Kartenskizze: {0} Skizzen</value>
+  </data>
 </root>

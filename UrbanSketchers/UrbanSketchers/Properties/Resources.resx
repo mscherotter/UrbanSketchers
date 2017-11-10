@@ -257,4 +257,7 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="PressOKToDeleteSketch" xml:space="preserve">
     <value>Press OK to delete the sketch.</value>
   </data>
+  <data name="SketchMapNSketches" xml:space="preserve">
+    <value>Sketch Map: {0} sketches</value>
+  </data>
 </root>

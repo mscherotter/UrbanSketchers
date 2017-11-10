@@ -131,4 +131,28 @@
   <data name="UrbanSketches" xml:space="preserve">
     <value>[27DD6][!!_Úřвáή Šķęťċħêś_!!]</value>
   </data>
+  <data name="XResultsForY" xml:space="preserve">
+    <value>[C23DA][!!_{0} ѓéŝûłťš ƒòř "{1}"_!!]</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>[5AB20][!!_Ρíи ťò şтářτ_!!]</value>
+  </data>
+  <data name="NSketches" xml:space="preserve">
+    <value>[003BE][!!_{0} Šķęτĉħéş_!!]</value>
+  </data>
+  <data name="UploadToUrbanSketches" xml:space="preserve">
+    <value>[15012][!!_Ùрľòàð тó ÙřБàη Şкêτćħêš_!!]</value>
+  </data>
+  <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
+    <value>[56C6E][!!_Úþļóàď ãй įmâĝê τó Ùѓвàй Ŝкêţčнęš._!!]</value>
+  </data>
+  <data name="DeleteSketch" xml:space="preserve">
+    <value>[24FD7][!!_Ďéĺèтę Śķêтĉĥ_!!]</value>
+  </data>
+  <data name="PressOKToDeleteSketch" xml:space="preserve">
+    <value>[C9F13][!!_Þŕèśş ÕΚ ťô đęĺêťê ťħê šĸéţćћ._!!]</value>
+  </data>
+  <data name="SketchMapNSketches" xml:space="preserve">
+    <value>[20CD3][!!_Şкèтćĥ Μâρ: {0} šкêτċħèś_!!]</value>
+  </data>
 </root>

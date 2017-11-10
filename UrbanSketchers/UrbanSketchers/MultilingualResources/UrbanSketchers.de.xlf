@@ -174,31 +174,35 @@ OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen h
         </trans-unit>
         <trans-unit id="XResultsForY" translate="yes" xml:space="preserve">
           <source>{0} results for "{1}"</source>
-          <target state="new">{0} results for "{1}"</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} Ergebnisse für "{1}"</target>
         </trans-unit>
         <trans-unit id="PinToStart" translate="yes" xml:space="preserve">
           <source>Pin to start</source>
-          <target state="new">Pin to start</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">An „Start“ anheften</target>
         </trans-unit>
         <trans-unit id="NSketches" translate="yes" xml:space="preserve">
           <source>{0} Sketches</source>
-          <target state="new">{0} Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">{0} Skizzen</target>
         </trans-unit>
         <trans-unit id="UploadToUrbanSketches" translate="yes" xml:space="preserve">
           <source>Upload to Urban Sketches</source>
-          <target state="new">Upload to Urban Sketches</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Zu den städtischen Skizzen hochladen</target>
         </trans-unit>
         <trans-unit id="UploadToUrbanSketchesDescription" translate="yes" xml:space="preserve">
           <source>Upload an image to Urban Sketches.</source>
-          <target state="new">Upload an image to Urban Sketches.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hochladen Sie zu den städtischen Skizzen ein Bild.</target>
         </trans-unit>
         <trans-unit id="DeleteSketch" translate="yes" xml:space="preserve">
           <source>Delete Sketch</source>
-          <target state="new">Delete Sketch</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Löschen Sie Skizze</target>
         </trans-unit>
         <trans-unit id="PressOKToDeleteSketch" translate="yes" xml:space="preserve">
           <source>Press OK to delete the sketch.</source>
-          <target state="new">Press OK to delete the sketch.</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Drücken Sie OK, um die Skizze nicht löschen.</target>
+        </trans-unit>
+        <trans-unit id="SketchMapNSketches" translate="yes" xml:space="preserve">
+          <source>Sketch Map: {0} sketches</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Kartenskizze: {0} Skizzen</target>
         </trans-unit>
       </group>
     </body>

@@ -292,7 +292,7 @@ namespace UrbanSketchers
                 where item.Sector == sector
                 select item;
 
-            return items.ToCollectionAsync();
+            return items.IncludeTotalCount().ToCollectionAsync();
         }
 
         /// <summary>

@@ -131,4 +131,28 @@ Appuyez sur OK pour continuer le téléchargement de l’esquisse, confirmant qu
   <data name="UrbanSketches" xml:space="preserve">
     <value>Croquis urbains</value>
   </data>
+  <data name="XResultsForY" xml:space="preserve">
+    <value>{0} résultats pour « {1} »</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Épingler au menu Démarrer</value>
+  </data>
+  <data name="NSketches" xml:space="preserve">
+    <value>Croquis de {0}</value>
+  </data>
+  <data name="UploadToUrbanSketches" xml:space="preserve">
+    <value>Télécharger sur croquis urbains</value>
+  </data>
+  <data name="UploadToUrbanSketchesDescription" xml:space="preserve">
+    <value>Télécharger une image aux croquis urbains.</value>
+  </data>
+  <data name="DeleteSketch" xml:space="preserve">
+    <value>Supprimer les croquis</value>
+  </data>
+  <data name="PressOKToDeleteSketch" xml:space="preserve">
+    <value>Appuyez sur OK pour supprimer l’esquisse.</value>
+  </data>
+  <data name="SketchMapNSketches" xml:space="preserve">
+    <value>Croquis cartographique : croquis {0}</value>
+  </data>
 </root>

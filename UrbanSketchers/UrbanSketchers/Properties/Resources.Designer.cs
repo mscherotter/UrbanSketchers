@@ -352,6 +352,15 @@ namespace UrbanSketchers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sketch Map: {0} sketches.
+        /// </summary>
+        internal static string SketchMapNSketches {
+            get {
+                return ResourceManager.GetString("SketchMapNSketches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} by {1}.
         /// </summary>
         internal static string TitleBySketcher {
