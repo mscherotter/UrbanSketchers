@@ -75,7 +75,11 @@
                 <Label Text="{Binding Description}" Style="{DynamicResource CaptionStyle}"/>
                 <Label Text="{Binding Address}" Style="{DynamicResource CaptionStyle}" />
             </StackLayout>
-            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <controls:ConnectedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnImageTapped"/>
+                </controls:ConnectedImage.GestureRecognizers>
+            </controls:ConnectedImage>
             <maps:Map Grid.Row="1" Grid.Column="1" Margin="4" x:Name="Map">
             </maps:Map>
             <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" Grid.ColumnSpan="2" />

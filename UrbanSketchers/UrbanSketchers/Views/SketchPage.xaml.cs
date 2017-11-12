@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using UrbanSketchers.Data;
-using UrbanSketchers.Support;
+using UrbanSketchers.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
@@ -204,14 +204,12 @@ namespace UrbanSketchers.Views
                 return;
 
             if (person.Id != Sketch.CreatedBy)
-            {
                 return;
-            }
 
             var response = await DisplayAlert(
                 Properties.Resources.DeleteSketch,
-                Properties.Resources.PressOKToDeleteSketch, 
-                Properties.Resources.OK, 
+                Properties.Resources.PressOKToDeleteSketch,
+                Properties.Resources.OK,
                 Properties.Resources.Cancel);
 
             if (!response) return;
@@ -301,6 +299,21 @@ namespace UrbanSketchers.Views
             await DisplayAlert(Properties.Resources.InappropraiteSketch,
                 Properties.Resources.InappropriateSketchDescription,
                 Properties.Resources.OK);
+        }
+
+        /// <summary>
+        ///     Navigate to the picture page for the image when tapped
+        /// </summary>
+        /// <param name="sender">the image</param>
+        /// <param name="e">the event arguments</param>
+        private async void OnImageTapped(object sender, EventArgs e)
+        {
+            Image.Prepare("Image");
+
+            await Navigation.PushModalAsync(new PicturePage
+            {
+                ImageSource = Image.Source
+            });
         }
     }
 }

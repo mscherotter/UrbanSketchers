@@ -8,13 +8,16 @@ namespace UrbanSketchers.Controls
     /// </summary>
     public class ConnectedImage : Image
     {
-        private bool _started = false;
+        private bool _started;
 
         /// <summary>
         ///     Gets or sets the native control
         /// </summary>
         public object Control { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the connected animation
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
