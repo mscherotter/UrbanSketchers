@@ -196,26 +196,26 @@ namespace UWP
 
                 if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.Animation.ConnectedAnimationService"))
                 {
-                    var bitmapImage = new BitmapImage();
-
-                    await bitmapImage.SetSourceAsync(await icon.Image.OpenReadAsync());
-
-                    _sourceImage.Visibility = Visibility.Visible;
-
-                    _sourceImage.Source = bitmapImage;
-
-                    Point point;
-
-                    _nativeMap.GetOffsetFromLocation(icon.Location, out point);
-
-                    Canvas.SetLeft(_sourceImage, point.X - bitmapImage.PixelWidth / 2.0);
-
-                    Canvas.SetTop(_sourceImage, point.Y - bitmapImage.PixelHeight);
-
-                    var animationService = ConnectedAnimationService.GetForCurrentView();
-
                     try
                     {
+                        var bitmapImage = new BitmapImage();
+
+                        await bitmapImage.SetSourceAsync(await icon.Image.OpenReadAsync());
+
+                        _sourceImage.Visibility = Visibility.Visible;
+
+                        _sourceImage.Source = bitmapImage;
+
+                        Point point;
+
+                        _nativeMap.GetOffsetFromLocation(icon.Location, out point);
+
+                        Canvas.SetLeft(_sourceImage, point.X - bitmapImage.PixelWidth / 2.0);
+
+                        Canvas.SetTop(_sourceImage, point.Y - bitmapImage.PixelHeight);
+
+                        var animationService = ConnectedAnimationService.GetForCurrentView();
+
                         animationService.PrepareToAnimate("image", _sourceImage);
                     }
                     catch (Exception e)

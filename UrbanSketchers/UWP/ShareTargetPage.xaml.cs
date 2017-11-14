@@ -134,7 +134,7 @@ namespace UWP
 
         private async void OnAdd(object sender, RoutedEventArgs e)
         {
-            if (!_mobileServiceInit.Authenticate())
+            if (!await _mobileServiceInit.Authenticate())
             {
                 _isAdding = true;
 

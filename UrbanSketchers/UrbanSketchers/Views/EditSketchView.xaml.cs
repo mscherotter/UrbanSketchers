@@ -166,6 +166,8 @@ namespace UrbanSketchers.Views
 
             RemoveFileButton.IsVisible = false;
 
+            Image.Source = null;
+
             _fileData = null;
         }
 

@@ -34,21 +34,21 @@ namespace UWP
         ///     Authenticate the mobile app with Facebook.
         /// </summary>
         /// <returns>an async task with a boolean value indicating whether the authentication was successful.</returns>
-        public bool Authenticate()
+        public Task<bool> Authenticate()
         {
             if (Initialize())
-                return true;
+                return Task.FromResult(true);
 
             try
             {
                 AccountsSettingsPane.Show();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
 
-            return false;
+            return Task.FromResult(false);
         }
 
         private async void MainPage_AccountCommandsRequested(AccountsSettingsPane sender,
@@ -78,11 +78,13 @@ namespace UWP
 
             var resourceName = value.ToString();
 
+            PasswordCredential credential = null;
+
             try
             {
                 var credentials = _passwordVault.FindAllByResource(resourceName);
 
-                var credential = credentials.FirstOrDefault();
+                credential = credentials.FirstOrDefault();
 
                 if (credential != null)
                 {
@@ -96,14 +98,24 @@ namespace UWP
 
                     SketchManager.DefaultManager.CurrentClient.CurrentUser = _user;
 
+                    //_user = await SketchManager.DefaultManager.CurrentClient.RefreshUserAsync();
+
                     SignedIn?.Invoke(this, new EventArgs());
 
                     return true;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // Exception is thrown if no credentials are found
+                System.Diagnostics.Debug.WriteLine($"Error initializing mobile service with stored credential: {e.Message}");
+
+                SketchManager.DefaultManager.CurrentClient.CurrentUser = null;
+
+                //if (credential != null)
+                //{
+                //    _passwordVault.Remove(credential);
+                //}
+                _user = null;
             }
 
             return false;

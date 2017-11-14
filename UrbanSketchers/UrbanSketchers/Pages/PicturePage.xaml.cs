@@ -15,6 +15,19 @@ namespace UrbanSketchers.Pages
         public PicturePage()
         {
             InitializeComponent();
+
+            Image.PropertyChanged += Image_PropertyChanged;
+        }
+
+        private void Image_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Image.Width) || e.PropertyName == nameof(Image.Height))
+            {
+                if (Image.Width * Image.Height > 4)
+                {
+                    Image.StartConnectedAnimation("Image");
+                }
+            }
         }
 
         /// <summary>
@@ -24,16 +37,6 @@ namespace UrbanSketchers.Pages
         {
             get => Image.Source;
             set => Image.Source = value;
-        }
-
-        /// <summary>
-        /// Start the connected animation when appearing
-        /// </summary>
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            Image.StartConnectedAnimation("Image");
         }
     }
 }

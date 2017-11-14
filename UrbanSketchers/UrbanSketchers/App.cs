@@ -20,7 +20,7 @@ namespace UrbanSketchers
         ///     Authenticate Azure Mobile App
         /// </summary>
         /// <returns>true if successful</returns>
-        bool Authenticate();
+        Task<bool> Authenticate();
 
         /// <summary>
         ///     Signed in event

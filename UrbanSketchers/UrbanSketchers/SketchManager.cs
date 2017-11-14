@@ -139,7 +139,15 @@ namespace UrbanSketchers
 
             var users = await query.ToEnumerableAsync();
 
-            return users.FirstOrDefault();
+            var currentUser = users.FirstOrDefault();
+
+            //todo: this is My user Id for Microsoft ID
+            if (currentUser != null && currentUser.UserId == "sid:f5ffa4adba1c703f583186000f8d71ef")
+            {
+                currentUser.IsAdministrator = true;
+            }
+
+            return currentUser;
         }
 
         /// <summary>Upload a file</summary>

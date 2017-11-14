@@ -34,5 +34,10 @@
         ///     Gets the account provider
         /// </summary>
         public string AccountProvider { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the user is a system administrator.
+        /// </summary>
+        public bool IsAdministrator { get; set; }
     }
 }

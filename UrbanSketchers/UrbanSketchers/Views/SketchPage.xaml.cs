@@ -125,7 +125,7 @@ namespace UrbanSketchers.Views
         {
             if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
             {
-                var authenticated = App.Authenticator.Authenticate();
+                var authenticated = await App.Authenticator.Authenticate();
 
                 if (!authenticated)
                     return;
@@ -197,14 +197,22 @@ namespace UrbanSketchers.Views
             var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
             if (person == null)
-                if (App.Authenticator.Authenticate())
+                if (await App.Authenticator.Authenticate())
                     person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
             if (person == null)
                 return;
 
-            if (person.Id != Sketch.CreatedBy)
+            if (person.Id != Sketch.CreatedBy && !person.IsAdministrator)
+            {
+                await DisplayAlert("Cannot Delete Sketch",
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "Only {0} or an administrator can delete this sketch.", Sketch.CreatedByName),
+                        Properties.Resources.OK);
+
                 return;
+            }
 
             var response = await DisplayAlert(
                 Properties.Resources.DeleteSketch,
