@@ -5,30 +5,38 @@ using UrbanSketchers.Data;
 namespace UrbanSketchers
 {
     /// <summary>
-    /// Navigation menu item
+    ///     Navigation menu item
     /// </summary>
     public class NavigationMenuItem : BaseDataObject
     {
         private ICommand _command;
 
-        private string _label;
-
         private string _icon;
 
         private bool _isEnabled = true;
 
+        private string _label;
+
         /// <summary>
-        /// Gets or sets the label
+        ///     Gets or sets the label
         /// </summary>
-        public string Label {
-            get { return _label; } set { SetProperty(ref _label, value); } }
-
-        public string Icon {
-            get { return _icon; }
-            set { SetProperty(ref _icon, value); } }
+        public string Label
+        {
+            get => _label;
+            set => SetProperty(ref _label, value);
+        }
 
         /// <summary>
-        /// Gets or sets the command
+        ///     Gets or sets the icon
+        /// </summary>
+        public string Icon
+        {
+            get => _icon;
+            set => SetProperty(ref _icon, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the command
         /// </summary>
         public ICommand Command
         {
@@ -36,9 +44,7 @@ namespace UrbanSketchers
             set
             {
                 if (_command != null)
-                {
                     _command.CanExecuteChanged -= _command_CanExecuteChanged;
-                }
 
                 if (SetProperty(ref _command, value) && _command != null)
                     _command.CanExecuteChanged += _command_CanExecuteChanged;
@@ -46,7 +52,7 @@ namespace UrbanSketchers
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the menu item is enabled.
+        ///     Gets or sets a value indicating whether the menu item is enabled.
         /// </summary>
         public bool IsEnabled
         {

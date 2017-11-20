@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -23,6 +24,11 @@ namespace UrbanSketchers.Views
         private FileData _fileData;
 
         /// <summary>
+        ///     should the sketch be uploaded?
+        /// </summary>
+        public Func<Sketch, Task<bool>> ShouldUpload;
+
+        /// <summary>
         ///     Initializes a new instance of the EditSketchView class.
         /// </summary>
         public EditSketchView()
@@ -32,7 +38,7 @@ namespace UrbanSketchers.Views
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the map is visible
+        ///     Gets or sets a value indicating whether the map is visible
         /// </summary>
         public bool IsMapVisible
         {
@@ -41,19 +47,18 @@ namespace UrbanSketchers.Views
         }
 
         /// <summary>
-        /// Gets or sets the image stream filled by a modal page (like the DrawingPage)
+        ///     Gets or sets the image stream filled by a modal page (like the DrawingPage)
         /// </summary>
         public Stream ImageStream { get; set; }
 
         private async void EditSketchView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (BindingContext is Sketch sketch)
-            {
-                AddButton.Text = string.IsNullOrWhiteSpace(sketch.Id) ? Properties.Resources.Add : Properties.Resources.Update;
-            }
+                AddButton.Text = string.IsNullOrWhiteSpace(sketch.Id)
+                    ? Properties.Resources.Add
+                    : Properties.Resources.Update;
 
             if (e.PropertyName == nameof(IsVisible) && IsVisible)
-            {
                 if (BindingContext is Sketch sketch2)
                 {
                     var span = MapSpan.FromCenterAndRadius(new Position(sketch2.Latitude, sketch2.Longitude),
@@ -63,7 +68,6 @@ namespace UrbanSketchers.Views
 
                     Map.SetVisibleRegion(span);
                 }
-            }
         }
 
         internal void LoadImageStream(Stream imageStream)
@@ -89,11 +93,6 @@ namespace UrbanSketchers.Views
         /// </summary>
         public event EventHandler Canceled;
 
-        /// <summary>
-        /// should the sketch be uploaded?
-        /// </summary>
-        public Func<Sketch, Task<bool>> ShouldUpload;
-
         private async void OnAdd(object sender, EventArgs e)
         {
             //ImageUrlEntry.IsEnabled = true;
@@ -105,12 +104,8 @@ namespace UrbanSketchers.Views
                 if (_fileData == null && string.IsNullOrWhiteSpace(sketch.ImageUrl)) return;
 
                 if (ShouldUpload != null)
-                {
                     if (!await ShouldUpload(sketch))
-                    {
                         return;
-                    }
-                }
 
                 if (_fileData != null)
                 {
@@ -133,13 +128,12 @@ namespace UrbanSketchers.Views
 
                 try
                 {
-
                     await SketchManager.DefaultManager.SaveAsync(sketch);
                     SketchSaved?.Invoke(this, new TypedEventArgs<Sketch>(sketch));
                 }
                 catch (Exception exception)
                 {
-                    System.Diagnostics.Debug.WriteLine("Error saving sketch: " + exception.Message);
+                    Debug.WriteLine("Error saving sketch: " + exception.Message);
 
                     return;
                 }
@@ -175,21 +169,15 @@ namespace UrbanSketchers.Views
         private async void OnSelectFile(object sender, EventArgs e)
         {
             if (FilePickerService.Current == null)
-            {
                 _fileData = await CrossFilePicker.Current.PickFile();
-            }
             else
-            {
                 _fileData = await FilePickerService.Current.PickOpenFileAsync(
                     FilePickerService.LocationId.Pictures,
                     FilePickerService.ViewMode.Thumbnail,
                     new[] {".png", ".jpg"});
-            }
 
             if (_fileData != null)
-            {
                 LoadFileData();
-            }
         }
 
         private void LoadFileData()
@@ -209,9 +197,7 @@ namespace UrbanSketchers.Views
             return Task.Run(delegate
             {
                 if (_fileData == null)
-                {
                     return null;
-                }
 
                 Stream stream = new MemoryStream(_fileData.DataArray);
 
@@ -233,12 +219,8 @@ namespace UrbanSketchers.Views
         private void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (Map.IsVisible && BindingContext is Sketch && Map.IsFocused)
-            {
                 if (e.PropertyName == nameof(Map.VisibleRegion))
-                {
                     UpdateLocation();
-                }
-            }
         }
 
         private void UpdateLocation()

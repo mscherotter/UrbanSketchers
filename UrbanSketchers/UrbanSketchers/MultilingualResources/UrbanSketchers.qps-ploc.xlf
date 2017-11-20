@@ -212,6 +212,30 @@ Press OK to continue uploading the sketch, affirming that you have read this and
           <source>Select file</source>
           <target state="new">Select file</target>
         </trans-unit>
+        <trans-unit id="Address" translate="yes" xml:space="preserve">
+          <source>Address</source>
+          <target state="new">Address</target>
+        </trans-unit>
+        <trans-unit id="DateCreated" translate="yes" xml:space="preserve">
+          <source>Date created</source>
+          <target state="new">Date created</target>
+        </trans-unit>
+        <trans-unit id="Description" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="new">Description</target>
+        </trans-unit>
+        <trans-unit id="Latitude" translate="yes" xml:space="preserve">
+          <source>Latitude</source>
+          <target state="new">Latitude</target>
+        </trans-unit>
+        <trans-unit id="Longitude" translate="yes" xml:space="preserve">
+          <source>Longitude</source>
+          <target state="new">Longitude</target>
+        </trans-unit>
+        <trans-unit id="Title" translate="yes" xml:space="preserve">
+          <source>Title</source>
+          <target state="new">Title</target>
+        </trans-unit>
       </group>
     </body>
   </file>
