@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
 using UrbanSketchers.Data;
+using UrbanSketchers.Support;
+using UWP.Support;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
 
@@ -33,14 +35,7 @@ namespace UWP
 
             Suspending += OnSuspending;
 
-            //AppCenter.Start("aefb0a99-2ded-4ae7-a6b9-23beb92efdae", typeof(Analytics));
-
-            //AppCenter.Start(
-            //    "ios=132544fa-8be4-4fbc-a1f0-ba85d44880a2;" 
-            //    + "uwp=aefb0a99-2ded-4ae7-a6b9-23beb92efdae;" 
-            //    + "android=80ffbddd-540d-4a9b-98cb-94645dc3a880",
-            //    typeof(Analytics), 
-            //    typeof(Crashes));
+            FilePickerService.Current = new UWPFilePickerService();
         }
 
         /// <summary>

@@ -204,6 +204,14 @@ presione OK para continuar subiendo el bosquejo, afirmando que ha leído y acept
           <source>Sketch Map: {0} sketches</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Mapa de bosquejo: croquis {0}</target>
         </trans-unit>
+        <trans-unit id="Remove" translate="yes" xml:space="preserve">
+          <source>Remove</source>
+          <target state="new">Remove</target>
+        </trans-unit>
+        <trans-unit id="SelectFile" translate="yes" xml:space="preserve">
+          <source>Select file</source>
+          <target state="new">Select file</target>
+        </trans-unit>
       </group>
     </body>
   </file>

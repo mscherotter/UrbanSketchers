@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Support\ActivityIndicatorScope.cs" />
     <Compile Include="Support\CustomIndexing.cs" />
+    <Compile Include="Support\FilePickerService.cs" />
     <Compile Include="TodoList.xaml.cs">
       <DependentUpon>TodoList.xaml</DependentUpon>
     </Compile>

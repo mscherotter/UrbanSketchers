@@ -2,6 +2,7 @@
 <Grid xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+      xmlns:usk="clr-namespace:UrbanSketchers"
       x:Class="UrbanSketchers.Views.EditSketchView" HeightRequest="200">
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="200"/>
@@ -32,15 +33,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid HorizontalOptions="FillAndExpand" HeightRequest="32">
+        <Grid HorizontalOptions="FillAndExpand"  HeightRequest="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Text="Select File" Clicked="OnSelectFile" HorizontalOptions="Start"/>
+            <Button Text="{usk:Translate SelectFile}" Clicked="OnSelectFile" HorizontalOptions="Start"/>
             <Label Grid.Column="1" x:Name="FilenameLabel" VerticalTextAlignment="Center"/>
-            <Button Grid.Column="2" Text="Remove" Clicked="OnRemoveFile" x:Name="RemoveFileButton" IsVisible="False"/>
+            <Button Grid.Column="2" Text="{usk:Translate Remove}" MinimumWidthRequest="100" Clicked="OnRemoveFile" x:Name="RemoveFileButton" IsEnabled="False"/>
         </Grid>
         <Label Text="Date created" Grid.Row="1" Grid.Column="0"/>
         <DatePicker Grid.Column="0" Date="{Binding CreationDate, Mode=TwoWay}" Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand"/>

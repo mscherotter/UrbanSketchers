@@ -129,6 +129,7 @@
       <DependentUpon>ShareTargetPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Renderers\SketchMapRenderer.cs" />
+    <Compile Include="Support\UWPFilePickerService.cs" />
     <Compile Include="ThumbnailGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

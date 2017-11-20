@@ -204,6 +204,14 @@ Appuyez sur OK pour continuer le téléchargement de l’esquisse, confirmant qu
           <source>Sketch Map: {0} sketches</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Croquis cartographique : croquis {0}</target>
         </trans-unit>
+        <trans-unit id="Remove" translate="yes" xml:space="preserve">
+          <source>Remove</source>
+          <target state="new">Remove</target>
+        </trans-unit>
+        <trans-unit id="SelectFile" translate="yes" xml:space="preserve">
+          <source>Select file</source>
+          <target state="new">Select file</target>
+        </trans-unit>
       </group>
     </body>
   </file>

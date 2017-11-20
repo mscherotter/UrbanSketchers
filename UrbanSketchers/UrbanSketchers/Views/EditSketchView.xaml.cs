@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using UrbanSketchers.Data;
+using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
@@ -164,7 +165,7 @@ namespace UrbanSketchers.Views
         {
             FilenameLabel.Text = string.Empty;
 
-            RemoveFileButton.IsVisible = false;
+            RemoveFileButton.IsEnabled = false;
 
             Image.Source = null;
 
@@ -173,7 +174,17 @@ namespace UrbanSketchers.Views
 
         private async void OnSelectFile(object sender, EventArgs e)
         {
-            _fileData = await CrossFilePicker.Current.PickFile();
+            if (FilePickerService.Current == null)
+            {
+                _fileData = await CrossFilePicker.Current.PickFile();
+            }
+            else
+            {
+                _fileData = await FilePickerService.Current.PickOpenFileAsync(
+                    FilePickerService.LocationId.Pictures,
+                    FilePickerService.ViewMode.Thumbnail,
+                    new[] {".png", ".jpg"});
+            }
 
             if (_fileData != null)
             {
@@ -185,7 +196,7 @@ namespace UrbanSketchers.Views
         {
             FilenameLabel.Text = _fileData.FileName;
             //ImageUrlEntry.IsEnabled = false;
-            RemoveFileButton.IsVisible = true;
+            RemoveFileButton.IsEnabled = true;
 
             Image.Source = new StreamImageSource
             {
@@ -215,7 +226,7 @@ namespace UrbanSketchers.Views
             //ImageUrlEntry.IsEnabled = true;
             FilenameLabel.Text = string.Empty;
 
-            RemoveFileButton.IsVisible = false;
+            RemoveFileButton.IsEnabled = false;
             Image.Source = null;
         }
 

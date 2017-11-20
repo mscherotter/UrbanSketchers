@@ -204,6 +204,14 @@ OK drücken weiterhin Hochladen der Skizze, erklärend, dass Sie diese gelesen h
           <source>Sketch Map: {0} sketches</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Kartenskizze: {0} Skizzen</target>
         </trans-unit>
+        <trans-unit id="Remove" translate="yes" xml:space="preserve">
+          <source>Remove</source>
+          <target state="new">Remove</target>
+        </trans-unit>
+        <trans-unit id="SelectFile" translate="yes" xml:space="preserve">
+          <source>Select file</source>
+          <target state="new">Select file</target>
+        </trans-unit>
       </group>
     </body>
   </file>

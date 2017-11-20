@@ -260,4 +260,10 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="SketchMapNSketches" xml:space="preserve">
     <value>Sketch Map: {0} sketches</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select file</value>
+  </data>
 </root>
