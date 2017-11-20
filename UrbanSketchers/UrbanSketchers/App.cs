@@ -2,9 +2,9 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Microsoft.Azure.Mobile;
-using Microsoft.Azure.Mobile.Analytics;
-using Microsoft.Azure.Mobile.Crashes;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using UrbanSketchers.Views;
 using Xamarin.Forms;
 using Device = Xamarin.Forms.Device;
@@ -57,6 +57,13 @@ namespace UrbanSketchers
         /// </summary>
         public App()
         {
+            AppCenter.Start(
+                "ios=132544fa-8be4-4fbc-a1f0-ba85d44880a2;"
+                + "uwp=aefb0a99-2ded-4ae7-a6b9-23beb92efdae;"
+                + "android=80ffbddd-540d-4a9b-98cb-94645dc3a880",
+                typeof(Analytics),
+                typeof(Crashes));
+
             if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
             {
                 // determine the correct, supported .NET culture
@@ -138,8 +145,11 @@ namespace UrbanSketchers
             //                   "android={Your Android App secret here}",
             //    typeof(Analytics), typeof(Crashes));
 
-            MobileCenter.Start("uwp={132544fa-8be4-4fbc-a1f0-ba85d44880a2};",
-                typeof(Analytics), typeof(Crashes));
+            ////AppCenter.Start("132544fa-8be4-4fbc-a1f0-ba85d44880a2",
+            ////    typeof(Analytics), typeof(Crashes));
+
+            //MobileCenter.Start("uwp={132544fa-8be4-4fbc-a1f0-ba85d44880a2};",
+            //    typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()

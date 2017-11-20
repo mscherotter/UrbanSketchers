@@ -15,8 +15,6 @@ using UrbanSketchers;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
-using Microsoft.Azure.Mobile;
-using Microsoft.Azure.Mobile.Analytics;
 
 namespace UWP
 {
@@ -32,9 +30,17 @@ namespace UWP
         public App()
         {
             InitializeComponent();
+
             Suspending += OnSuspending;
 
-            MobileCenter.Start("aefb0a99-2ded-4ae7-a6b9-23beb92efdae", typeof(Analytics));
+            //AppCenter.Start("aefb0a99-2ded-4ae7-a6b9-23beb92efdae", typeof(Analytics));
+
+            //AppCenter.Start(
+            //    "ios=132544fa-8be4-4fbc-a1f0-ba85d44880a2;" 
+            //    + "uwp=aefb0a99-2ded-4ae7-a6b9-23beb92efdae;" 
+            //    + "android=80ffbddd-540d-4a9b-98cb-94645dc3a880",
+            //    typeof(Analytics), 
+            //    typeof(Crashes));
         }
 
         /// <summary>
@@ -104,39 +110,39 @@ namespace UWP
             await request.SendResponseAsync(response);
         }
 
-    ////async Task UploadAsync(StorageFile fileToUpload)
-    ////{
-    ////    using (var connection = new AppServiceConnection
-    ////    {
-    ////        AppServiceName = "Upload.1",
-    ////        PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm"
-    ////    })
-    ////    {
-    ////        var status = await connection.OpenAsync();
+        ////async Task UploadAsync(StorageFile fileToUpload)
+        ////{
+        ////    using (var connection = new AppServiceConnection
+        ////    {
+        ////        AppServiceName = "Upload.1",
+        ////        PackageFamilyName = "MichaelS.Scherotter.UrbanSketches_9eg5g21zq32qm"
+        ////    })
+        ////    {
+        ////        var status = await connection.OpenAsync();
 
-    ////        if (status == AppServiceConnectionStatus.Success)
-    ////        {
-    ////            var message = new ValueSet
-    ////            {
-    ////                ["Method"] = "Upload",
-    ////                ["Title"] = "A sketch",
-    ////                ["Address"] = "Optional address",
-    ////                ["CreationDate"] = DateTime.UtcNow,
-    ////                ["Description"] = "Optional description",
-    ////                ["FileToken"] = SharedStorageAccessManager.AddFile(fileToUpload),
-    ////                ["Latitude"] = 40.0,
-    ////                ["Longitude"] = 100.3
-    ////            };
+        ////        if (status == AppServiceConnectionStatus.Success)
+        ////        {
+        ////            var message = new ValueSet
+        ////            {
+        ////                ["Method"] = "Upload",
+        ////                ["Title"] = "A sketch",
+        ////                ["Address"] = "Optional address",
+        ////                ["CreationDate"] = DateTime.UtcNow,
+        ////                ["Description"] = "Optional description",
+        ////                ["FileToken"] = SharedStorageAccessManager.AddFile(fileToUpload),
+        ////                ["Latitude"] = 40.0,
+        ////                ["Longitude"] = 100.3
+        ////            };
 
-    ////            var response = await connection.SendMessageAsync(message);
+        ////            var response = await connection.SendMessageAsync(message);
 
-    ////            bool succeeded = (bool) response.Message["Success"];
-    ////        }
-    ////    }
-    ////}
+        ////            bool succeeded = (bool) response.Message["Success"];
+        ////        }
+        ////    }
+        ////}
 
         /// <summary>
-        /// Upload 
+        ///     Upload
         /// </summary>
         /// <param name="request"></param>
         /// <param name="message"></param>
@@ -147,7 +153,7 @@ namespace UWP
             {
                 CreationDate = DateTime.UtcNow
             };
-            
+
             StorageFile file = null;
 
             if (message.TryGetValue("FileToken", out object fileToken))
@@ -162,49 +168,34 @@ namespace UWP
                 var imageProperties = await file.Properties.GetImagePropertiesAsync();
 
                 if (message.TryGetValue("Title", out object title))
-                {
                     sketch.Title = title.ToString();
-                }
                 else
-                {
                     sketch.Title = imageProperties.Title;
-                }
 
                 if (string.IsNullOrWhiteSpace(sketch.Title))
                 {
-                    await SendFailureResponseAsync(request, "Message must have a Title property or the image must have a Title EXIF property.");
+                    await SendFailureResponseAsync(request,
+                        "Message must have a Title property or the image must have a Title EXIF property.");
 
                     return;
                 }
 
                 if (message.TryGetValue("CreationDate", out object dateCreated))
-                {
                     sketch.CreationDate = (DateTime) dateCreated;
-                }
                 else
-                {
                     sketch.CreationDate = imageProperties.DateTaken.ToUniversalTime().DateTime;
-                }
                 if (message.TryGetValue("Address", out object address))
                     sketch.Address = address.ToString();
 
                 if (message.TryGetValue("Latitude", out object latitude))
-                {
                     sketch.Latitude = (double) latitude;
-                }
                 else if (imageProperties.Latitude.HasValue)
-                {
                     sketch.Latitude = imageProperties.Latitude.Value;
-                }
 
                 if (message.TryGetValue("Longitude", out object longitude))
-                {
                     sketch.Longitude = (double) longitude;
-                }
                 else if (imageProperties.Longitude.HasValue)
-                {
                     sketch.Longitude = imageProperties.Longitude.Value;
-                }
 
                 if (message.TryGetValue("Description", out object description))
                     sketch.Description = description.ToString();

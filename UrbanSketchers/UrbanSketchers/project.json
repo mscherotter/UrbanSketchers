@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
-    "Microsoft.Azure.Mobile.Analytics": "0.17.1",
+    "Microsoft.AppCenter.Analytics": "1.0.1",
+    "Microsoft.AppCenter.Crashes": "1.0.1",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
-    "Microsoft.Azure.Mobile.Crashes": "0.17.1",
     "NETStandard.Library": "2.0.1",
     "PCLStorage": "1.0.2",
     "Plugin.Share": "7.0.1",
