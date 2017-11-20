@@ -63,7 +63,7 @@ namespace UWP.Support
                 var fileData = new FileData
                 {
                     DataArray = new byte[stream.Length],
-                    FileName = file.Path
+                    FileName = file.Name
                 };
 
                 var dataRead = 0;

@@ -165,7 +165,7 @@ namespace UrbanSketchers.Views
         {
             FilenameLabel.Text = string.Empty;
 
-            RemoveFileButton.IsEnabled = false;
+            RemoveFileButton.IsVisible = false;
 
             Image.Source = null;
 
@@ -196,7 +196,7 @@ namespace UrbanSketchers.Views
         {
             FilenameLabel.Text = _fileData.FileName;
             //ImageUrlEntry.IsEnabled = false;
-            RemoveFileButton.IsEnabled = true;
+            RemoveFileButton.IsVisible = true;
 
             Image.Source = new StreamImageSource
             {
@@ -226,7 +226,7 @@ namespace UrbanSketchers.Views
             //ImageUrlEntry.IsEnabled = true;
             FilenameLabel.Text = string.Empty;
 
-            RemoveFileButton.IsEnabled = false;
+            RemoveFileButton.IsVisible = false;
             Image.Source = null;
         }
 
