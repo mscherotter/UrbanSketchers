@@ -26,6 +26,7 @@ namespace UrbanSketchers.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.AppCenter.Push.Android.Resource.String.library_name = global::UrbanSketchers.Droid.Resource.String.library_name;
 			global::Xamarin.Auth._MobileServices.Resource.Animation.slide_in_right = global::UrbanSketchers.Droid.Resource.Animation.slide_in_right;
 			global::Xamarin.Auth._MobileServices.Resource.Animation.slide_out_left = global::UrbanSketchers.Droid.Resource.Animation.slide_out_left;
 			global::Xamarin.Auth._MobileServices.Resource.Drawable.ic_arrow_back = global::UrbanSketchers.Droid.Resource.Drawable.ic_arrow_back;
@@ -2348,26 +2349,8 @@ namespace UrbanSketchers.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020131
-			public const int avd_hide_password_1 = 2130837809;
-			
-			// aapt resource value: 0x7f020132
-			public const int avd_hide_password_2 = 2130837810;
-			
-			// aapt resource value: 0x7f020133
-			public const int avd_hide_password_3 = 2130837811;
-			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
-			
-			// aapt resource value: 0x7f020134
-			public const int avd_show_password_1 = 2130837812;
-			
-			// aapt resource value: 0x7f020135
-			public const int avd_show_password_2 = 2130837813;
-			
-			// aapt resource value: 0x7f020136
-			public const int avd_show_password_3 = 2130837814;
 			
 			// aapt resource value: 0x7f020055
 			public const int design_bottom_navigation_item_background = 2130837589;
@@ -4053,6 +4036,9 @@ namespace UrbanSketchers.Droid
 			
 			// aapt resource value: 0x7f090038
 			public const int character_counter_pattern = 2131296312;
+			
+			// aapt resource value: 0x7f090041
+			public const int library_name = 2131296321;
 			
 			// aapt resource value: 0x7f090000
 			public const int mr_button_content_description = 2131296256;

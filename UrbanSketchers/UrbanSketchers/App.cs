@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Push;
 using UrbanSketchers.Views;
 using Xamarin.Forms;
 using Device = Xamarin.Forms.Device;
@@ -62,7 +63,8 @@ namespace UrbanSketchers
                 + "uwp=aefb0a99-2ded-4ae7-a6b9-23beb92efdae;"
                 + "android=80ffbddd-540d-4a9b-98cb-94645dc3a880",
                 typeof(Analytics),
-                typeof(Crashes));
+                typeof(Crashes),
+                typeof(Push));
 
             if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
             {
