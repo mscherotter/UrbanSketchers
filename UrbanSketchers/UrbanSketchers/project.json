@@ -10,8 +10,8 @@
     "System.ComponentModel": "4.3.0",
     "WindowsAzure.Storage": "8.7.0",
     "Xam.Plugin.FilePicker": "1.1.0",
-    "Xamarin.Forms": "2.5.0.121934",
-    "Xamarin.Forms.Maps": "2.5.0.121934"
+    "Xamarin.Forms": "2.5.0.122203",
+    "Xamarin.Forms.Maps": "2.5.0.122203"
   },
   "frameworks": {
     "netstandard1.4": {
