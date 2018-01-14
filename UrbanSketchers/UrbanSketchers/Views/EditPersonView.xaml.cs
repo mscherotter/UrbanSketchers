@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Views
 {
+    /// <summary>
+    ///     Edit person view
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditPersonView : Grid
+    public partial class EditPersonView
     {
+        /// <summary>
+        ///     Initializes a new instance of the EditPersonView class.
+        /// </summary>
         public EditPersonView()
         {
             InitializeComponent();

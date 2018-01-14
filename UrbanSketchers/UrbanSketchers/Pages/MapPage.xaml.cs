@@ -8,7 +8,6 @@ using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
 using UrbanSketchers.Support;
-using UrbanSketchers.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
@@ -269,11 +268,12 @@ namespace UrbanSketchers.Pages
                 _inkStream = new MemoryStream();
             }
 
-            await Navigation.PushModalAsync(new DrawingPage
-            {
-                ImageStream = _imageStream,
-                InkStream = _inkStream
-            }, true);
+            var page = DependencyService.Get<IDrawingPage>(DependencyFetchTarget.NewInstance);
+
+            page.ImageStream = _imageStream;
+            page.InkStream = _inkStream;
+
+            await Navigation.PushModalAsync(page as Page, true);
         }
         #endregion
     }

@@ -8,10 +8,11 @@ using Windows.UI.Xaml;
 
 namespace UWP
 {
+    /// <summary>
+    /// Map Icon properties
+    /// </summary>
     public sealed class MapIconProperties
     {
-
-
         public static SketchPin GetSketchPin(DependencyObject obj)
         {
             return (SketchPin)obj.GetValue(SketchPinProperty);

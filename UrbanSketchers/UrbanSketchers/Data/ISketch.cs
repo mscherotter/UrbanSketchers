@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UrbanSketchers.Data
+﻿namespace UrbanSketchers.Data
 {
+    /// <summary>
+    ///     Sketch interface
+    /// </summary>
     public interface ISketch
     {
+        /// <summary>
+        ///     Gets the sketch Id
+        /// </summary>
         string Id { get; }
     }
 }

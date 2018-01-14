@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UrbanSketchers.Pages
+﻿namespace UrbanSketchers.Pages
 {
+    /// <summary>
+    ///     Sketch page interface
+    /// </summary>
     public interface ISketchPage
     {
+        /// <summary>
+        ///     Gets or sets the sketch Id
+        /// </summary>
         string SketchId { get; set; }
     }
 }

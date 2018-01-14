@@ -3,13 +3,13 @@ using System.IO;
 using UrbanSketchers.Controls;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
     ///     Drawing Page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DrawingPage
+    public partial class DrawingPage : IDrawingPage
     {
         /// <summary>
         ///     Initializes a new instance of the DrawingPage class.

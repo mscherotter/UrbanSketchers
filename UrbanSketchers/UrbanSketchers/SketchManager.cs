@@ -58,7 +58,7 @@ namespace UrbanSketchers
 
         private SketchManager()
         {
-            CurrentClient = new MobileServiceClient(Constants.ApplicationURL);
+            CurrentClient = new MobileServiceClient(Constants.ApplicationUrl);
 
 #if OFFLINE_SYNC_ENABLED
             var store = new MobileServiceSQLiteStore(offlineDbPath);

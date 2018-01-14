@@ -30,19 +30,19 @@ namespace UrbanSketchers
         event EventHandler SignedIn;
 
         /// <summary>
-        /// logout of Azure Mobile Service
+        ///     logout of Azure Mobile Service
         /// </summary>
         /// <returns>an async task</returns>
         Task LogoutAsync();
     }
 
     /// <summary>
-    /// Thumbnail generator interface
+    ///     Thumbnail generator interface
     /// </summary>
     public interface IThumbnailGenerator
     {
         /// <summary>
-        /// Creates a thumbnail
+        ///     Creates a thumbnail
         /// </summary>
         /// <param name="data">the image data</param>
         /// <returns>an async task with the image stream of the thumbnail</returns>
@@ -60,6 +60,7 @@ namespace UrbanSketchers
         public App()
         {
             DependencyService.Register<IAboutPage, AboutPage>();
+            DependencyService.Register<IDrawingPage, DrawingPage>();
             DependencyService.Register<IMapPage, MapPage>();
             DependencyService.Register<IPeoplePage, PeoplePage>();
             DependencyService.Register<IPersonPageViewModel, PersonPageViewModel>();
@@ -162,11 +163,17 @@ namespace UrbanSketchers
             //    typeof(Analytics), typeof(Crashes));
         }
 
+        /// <summary>
+        ///     Application sleeping
+        /// </summary>
         protected override void OnSleep()
         {
             // Handle when your app sleeps
         }
 
+        /// <summary>
+        ///     Application resuming
+        /// </summary>
         protected override void OnResume()
         {
             // Handle when your app resumes

@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UrbanSketchers.Data
+﻿namespace UrbanSketchers.Data
 {
+    /// <summary>
+    ///     Get SAS token response
+    /// </summary>
     public class GetSasTokenResponse
     {
+        /// <summary>
+        ///     Gets or sets the SAS token
+        /// </summary>
         public string Token { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the SAS URL
+        /// </summary>
         public string Uri { get; set; }
     }
 }

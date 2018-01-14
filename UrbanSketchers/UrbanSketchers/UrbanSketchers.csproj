@@ -46,6 +46,7 @@
     <Compile Include="ConnectedAnimations.cs" />
     <Compile Include="Data\ISketch.cs" />
     <Compile Include="Pages\IAboutPage.cs" />
+    <Compile Include="Pages\IDrawingPage.cs" />
     <Compile Include="Pages\IMapPage.cs" />
     <Compile Include="Pages\IPeoplePage.cs" />
     <Compile Include="Pages\ISketchesPage.cs" />
@@ -102,11 +103,7 @@
     <Compile Include="Support\ActivityIndicatorScope.cs" />
     <Compile Include="Support\CustomIndexing.cs" />
     <Compile Include="Support\FilePickerService.cs" />
-    <Compile Include="TodoList.xaml.cs">
-      <DependentUpon>TodoList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Constants.cs" />
-    <Compile Include="TodoItem.cs" />
     <Compile Include="SketchManager.cs" />
     <Compile Include="TranslateExtension.cs" />
     <Compile Include="TypedEventArgs.cs" />
@@ -175,9 +172,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TodoList.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

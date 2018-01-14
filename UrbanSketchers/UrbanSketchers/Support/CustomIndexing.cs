@@ -66,6 +66,12 @@ namespace UrbanSketchers.Support
             throw new Exception("LatIndex no return for input = " + latitude);
         }
 
+        /// <summary>
+        ///     Gets the longitude index
+        /// </summary>
+        /// <param name="longitude">the longitude</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>the index</returns>
         public static int LonIndex(double longitude, double fraction)
         {
             longitude = Math.Round(longitude, 8);
@@ -156,6 +162,12 @@ namespace UrbanSketchers.Support
             return -90.0 + fraction * row;
         }
 
+        /// <summary>
+        ///     Converts a sector to a longitude
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>the longitude of the sector</returns>
         public static double SectorToLon(int sector, double fraction)
         {
             var divisor = 360 * (int) (1.0 / fraction);
@@ -163,6 +175,12 @@ namespace UrbanSketchers.Support
             return -180.0 + fraction * col;
         }
 
+        /// <summary>
+        ///     Gets the area of a sector
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>the area of sector</returns>
         public static double Area(int sector, double fraction)
         {
             var lat1 = SectorToLat(sector, fraction);
@@ -174,6 +192,12 @@ namespace UrbanSketchers.Support
             return width * height;
         }
 
+        /// <summary>
+        ///     Is the sector in the left edge
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>true if the sector is in the left edge</returns>
         public static bool IsLeftEdge(int sector, double fraction)
         {
             var numColumns = (int) (1.0 / fraction) * 360;
@@ -181,6 +205,12 @@ namespace UrbanSketchers.Support
             return false;
         }
 
+        /// <summary>
+        ///     Is this sector on the right edge
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>true if the sector is in the right edge</returns>
         public static bool IsRightEdge(int sector, double fraction)
         {
             if (IsLeftEdge(sector + 1, fraction))
@@ -189,6 +219,12 @@ namespace UrbanSketchers.Support
             return false;
         }
 
+        /// <summary>
+        ///     Is this the top row
+        /// </summary>
+        /// <param name="sector">the sector</param>
+        /// <param name="fraction">the fraction</param>
+        /// <returns>true if the sector is a top row</returns>
         public static bool IsTopRow(int sector, double fraction)
         {
             var numColumns = (int) (1.0 / fraction) * 360;

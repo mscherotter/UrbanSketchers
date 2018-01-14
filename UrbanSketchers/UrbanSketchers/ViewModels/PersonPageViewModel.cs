@@ -15,6 +15,9 @@ namespace UrbanSketchers.ViewModels
         private Person _person;
         private RelayCommand<object> _refreshCommand;
 
+        /// <summary>
+        ///     Initializes a new instance of the PersonPageViewModel class.
+        /// </summary>
         public PersonPageViewModel()
         {
             RefreshCommand = new RelayCommand<object>(OnRefresh, CanRefresh);
@@ -22,10 +25,7 @@ namespace UrbanSketchers.ViewModels
             DeleteCommand = new RelayCommand<object>(OnDelete, CanDelete);
 
             Sketches = new ObservableCollection<Sketch>();
-
         }
-
-        public string PersonId { get; set; }
 
         /// <summary>
         ///     Gets or sets the person
@@ -72,6 +72,30 @@ namespace UrbanSketchers.ViewModels
         /// </summary>
         public RelayCommand<object> DeleteCommand { get; set; }
 
+
+        /// <summary>
+        ///     Gets the sketches
+        /// </summary>
+        public ObservableCollection<Sketch> Sketches { get; }
+
+        /// <summary>
+        ///     Gets or sets the person Id
+        /// </summary>
+        public string PersonId { get; set; }
+
+        /// <summary>
+        ///     Refresh the person and sketches
+        /// </summary>
+        /// <returns></returns>
+        public async Task RefreshAsync()
+        {
+            Person = await SketchManager.DefaultManager.GetPersonAsync(PersonId);
+
+            var sketches = await SketchManager.DefaultManager.GetSketchsAsync(PersonId);
+
+            Sketches.SetRange(sketches);
+        }
+
         private bool CanRefresh(object arg)
         {
             return !IsBusy;
@@ -84,19 +108,6 @@ namespace UrbanSketchers.ViewModels
             await RefreshAsync();
 
             IsBusy = false;
-        }
-            
-        /// <summary>
-        /// Refresh the person and sketches
-        /// </summary>
-        /// <returns></returns>
-        public async Task RefreshAsync()
-        {
-            Person = await SketchManager.DefaultManager.GetPersonAsync(PersonId);
-
-            var sketches = await SketchManager.DefaultManager.GetSketchsAsync(PersonId);
-
-            Sketches.SetRange(sketches);
         }
 
         private bool CanUpdate(object arg)
@@ -124,11 +135,5 @@ namespace UrbanSketchers.ViewModels
             await SketchManager.DefaultManager.DeleteCurrentUserAsync();
             IsBusy = false;
         }
-
-
-        /// <summary>
-        /// Gets the sketches
-        /// </summary>
-        public ObservableCollection<Sketch> Sketches { get; }
     }
 }
