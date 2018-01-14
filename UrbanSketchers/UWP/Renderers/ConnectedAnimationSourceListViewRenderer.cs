@@ -15,8 +15,16 @@ using Xamarin.Forms.Platform.UWP;
 
 namespace UWP.Renderers
 {
+    /// <summary>
+    /// Connected animation source list view renderer
+    /// </summary>
     public class ConnectedAnimationSourceListViewRenderer : ListViewRenderer
     {
+        /// <summary>
+        /// Element property changed
+        /// </summary>
+        /// <param name="sender">the sender</param>
+        /// <param name="e">the property chagned event arguments</param>
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);

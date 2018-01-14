@@ -12,7 +12,7 @@ namespace UrbanSketchers.ViewModels
     public class PersonPageViewModel : ObservableObject, IPersonPageViewModel
     {
         private bool _isBusy;
-        private Person _person;
+        private IPerson _person;
         private RelayCommand<object> _refreshCommand;
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace UrbanSketchers.ViewModels
         /// <summary>
         ///     Gets or sets the person
         /// </summary>
-        public Person Person
+        public IPerson Person
         {
             get => _person;
             set => SetProperty(ref _person, value);

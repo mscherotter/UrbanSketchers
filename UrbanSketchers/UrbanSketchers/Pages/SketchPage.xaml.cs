@@ -18,7 +18,7 @@ namespace UrbanSketchers.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchPage : ISketchPage
     {
-        private Rating _rating;
+        private IRating _rating;
 
         /// <summary>
         ///     Initializes a new instance of the SketchPage class.
@@ -102,7 +102,7 @@ namespace UrbanSketchers.Pages
             Comments.IsVisible = allRatings.Any();
         }
 
-        private void UpdateLikeButton(Rating rating)
+        private void UpdateLikeButton(IRating rating)
         {
             if (rating != null && rating.IsHeart)
                 switch (Device.RuntimePlatform)

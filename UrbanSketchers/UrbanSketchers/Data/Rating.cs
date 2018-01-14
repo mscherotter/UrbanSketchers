@@ -3,7 +3,7 @@
     /// <summary>
     ///     A sketch rating
     /// </summary>
-    public class Rating : BaseDataObject
+    public class Rating : BaseDataObject, IRating
     {
         /// <summary>
         ///     Gets or sets the sketch Id

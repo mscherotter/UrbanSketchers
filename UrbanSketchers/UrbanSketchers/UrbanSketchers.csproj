@@ -45,6 +45,8 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ConnectedAnimations.cs" />
     <Compile Include="Controls\ISketchPin.cs" />
+    <Compile Include="Data\IPerson.cs" />
+    <Compile Include="Data\IRating.cs" />
     <Compile Include="Data\ISketch.cs" />
     <Compile Include="Pages\IAboutPage.cs" />
     <Compile Include="Pages\IDrawingPage.cs" />
@@ -52,6 +54,7 @@
     <Compile Include="Pages\IPeoplePage.cs" />
     <Compile Include="Pages\ISketchesPage.cs" />
     <Compile Include="Pages\ISketchPage.cs" />
+    <Compile Include="ServiceManager.cs" />
     <Compile Include="ViewModels\IPersonPageViewModel.cs" />
     <Compile Include="ViewModels\PersonPageViewModel.cs" />
     <Compile Include="Views\ColorPickerView.cs" />

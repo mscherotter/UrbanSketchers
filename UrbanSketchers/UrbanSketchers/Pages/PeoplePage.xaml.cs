@@ -48,7 +48,7 @@ namespace UrbanSketchers.Pages
 
         private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item is Person person)
+            if (e.Item is IPerson person)
                 await Navigation.PushAsync(new PersonPage
                 {
                     PersonId = person.Id

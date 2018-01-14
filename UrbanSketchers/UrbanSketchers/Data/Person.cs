@@ -3,7 +3,7 @@
     /// <summary>
     ///     Urban Sketcher
     /// </summary>
-    public class Person : BaseDataObject
+    public class Person : BaseDataObject, IPerson
     {
         /// <summary>
         ///     Gets or sets the name of the user

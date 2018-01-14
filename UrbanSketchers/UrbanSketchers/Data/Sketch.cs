@@ -69,7 +69,7 @@ namespace UrbanSketchers.Data
         }
 
         /// <summary>
-        ///     Gets or sets the Id of the <see cref="Person" /> who created it.
+        ///     Gets or sets the Id of the <see cref="IPerson" /> who created it.
         /// </summary>
         public string CreatedBy { get; set; }
 

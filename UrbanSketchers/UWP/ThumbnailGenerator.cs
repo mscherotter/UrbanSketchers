@@ -7,8 +7,16 @@ using UrbanSketchers;
 
 namespace UWP
 {
+    /// <summary>
+    /// Thumbnail generator
+    /// </summary>
     public class ThumbnailGenerator : IThumbnailGenerator
     {
+        /// <summary>
+        /// Create a thumbnaill image
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<Stream> CreateThumbnailAsync(byte[] data)
         {
             using (var memoryStream = new MemoryStream(data))

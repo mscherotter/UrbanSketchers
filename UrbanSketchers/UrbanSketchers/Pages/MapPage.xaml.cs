@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
 using UrbanSketchers.Support;
@@ -127,14 +126,11 @@ namespace UrbanSketchers.Pages
 
             var visibleArea = Math.Pow(radius * 2.0, 2.0);
 
-            MobileServiceCollection<Sketch, Sketch> sketches;
-
             Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
 
-            if (visibleArea > sectorArea)
-                sketches = await SketchManager.DefaultManager.GetSketchsAsync();
-            else
-                sketches = await SketchManager.DefaultManager.GetSketchsAsync(sector);
+            var sketches = visibleArea > sectorArea
+                ? await SketchManager.DefaultManager.GetSketchsAsync()
+                : await SketchManager.DefaultManager.GetSketchsAsync(sector);
 
             if (sketches == null)
                 return;
