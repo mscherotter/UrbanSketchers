@@ -201,9 +201,9 @@ namespace UrbanSketchers
             return uri;
         }
 
-        internal Task DeleteAsync(Sketch sketch)
+        internal Task DeleteAsync(ISketch sketch)
         {
-            return _sketchTable.DeleteAsync(sketch);
+            return _sketchTable.DeleteAsync(sketch as Sketch);
         }
 
         /// <summary>
@@ -232,9 +232,11 @@ namespace UrbanSketchers
         /// </summary>
         /// <param name="id">the sketch Id</param>
         /// <returns>an async task with the sketch</returns>
-        public Task<Sketch> GetSketchAsync(string id)
+        public async Task<ISketch> GetSketchAsync(string id)
         {
-            return _sketchTable.LookupAsync(id);
+            var sketch = await _sketchTable.LookupAsync(id);
+
+            return sketch;
         }
 
         /// <summary>
@@ -258,7 +260,7 @@ namespace UrbanSketchers
         /// <param name="personId">the person who created the sketches</param>
         /// <param name="syncItems">true to sync the offline items</param>
         /// <returns>an async task with an observable collection of sketches</returns>
-        public async Task<ObservableCollection<Sketch>> GetSketchsAsync(string personId, bool syncItems = false)
+        public async Task<ObservableCollection<ISketch>> GetSketchsAsync(string personId, bool syncItems = false)
         {
             try
             {
@@ -276,7 +278,7 @@ namespace UrbanSketchers
 
                 var sketches = await query.ToEnumerableAsync();
 
-                return new ObservableCollection<Sketch>(sketches);
+                return new ObservableCollection<ISketch>(sketches);
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -328,14 +330,14 @@ namespace UrbanSketchers
         /// </summary>
         /// <param name="item">the sketch</param>
         /// <returns>an async task</returns>
-        public async Task SaveAsync(Sketch item)
+        public async Task SaveAsync(ISketch item)
         {
             item.Sector = CustomIndexing.LatLonToSector(item.Latitude, item.Longitude, CustomIndexing.SectorSize);
 
             if (string.IsNullOrWhiteSpace(item.Id))
-                await _sketchTable.InsertAsync(item);
+                await _sketchTable.InsertAsync(item as Sketch);
             else
-                await _sketchTable.UpdateAsync(item);
+                await _sketchTable.UpdateAsync(item as Sketch);
         }
 
         /// <summary>

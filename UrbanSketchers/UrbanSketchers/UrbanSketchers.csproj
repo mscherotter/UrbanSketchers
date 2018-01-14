@@ -44,6 +44,7 @@
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ConnectedAnimations.cs" />
+    <Compile Include="Controls\ISketchPin.cs" />
     <Compile Include="Data\ISketch.cs" />
     <Compile Include="Pages\IAboutPage.cs" />
     <Compile Include="Pages\IDrawingPage.cs" />

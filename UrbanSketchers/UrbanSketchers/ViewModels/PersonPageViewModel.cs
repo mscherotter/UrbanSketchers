@@ -24,7 +24,7 @@ namespace UrbanSketchers.ViewModels
             UpdateCommand = new RelayCommand<object>(OnUpdate, CanUpdate);
             DeleteCommand = new RelayCommand<object>(OnDelete, CanDelete);
 
-            Sketches = new ObservableCollection<Sketch>();
+            Sketches = new ObservableCollection<ISketch>();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace UrbanSketchers.ViewModels
         /// <summary>
         ///     Gets the sketches
         /// </summary>
-        public ObservableCollection<Sketch> Sketches { get; }
+        public ObservableCollection<ISketch> Sketches { get; }
 
         /// <summary>
         ///     Gets or sets the person Id

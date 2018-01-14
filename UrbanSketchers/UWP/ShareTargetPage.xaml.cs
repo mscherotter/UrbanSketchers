@@ -9,12 +9,13 @@ using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 using UrbanSketchers;
 using UrbanSketchers.Data;
+using Xamarin.Forms;
+using Button = Windows.UI.Xaml.Controls.Button;
+using NavigationEventArgs = Windows.UI.Xaml.Navigation.NavigationEventArgs;
 
 namespace UWP
 {
@@ -24,7 +25,7 @@ namespace UWP
     public sealed partial class ShareTargetPage
     {
         private readonly MobileServiceInit _mobileServiceInit;
-        private readonly Sketch _sketch;
+        private readonly ISketch _sketch;
         private MemoryStream _imageStream;
         private bool _isAdding;
         private ShareOperation _shareOperation;
@@ -36,10 +37,7 @@ namespace UWP
         {
             InitializeComponent();
 
-            _sketch = new Sketch
-            {
-                CreationDate = DateTime.UtcNow
-            };
+            _sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance); 
 
             DataContext = _sketch;
 

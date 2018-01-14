@@ -144,10 +144,7 @@ namespace UWP
         /// <returns></returns>
         private static async Task UploadAsync(AppServiceRequest request, ValueSet message)
         {
-            var sketch = new Sketch
-            {
-                CreationDate = DateTime.UtcNow
-            };
+            var sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance);
 
             StorageFile file = null;
 

@@ -6,6 +6,8 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
+using UrbanSketchers.Controls;
+using UrbanSketchers.Data;
 using UrbanSketchers.Pages;
 using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
@@ -64,7 +66,9 @@ namespace UrbanSketchers
             DependencyService.Register<IMapPage, MapPage>();
             DependencyService.Register<IPeoplePage, PeoplePage>();
             DependencyService.Register<IPersonPageViewModel, PersonPageViewModel>();
+            DependencyService.Register<ISketch, Sketch>();
             DependencyService.Register<ISketchPage, SketchPage>();
+            DependencyService.Register<ISketchPin, SketchPin>();
             DependencyService.Register<ISketchesPage, SketchesPage>();
 
             AppCenter.Start(

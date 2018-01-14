@@ -26,7 +26,7 @@ namespace UrbanSketchers.Views
         /// <summary>
         ///     should the sketch be uploaded?
         /// </summary>
-        public Func<Sketch, Task<bool>> ShouldUpload;
+        public Func<ISketch, Task<bool>> ShouldUpload;
 
         /// <summary>
         ///     Initializes a new instance of the EditSketchView class.
@@ -53,13 +53,13 @@ namespace UrbanSketchers.Views
 
         private async void EditSketchView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (BindingContext is Sketch sketch)
+            if (BindingContext is ISketch sketch)
                 AddButton.Text = string.IsNullOrWhiteSpace(sketch.Id)
                     ? Properties.Resources.Add
                     : Properties.Resources.Update;
 
             if (e.PropertyName == nameof(IsVisible) && IsVisible)
-                if (BindingContext is Sketch sketch2)
+                if (BindingContext is ISketch sketch2)
                 {
                     var span = MapSpan.FromCenterAndRadius(new Position(sketch2.Latitude, sketch2.Longitude),
                         Distance.FromMiles(1.0));
@@ -86,7 +86,7 @@ namespace UrbanSketchers.Views
         /// <summary>
         ///     Sketch saved event handler
         /// </summary>
-        public event EventHandler<TypedEventArgs<Sketch>> SketchSaved;
+        public event EventHandler<TypedEventArgs<ISketch>> SketchSaved;
 
         /// <summary>
         ///     Cancel event handler
@@ -97,7 +97,7 @@ namespace UrbanSketchers.Views
         {
             //ImageUrlEntry.IsEnabled = true;
 
-            if (BindingContext is Sketch sketch)
+            if (BindingContext is ISketch sketch)
             {
                 if (string.IsNullOrWhiteSpace(sketch.Title)) return;
 
@@ -129,7 +129,7 @@ namespace UrbanSketchers.Views
                 try
                 {
                     await SketchManager.DefaultManager.SaveAsync(sketch);
-                    SketchSaved?.Invoke(this, new TypedEventArgs<Sketch>(sketch));
+                    SketchSaved?.Invoke(this, new TypedEventArgs<ISketch>(sketch));
                 }
                 catch (Exception exception)
                 {
@@ -218,14 +218,14 @@ namespace UrbanSketchers.Views
 
         private void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (Map.IsVisible && BindingContext is Sketch && Map.IsFocused)
+            if (Map.IsVisible && BindingContext is ISketch && Map.IsFocused)
                 if (e.PropertyName == nameof(Map.VisibleRegion))
                     UpdateLocation();
         }
 
         private void UpdateLocation()
         {
-            if (BindingContext is Sketch sketch)
+            if (BindingContext is ISketch sketch)
             {
                 sketch.Latitude = Map.VisibleRegion.Center.Latitude;
                 sketch.Longitude = Map.VisibleRegion.Center.Longitude;

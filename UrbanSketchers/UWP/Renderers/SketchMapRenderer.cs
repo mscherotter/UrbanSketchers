@@ -30,7 +30,7 @@ namespace UWP
     public class SketchMapRenderer : MapRenderer
     {
         private MapControl _nativeMap;
-        private ObservableCollection<SketchPin> _pins;
+        private ObservableCollection<ISketchPin> _pins;
         private Canvas _sourceCanvas;
         private Image _sourceImage;
 

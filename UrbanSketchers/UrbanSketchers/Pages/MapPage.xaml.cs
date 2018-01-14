@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -20,15 +21,6 @@ namespace UrbanSketchers.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage : IMapPage
     {
-        #region Fields
-
-        //private string _personId;
-        private Sketch _sketch;
-        private MemoryStream _imageStream;
-        private MemoryStream _inkStream;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -57,7 +49,7 @@ namespace UrbanSketchers.Pages
                 EditSketchView.LoadImageStream(_imageStream);
 
                 _imageStream.Dispose();
-                
+
                 _imageStream = null;
 
                 OnAddSketch(null, null);
@@ -81,9 +73,19 @@ namespace UrbanSketchers.Pages
 
         #endregion
 
+        #region Fields
+
+        //private string _personId;
+        private ISketch _sketch;
+
+        private MemoryStream _imageStream;
+        private MemoryStream _inkStream;
+
+        #endregion
+
         #region Implementation
 
-        private Task<bool> ShouldUpload(Sketch arg)
+        private Task<bool> ShouldUpload(ISketch arg)
         {
             return DisplayAlert(
                 Properties.Resources.UploadSketch,
@@ -92,11 +94,30 @@ namespace UrbanSketchers.Pages
                 Properties.Resources.Cancel);
         }
 
+        private static ISketchPin CreatePin(ISketch sketch)
+        {
+            var pin = DependencyService.Get<ISketchPin>(DependencyFetchTarget.NewInstance);
+
+            pin.Pin = new Pin
+            {
+                Type = PinType.Place,
+                Position = new Position(sketch.Latitude, sketch.Longitude),
+                Label = sketch.Title,
+                Id = sketch.Id,
+                Address = sketch.Address
+            };
+
+            pin.Url = sketch.ThumbnailUrl;
+
+            return pin;
+        }
+
         private async Task RefreshAsync()
         {
             if (Map.VisibleRegion == null) return;
 
-            var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude, Map.VisibleRegion.Center.Longitude,
+            var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude,
+                Map.VisibleRegion.Center.Longitude,
                 CustomIndexing.SectorSize);
 
 
@@ -108,16 +129,12 @@ namespace UrbanSketchers.Pages
 
             MobileServiceCollection<Sketch, Sketch> sketches;
 
-            System.Diagnostics.Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
+            Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
 
             if (visibleArea > sectorArea)
-            {
                 sketches = await SketchManager.DefaultManager.GetSketchsAsync();
-            }
             else
-            {
                 sketches = await SketchManager.DefaultManager.GetSketchsAsync(sector);
-            }
 
             if (sketches == null)
                 return;
@@ -126,18 +143,7 @@ namespace UrbanSketchers.Pages
                 sketches.TotalCount);
 
             var pins = from sketch in sketches
-                select new SketchPin
-                {
-                    Pin = new Pin
-                    {
-                        Type = PinType.Place,
-                        Position = new Position(sketch.Latitude, sketch.Longitude),
-                        Label = sketch.Title,
-                        Id = sketch.Id,
-                        Address = sketch.Address
-                    },
-                    Url = sketch.ThumbnailUrl
-                };
+                select CreatePin(sketch);
 
             var pinList = pins.ToList();
 
@@ -152,7 +158,7 @@ namespace UrbanSketchers.Pages
 
         private async void Pin_Clicked(object sender, EventArgs e)
         {
-            if (sender is SketchPin pin)
+            if (sender is ISketchPin pin)
             {
                 var page = DependencyService.Get<ISketchPage>(DependencyFetchTarget.NewInstance);
 
@@ -209,17 +215,14 @@ namespace UrbanSketchers.Pages
             EditSketchView.IsVisible = true;
             Crosshair.IsVisible = true;
 
-            _sketch = new Sketch
-            {
-                CreationDate = DateTime.Now
-            };
+            _sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance);
 
             await UpdateLocationAsync();
 
             EditSketchView.BindingContext = _sketch;
         }
 
-        private async void OnSketchSaved(object sender, TypedEventArgs<Sketch> e)
+        private async void OnSketchSaved(object sender, TypedEventArgs<ISketch> e)
         {
             Crosshair.IsVisible = false;
 
@@ -264,9 +267,7 @@ namespace UrbanSketchers.Pages
             _imageStream = new MemoryStream();
 
             if (_inkStream == null)
-            {
                 _inkStream = new MemoryStream();
-            }
 
             var page = DependencyService.Get<IDrawingPage>(DependencyFetchTarget.NewInstance);
 
@@ -275,6 +276,7 @@ namespace UrbanSketchers.Pages
 
             await Navigation.PushModalAsync(page as Page, true);
         }
+
         #endregion
     }
 }

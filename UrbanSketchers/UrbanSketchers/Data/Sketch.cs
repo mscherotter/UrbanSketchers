@@ -36,7 +36,7 @@ namespace UrbanSketchers.Data
         /// <summary>
         ///     Gets or sets the creation date of the sketch
         /// </summary>
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         ///     Gets or sets the latitude

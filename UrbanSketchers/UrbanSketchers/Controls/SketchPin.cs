@@ -6,7 +6,7 @@ namespace UrbanSketchers.Controls
     /// <summary>
     ///     A sketch pin
     /// </summary>
-    public class SketchPin
+    public class SketchPin : ISketchPin
     {
         /// <summary>
         ///     Gets or sets the pin

@@ -40,7 +40,7 @@ namespace UrbanSketchers.Pages
         /// <summary>
         ///     Gets the <see cref="Sketch" /> as the binding context
         /// </summary>
-        public Sketch Sketch => BindingContext as Sketch;
+        public ISketch Sketch => BindingContext as ISketch;
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

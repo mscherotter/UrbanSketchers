@@ -101,7 +101,7 @@ namespace UrbanSketchers.Pages
 
         private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item is Sketch sketch)
+            if (e.Item is ISketch sketch)
             {
                 var page = DependencyService.Get<ISketchPage>(DependencyFetchTarget.NewInstance);
 

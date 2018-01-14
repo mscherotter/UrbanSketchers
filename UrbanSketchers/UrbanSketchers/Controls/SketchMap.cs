@@ -13,13 +13,13 @@ namespace UrbanSketchers.Controls
         /// </summary>
         public SketchMap()
         {
-            CustomPins = new ObservableCollection<SketchPin>();
+            CustomPins = new ObservableCollection<ISketchPin>();
         }
 
         /// <summary>
         ///     Gets or sets the custom pins
         /// </summary>
-        public ObservableCollection<SketchPin> CustomPins { get; set; }
+        public ObservableCollection<ISketchPin> CustomPins { get; set; }
 
         /// <summary>
         ///     Gets or sets the maximum image size (default is 300.0)
