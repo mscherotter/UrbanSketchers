@@ -5,7 +5,7 @@ using UrbanSketchers.Commands;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
     ///     Menu page
@@ -58,19 +58,19 @@ namespace UrbanSketchers.Views
                 new NavigationMenuItem
                 {
                     Label = Properties.Resources.SketchMap,
-                    Command = new NavigationCommand<MapPage>(),
+                    Command = new NavigationCommand<IMapPage>(),
                     Icon = sketchMapIcon
                 },
                 new NavigationMenuItem
                 {
                     Label = Properties.Resources.Sketches,
-                    Command = new NavigationCommand<SketchesPage>(),
+                    Command = new NavigationCommand<ISketchesPage>(),
                     Icon = sketchesIcon
                 },
                 new NavigationMenuItem
                 {
                     Label = Properties.Resources.UrbanSketchers,
-                    Command = new NavigationCommand<PeoplePage>(),
+                    Command = new NavigationCommand<IPeoplePage>(),
                     Icon = urbanSketchersIcon
                 }
             });
@@ -90,7 +90,7 @@ namespace UrbanSketchers.Views
             {
                 Label = Properties.Resources.AboutUrbanSketches,
                 Icon = aboutIcon,
-                Command = new NavigationCommand<AboutPage>()
+                Command = new NavigationCommand<IAboutPage>()
             });
 
             SignInCommand = new RelayCommand<object>(SignIn);
@@ -251,7 +251,7 @@ namespace UrbanSketchers.Views
         {
             if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
             {
-                App.Authenticator.Authenticate();
+                await App.Authenticator.Authenticate();
             }
             else
             {

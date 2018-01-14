@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using UrbanSketchers.Views;
+using UrbanSketchers.Pages;
 using Xamarin.Forms;
 
 namespace UrbanSketchers.Commands
@@ -9,7 +9,7 @@ namespace UrbanSketchers.Commands
     /// Navigation command
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class NavigationCommand<T> : ICommand where T : new()
+    public class NavigationCommand<T> : ICommand where T:class
     {
         private bool _isBusy;
 
@@ -41,7 +41,9 @@ namespace UrbanSketchers.Commands
 
             CanExecuteChanged?.Invoke(this, new EventArgs());
 
-            await App.NavigationPage.PushAsync(new T() as Page, true);
+            var page = DependencyService.Get<T>(DependencyFetchTarget.NewInstance);
+
+            await App.NavigationPage.PushAsync(page as Page, true);
 
             if (Application.Current.MainPage is RootPage rootPage)
                 rootPage.IsPresented = false;

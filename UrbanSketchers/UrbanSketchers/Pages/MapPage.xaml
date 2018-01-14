@@ -5,7 +5,7 @@
              xmlns:controls="clr-namespace:UrbanSketchers.Controls"
              xmlns:usk="clr-namespace:UrbanSketchers"
              Title="{usk:Translate SketchMap}"
-             x:Class="UrbanSketchers.Views.MapPage">
+             x:Class="UrbanSketchers.Pages.MapPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{usk:Translate AddSketch}" Clicked="OnAddSketch">
             <ToolbarItem.Icon>
@@ -34,7 +34,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:SketchMap x:Name="Map" MaxImageSize="320"  MapType="Hybrid" PropertyChanged="OnMapPropertyChanged"  />
+        <controls:SketchMap x:Name="Map" MaxImageSize="320"  MapType="Hybrid" PropertyChanged="OnMapPropertyChanged"  IsShowingUser="True" />
         <Image Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Crosshair" IsVisible="False">
             <Image.Source>
                 <OnPlatform x:TypeArguments="ImageSource">

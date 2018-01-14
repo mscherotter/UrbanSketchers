@@ -7,13 +7,13 @@ using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
     ///     Sketches page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SketchesPage
+    public partial class SketchesPage : ISketchesPage
     {
         private readonly SketchManager _sketchManager;
 
@@ -102,10 +102,13 @@ namespace UrbanSketchers.Views
         private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item is Sketch sketch)
-                await Navigation.PushAsync(new SketchPage
-                {
-                    SketchId = sketch.Id
-                });
+            {
+                var page = DependencyService.Get<ISketchPage>(DependencyFetchTarget.NewInstance);
+
+                page.SketchId = sketch.Id;
+
+                await Navigation.PushAsync(page as Page, true);
+            }
         }
 
         private async void OnRefresh(object sender, EventArgs e)

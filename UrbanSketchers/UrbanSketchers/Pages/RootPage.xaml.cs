@@ -2,10 +2,10 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
-    /// the root page
+    ///     the root page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RootPage
@@ -13,7 +13,7 @@ namespace UrbanSketchers.Views
         private bool _isFirst = true;
 
         /// <summary>
-        /// Initializes a new instance of the RootPage class.
+        ///     Initializes a new instance of the RootPage class.
         /// </summary>
         public RootPage()
         {
@@ -37,7 +37,7 @@ namespace UrbanSketchers.Views
         //}
 
         /// <summary>
-        /// Navigate to the map page
+        ///     Navigate to the map page
         /// </summary>
         protected override async void OnAppearing()
         {

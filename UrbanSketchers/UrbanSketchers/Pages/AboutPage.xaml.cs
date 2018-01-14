@@ -5,13 +5,13 @@ using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
     ///     About page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutPage
+    public partial class AboutPage : IAboutPage
     {
         /// <summary>
         ///     Initializes a new instnace of the AboutPage class.

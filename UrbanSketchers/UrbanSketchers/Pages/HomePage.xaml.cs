@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage

@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace UrbanSketchers.Droid
 {
-    public class Localize : UrbanSketchers.ILocalize
+    public class Localize : ILocalize
     {
         public void SetLocale(CultureInfo ci)
         {

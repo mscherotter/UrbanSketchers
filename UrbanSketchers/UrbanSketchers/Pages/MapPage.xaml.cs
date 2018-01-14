@@ -8,16 +8,18 @@ using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
 using UrbanSketchers.Support;
+using UrbanSketchers.Views;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
     ///     Map Page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MapPage
+    public partial class MapPage : IMapPage
     {
         #region Fields
 
@@ -152,10 +154,13 @@ namespace UrbanSketchers.Views
         private async void Pin_Clicked(object sender, EventArgs e)
         {
             if (sender is SketchPin pin)
-                await Navigation.PushAsync(new SketchPage
-                {
-                    SketchId = pin.Pin.Id.ToString()
-                }, false);
+            {
+                var page = DependencyService.Get<ISketchPage>(DependencyFetchTarget.NewInstance);
+
+                page.SketchId = pin.Pin.Id.ToString();
+
+                await Navigation.PushAsync(page as Page, false);
+            }
         }
 
         private async void OnRefresh(object sender, EventArgs e)

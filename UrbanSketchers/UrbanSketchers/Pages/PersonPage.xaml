@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:UrbanSketchers.Controls"
-             x:Class="UrbanSketchers.Views.PersonPage"
+             x:Class="UrbanSketchers.Pages.PersonPage"
              Title="{Binding Name}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Update"/>
@@ -25,14 +24,14 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Image Source="{Binding Path=Person.ImageUrl}" HeightRequest="100"/>
-            <StackLayout Grid.Column="1">
+            <StackLayout Grid.Column="1" Grid.Row="0">
                 <Entry Text="{Binding Path=Person.Name, Mode=TwoWay}"/>
                 <Label Text="Public URL"/>
                 <Entry Text="{Binding Path=Person.PublicUrl, Mode=TwoWay}"/>
                 <Label Text="Image URL"/>
                 <Entry Text="{Binding Path=Person.ImageUrl, Mode=TwoWay}"/>
             </StackLayout>
-            <ListView Margin="4" Grid.Row="1" x:Name="Sketches" Grid.ColumnSpan="2" ItemSelected="OnSketchSelected">
+            <ListView Grid.Column="0" Margin="4" Grid.Row="1" x:Name="Sketches" Grid.ColumnSpan="2" ItemSelected="OnSketchSelected" ItemsSource="{Binding Sketches}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding ThumbnailUrl}" Text="{Binding Title}"

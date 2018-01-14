@@ -4,7 +4,7 @@
              xmlns:views="clr-namespace:UrbanSketchers.Views"
              xmlns:controls="clr-namespace:UrbanSketchers.Controls"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             x:Class="UrbanSketchers.Views.SketchPage"
+             x:Class="UrbanSketchers.Pages.SketchPage"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Like" Clicked="OnLike" x:Name="LikeButton">

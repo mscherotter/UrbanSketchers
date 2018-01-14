@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using UrbanSketchers.Data;
-using UrbanSketchers.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
     ///     Sketch page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SketchPage
+    public partial class SketchPage : ISketchPage
     {
         private Rating _rating;
 
@@ -36,7 +35,7 @@ namespace UrbanSketchers.Views
         /// <summary>
         ///     Gets the sketch Id
         /// </summary>
-        public string SketchId { get; internal set; }
+        public string SketchId { get; set; }
 
         /// <summary>
         ///     Gets the <see cref="Sketch" /> as the binding context

@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace UrbanSketchers.Views
+namespace UrbanSketchers.Pages
 {
     /// <summary>
-    /// People page
+    ///     People page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PeoplePage
+    public partial class PeoplePage : IPeoplePage
     {
         /// <summary>
-        /// Initializes a new instance of the PeoplePage class.
+        ///     Initializes a new instance of the PeoplePage class.
         /// </summary>
         public PeoplePage()
         {
@@ -24,7 +23,7 @@ namespace UrbanSketchers.Views
         }
 
         /// <summary>
-        /// Refresh the people
+        ///     Refresh the people
         /// </summary>
         protected override async void OnAppearing()
         {

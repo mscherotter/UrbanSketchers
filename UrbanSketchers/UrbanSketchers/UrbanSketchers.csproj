@@ -44,6 +44,14 @@
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ConnectedAnimations.cs" />
+    <Compile Include="Data\ISketch.cs" />
+    <Compile Include="Pages\IAboutPage.cs" />
+    <Compile Include="Pages\IMapPage.cs" />
+    <Compile Include="Pages\IPeoplePage.cs" />
+    <Compile Include="Pages\ISketchesPage.cs" />
+    <Compile Include="Pages\ISketchPage.cs" />
+    <Compile Include="ViewModels\IPersonPageViewModel.cs" />
+    <Compile Include="ViewModels\PersonPageViewModel.cs" />
     <Compile Include="Views\ColorPickerView.cs" />
     <Compile Include="Controls\ConnectedImage.cs" />
     <Compile Include="Controls\DrawingCanvas.cs" />

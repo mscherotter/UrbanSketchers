@@ -5,7 +5,7 @@ namespace UrbanSketchers.Data
     /// <summary>
     ///     An urban sketch
     /// </summary>
-    public class Sketch : BaseDataObject
+    public class Sketch : BaseDataObject, ISketch
     {
         private string _title;
         private string _address = string.Empty;

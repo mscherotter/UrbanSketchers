@@ -6,7 +6,8 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
-using UrbanSketchers.Views;
+using UrbanSketchers.Pages;
+using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
 using Device = Xamarin.Forms.Device;
 
@@ -58,6 +59,13 @@ namespace UrbanSketchers
         /// </summary>
         public App()
         {
+            DependencyService.Register<IAboutPage, AboutPage>();
+            DependencyService.Register<IMapPage, MapPage>();
+            DependencyService.Register<IPeoplePage, PeoplePage>();
+            DependencyService.Register<IPersonPageViewModel, PersonPageViewModel>();
+            DependencyService.Register<ISketchPage, SketchPage>();
+            DependencyService.Register<ISketchesPage, SketchesPage>();
+
             AppCenter.Start(
                 "ios=132544fa-8be4-4fbc-a1f0-ba85d44880a2;"
                 + "uwp=aefb0a99-2ded-4ae7-a6b9-23beb92efdae;"

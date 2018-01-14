@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UrbanSketchers.Views.RootPage"
+             x:Class="UrbanSketchers.Pages.RootPage"
                   xmlns:usk="clr-namespace:UrbanSketchers"
              MasterBehavior="Popover"
                   Title ="{usk:Translate UrbanSketches}"
-             xmlns:pages="clr-namespace:UrbanSketchers.Views">
+             xmlns:pages="clr-namespace:UrbanSketchers.Pages"
+             >
   <MasterDetailPage.Master>
     <pages:MenuPage x:Name="MasterPage" />
   </MasterDetailPage.Master>
