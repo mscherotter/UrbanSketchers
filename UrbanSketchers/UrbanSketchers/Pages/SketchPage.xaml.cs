@@ -18,7 +18,11 @@ namespace UrbanSketchers.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchPage : ISketchPage
     {
+        #region Fields
+
         private IRating _rating;
+
+        #endregion
 
         /// <summary>
         ///     Initializes a new instance of the SketchPage class.
@@ -33,14 +37,43 @@ namespace UrbanSketchers.Pages
         }
 
         /// <summary>
+        ///     Gets the <see cref="Sketch" /> as the binding context
+        /// </summary>
+        public ISketch Sketch => BindingContext as ISketch;
+
+        /// <summary>
         ///     Gets the sketch Id
         /// </summary>
         public string SketchId { get; set; }
 
         /// <summary>
-        ///     Gets the <see cref="Sketch" /> as the binding context
+        ///     Size changed - handle device orientation changes
         /// </summary>
-        public ISketch Sketch => BindingContext as ISketch;
+        /// <param name="width">the new width</param>
+        /// <param name="height">the new height</param>
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            if (width > height)
+            {
+                Grid.SetColumnSpan(Image, 1);
+                Grid.SetRowSpan(Image, 2);
+                Grid.SetRow(Map, 1);
+                Grid.SetColumn(Map, 1);
+                Grid.SetColumnSpan(Map, 1);
+                Grid.SetRowSpan(Map, 2);
+            }
+            else
+            {
+                Grid.SetColumnSpan(Image, 2);
+                Grid.SetRowSpan(Image, 1);
+                Grid.SetRow(Map, 2);
+                Grid.SetColumn(Map, 0);
+                Grid.SetColumnSpan(Map, 2);
+                Grid.SetRowSpan(Map, 1);
+            }
+
+            base.OnSizeAllocated(width, height);
+        }
 
         private void Image_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -97,9 +130,9 @@ namespace UrbanSketchers.Pages
         {
             var allRatings = (await SketchManager.DefaultManager.GetRatingsAsync(Sketch.Id)).ToArray();
 
-            Comments.ItemsSource = allRatings;
+            //Comments.ItemsSource = allRatings;
 
-            Comments.IsVisible = allRatings.Any();
+            //Comments.IsVisible = allRatings.Any();
         }
 
         private void UpdateLikeButton(IRating rating)
@@ -124,7 +157,7 @@ namespace UrbanSketchers.Pages
         {
             if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
             {
-                var authenticated = await App.Authenticator.Authenticate();
+                var authenticated = await App.Authenticator.AuthenticateAsync();
 
                 if (!authenticated)
                     return;
@@ -137,12 +170,10 @@ namespace UrbanSketchers.Pages
                         Properties.Resources.EditSketch,
                         Properties.Resources.OnlyEditOwnSketches,
                         Properties.Resources.OK);
-
-                    return;
                 }
             }
 
-            EditSketch.IsVisible = true;
+            // EditSketch.IsVisible = true;
         }
 
         private async void OnRefresh(object sender, EventArgs e)
@@ -196,7 +227,7 @@ namespace UrbanSketchers.Pages
             var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
             if (person == null)
-                if (await App.Authenticator.Authenticate())
+                if (await App.Authenticator.AuthenticateAsync())
                     person = await SketchManager.DefaultManager.GetCurrentUserAsync();
 
             if (person == null)
@@ -208,7 +239,7 @@ namespace UrbanSketchers.Pages
                     string.Format(
                         CultureInfo.CurrentCulture,
                         "Only {0} or an administrator can delete this sketch.", Sketch.CreatedByName),
-                        Properties.Resources.OK);
+                    Properties.Resources.OK);
 
                 return;
             }
@@ -248,22 +279,28 @@ namespace UrbanSketchers.Pages
 
         private async void OnComment(object sender, EventArgs e)
         {
-            _rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
+            var page = DependencyService.Get<ISketchCommentsPage>(DependencyFetchTarget.NewInstance);
 
-            if (_rating == null)
-                _rating = new Rating
-                {
-                    SketchId = SketchId
-                };
+            page.SketchId = SketchId;
 
-            CommentEditor.Text = _rating.Comment;
-            ViolationSwitch.IsToggled = _rating.IsViolation;
-            CommentPanel.IsVisible = true;
+            await Navigation.PushModalAsync(page as Page, true);
+
+            //_rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
+
+            //if (_rating == null)
+            //    _rating = new Rating
+            //    {
+            //        SketchId = SketchId
+            //    };
+
+            //CommentEditor.Text = _rating.Comment;
+            //ViolationSwitch.IsToggled = _rating.IsViolation;
+            //CommentPanel.IsVisible = true;
         }
 
         private void OnCancelComment(object sender, EventArgs e)
         {
-            CommentPanel.IsVisible = false;
+            //CommentPanel.IsVisible = false;
         }
 
         /// <summary>
@@ -278,8 +315,8 @@ namespace UrbanSketchers.Pages
             if (button != null)
                 button.IsEnabled = false;
 
-            _rating.Comment = CommentEditor.Text;
-            _rating.IsViolation = ViolationSwitch.IsToggled;
+            //_rating.Comment = CommentEditor.Text;
+            //_rating.IsViolation = ViolationSwitch.IsToggled;
 
             if (_rating.IsViolation && string.IsNullOrWhiteSpace(_rating.Comment))
             {
@@ -293,7 +330,7 @@ namespace UrbanSketchers.Pages
             {
                 await SketchManager.DefaultManager.SaveAsync(_rating);
 
-                CommentPanel.IsVisible = false;
+                //CommentPanel.IsVisible = false;
 
                 await UpdateCommentsAsync();
             }

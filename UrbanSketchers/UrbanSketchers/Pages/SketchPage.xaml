@@ -52,18 +52,17 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid>
+        <Grid HorizontalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <StackLayout Padding="4">
+            <StackLayout Padding="4" Grid.ColumnSpan="2">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" TextColor="Blue" Style="{DynamicResource CaptionStyle}">
                         <Label.GestureRecognizers>
@@ -75,14 +74,14 @@
                 <Label Text="{Binding Description}" Style="{DynamicResource CaptionStyle}"/>
                 <Label Text="{Binding Address}" Style="{DynamicResource CaptionStyle}" />
             </StackLayout>
-            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
                 <controls:ConnectedImage.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnImageTapped"/>
                 </controls:ConnectedImage.GestureRecognizers>
             </controls:ConnectedImage>
             <maps:Map Grid.Row="1" Grid.Column="1" Margin="4" x:Name="Map">
             </maps:Map>
-            <views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" Grid.ColumnSpan="2" />
+            <!--<views:EditSketchView Padding="4" IsVisible="False" Grid.Row="2" x:Name="EditSketch" IsMapVisible="True" Grid.Column="0" Grid.ColumnSpan="2" />
             <StackLayout x:Name="CommentPanel" IsVisible="False" Padding="4" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                 <Label Text="Comment"/>
                 <Editor x:Name="CommentEditor"/>
@@ -110,7 +109,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

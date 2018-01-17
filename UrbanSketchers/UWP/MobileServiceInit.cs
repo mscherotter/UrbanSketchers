@@ -5,6 +5,7 @@ using Windows.Security.Authentication.Web.Core;
 using Windows.Security.Credentials;
 using Windows.Storage;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.Popups;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
 
@@ -25,7 +26,7 @@ namespace UWP
 
             Initialize();
 
-            AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested += MainPage_AccountCommandsRequested;
+            //AccountsSettingsPane.GetForCurrentView().AccountCommandsRequested += MainPage_AccountCommandsRequested;
         }
 
         public event EventHandler SignedIn;
@@ -34,21 +35,31 @@ namespace UWP
         ///     Authenticate the mobile app with Facebook.
         /// </summary>
         /// <returns>an async task with a boolean value indicating whether the authentication was successful.</returns>
-        public Task<bool> Authenticate()
+        public async Task<bool> AuthenticateAsync()
         {
-            if (Initialize())
-                return Task.FromResult(true);
-
+            string message = string.Empty;
+            var success = false;
             try
             {
-                AccountsSettingsPane.Show();
+                if (_user == null)
+                {
+                    await LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
+
+                    if (_user != null)
+                    {
+                        success = true;
+                        message = string.Format("You are now signed in as {0}.", _user.UserId);
+                    }
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+                message = string.Format("Authentication failed: {0}", e.Message);
             }
 
-            return Task.FromResult(false);
+            await new MessageDialog(message, "Sign-in results").ShowAsync();
+
+            return success;
         }
 
         private async void MainPage_AccountCommandsRequested(AccountsSettingsPane sender,

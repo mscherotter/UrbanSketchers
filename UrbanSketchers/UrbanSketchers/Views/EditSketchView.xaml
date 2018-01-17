@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
       xmlns:usk="clr-namespace:UrbanSketchers"
-      x:Class="UrbanSketchers.Views.EditSketchView" HeightRequest="200">
+      x:Class="UrbanSketchers.Views.EditSketchView">
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="200"/>
+        <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition/>
     </Grid.ColumnDefinitions>
@@ -18,37 +18,25 @@
         <Label Text="{usk:Translate Description}"/>
         <Editor Text="{Binding Description, Mode=TwoWay}" HeightRequest="58"/>
         <Entry Placeholder="{usk:Translate Address}" Text="{Binding Address, Mode=TwoWay}"/>
+        <DatePicker Date="{Binding CreationDate, Mode=TwoWay}"  HorizontalOptions="StartAndExpand"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Text="{usk:Translate Latitude}"/>
+            <Entry Grid.Row="1" Text="{Binding Path=Latitude, Mode=TwoWay, StringFormat='{0:F5}'}" Grid.Column="0" />
+            <Label Text="{usk:Translate Longitude}" Grid.Column="1" Grid.Row="0"/>
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Path=Longitude, Mode=TwoWay, StringFormat='{0:F6}'}"/>
+        </Grid>
         <!--<Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}" x:Name="ImageUrlEntry"/>-->
     </StackLayout>
-
-    <Grid Grid.Column="1" Grid.Row="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="148"/>
-            <ColumnDefinition Width="148"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid HorizontalOptions="FillAndExpand"  HeightRequest="32">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button Text="{usk:Translate SelectFile}" Clicked="OnSelectFile" HorizontalOptions="Start"/>
-        </Grid>
-        <Label Text="{usk:Translate DateCreated}" Grid.Row="1" Grid.Column="0"/>
-        <DatePicker Grid.Column="0" Date="{Binding CreationDate, Mode=TwoWay}" Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand"/>
-        <Label Text="{usk:Translate Latitude}" Grid.Row="3" Grid.Column="0"/>
-        <Entry Grid.Row="4" Text="{Binding Path=Latitude, Mode=TwoWay, StringFormat='{0:F5}'}" Grid.Column="0" />
-        <Label Text="{usk:Translate Longitude}" Grid.Column="1" Grid.Row="3"/>
-        <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Path=Longitude, Mode=TwoWay, StringFormat='{0:F6}'}"/>
-    </Grid>
     <StackLayout Grid.Column="0" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+        <Button Text="{usk:Translate SelectFile}" Clicked="OnSelectFile" HorizontalOptions="Start"/>
         <Button Text="{usk:Translate Add}" Clicked="OnAdd" x:Name="AddButton" VerticalOptions="End"/>
         <Button Text="{usk:Translate Cancel}" Clicked="OnCancel" VerticalOptions="End"/>
     </StackLayout>

@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+ * To add Offline Sync Support:
+ *  1) Add the NuGet package Microsoft.Azure.Mobile.Client.SQLiteStore (and dependencies) to all client projects
+ *  2) Uncomment the #define OFFLINE_SYNC_ENABLED
+ *
+ * For more information, see: http://go.microsoft.com/fwlink/?LinkId=620342
+ */
+
+//#define OFFLINE_SYNC_ENABLED
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -13,6 +23,11 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using UrbanSketchers.Data;
 using UrbanSketchers.Support;
+#if OFFLINE_SYNC_ENABLED
+using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
+
+#endif
+
 
 namespace UrbanSketchers
 {
@@ -28,11 +43,14 @@ namespace UrbanSketchers
         where TRating : class, IRating
     {
 #if OFFLINE_SYNC_ENABLED
-        IMobileServiceSyncTable<Sketch> sketchTable;
+        private readonly IMobileServiceSyncTable<TSketch> _sketchTable;
+        private readonly IMobileServiceSyncTable<TPerson> _peopleTable;
+        private readonly IMobileServiceSyncTable<TRating> _ratingTable;
 #else
         private readonly IMobileServiceTable<TSketch> _sketchTable;
         private readonly IMobileServiceTable<TPerson> _peopleTable;
         private readonly IMobileServiceTable<TRating> _ratingTable;
+#endif
 
         internal async Task<IEnumerable<IRating>> GetRatingsAsync(string sketchId)
         {
@@ -43,7 +61,6 @@ namespace UrbanSketchers
 
             return await query.ToEnumerableAsync();
         }
-#endif
 
         // ReSharper disable once UnusedMember.Local
         private const string OfflineDbPath = @"localstore.db";
@@ -56,13 +73,15 @@ namespace UrbanSketchers
             CurrentClient = new MobileServiceClient(Constants.ApplicationUrl);
 
 #if OFFLINE_SYNC_ENABLED
-            var store = new MobileServiceSQLiteStore(offlineDbPath);
-            store.DefineTable<TodoItem>();
+            var store = new MobileServiceSQLiteStore(OfflineDbPath);
+            store.DefineTable<Sketch>();
 
             //Initializes the SyncContext using the default IMobileServiceSyncHandler.
-            this.client.SyncContext.InitializeAsync(store);
+            CurrentClient.SyncContext.InitializeAsync(store);
 
-            this.todoTable = client.GetSyncTable<Sketch>();
+            _sketchTable = CurrentClient.GetSyncTable<TSketch>();
+            _peopleTable = CurrentClient.GetSyncTable<TPerson>();
+            _ratingTable = CurrentClient.GetSyncTable<TRating>();
 #else
             _sketchTable = CurrentClient.GetTable<TSketch>();
             _peopleTable = CurrentClient.GetTable<TPerson>();
@@ -213,6 +232,7 @@ namespace UrbanSketchers
         ///     Gets a value indicating whether offline support is enabled
         /// </summary>
         // ReSharper disable once SuspiciousTypeConversion.Global
+        // ReSharper disable once IsExpressionAlwaysTrue
         public bool IsOfflineEnabled => _sketchTable is IMobileServiceSyncTable<TSketch>;
 
         /// <summary>
@@ -254,9 +274,7 @@ namespace UrbanSketchers
             {
 #if OFFLINE_SYNC_ENABLED
                 if (syncItems)
-                {
-                    await this.SyncAsync();
-                }
+                    await SyncAsync();
 #endif
 
                 var query = from item in _sketchTable
@@ -361,48 +379,55 @@ namespace UrbanSketchers
 
 
 #if OFFLINE_SYNC_ENABLED
+        /// <summary>
+        /// Sync the offline table
+        /// </summary>
+        /// <returns>an async task</returns>
         public async Task SyncAsync()
         {
             ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
 
             try
             {
-                await this.client.SyncContext.PushAsync();
+                await CurrentClient.SyncContext.PushAsync();
 
-                await this.todoTable.PullAsync(
+                await _sketchTable.PullAsync(
                     //The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
                     //Use a different query name for each unique query in your program
-                    "allTodoItems",
-                    this.todoTable.CreateQuery());
+                    "allSketches",
+                    _sketchTable.CreateQuery());
+
+                await _peopleTable.PullAsync(
+                    //The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
+                    //Use a different query name for each unique query in your program
+                    "allPeople",
+                    _peopleTable.CreateQuery());
+
+                await _ratingTable.PullAsync(
+                    //The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
+                    //Use a different query name for each unique query in your program
+                    "allRatings",
+                    _ratingTable.CreateQuery());
             }
             catch (MobileServicePushFailedException exc)
             {
                 if (exc.PushResult != null)
-                {
                     syncErrors = exc.PushResult.Errors;
-                }
             }
 
             // Simple error/conflict handling. A real application would handle the various errors like network conditions,
             // server conflicts and others via the IMobileServiceSyncHandler.
             if (syncErrors != null)
-            {
                 foreach (var error in syncErrors)
                 {
                     if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
-                    {
-                        //Update failed, reverting to server's copy.
                         await error.CancelAndUpdateItemAsync(error.Result);
-                    }
                     else
-                    {
-                        // Discard local change.
                         await error.CancelAndDiscardItemAsync();
-                    }
 
-                    Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
+                    Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.",
+                        error.TableName, error.Item["id"]);
                 }
-            }
         }
 #endif
     }

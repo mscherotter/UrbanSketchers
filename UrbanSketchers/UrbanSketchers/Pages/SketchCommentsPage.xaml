@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="Page"
+             xmlns:controls="clr-namespace:UrbanSketchers.Controls;assembly=UrbanSketchers"
+             Title="Comments"
+             x:Class="UrbanSketchers.Pages.SketchCommentsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="EditItem" Text="Edit" Command="{Binding EditCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Edit.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Refresh.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <controls:ConnectedImage Source="{Binding Sketch.ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
+                    <!--<controls:ConnectedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnImageTapped"/>
+                    </controls:ConnectedImage.GestureRecognizers>-->
+                </controls:ConnectedImage>
+                <StackLayout Padding="4" Grid.Column="1">
+                    <Label Text="Comments"/>
+                    <Label Text="{Binding Sketch.Title}"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Sketch.CreatedByName, StringFormat='by {0}'}"  Style="{DynamicResource CaptionStyle}">
+                            <!--<Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTappedName"/>
+                            </Label.GestureRecognizers>-->
+                        </Label>
+                        <Label Text="{Binding Sketch.CreationDate, StringFormat='on {0:d}'}" Style="{DynamicResource CaptionStyle}"/>
+                    </StackLayout>
+                    <Label Text="{Binding Sketch.Description}" Style="{DynamicResource CaptionStyle}"/>
+                    <Label Text="{Binding Sketch.Address}" Style="{DynamicResource CaptionStyle}" />
+                    <Label  Style="{DynamicResource CaptionStyle}" Text="{Binding Comments.Count, StringFormat='{0} comments'}"/>
+                </StackLayout>
+
+            </Grid>
+            <ListView x:Name="Comments" ItemsSource="{Binding Comments}" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="4">
+                                <Label Text="{Binding Comment}" Style="{DynamicResource ListItemTextStyle}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding PersonName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding UpdatedAt.LocalDateTime, StringFormat='on {0:d}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout x:Name="CommentPanel" IsVisible="{Binding IsEditing}" Padding="4" Grid.Row="2" Grid.Column="0">
+                <Label Text="Comment"/>
+                <Editor x:Name="CommentEditor" Text="{Binding Comment, Mode=TwoWay}"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Inappropriate" VerticalOptions="Center"/>
+                    <Switch x:Name="ViolationSwitch" IsToggled="{Binding IsViolation, Mode=TwoWay}"/>
+                    <Button Text="..." VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="OK" Command="{Binding AcceptCommand}" />
+                    <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

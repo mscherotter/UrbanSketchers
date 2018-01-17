@@ -24,7 +24,7 @@ namespace UrbanSketchers
         ///     Authenticate Azure Mobile App
         /// </summary>
         /// <returns>true if successful</returns>
-        Task<bool> Authenticate();
+        Task<bool> AuthenticateAsync();
 
         /// <summary>
         ///     Signed in event
@@ -69,6 +69,8 @@ namespace UrbanSketchers
             DependencyService.Register<IPersonPageViewModel, PersonPageViewModel>();
             DependencyService.Register<IRating, Rating>();
             DependencyService.Register<ISketch, Sketch>();
+            DependencyService.Register<ISketchCommentsPage, SketchCommentsPage>();
+            DependencyService.Register<ISketchCommentsPageViewModel, SketchCommentsPageViewModel>();
             DependencyService.Register<ISketchPage, SketchPage>();
             DependencyService.Register<ISketchPin, SketchPin>();
             DependencyService.Register<ISketchesPage, SketchesPage>();

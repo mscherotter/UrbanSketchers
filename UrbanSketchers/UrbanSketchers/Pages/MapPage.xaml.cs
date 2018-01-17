@@ -113,43 +113,50 @@ namespace UrbanSketchers.Pages
 
         private async Task RefreshAsync()
         {
-            if (Map.VisibleRegion == null) return;
+            try
+            {
+                if (Map.VisibleRegion == null) return;
 
-            var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude,
-                Map.VisibleRegion.Center.Longitude,
-                CustomIndexing.SectorSize);
+                var sector = CustomIndexing.LatLonToSector(Map.VisibleRegion.Center.Latitude,
+                    Map.VisibleRegion.Center.Longitude,
+                    CustomIndexing.SectorSize);
 
 
-            var sectorArea = CustomIndexing.Area(sector, CustomIndexing.SectorSize);
+                var sectorArea = CustomIndexing.Area(sector, CustomIndexing.SectorSize);
 
-            var radius = Map.VisibleRegion.Radius.Kilometers;
+                var radius = Map.VisibleRegion.Radius.Kilometers;
 
-            var visibleArea = Math.Pow(radius * 2.0, 2.0);
+                var visibleArea = Math.Pow(radius * 2.0, 2.0);
 
-            Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
+                Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
 
-            var sketches = visibleArea > sectorArea
-                ? await SketchManager.DefaultManager.GetSketchsAsync()
-                : await SketchManager.DefaultManager.GetSketchsAsync(sector);
+                var sketches = visibleArea > sectorArea
+                    ? await SketchManager.DefaultManager.GetSketchsAsync()
+                    : await SketchManager.DefaultManager.GetSketchsAsync(sector);
 
-            if (sketches == null)
-                return;
+                if (sketches == null)
+                    return;
 
-            Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
-                sketches.TotalCount);
+                Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
+                    sketches.TotalCount);
 
-            var pins = from sketch in sketches
-                select CreatePin(sketch);
+                var pins = from sketch in sketches
+                    select CreatePin(sketch);
 
-            var pinList = pins.ToList();
+                var pinList = pins.ToList();
 
-            foreach (var pin in pinList)
-                pin.Clicked += Pin_Clicked;
+                foreach (var pin in pinList)
+                    pin.Clicked += Pin_Clicked;
 
-            Map.CustomPins.SetRange(pinList);
+                Map.CustomPins.SetRange(pinList);
 
-            //Map.Pins.SetRange(from pin in pinList
-            //    select pin.Pin);
+                //Map.Pins.SetRange(from pin in pinList
+                //    select pin.Pin);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Map page refresh failed: {0}", e.Message);
+            }
         }
 
         private async void Pin_Clicked(object sender, EventArgs e)
@@ -173,7 +180,7 @@ namespace UrbanSketchers.Pages
         {
             if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
             {
-                var authenticated = await App.Authenticator.Authenticate();
+                var authenticated = await App.Authenticator.AuthenticateAsync();
 
                 if (!authenticated)
                     return;

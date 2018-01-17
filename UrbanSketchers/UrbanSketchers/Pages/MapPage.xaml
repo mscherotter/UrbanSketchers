@@ -34,7 +34,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:SketchMap x:Name="Map" MaxImageSize="320"  MapType="Hybrid" PropertyChanged="OnMapPropertyChanged"  IsShowingUser="True" />
+        <controls:SketchMap x:Name="Map" MaxImageSize="320"  MapType="Hybrid" PropertyChanged="OnMapPropertyChanged" />
         <Image Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Crosshair" IsVisible="False">
             <Image.Source>
                 <OnPlatform x:TypeArguments="ImageSource">

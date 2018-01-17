@@ -52,11 +52,17 @@
     <Compile Include="Pages\IDrawingPage.cs" />
     <Compile Include="Pages\IMapPage.cs" />
     <Compile Include="Pages\IPeoplePage.cs" />
+    <Compile Include="Pages\ISketchCommentsPage.cs" />
     <Compile Include="Pages\ISketchesPage.cs" />
     <Compile Include="Pages\ISketchPage.cs" />
+    <Compile Include="Pages\SketchCommentsPage.xaml.cs">
+      <DependentUpon>SketchCommentsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServiceManager.cs" />
     <Compile Include="ViewModels\IPersonPageViewModel.cs" />
+    <Compile Include="ViewModels\ISketchCommentsPageViewModel.cs" />
     <Compile Include="ViewModels\PersonPageViewModel.cs" />
+    <Compile Include="ViewModels\SketchCommentsPageViewModel.cs" />
     <Compile Include="Views\ColorPickerView.cs" />
     <Compile Include="Controls\ConnectedImage.cs" />
     <Compile Include="Controls\DrawingCanvas.cs" />
@@ -254,6 +260,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\PicturePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\SketchCommentsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

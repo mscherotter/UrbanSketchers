@@ -251,7 +251,7 @@ namespace UrbanSketchers.Pages
         {
             if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
             {
-                await App.Authenticator.Authenticate();
+                await App.Authenticator.AuthenticateAsync();
             }
             else
             {
