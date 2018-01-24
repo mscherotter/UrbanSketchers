@@ -5,27 +5,12 @@
              xmlns:controls="clr-namespace:UrbanSketchers.Controls;assembly=UrbanSketchers"
              Title="Comments"
              x:Class="UrbanSketchers.Pages.SketchCommentsPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="EditItem" Text="Edit" Command="{Binding EditCommand}">
-            <ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="UWP">Assets/Edit.png</On>
-                </OnPlatform>
-            </ToolbarItem.Icon>
-        </ToolbarItem>
-        <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}">
-            <ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="UWP">Assets/Refresh.png</On>
-                </OnPlatform>
-            </ToolbarItem.Icon>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid>
@@ -33,7 +18,7 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <controls:ConnectedImage Source="{Binding Sketch.ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
+                <controls:ConnectedImage PropertyChanged="OnImagePropertyChanged" Source="{Binding Sketch.ImageUrl}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
                     <!--<controls:ConnectedImage.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnImageTapped"/>
                     </controls:ConnectedImage.GestureRecognizers>-->
@@ -72,16 +57,32 @@
             </ListView>
             <StackLayout x:Name="CommentPanel" IsVisible="{Binding IsEditing}" Padding="4" Grid.Row="2" Grid.Column="0">
                 <Label Text="Comment"/>
-                <Editor x:Name="CommentEditor" Text="{Binding Comment, Mode=TwoWay}"/>
+                <Editor x:Name="CommentEditor" HeightRequest="64" Text="{Binding Rating.Comment, Mode=TwoWay}"/>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Inappropriate" VerticalOptions="Center"/>
-                    <Switch x:Name="ViolationSwitch" IsToggled="{Binding IsViolation, Mode=TwoWay}"/>
-                    <Button Text="..." VerticalOptions="Center"/>
+                    <Switch x:Name="ViolationSwitch" IsToggled="{Binding Rating.IsViolation, Mode=TwoWay}"/>
+                    <Button Text="..." VerticalOptions="Center" Command="{Binding Rating.InappropriateCommand}"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Button Text="OK" Command="{Binding AcceptCommand}" />
                     <Button Text="Cancel" Command="{Binding CancelCommand}"/>
                 </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Grid.Row="3">
+                <Button  x:Name="EditItem" Text="Edit" Command="{Binding EditCommand}">
+                    <Button.Image>
+                        <OnPlatform x:TypeArguments="FileImageSource">
+                            <On Platform="UWP">Assets/Edit.png</On>
+                        </OnPlatform>
+                    </Button.Image>
+                </Button>
+                <Button Text="Refresh" Command="{Binding RefreshCommand}">
+                    <Button.Image>
+                        <OnPlatform x:TypeArguments="FileImageSource">
+                            <On Platform="UWP">Assets/Refresh.png</On>
+                        </OnPlatform>
+                    </Button.Image>
+                </Button>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

@@ -29,6 +29,14 @@ namespace UrbanSketchers.ViewModels
             EditCommand = new RelayCommand<object>(OnEdit, CanEdit);
             AcceptCommand = new RelayCommand<object>(OnAccept, CanAccept);
             CancelCommand = new RelayCommand<object>(OnCancel);
+            InappropriateCommand = new RelayCommand<object>(OnInappropriate);
+        }
+
+        private async void OnInappropriate(object obj)
+        {
+            await Page.DisplayAlert(Properties.Resources.InappropraiteSketch,
+                Properties.Resources.InappropriateSketchDescription,
+                Properties.Resources.OK);
         }
 
         private void OnCancel(object obj)
@@ -64,11 +72,15 @@ namespace UrbanSketchers.ViewModels
             }
             else
             {
+                Rating.Comment = Rating.Comment.Truncate(256);
+
                 await SketchManager.DefaultManager.SaveAsync(Rating);
 
                 //CommentPanel.IsVisible = false;
 
                 await LoadCommentsAsync();
+
+                IsEditing = false;
             }
 
             SetBusy(false);
@@ -100,6 +112,8 @@ namespace UrbanSketchers.ViewModels
             if (Rating == null)
             { 
                 Rating = DependencyService.Get<IRating>(DependencyFetchTarget.NewInstance);
+
+                Rating.SketchId = SketchId;
             }
         }
 
@@ -192,6 +206,11 @@ namespace UrbanSketchers.ViewModels
         /// Gets or sets the cancel command
         /// </summary>
         public RelayCommand<object> CancelCommand { get; }
+
+        /// <summary>
+        /// Gets or sets the inappropriate command
+        /// </summary>
+        public RelayCommand<object> InappropriateCommand { get; }
 
         private async void LoadSketch()
         {

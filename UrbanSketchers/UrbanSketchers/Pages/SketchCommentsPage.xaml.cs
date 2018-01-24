@@ -34,5 +34,16 @@ namespace UrbanSketchers.Pages
             get => _viewModel.SketchId;
             set => _viewModel.SketchId = value;
         }
+
+        private void OnImagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Image.Width) || e.PropertyName == nameof(Image.Height))
+            {
+                if (Image.Width * Image.Height > 4)
+                {
+                    Image.StartConnectedAnimation("Image");
+                }
+            }
+        }
     }
 }

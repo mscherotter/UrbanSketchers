@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
@@ -19,8 +18,6 @@ namespace UrbanSketchers.Pages
     public partial class SketchPage : ISketchPage
     {
         #region Fields
-
-        private IRating _rating;
 
         #endregion
 
@@ -106,7 +103,7 @@ namespace UrbanSketchers.Pages
 
                 UpdateLikeButton(rating);
 
-                await UpdateCommentsAsync();
+                //await UpdateCommentsAsync();
 
                 var position = new Position(Sketch.Latitude, Sketch.Longitude);
 
@@ -124,15 +121,6 @@ namespace UrbanSketchers.Pages
 
                 Map.Pins.Add(pushpin);
             }
-        }
-
-        private async Task UpdateCommentsAsync()
-        {
-            var allRatings = (await SketchManager.DefaultManager.GetRatingsAsync(Sketch.Id)).ToArray();
-
-            //Comments.ItemsSource = allRatings;
-
-            //Comments.IsVisible = allRatings.Any();
         }
 
         private void UpdateLikeButton(IRating rating)
@@ -155,23 +143,29 @@ namespace UrbanSketchers.Pages
 
         private async void OnEdit(object sender, EventArgs e)
         {
-            if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
-            {
-                var authenticated = await App.Authenticator.AuthenticateAsync();
+            var page = DependencyService.Get<IEditSketchPage>(DependencyFetchTarget.NewInstance);
 
-                if (!authenticated)
-                    return;
+            page.SketchId = SketchId;
 
-                var currentUser = await SketchManager.DefaultManager.GetCurrentUserAsync();
+            await Navigation.PushModalAsync(page as Page, true);
 
-                if (Sketch != null && Sketch.CreatedBy != currentUser.Id)
-                {
-                    await DisplayAlert(
-                        Properties.Resources.EditSketch,
-                        Properties.Resources.OnlyEditOwnSketches,
-                        Properties.Resources.OK);
-                }
-            }
+            //if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+            //{
+            //    var authenticated = await App.Authenticator.AuthenticateAsync();
+
+            //    if (!authenticated)
+            //        return;
+
+            //    var currentUser = await SketchManager.DefaultManager.GetCurrentUserAsync();
+
+            //    if (Sketch != null && Sketch.CreatedBy != currentUser.Id)
+            //    {
+            //        await DisplayAlert(
+            //            Properties.Resources.EditSketch,
+            //            Properties.Resources.OnlyEditOwnSketches,
+            //            Properties.Resources.OK);
+            //    }
+            //}
 
             // EditSketch.IsVisible = true;
         }
@@ -283,6 +277,8 @@ namespace UrbanSketchers.Pages
 
             page.SketchId = SketchId;
 
+            Image.Prepare("Image");
+
             await Navigation.PushModalAsync(page as Page, true);
 
             //_rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
@@ -298,52 +294,13 @@ namespace UrbanSketchers.Pages
             //CommentPanel.IsVisible = true;
         }
 
-        private void OnCancelComment(object sender, EventArgs e)
-        {
-            //CommentPanel.IsVisible = false;
-        }
 
-        /// <summary>
-        ///     Save the rating
-        /// </summary>
-        /// <param name="sender">the button</param>
-        /// <param name="e">the event arguments</param>
-        private async void OnAcceptComment(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-
-            if (button != null)
-                button.IsEnabled = false;
-
-            //_rating.Comment = CommentEditor.Text;
-            //_rating.IsViolation = ViolationSwitch.IsToggled;
-
-            if (_rating.IsViolation && string.IsNullOrWhiteSpace(_rating.Comment))
-            {
-                await DisplayAlert(
-                    Properties.Resources.EnterComment,
-                    string.Format(CultureInfo.CurrentCulture, Properties.Resources.AddCommentMessage,
-                        Properties.Resources.InappropriateSketchDescription),
-                    Properties.Resources.OK);
-            }
-            else
-            {
-                await SketchManager.DefaultManager.SaveAsync(_rating);
-
-                //CommentPanel.IsVisible = false;
-
-                await UpdateCommentsAsync();
-            }
-
-            if (button != null) button.IsEnabled = true;
-        }
-
-        private async void OnInappropriate(object sender, EventArgs e)
-        {
-            await DisplayAlert(Properties.Resources.InappropraiteSketch,
-                Properties.Resources.InappropriateSketchDescription,
-                Properties.Resources.OK);
-        }
+        //private async void OnInappropriate(object sender, EventArgs e)
+        //{
+        //    await DisplayAlert(Properties.Resources.InappropraiteSketch,
+        //        Properties.Resources.InappropriateSketchDescription,
+        //        Properties.Resources.OK);
+        //}
 
         /// <summary>
         ///     Navigate to the picture page for the image when tapped

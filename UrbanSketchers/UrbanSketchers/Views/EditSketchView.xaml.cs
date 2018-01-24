@@ -70,17 +70,43 @@ namespace UrbanSketchers.Views
                 }
         }
 
-        internal void LoadImageStream(Stream imageStream)
+        internal async Task LoadImageStreamAsync(Stream imageStream)
         {
-            _fileData = new FileData
+            Image.SetIsLoading(true);
+
+            if (imageStream.CanSeek)
             {
-                DataArray = new byte[imageStream.Length],
-                FileName = "Sketch.png"
-            };
+                _fileData = new FileData
+                {
+                    DataArray = new byte[imageStream.Length],
+                    FileName = "Sketch.png"
+                };
 
-            imageStream.Read(_fileData.DataArray, 0, Convert.ToInt32(imageStream.Length));
+                imageStream.Read(_fileData.DataArray, 0, Convert.ToInt32(imageStream.Length));
 
-            LoadFileData();
+                LoadFileData();
+            }
+            else
+            {
+                var memoryStream = new MemoryStream();
+
+                await imageStream.CopyToAsync(memoryStream);
+
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                _fileData = new FileData
+                {
+                    DataArray = new byte[memoryStream.Length],
+                    FileName = "Sketch.png"
+                };
+
+                memoryStream.Read(_fileData.DataArray, 0, Convert.ToInt32(memoryStream.Length));
+
+                LoadFileData();
+
+            }
+
+            Image.SetIsLoading(false);
         }
 
         /// <summary>

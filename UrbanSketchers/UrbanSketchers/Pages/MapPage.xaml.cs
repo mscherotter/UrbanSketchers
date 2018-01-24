@@ -45,7 +45,7 @@ namespace UrbanSketchers.Pages
 
             if (_imageStream != null && _imageStream.Length > 0)
             {
-                EditSketchView.LoadImageStream(_imageStream);
+                await EditSketchView.LoadImageStreamAsync(_imageStream);
 
                 _imageStream.Dispose();
 

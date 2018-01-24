@@ -48,8 +48,12 @@
     <Compile Include="Data\IPerson.cs" />
     <Compile Include="Data\IRating.cs" />
     <Compile Include="Data\ISketch.cs" />
+    <Compile Include="Pages\EditSketchPage.xaml.cs">
+      <DependentUpon>EditSketchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\IAboutPage.cs" />
     <Compile Include="Pages\IDrawingPage.cs" />
+    <Compile Include="Pages\IEditSketchPage.cs" />
     <Compile Include="Pages\IMapPage.cs" />
     <Compile Include="Pages\IPeoplePage.cs" />
     <Compile Include="Pages\ISketchCommentsPage.cs" />
@@ -59,6 +63,7 @@
       <DependentUpon>SketchCommentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ServiceManager.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="ViewModels\IPersonPageViewModel.cs" />
     <Compile Include="ViewModels\ISketchCommentsPageViewModel.cs" />
     <Compile Include="ViewModels\PersonPageViewModel.cs" />
@@ -266,6 +271,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\SketchCommentsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\EditSketchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
