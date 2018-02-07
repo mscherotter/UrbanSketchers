@@ -1,12 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:UrbanSketchers.Views;assembly=UrbanSketchers"
+             xmlns:urbanSketchers="clr-namespace:UrbanSketchers;assembly=UrbanSketchers"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="UrbanSketchers.Pages.EditSketchPage">
     <ContentPage.Content>
-        <StackLayout>
-            <views:EditSketchView x:Name="EditView" Padding="4" IsMapVisible="True" SketchSaved="OnSketchSaved" 
-                                  Canceled="OnCanceled" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <maps:Map x:Name="Map" HorizontalOptions="Fill"
+                      MapType="Street"  PropertyChanged="OnMapPropertyChanged" />
+            <Image Grid.Row="0" x:Name="Image" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="140" HeightRequest="140"/>
+            <StackLayout Grid.Row="1" Margin="12,0">
+                <Entry Placeholder="{urbanSketchers:Translate Title}" Text="{Binding Sketch.Title, Mode=TwoWay}"/>
+                <Label Text="{urbanSketchers:Translate Description}"/>
+                <Editor Text="{Binding Sketch.Description, Mode=TwoWay}" HeightRequest="58"/>
+                <Entry Placeholder="{urbanSketchers:Translate Address}" Text="{Binding Sketch.Address, Mode=TwoWay}"/>
+                <DatePicker Date="{Binding Sketch.CreationDate, Mode=TwoWay}"  HorizontalOptions="StartAndExpand"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{urbanSketchers:Translate Latitude}"/>
+                    <Entry Grid.Row="1" Text="{Binding Path=Sketch.Latitude, Mode=TwoWay, StringFormat='{0:F5}'}" Grid.Column="0" />
+                    <Label Text="{urbanSketchers:Translate Longitude}" Grid.Column="1" Grid.Row="0"/>
+                    <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Path=Sketch.Longitude, Mode=TwoWay, StringFormat='{0:F6}'}"/>
+                </Grid>
+                <!--<Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}" x:Name="ImageUrlEntry"/>-->
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Grid.Row="2" Margin="12">
+                <Button Text="{urbanSketchers:Translate SelectFile}" Clicked="OnSelectFile" HorizontalOptions="Start"/>
+                <Button Text="{urbanSketchers:Translate Add}" IsEnabled="{Binding CanAdd}" Clicked="OnAdd" x:Name="AddButton" VerticalOptions="End"/>
+                <Button Text="{urbanSketchers:Translate Cancel}" Clicked="OnCancel" VerticalOptions="End"/>
+            </StackLayout>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

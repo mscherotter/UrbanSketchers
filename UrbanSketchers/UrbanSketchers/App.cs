@@ -64,6 +64,7 @@ namespace UrbanSketchers
             DependencyService.Register<IAboutPage, AboutPage>();
             DependencyService.Register<IDrawingPage, DrawingPage>();
             DependencyService.Register<IEditSketchPage, EditSketchPage>();
+            DependencyService.Register<IEditSketchPageViewModel, EditSketchPageViewModel>();
             DependencyService.Register<IMapPage, MapPage>();
             DependencyService.Register<IPeoplePage, PeoplePage>();
             DependencyService.Register<IPerson, Person>();

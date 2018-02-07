@@ -178,51 +178,63 @@ namespace UrbanSketchers.Pages
 
         private async void OnAddSketch(object sender, EventArgs e)
         {
-            if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
-            {
-                var authenticated = await App.Authenticator.AuthenticateAsync();
-
-                if (!authenticated)
-                    return;
-            }
-
-            //if (string.IsNullOrWhiteSpace(_personId))
-            //{
-            //    var table = SketchManager.DefaultManager.CurrentClient.GetTable<Person>();
-
-            //    var query = from item in table
-            //        where item.UserId == SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
-            //        select item;
-
-            //    var results = await query.ToEnumerableAsync();
-
-            //    var person = results.FirstOrDefault();
-
-            //    if (person == null)
-            //    {
-            //        person = new Person
-            //        {
-            //            UserId = SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
-            //        };
-
-            //        await SketchManager.DefaultManager.SaveAsync(person);
-
-            //        _personId = person.Id;
-            //    }
-            //    else
-            //    {
-            //        _personId = person.Id;
-            //    }
-            //}
-
-            EditSketchView.IsVisible = true;
-            Crosshair.IsVisible = true;
+            var editSketchPage = DependencyService.Get<IEditSketchPage>(DependencyFetchTarget.NewInstance);
 
             _sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance);
 
-            await UpdateLocationAsync();
+            _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
+            _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
 
-            EditSketchView.BindingContext = _sketch;
+            editSketchPage.Sketch = _sketch;
+
+            await Navigation.PushModalAsync(editSketchPage as Page, true);
+            //page.SketchId
+
+            //if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+            //{
+            //    var authenticated = await App.Authenticator.AuthenticateAsync();
+
+            //    if (!authenticated)
+            //        return;
+            //}
+
+            ////if (string.IsNullOrWhiteSpace(_personId))
+            ////{
+            ////    var table = SketchManager.DefaultManager.CurrentClient.GetTable<Person>();
+
+            ////    var query = from item in table
+            ////        where item.UserId == SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
+            ////        select item;
+
+            ////    var results = await query.ToEnumerableAsync();
+
+            ////    var person = results.FirstOrDefault();
+
+            ////    if (person == null)
+            ////    {
+            ////        person = new Person
+            ////        {
+            ////            UserId = SketchManager.DefaultManager.CurrentClient.CurrentUser.UserId
+            ////        };
+
+            ////        await SketchManager.DefaultManager.SaveAsync(person);
+
+            ////        _personId = person.Id;
+            ////    }
+            ////    else
+            ////    {
+            ////        _personId = person.Id;
+            ////    }
+            ////}
+
+            //EditSketchView.IsVisible = true;
+            //Crosshair.IsVisible = true;
+
+            //_sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance);
+
+            //await UpdateLocationAsync();
+
+            //EditSketchView.BindingContext = _sketch;
         }
 
         private async void OnSketchSaved(object sender, TypedEventArgs<ISketch> e)
