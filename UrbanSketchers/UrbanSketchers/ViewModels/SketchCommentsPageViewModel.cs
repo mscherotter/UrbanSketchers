@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using UrbanSketchers.Commands;
 using UrbanSketchers.Data;
 using Xamarin.Forms;
@@ -111,7 +112,7 @@ namespace UrbanSketchers.ViewModels
 
             if (Rating == null)
             { 
-                Rating = DependencyService.Get<IRating>(DependencyFetchTarget.NewInstance);
+                Rating = Core.Container.Current.Resolve<IRating>();
 
                 Rating.SketchId = SketchId;
             }

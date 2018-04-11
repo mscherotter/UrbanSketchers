@@ -1,4 +1,5 @@
-﻿using UrbanSketchers.ViewModels;
+﻿using Autofac;
+using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,7 +20,7 @@ namespace UrbanSketchers.Pages
         {
             InitializeComponent();
 
-            _viewModel = DependencyService.Get<ISketchCommentsPageViewModel>(DependencyFetchTarget.NewInstance);
+            _viewModel = Core.Container.Current.Resolve<ISketchCommentsPageViewModel>();
 
             _viewModel.Page = this;
 

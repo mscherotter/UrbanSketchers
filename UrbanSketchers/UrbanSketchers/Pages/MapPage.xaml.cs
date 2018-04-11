@@ -10,6 +10,7 @@ using UrbanSketchers.Data;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Autofac;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Pages
@@ -95,7 +96,7 @@ namespace UrbanSketchers.Pages
 
         private static ISketchPin CreatePin(ISketch sketch)
         {
-            var pin = DependencyService.Get<ISketchPin>(DependencyFetchTarget.NewInstance);
+            var pin = Core.Container.Current.Resolve<ISketchPin>();
 
             pin.Pin = new Pin
             {
@@ -163,7 +164,7 @@ namespace UrbanSketchers.Pages
         {
             if (sender is ISketchPin pin)
             {
-                var page = DependencyService.Get<ISketchPage>(DependencyFetchTarget.NewInstance);
+                var page = Core.Container.Current.Resolve<ISketchPage>();
 
                 page.SketchId = pin.Pin.Id.ToString();
 
@@ -178,9 +179,9 @@ namespace UrbanSketchers.Pages
 
         private async void OnAddSketch(object sender, EventArgs e)
         {
-            var editSketchPage = DependencyService.Get<IEditSketchPage>(DependencyFetchTarget.NewInstance);
+            var editSketchPage = Core.Container.Current.Resolve<IEditSketchPage>();
 
-            _sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance);
+            _sketch = Core.Container.Current.Resolve<ISketch>();
 
             _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
             _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
@@ -284,7 +285,7 @@ namespace UrbanSketchers.Pages
             if (_inkStream == null)
                 _inkStream = new MemoryStream();
 
-            var page = DependencyService.Get<IDrawingPage>(DependencyFetchTarget.NewInstance);
+            var page = Core.Container.Current.Resolve<IDrawingPage>();
 
             page.ImageStream = _imageStream;
             page.InkStream = _inkStream;

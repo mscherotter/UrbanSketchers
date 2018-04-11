@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using UrbanSketchers.Data;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
@@ -103,7 +104,7 @@ namespace UrbanSketchers.Pages
         {
             if (e.Item is ISketch sketch)
             {
-                var page = DependencyService.Get<ISketchPage>(DependencyFetchTarget.NewInstance);
+                var page = Core.Container.Current.Resolve<ISketchPage>();
 
                 page.SketchId = sketch.Id;
 

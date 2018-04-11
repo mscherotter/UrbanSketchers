@@ -16,6 +16,7 @@ using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Button = Windows.UI.Xaml.Controls.Button;
 using NavigationEventArgs = Windows.UI.Xaml.Navigation.NavigationEventArgs;
+using Autofac;
 
 namespace UWP
 {
@@ -37,7 +38,7 @@ namespace UWP
         {
             InitializeComponent();
 
-            _sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance); 
+            _sketch = UrbanSketchers.Core.Container.Current.Resolve<ISketch>(); 
 
             DataContext = _sketch;
 

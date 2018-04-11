@@ -1,4 +1,5 @@
-﻿using UrbanSketchers.Data;
+﻿using Autofac;
+using UrbanSketchers.Data;
 using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,7 +21,7 @@ namespace UrbanSketchers.Pages
         {
             InitializeComponent();
 
-            _viewModel = DependencyService.Get<IPersonPageViewModel>(DependencyFetchTarget.NewInstance);
+            _viewModel = Core.Container.Current.Resolve<IPersonPageViewModel>();
 
             BindingContext = _viewModel;
         }
@@ -48,7 +49,7 @@ namespace UrbanSketchers.Pages
         {
             if (e.SelectedItem is ISketch sketch)
             {
-                var page = DependencyService.Get<ISketchPage>(DependencyFetchTarget.NewInstance);
+                var page = Core.Container.Current.Resolve<ISketchPage>();
 
                 page.SketchId = sketch.Id;
 

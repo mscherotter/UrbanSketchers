@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Autofac;
 using UrbanSketchers.Data;
 using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
@@ -33,7 +34,7 @@ namespace UrbanSketchers.Pages
         {
             InitializeComponent();
 
-            _viewModel = DependencyService.Get<IEditSketchPageViewModel>(DependencyFetchTarget.NewInstance);
+            _viewModel = Core.Container.Current.Resolve<IEditSketchPageViewModel>();
 
             BindingContext = _viewModel;
         }

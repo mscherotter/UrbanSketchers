@@ -2,11 +2,13 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Autofac;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
 using UrbanSketchers.Controls;
+using UrbanSketchers.Core;
 using UrbanSketchers.Data;
 using UrbanSketchers.Pages;
 using UrbanSketchers.ViewModels;
@@ -61,21 +63,7 @@ namespace UrbanSketchers
         /// </summary>
         public App()
         {
-            DependencyService.Register<IAboutPage, AboutPage>();
-            DependencyService.Register<IDrawingPage, DrawingPage>();
-            DependencyService.Register<IEditSketchPage, EditSketchPage>();
-            DependencyService.Register<IEditSketchPageViewModel, EditSketchPageViewModel>();
-            DependencyService.Register<IMapPage, MapPage>();
-            DependencyService.Register<IPeoplePage, PeoplePage>();
-            DependencyService.Register<IPerson, Person>();
-            DependencyService.Register<IPersonPageViewModel, PersonPageViewModel>();
-            DependencyService.Register<IRating, Rating>();
-            DependencyService.Register<ISketch, Sketch>();
-            DependencyService.Register<ISketchCommentsPage, SketchCommentsPage>();
-            DependencyService.Register<ISketchCommentsPageViewModel, SketchCommentsPageViewModel>();
-            DependencyService.Register<ISketchPage, SketchPage>();
-            DependencyService.Register<ISketchPin, SketchPin>();
-            DependencyService.Register<ISketchesPage, SketchesPage>();
+            InitializeContainer();
 
             AppCenter.Start(
                 "ios=132544fa-8be4-4fbc-a1f0-ba85d44880a2;"
@@ -187,6 +175,29 @@ namespace UrbanSketchers
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        private void InitializeContainer()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<AboutPage>().As<IAboutPage>();
+            builder.RegisterType<DrawingPage>().As<IDrawingPage>();
+            builder.RegisterType<EditSketchPage>().As<IEditSketchPage>();
+            builder.RegisterType<EditSketchPageViewModel>().As<IEditSketchPageViewModel>();
+            builder.RegisterType<MapPage>().As<IMapPage>();
+            builder.RegisterType<PeoplePage>().As<IPeoplePage>();
+            builder.RegisterType<Person>().As<IPerson>();
+            builder.RegisterType<PersonPageViewModel>().As<IPersonPageViewModel>();
+            builder.RegisterType<Rating>().As<IRating>();
+            builder.RegisterType<Sketch>().As<ISketch>();
+            builder.RegisterType<SketchCommentsPage>().As<ISketchCommentsPage>();
+            builder.RegisterType<SketchCommentsPageViewModel>().As<ISketchCommentsPageViewModel>();
+            builder.RegisterType<SketchPage>().As<ISketchPage>();
+            builder.RegisterType<SketchPin>().As<ISketchPin>();
+            builder.RegisterType<SketchesPage>().As<ISketchesPage>();
+
+            Container.Current = builder.Build();
         }
     }
 }

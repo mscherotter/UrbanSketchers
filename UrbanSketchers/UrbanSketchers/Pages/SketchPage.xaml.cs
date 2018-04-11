@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Threading.Tasks;
+using Autofac;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using UrbanSketchers.Data;
@@ -143,7 +144,7 @@ namespace UrbanSketchers.Pages
 
         private async void OnEdit(object sender, EventArgs e)
         {
-            var page = DependencyService.Get<IEditSketchPage>(DependencyFetchTarget.NewInstance);
+            var page = Core.Container.Current.Resolve<IEditSketchPage>();
 
             page.SketchId = SketchId;
 
@@ -273,7 +274,7 @@ namespace UrbanSketchers.Pages
 
         private async void OnComment(object sender, EventArgs e)
         {
-            var page = DependencyService.Get<ISketchCommentsPage>(DependencyFetchTarget.NewInstance);
+            var page = Core.Container.Current.Resolve<ISketchCommentsPage>();
 
             page.SketchId = SketchId;
 

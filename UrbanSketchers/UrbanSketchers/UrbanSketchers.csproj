@@ -45,6 +45,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ConnectedAnimations.cs" />
     <Compile Include="Controls\ISketchPin.cs" />
+    <Compile Include="Core\Container.cs" />
     <Compile Include="Data\IPerson.cs" />
     <Compile Include="Data\IRating.cs" />
     <Compile Include="Data\ISketch.cs" />

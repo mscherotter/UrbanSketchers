@@ -17,6 +17,7 @@ using UrbanSketchers.Support;
 using UWP.Support;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
+using Autofac;
 
 namespace UWP
 {
@@ -144,7 +145,7 @@ namespace UWP
         /// <returns></returns>
         private static async Task UploadAsync(AppServiceRequest request, ValueSet message)
         {
-            var sketch = DependencyService.Get<ISketch>(DependencyFetchTarget.NewInstance);
+            var sketch = UrbanSketchers.Core.Container.Current.Resolve<ISketch>();
 
             StorageFile file = null;
 
