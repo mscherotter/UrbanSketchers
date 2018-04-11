@@ -42,7 +42,9 @@ namespace UWP
 
             DataContext = _sketch;
 
-            _mobileServiceInit = new MobileServiceInit();
+            var sketchManager = new SketchManager();
+
+            _mobileServiceInit = new MobileServiceInit(sketchManager);
 
             _mobileServiceInit.SignedIn += _mobileServiceInit_SignedIn;
         }
@@ -163,11 +165,11 @@ namespace UWP
                     Guid.NewGuid().ToString(),
                     ".bmp");
 
-                _sketch.ImageUrl = await SketchManager.DefaultManager.UploadAsync(filename, _imageStream);
+                _sketch.ImageUrl = await UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().UploadAsync(filename, _imageStream);
 
                 ProgressBar.Value = 66;
 
-                await SketchManager.DefaultManager.SaveAsync(_sketch);
+                await UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().SaveAsync(_sketch);
 
                 ProgressBar.Value = 100;
 

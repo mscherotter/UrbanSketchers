@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Autofac;
 using UrbanSketchers.Commands;
 using UrbanSketchers.Data;
 using UrbanSketchers.Helpers;
@@ -90,9 +91,9 @@ namespace UrbanSketchers.ViewModels
         /// <returns></returns>
         public async Task RefreshAsync()
         {
-            Person = await SketchManager.DefaultManager.GetPersonAsync(PersonId);
+            Person = await Core.Container.Current.Resolve<ISketchManager>().GetPersonAsync(PersonId);
 
-            var sketches = await SketchManager.DefaultManager.GetSketchsAsync(PersonId);
+            var sketches = await Core.Container.Current.Resolve<ISketchManager>().GetSketchsAsync(PersonId);
 
             Sketches.SetRange(sketches);
         }
@@ -120,7 +121,7 @@ namespace UrbanSketchers.ViewModels
         {
             IsBusy = true;
 
-            await SketchManager.DefaultManager.SaveAsync(Person);
+            await Core.Container.Current.Resolve<ISketchManager>().SaveAsync(Person);
 
             IsBusy = false;
         }
@@ -133,7 +134,7 @@ namespace UrbanSketchers.ViewModels
         private async void OnDelete(object obj)
         {
             IsBusy = true;
-            await SketchManager.DefaultManager.DeleteCurrentUserAsync();
+            await Core.Container.Current.Resolve<ISketchManager>().DeleteCurrentUserAsync();
             IsBusy = false;
         }
     }

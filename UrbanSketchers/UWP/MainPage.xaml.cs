@@ -5,6 +5,8 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using UrbanSketchers;
 using Xamarin;
+using Autofac;
+using UrbanSketchers.Interfaces;
 
 namespace UWP
 {
@@ -13,6 +15,8 @@ namespace UWP
     /// </summary>
     public sealed partial class MainPage
     {
+        private readonly SketchManager _sketchManager;
+
         //private const string UriScheme = "urbansketchesauth";
 
         //private MobileServiceUser _user;
@@ -21,7 +25,7 @@ namespace UWP
 
         //public event EventHandler SignedIn;
 
-        private readonly MobileServiceInit _mobileServiceInit = new MobileServiceInit();
+        private readonly MobileServiceInit _mobileServiceInit;
 
         /// <summary>
         ///     Initializes a new instance of the MainPage class.
@@ -32,13 +36,18 @@ namespace UWP
 
             InitializeComponent();
 
+            _sketchManager = new SketchManager();
+
+            _mobileServiceInit = new MobileServiceInit(_sketchManager);
+
             UrbanSketchers.App.Init(_mobileServiceInit);
 
             UrbanSketchers.App.PinToStartCommand = new PinToStartCommand();
 
-            SketchManager.DefaultManager.ThumbnailGenerator = new ThumbnailGenerator();
+            LoadApplication(new UrbanSketchers.App(_sketchManager));
 
-            LoadApplication(new UrbanSketchers.App());
+            UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().ThumbnailGenerator = new ThumbnailGenerator();
+
 
             var bingMapsKey = Application.Current.Resources["BingMapsKey"].ToString();
 

@@ -62,9 +62,9 @@ namespace UrbanSketchers
         /// <summary>
         ///     Initializes a new instance of the App class
         /// </summary>
-        public App()
+        public App(ISketchManager sketchManager)
         {
-            InitializeContainer();
+            InitializeContainer(sketchManager);
 
             AppCenter.Start(
                 "ios=132544fa-8be4-4fbc-a1f0-ba85d44880a2;"
@@ -178,7 +178,7 @@ namespace UrbanSketchers
             // Handle when your app resumes
         }
 
-        private void InitializeContainer()
+        private void InitializeContainer(ISketchManager sketchManager)
         {
             var builder = new ContainerBuilder();
 
@@ -197,6 +197,8 @@ namespace UrbanSketchers
             builder.RegisterType<SketchPage>().As<ISketchPage>();
             builder.RegisterType<SketchPin>().As<ISketchPin>();
             builder.RegisterType<SketchesPage>().As<ISketchesPage>();
+
+            builder.RegisterInstance(sketchManager).As<ISketchManager>();
 
             Container.Current = builder.Build();
         }

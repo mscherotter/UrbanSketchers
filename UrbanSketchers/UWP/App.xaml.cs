@@ -197,9 +197,9 @@ namespace UWP
                 {
                     try
                     {
-                        sketch.ImageUrl = await SketchManager.DefaultManager.UploadAsync(file.Name, stream);
+                        sketch.ImageUrl = await UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().UploadAsync(file.Name, stream);
 
-                        await SketchManager.DefaultManager.SaveAsync(sketch);
+                        await UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().SaveAsync(sketch);
                     }
                     catch (Exception e)
                     {
@@ -231,7 +231,7 @@ namespace UWP
                 case ActivationKind.Protocol:
                     if (args is ProtocolActivatedEventArgs protocolArgs)
                         if (protocolArgs.Uri.ToString().StartsWith("urbansketchesauth:"))
-                            SketchManager.DefaultManager.CurrentClient.ResumeWithURL(protocolArgs.Uri);
+                            UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().CurrentClient.ResumeWithURL(protocolArgs.Uri);
                     break;
             }
         }

@@ -13,6 +13,7 @@ using Xamarin.Forms.Maps;
 using Autofac;
 using Xamarin.Forms.Xaml;
 using UrbanSketchers.Interfaces;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace UrbanSketchers.Pages
 {
@@ -58,7 +59,7 @@ namespace UrbanSketchers.Pages
 
             try
             {
-                var user = await SketchManager.DefaultManager.GetCurrentUserAsync();
+                var user = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
 
                 if (user != null)
                 {
@@ -133,15 +134,17 @@ namespace UrbanSketchers.Pages
                 Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
 
                 var sketches = visibleArea > sectorArea
-                    ? await SketchManager.DefaultManager.GetSketchsAsync()
-                    : await SketchManager.DefaultManager.GetSketchsAsync(sector);
+                    ? await Core.Container.Current.Resolve<ISketchManager>().GetSketchsAsync()
+                    : await Core.Container.Current.Resolve<ISketchManager>().GetSketchsAsync(sector);
 
                 if (sketches == null)
                     return;
 
-                Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
-                    sketches.TotalCount);
-
+                if (sketches is MobileServiceCollection<Sketch> collection)
+                {
+                    Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
+                            collection.TotalCount);
+                }
                 var pins = from sketch in sketches
                     select CreatePin(sketch);
 

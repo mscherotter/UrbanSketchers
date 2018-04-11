@@ -53,7 +53,7 @@ namespace UrbanSketchers
         private readonly IMobileServiceTable<TRating> _ratingTable;
 #endif
 
-        internal async Task<IEnumerable<IRating>> GetRatingsAsync(string sketchId)
+        public async Task<IEnumerable<IRating>> GetRatingsAsync(string sketchId)
         {
             var query = from item in _ratingTable
                 where item.SketchId == sketchId
@@ -95,7 +95,7 @@ namespace UrbanSketchers
         /// </summary>
         /// <param name="text">the text</param>
         /// <returns>an async task with a collection of sketches</returns>
-        public Task<MobileServiceCollection<TSketch, TSketch>> SearchAsync(string text)
+        public async Task<IEnumerable<ISketch>> SearchAsync(string text)
         {
             text = text.ToLower();
 
@@ -105,7 +105,9 @@ namespace UrbanSketchers
                       item.Address.ToLower().Contains(text)
                 select item;
 
-            return query.IncludeTotalCount().ToCollectionAsync();
+            var collection = await query.IncludeTotalCount().ToCollectionAsync();
+
+            return collection;
         }
 
         /// <summary>
@@ -143,7 +145,7 @@ namespace UrbanSketchers
             return rating.FirstOrDefault();
         }
 
-        internal async Task<IPerson> GetCurrentUserAsync()
+        public async Task<IPerson> GetCurrentUserAsync()
         {
             if (CurrentClient.CurrentUser == null)
                 return null;
@@ -214,7 +216,7 @@ namespace UrbanSketchers
             return uri;
         }
 
-        internal Task DeleteAsync(ISketch sketch)
+        public Task DeleteAsync(ISketch sketch)
         {
             return _sketchTable.DeleteAsync(sketch as TSketch);
         }
@@ -252,7 +254,7 @@ namespace UrbanSketchers
         ///     Gets the people who are sketchers
         /// </summary>
         /// <returns>an async task with an observable collection of people</returns>
-        public async Task<ObservableCollection<TPerson>> GetPeopleAsync()
+        public async Task<IEnumerable<IPerson>> GetPeopleAsync()
         {
             var query = from item in _peopleTable
                 orderby item.Name
@@ -269,7 +271,7 @@ namespace UrbanSketchers
         /// <param name="personId">the person who created the sketches</param>
         /// <param name="syncItems">true to sync the offline items</param>
         /// <returns>an async task with an observable collection of sketches</returns>
-        public async Task<ObservableCollection<ISketch>> GetSketchsAsync(string personId, bool syncItems = false)
+        public async Task<IEnumerable<ISketch>> GetSketchsAsync(string personId, bool syncItems = false)
         {
             try
             {
@@ -303,20 +305,22 @@ namespace UrbanSketchers
         /// </summary>
         /// <param name="sector">the sector</param>
         /// <returns>an async task with an observable collection of sketches</returns>
-        public Task<MobileServiceCollection<TSketch, TSketch>> GetSketchsAsync(int sector)
+        public async Task<IEnumerable<ISketch>> GetSketchsAsync(int sector)
         {
             var items = from item in _sketchTable
                 where item.Sector == sector
                 select item;
 
-            return items.IncludeTotalCount().ToCollectionAsync();
+            var sketches = await items.IncludeTotalCount().ToCollectionAsync();
+
+            return sketches;
         }
 
         /// <summary>
         ///     Gets the sketches
         /// </summary>
         /// <returns>an async task with a collection of sketches</returns>
-        public async Task<MobileServiceCollection<TSketch, TSketch>> GetSketchsAsync()
+        public async Task<IEnumerable<ISketch>> GetSketchsAsync()
         {
             try
             {
@@ -373,9 +377,9 @@ namespace UrbanSketchers
                 await _ratingTable.UpdateAsync(item as TRating);
         }
 
-        internal Task<TPerson> GetPersonAsync(string personId)
+        public async Task<IPerson> GetPersonAsync(string personId)
         {
-            return _peopleTable.LookupAsync(personId);
+            return await _peopleTable.LookupAsync(personId);
         }
 
 

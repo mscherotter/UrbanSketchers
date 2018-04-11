@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Autofac;
 using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
@@ -42,7 +43,7 @@ namespace UrbanSketchers.Pages
 
         private async Task RefreshAsync()
         {
-            var people = await SketchManager.DefaultManager.GetPeopleAsync();
+            var people = await Core.Container.Current.Resolve<ISketchManager>().GetPeopleAsync();
 
             People.ItemsSource = people;
         }

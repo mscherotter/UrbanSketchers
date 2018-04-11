@@ -76,7 +76,7 @@ namespace UrbanSketchers.ViewModels
             {
                 Rating.Comment = Rating.Comment.Truncate(256);
 
-                await SketchManager.DefaultManager.SaveAsync(Rating as Rating);
+                await Core.Container.Current.Resolve<ISketchManager>().SaveAsync(Rating as Rating);
 
                 //CommentPanel.IsVisible = false;
 
@@ -108,7 +108,7 @@ namespace UrbanSketchers.ViewModels
 
             if (Rating == null)
             {
-                Rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
+                Rating = await Core.Container.Current.Resolve<ISketchManager>().GetRatingAsync(SketchId);
             }
 
             if (Rating == null)
@@ -216,7 +216,7 @@ namespace UrbanSketchers.ViewModels
 
         private async void LoadSketch()
         {
-            Sketch = await SketchManager.DefaultManager.GetSketchAsync(SketchId);
+            Sketch = await Core.Container.Current.Resolve<ISketchManager>().GetSketchAsync(SketchId);
 
             if (Sketch == null)
             {
@@ -228,7 +228,7 @@ namespace UrbanSketchers.ViewModels
 
         private async Task LoadCommentsAsync()
         {
-            var ratings = from item in await SketchManager.DefaultManager.GetRatingsAsync(Sketch.Id)
+            var ratings = from item in await Core.Container.Current.Resolve<ISketchManager>().GetRatingsAsync(Sketch.Id)
                 where !string.IsNullOrWhiteSpace(item.Comment)
                 select item;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Autofac;
 using UrbanSketchers.Commands;
 using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
@@ -97,8 +98,6 @@ namespace UrbanSketchers.Pages
             SignInCommand = new RelayCommand<object>(SignIn);
 
             BindingContext = this;
-
-            App.Authenticator.SignedIn += Authenticator_SignedIn;
         }
 
         /// <summary>
@@ -175,6 +174,8 @@ namespace UrbanSketchers.Pages
         /// </summary>
         protected override async void OnAppearing()
         {
+            App.Authenticator.SignedIn += Authenticator_SignedIn;
+
             base.OnAppearing();
 
             await UpdateUserAsync();
@@ -189,11 +190,11 @@ namespace UrbanSketchers.Pages
         {
             try
             {
-                var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+                var person = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
 
                 if (person == null)
                 {
-                    if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+                    if (Core.Container.Current.Resolve<ISketchManager>().CurrentClient.CurrentUser == null)
                     {
                         SignInImage = "Assets/SignIn.24.png";
                         SignInText = Properties.Resources.SignIn;
@@ -218,7 +219,7 @@ namespace UrbanSketchers.Pages
             }
             catch (Exception)
             {
-                if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+                if (Core.Container.Current.Resolve<ISketchManager>().CurrentClient.CurrentUser == null)
                 {
                     SignInImage = "Assets/SignIn.24.png";
                     SignInText = Properties.Resources.SignIn;
@@ -250,7 +251,7 @@ namespace UrbanSketchers.Pages
 
         private async void SignIn(object parameter)
         {
-            if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+            if (Core.Container.Current.Resolve<ISketchManager>().CurrentClient.CurrentUser == null)
             {
                 await App.Authenticator.AuthenticateAsync();
             }

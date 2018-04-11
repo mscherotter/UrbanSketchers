@@ -70,7 +70,7 @@ namespace UrbanSketchers.Pages
             }
             else
             {
-                var sketch = await SketchManager.DefaultManager.GetSketchAsync(SketchId);
+                var sketch = await Core.Container.Current.Resolve<ISketchManager>().GetSketchAsync(SketchId);
 
                 if (sketch != null)
                 {

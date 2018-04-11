@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IRating.cs" />
     <Compile Include="Interfaces\ISketch.cs" />
+    <Compile Include="Interfaces\ISketchManager.cs" />
     <Compile Include="Pages\EditSketchPage.xaml.cs">
       <DependentUpon>EditSketchPage.xaml</DependentUpon>
     </Compile>

@@ -8,6 +8,8 @@ using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
 using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers;
+using Autofac;
+using UrbanSketchers.Interfaces;
 
 namespace UWP
 {
@@ -19,9 +21,10 @@ namespace UWP
         private const string UriScheme = "urbansketchesauth";
         private readonly PasswordVault _passwordVault;
         private MobileServiceUser _user;
-
-        public MobileServiceInit()
+        private readonly ISketchManager _sketchManager;
+        public MobileServiceInit(ISketchManager sketchManager)
         {
+            _sketchManager = sketchManager;
             _passwordVault = new PasswordVault();
 
             Initialize();
@@ -107,7 +110,7 @@ namespace UWP
 
                     _user = user;
 
-                    SketchManager.DefaultManager.CurrentClient.CurrentUser = _user;
+                    _sketchManager.CurrentClient.CurrentUser = _user;
 
                     //_user = await SketchManager.DefaultManager.CurrentClient.RefreshUserAsync();
 
@@ -120,7 +123,7 @@ namespace UWP
             {
                 System.Diagnostics.Debug.WriteLine($"Error initializing mobile service with stored credential: {e.Message}");
 
-                SketchManager.DefaultManager.CurrentClient.CurrentUser = null;
+                _sketchManager.CurrentClient.CurrentUser = null;
 
                 //if (credential != null)
                 //{
@@ -148,7 +151,7 @@ namespace UWP
             {
                 var resourceName = provider.ToString();
 
-                _user = await SketchManager.DefaultManager.CurrentClient.LoginAsync(
+                _user = await _sketchManager.CurrentClient.LoginAsync(
                     provider, UriScheme);
 
                 if (_user != null)
@@ -173,12 +176,12 @@ namespace UWP
 
         public async Task LogoutAsync()
         {
-            if (SketchManager.DefaultManager.CurrentClient.CurrentUser == null)
+            if (_sketchManager.CurrentClient.CurrentUser == null)
             {
                 return;
             }
 
-            await SketchManager.DefaultManager.CurrentClient.LogoutAsync();
+            await _sketchManager.CurrentClient.LogoutAsync();
 
             if (ApplicationData.Current.LocalSettings.Values.TryGetValue("MobileServiceAuthenticationProvider",
                 out object value))

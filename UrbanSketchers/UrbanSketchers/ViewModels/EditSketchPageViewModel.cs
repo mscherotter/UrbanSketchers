@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using UrbanSketchers.Helpers;
@@ -120,7 +121,7 @@ namespace UrbanSketchers.ViewModels
                 using (var stream = new MemoryStream(_fileData.DataArray))
                 {
                     Sketch.ImageUrl =
-                        await SketchManager.DefaultManager.UploadAsync(filename, stream);
+                        await Core.Container.Current.Resolve<ISketchManager>().UploadAsync(filename, stream);
 
                     Sketch.ThumbnailUrl = Sketch.ImageUrl.Replace("/sketches/", "/thumbnails/");
                 }
@@ -128,7 +129,7 @@ namespace UrbanSketchers.ViewModels
 
             try
             {
-                await SketchManager.DefaultManager.SaveAsync(Sketch);
+                await Core.Container.Current.Resolve<ISketchManager>().SaveAsync(Sketch);
                 //SketchSaved?.Invoke(this, new TypedEventArgs<ISketch>(sketch));
             }
             catch (Exception exception)

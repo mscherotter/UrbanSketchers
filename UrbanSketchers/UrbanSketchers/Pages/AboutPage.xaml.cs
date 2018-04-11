@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Autofac;
 using Plugin.Share;
 using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
@@ -96,14 +97,14 @@ namespace UrbanSketchers.Pages
                 Properties.Resources.OK, Properties.Resources.Cancel))
                 return;
 
-            await SketchManager.DefaultManager.DeleteCurrentUserAsync();
+            await Core.Container.Current.Resolve<ISketchManager>().DeleteCurrentUserAsync();
 
             await UpdateDeleteUserButtonAsync();
         }
 
         private async Task UpdateDeleteUserButtonAsync()
         {
-            var user = await SketchManager.DefaultManager.GetCurrentUserAsync();
+            var user = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
 
             DeleteUserButton.IsEnabled = user != null;
         }

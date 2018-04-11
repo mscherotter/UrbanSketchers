@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
+using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
@@ -17,7 +18,7 @@ namespace UrbanSketchers.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SketchesPage : ISketchesPage
     {
-        private readonly SketchManager _sketchManager;
+        private readonly ISketchManager _sketchManager;
 
         /// <summary>
         ///     Initializes a new instance of the SketchesPage class.
@@ -30,7 +31,7 @@ namespace UrbanSketchers.Pages
 
             BindingContext = this;
 
-            _sketchManager = SketchManager.DefaultManager;
+            _sketchManager = Core.Container.Current.Resolve<ISketchManager>();
         }
 
         // public ObservableCollection<Sketch> Items { get; set; }
@@ -63,12 +64,12 @@ namespace UrbanSketchers.Pages
                 {
                     if (!string.IsNullOrWhiteSpace(SearchText))
                     {
-                        var results = await SketchManager.DefaultManager.SearchAsync(SearchText);
+                        var results = await _sketchManager.SearchAsync(SearchText);
 
                         Title = string.Format(
                             CultureInfo.CurrentCulture,
                             Properties.Resources.XResultsForY,
-                            results.TotalCount,
+                            0,
                             SearchText);
 
                         SketchList.ItemsSource = results;
@@ -78,22 +79,29 @@ namespace UrbanSketchers.Pages
                         var sketches = await _sketchManager.GetSketchsAsync(PersonId);
 
                         if (sketches.Any())
-                            Title = string.Format(
-                                CultureInfo.CurrentCulture,
-                                Properties.Resources.SketchesByFormat,
-                                sketches.Count,
-                                sketches.First().CreatedByName);
-
+                        {
+                            if (sketches is MobileServiceCollection<Sketch> collection)
+                            {
+                                Title = string.Format(
+                                    CultureInfo.CurrentCulture,
+                                    Properties.Resources.SketchesByFormat,
+                                    collection.Count,
+                                    sketches.First().CreatedByName);
+                            }
+                        }
                         SketchList.ItemsSource = sketches;
                     }
                     else
                     {
                         var sketches = await _sketchManager.GetSketchsAsync();
 
-                        Title = string.Format(
-                            CultureInfo.CurrentCulture,
-                            Properties.Resources.NSketches,
-                            sketches?.TotalCount ?? 0);
+                        if (sketches is MobileServiceCollection<Sketch> collection)
+                        {
+                            Title = string.Format(
+                                CultureInfo.CurrentCulture,
+                                Properties.Resources.NSketches,
+                                collection.TotalCount);
+                        }
 
                         SketchList.ItemsSource = sketches;
                     }

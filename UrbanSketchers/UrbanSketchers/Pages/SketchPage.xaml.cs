@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Autofac;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
-using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -95,13 +94,13 @@ namespace UrbanSketchers.Pages
 
         private async Task RefreshAsync()
         {
-            var sketch = await SketchManager.DefaultManager.GetSketchAsync(SketchId);
+            var sketch = await Core.Container.Current.Resolve<ISketchManager>().GetSketchAsync(SketchId);
 
             BindingContext = sketch;
 
             if (Sketch != null)
             {
-                var rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
+                var rating = await Core.Container.Current.Resolve<ISketchManager>().GetRatingAsync(SketchId);
 
                 UpdateLikeButton(rating);
 
@@ -198,18 +197,19 @@ namespace UrbanSketchers.Pages
 
             LikeButton.IsEnabled = false;
 
-            var rating = await SketchManager.DefaultManager.GetRatingAsync(SketchId);
+            var rating = await Core.Container.Current.Resolve<ISketchManager>().GetRatingAsync(SketchId);
 
             if (rating == null)
-                rating = new Rating
-                {
-                    IsHeart = true,
-                    SketchId = SketchId
-                };
+            {
+                rating = Core.Container.Current.Resolve<IRating>();
+
+                rating.IsHeart = true;
+                rating.SketchId = SketchId;
+            }
             else
                 rating.IsHeart = !rating.IsHeart;
 
-            await SketchManager.DefaultManager.SaveAsync(rating);
+            await Core.Container.Current.Resolve<ISketchManager>().SaveAsync(rating);
 
             UpdateLikeButton(rating);
 
@@ -220,11 +220,11 @@ namespace UrbanSketchers.Pages
         {
             if (Sketch == null) return;
 
-            var person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+            var person = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
 
             if (person == null)
                 if (await App.Authenticator.AuthenticateAsync())
-                    person = await SketchManager.DefaultManager.GetCurrentUserAsync();
+                    person = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
 
             if (person == null)
                 return;
@@ -248,7 +248,7 @@ namespace UrbanSketchers.Pages
 
             if (!response) return;
 
-            await SketchManager.DefaultManager.DeleteAsync(Sketch);
+            await Core.Container.Current.Resolve<ISketchManager>().DeleteAsync(Sketch);
 
             await Navigation.PopAsync(true);
         }
