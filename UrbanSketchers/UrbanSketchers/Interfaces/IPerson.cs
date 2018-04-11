@@ -1,4 +1,4 @@
-﻿namespace UrbanSketchers.Data
+﻿namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     Person interface

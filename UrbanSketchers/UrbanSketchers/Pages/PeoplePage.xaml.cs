@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

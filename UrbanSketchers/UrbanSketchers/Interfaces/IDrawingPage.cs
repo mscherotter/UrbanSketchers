@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace UrbanSketchers.Pages
+namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     Drawing page interface

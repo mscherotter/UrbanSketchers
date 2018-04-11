@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Autofac;
 using Xamarin.Forms.Xaml;
+using UrbanSketchers.Interfaces;
 
 namespace UrbanSketchers.Pages
 {

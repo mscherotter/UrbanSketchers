@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace UrbanSketchers
+namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     Localize interface

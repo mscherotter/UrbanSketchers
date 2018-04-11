@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using UrbanSketchers.Data;
-using UrbanSketchers.ViewModels;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

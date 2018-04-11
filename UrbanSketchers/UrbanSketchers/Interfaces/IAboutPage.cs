@@ -1,4 +1,4 @@
-﻿namespace UrbanSketchers.Pages
+﻿namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     About page interface

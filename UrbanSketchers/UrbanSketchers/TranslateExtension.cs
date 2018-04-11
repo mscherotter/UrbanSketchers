@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

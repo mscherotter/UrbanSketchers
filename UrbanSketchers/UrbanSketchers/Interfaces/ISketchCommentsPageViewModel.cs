@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace UrbanSketchers.ViewModels
+namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     Sketch comments page view model interface

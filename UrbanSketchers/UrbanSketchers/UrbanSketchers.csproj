@@ -46,29 +46,29 @@
     <Compile Include="ConnectedAnimations.cs" />
     <Compile Include="Controls\ISketchPin.cs" />
     <Compile Include="Core\Container.cs" />
-    <Compile Include="Data\IPerson.cs" />
-    <Compile Include="Data\IRating.cs" />
-    <Compile Include="Data\ISketch.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IRating.cs" />
+    <Compile Include="Interfaces\ISketch.cs" />
     <Compile Include="Pages\EditSketchPage.xaml.cs">
       <DependentUpon>EditSketchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\IAboutPage.cs" />
-    <Compile Include="Pages\IDrawingPage.cs" />
-    <Compile Include="Pages\IEditSketchPage.cs" />
-    <Compile Include="Pages\IMapPage.cs" />
-    <Compile Include="Pages\IPeoplePage.cs" />
-    <Compile Include="Pages\ISketchCommentsPage.cs" />
-    <Compile Include="Pages\ISketchesPage.cs" />
-    <Compile Include="Pages\ISketchPage.cs" />
+    <Compile Include="Interfaces\IAboutPage.cs" />
+    <Compile Include="Interfaces\IDrawingPage.cs" />
+    <Compile Include="Interfaces\IEditSketchPage.cs" />
+    <Compile Include="Interfaces\IMapPage.cs" />
+    <Compile Include="Interfaces\IPeoplePage.cs" />
+    <Compile Include="Interfaces\ISketchCommentsPage.cs" />
+    <Compile Include="Interfaces\ISketchesPage.cs" />
+    <Compile Include="Interfaces\ISketchPage.cs" />
     <Compile Include="Pages\SketchCommentsPage.xaml.cs">
       <DependentUpon>SketchCommentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ServiceManager.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="ViewModels\EditSketchPageViewModel.cs" />
-    <Compile Include="ViewModels\IEditSketchPageViewModel.cs" />
-    <Compile Include="ViewModels\IPersonPageViewModel.cs" />
-    <Compile Include="ViewModels\ISketchCommentsPageViewModel.cs" />
+    <Compile Include="Interfaces\IEditSketchPageViewModel.cs" />
+    <Compile Include="Interfaces\IPersonPageViewModel.cs" />
+    <Compile Include="Interfaces\ISketchCommentsPageViewModel.cs" />
     <Compile Include="ViewModels\PersonPageViewModel.cs" />
     <Compile Include="ViewModels\SketchCommentsPageViewModel.cs" />
     <Compile Include="Views\ColorPickerView.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="Data\Sketch.cs" />
     <Compile Include="Data\SketchFile.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
-    <Compile Include="ILocalize.cs" />
+    <Compile Include="Interfaces\ILocalize.cs" />
     <Compile Include="NavigationMenuItem.cs" />
     <Compile Include="Pages\PicturePage.xaml.cs">
       <DependentUpon>PicturePage.xaml</DependentUpon>

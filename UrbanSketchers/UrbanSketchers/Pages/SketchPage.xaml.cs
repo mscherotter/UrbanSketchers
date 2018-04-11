@@ -6,6 +6,7 @@ using Autofac;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;

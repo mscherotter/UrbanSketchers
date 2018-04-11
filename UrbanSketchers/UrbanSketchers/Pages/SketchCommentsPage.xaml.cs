@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using UrbanSketchers.ViewModels;
-using Xamarin.Forms;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Pages

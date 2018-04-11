@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;

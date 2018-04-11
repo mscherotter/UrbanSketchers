@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UrbanSketchers.Commands;
 using UrbanSketchers.Data;
 using UrbanSketchers.Helpers;
+using UrbanSketchers.Interfaces;
 
 namespace UrbanSketchers.ViewModels
 {

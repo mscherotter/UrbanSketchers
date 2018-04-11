@@ -22,6 +22,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UrbanSketchers.ViewModels
+namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     Person page view model interface

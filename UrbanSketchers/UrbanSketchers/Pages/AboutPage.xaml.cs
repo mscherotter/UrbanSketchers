@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Plugin.Share;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

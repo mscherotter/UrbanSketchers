@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UrbanSketchers.Data
+namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     Sketch interface

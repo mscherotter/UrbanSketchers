@@ -10,6 +10,7 @@ using Microsoft.AppCenter.Push;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Core;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using UrbanSketchers.Pages;
 using UrbanSketchers.ViewModels;
 using Xamarin.Forms;

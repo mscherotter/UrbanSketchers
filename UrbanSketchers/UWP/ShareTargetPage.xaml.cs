@@ -4,6 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using UrbanSketchers;
+using UrbanSketchers.Interfaces;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Devices.Geolocation;
@@ -11,12 +14,9 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Media.Imaging;
-using UrbanSketchers;
-using UrbanSketchers.Data;
 using Xamarin.Forms;
 using Button = Windows.UI.Xaml.Controls.Button;
 using NavigationEventArgs = Windows.UI.Xaml.Navigation.NavigationEventArgs;
-using Autofac;
 
 namespace UWP
 {

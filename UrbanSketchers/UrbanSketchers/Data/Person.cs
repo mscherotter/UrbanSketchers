@@ -1,4 +1,6 @@
-﻿namespace UrbanSketchers.Data
+﻿using UrbanSketchers.Interfaces;
+
+namespace UrbanSketchers.Data
 {
     /// <summary>
     ///     Urban Sketcher

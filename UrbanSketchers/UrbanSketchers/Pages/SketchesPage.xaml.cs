@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

@@ -1,6 +1,6 @@
 ﻿using UrbanSketchers.Data;
 
-namespace UrbanSketchers.Pages
+namespace UrbanSketchers.Interfaces
 {
     /// <summary>
     ///     Edit Sketch page interface

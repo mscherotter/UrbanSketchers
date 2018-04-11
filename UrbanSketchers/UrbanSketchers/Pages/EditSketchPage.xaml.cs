@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Autofac;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -52,6 +53,7 @@ namespace UrbanSketchers.Pages
         ///     Gets or sets the sketch Id
         /// </summary>
         public string SketchId { get; set; }
+        ISketch IEditSketchPage.Sketch { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>
         ///     Load the sketch

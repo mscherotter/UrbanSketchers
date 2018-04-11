@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autofac;
 using UrbanSketchers.Commands;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 
 namespace UrbanSketchers.ViewModels
@@ -75,7 +76,7 @@ namespace UrbanSketchers.ViewModels
             {
                 Rating.Comment = Rating.Comment.Truncate(256);
 
-                await SketchManager.DefaultManager.SaveAsync(Rating);
+                await SketchManager.DefaultManager.SaveAsync(Rating as Rating);
 
                 //CommentPanel.IsVisible = false;
 

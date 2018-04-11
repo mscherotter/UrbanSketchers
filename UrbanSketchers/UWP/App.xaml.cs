@@ -2,6 +2,12 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Autofac;
+using Microsoft.WindowsAzure.MobileServices;
+using UrbanSketchers;
+using UrbanSketchers.Interfaces;
+using UrbanSketchers.Support;
+using UWP.Support;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
@@ -10,14 +16,8 @@ using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.WindowsAzure.MobileServices;
-using UrbanSketchers;
-using UrbanSketchers.Data;
-using UrbanSketchers.Support;
-using UWP.Support;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
-using Autofac;
 
 namespace UWP
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using UrbanSketchers.Controls;
+using UrbanSketchers.Interfaces;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Pages
