@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Autofac": "4.7.0",
+    "Autofac": "4.7.1",
     "Microsoft.AppCenter": "1.5.0",
     "Microsoft.AppCenter.Analytics": "1.5.0",
     "Microsoft.AppCenter.Crashes": "1.5.0",
