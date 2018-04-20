@@ -1,9 +1,9 @@
 ﻿{
   "dependencies": {
-    "Microsoft.AppCenter": "1.5.0",
-    "Microsoft.AppCenter.Analytics": "1.5.0",
-    "Microsoft.AppCenter.Crashes": "1.5.0",
-    "Microsoft.AppCenter.Push": "1.5.0",
+    "Microsoft.AppCenter": "1.6.0",
+    "Microsoft.AppCenter.Analytics": "1.6.0",
+    "Microsoft.AppCenter.Crashes": "1.6.0",
+    "Microsoft.AppCenter.Push": "1.6.0",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
     "Xamarin.Android.Support.CustomTabs": "26.1.0.1",
     "Xamarin.Android.Support.Design": "26.1.0.1",
