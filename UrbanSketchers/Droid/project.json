@@ -15,6 +15,6 @@
     "Xamarin.Forms.Maps": "2.5.1.444934"
   },
   "frameworks": {
-    "MonoAndroid,Version=v8.0": {}
+    "MonoAndroid,Version=v8.1": {}
   }
 }

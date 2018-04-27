@@ -14,6 +14,8 @@ namespace UrbanSketchers.Droid
         Theme = "@android:style/Theme.Holo.Light")]
     public class MainActivity : FormsApplicationActivity
     {
+        private SketchManager _sketchManager;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -24,8 +26,10 @@ namespace UrbanSketchers.Droid
             // Initialize Xamarin Forms
             Forms.Init(this, bundle);
 
+            _sketchManager = new SketchManager();
+
             // Load the main application
-            LoadApplication(new App());
+            LoadApplication(new App(_sketchManager));
         }
     }
 }

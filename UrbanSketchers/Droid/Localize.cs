@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Threading;
 using System.Globalization;
+using UrbanSketchers.Interfaces;
 
 [assembly: Dependency(typeof(UrbanSketchers.Droid.Localize))]
 
