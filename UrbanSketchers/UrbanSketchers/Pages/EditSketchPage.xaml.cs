@@ -53,7 +53,6 @@ namespace UrbanSketchers.Pages
         ///     Gets or sets the sketch Id
         /// </summary>
         public string SketchId { get; set; }
-        ISketch IEditSketchPage.Sketch { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>
         ///     Load the sketch
