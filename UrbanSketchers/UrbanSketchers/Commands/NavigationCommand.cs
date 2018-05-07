@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
+using Autofac;
+using Autofac.Core;
 using UrbanSketchers.Pages;
 using Xamarin.Forms;
 
@@ -41,7 +43,7 @@ namespace UrbanSketchers.Commands
 
             CanExecuteChanged?.Invoke(this, new EventArgs());
 
-            var page = DependencyService.Get<T>(DependencyFetchTarget.NewInstance);
+            var page = UrbanSketchers.Core.Container.Current.Resolve<T>();
 
             await App.NavigationPage.PushAsync(page as Page, true);
 

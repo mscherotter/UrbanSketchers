@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Autofac;
 using UrbanSketchers.Commands;
+using UrbanSketchers.Core;
 using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -276,10 +277,11 @@ namespace UrbanSketchers.Pages
 
         private async Task NavigateToSearchResultsAsync()
         {
-            await App.NavigationPage.PushAsync(new SketchesPage
-            {
-                SearchText = SearchText
-            });
+            var page = Container.Current.Resolve<ISketchesPage>();
+
+            page.SearchText = SearchText;
+
+            await App.NavigationPage.PushAsync(page as Page);
 
             if (Application.Current.MainPage is MasterDetailPage masterDetailPage)
                 masterDetailPage.IsPresented = false;

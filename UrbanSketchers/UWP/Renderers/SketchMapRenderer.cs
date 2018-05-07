@@ -38,7 +38,7 @@ namespace UWP
         ///     Map element changed
         /// </summary>
         /// <param name="e">the element changed event arguments</param>
-        protected override void OnElementChanged(ElementChangedEventArgs<Map> e)
+        protected override async void OnElementChanged(ElementChangedEventArgs<Map> e)
         {
             base.OnElementChanged(e);
 
@@ -75,11 +75,11 @@ namespace UWP
 
                 _nativeMap.MapElementClick += OnMapElementClick;
 
-                UpdatePinsAsync();
+                await UpdatePinsAsync();
             }
         }
 
-        private void _pins_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private async void _pins_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -88,7 +88,7 @@ namespace UWP
                     _nativeMap.MapElements.Clear();
                     break;
                 case NotifyCollectionChangedAction.Add:
-                    UpdatePinsAsync();
+                    await UpdatePinsAsync();
                     break;
             }
         }
@@ -151,7 +151,7 @@ namespace UWP
         //    }
         //}
 
-        private void UpdatePinsAsync()
+        private async Task UpdatePinsAsync()
         {
             //_nativeMap.Children.Clear();
 
@@ -167,9 +167,22 @@ namespace UWP
 
                 var point = new Geopoint(position);
 
-                var pinImage = string.IsNullOrWhiteSpace(pin.Url)
-                    ? null
-                    : RandomAccessStreamReference.CreateFromUri(new Uri(pin.Url));
+                IRandomAccessStreamReference pinImage;
+
+                if (string.IsNullOrWhiteSpace(pin.Url))
+                {
+                    pinImage = null;
+                }
+                else if (pin.Url.StartsWith("http"))
+                {
+                    pinImage = RandomAccessStreamReference.CreateFromUri(new Uri(pin.Url));
+                }
+                else
+                {
+                    var file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync(pin.Url);
+
+                    pinImage = RandomAccessStreamReference.CreateFromFile(file);
+                }
 
                 var mapIcon = new MapIcon
                 {

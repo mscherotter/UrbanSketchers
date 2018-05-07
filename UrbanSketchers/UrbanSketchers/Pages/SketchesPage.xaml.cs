@@ -23,15 +23,14 @@ namespace UrbanSketchers.Pages
         /// <summary>
         ///     Initializes a new instance of the SketchesPage class.
         /// </summary>
-        public SketchesPage()
+        public SketchesPage(ISketchManager sketchManager)
         {
+            ViewCell cc;
             InitializeComponent();
-
-            //Items = new ObservableCollection<Sketch>();
 
             BindingContext = this;
 
-            _sketchManager = Core.Container.Current.Resolve<ISketchManager>();
+            _sketchManager = sketchManager;
         }
 
         // public ObservableCollection<Sketch> Items { get; set; }
@@ -73,6 +72,8 @@ namespace UrbanSketchers.Pages
                             SearchText);
 
                         SketchList.ItemsSource = results;
+
+                        Title = string.Format(CultureInfo.CurrentCulture, "{0} Sketches", results.Count());
                     }
                     else if (!string.IsNullOrWhiteSpace(PersonId))
                     {
@@ -80,12 +81,12 @@ namespace UrbanSketchers.Pages
 
                         if (sketches.Any())
                         {
-                            if (sketches is MobileServiceCollection<Sketch> collection)
+                            if (sketches is ITotalCountProvider collection)
                             {
                                 Title = string.Format(
                                     CultureInfo.CurrentCulture,
                                     Properties.Resources.SketchesByFormat,
-                                    collection.Count,
+                                    collection.TotalCount,
                                     sketches.First().CreatedByName);
                             }
                         }
@@ -95,7 +96,7 @@ namespace UrbanSketchers.Pages
                     {
                         var sketches = await _sketchManager.GetSketchsAsync();
 
-                        if (sketches is MobileServiceCollection<Sketch> collection)
+                        if (sketches is ITotalCountProvider collection)
                         {
                             Title = string.Format(
                                 CultureInfo.CurrentCulture,

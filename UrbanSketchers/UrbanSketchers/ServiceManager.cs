@@ -6,7 +6,7 @@
  * For more information, see: http://go.microsoft.com/fwlink/?LinkId=620342
  */
 
-//#define OFFLINE_SYNC_ENABLED
+#define OFFLINE_SYNC_ENABLED
 
 using System;
 using System.Collections.Generic;
@@ -24,6 +24,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
+using System.Net.Http;
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 
@@ -75,7 +76,9 @@ namespace UrbanSketchers
 
 #if OFFLINE_SYNC_ENABLED
             var store = new MobileServiceSQLiteStore(OfflineDbPath);
-            store.DefineTable<Sketch>();
+            store.DefineTable<TSketch>();
+            store.DefineTable<TPerson>();
+            store.DefineTable<TRating>();
 
             //Initializes the SyncContext using the default IMobileServiceSyncHandler.
             CurrentClient.SyncContext.InitializeAsync(store);
@@ -173,47 +176,61 @@ namespace UrbanSketchers
         ///     see <![CDATA[https://code.msdn.microsoft.com/windowsapps/Upload-File-to-Windows-c9169190]]> and <![CDATA[https://docs.microsoft.com/en-us/azure/storage/files/storage-dotnet-how-to-use-files]]></remarks>
         public async Task<string> UploadAsync(string fileName, Stream stream)
         {
-            var sketchFile = new SketchFile
-            {
-                BlobName = fileName,
-                Container = "sketches",
-                Permissions = "rw"
-            };
-
-            var response =
-                await CurrentClient.InvokeApiAsync<SketchFile, GetSasTokenResponse>("GetUploadToken", sketchFile);
-
-            var sasUri = new Uri(response.Uri);
-
-            var sasToken = sasUri.Query.Substring(1);
-
-            var credentials = new StorageCredentials(sasToken);
-
-            var uriString = string.Format(
-                CultureInfo.InvariantCulture,
-                "https://{0}/{1}",
-                sasUri.Host,
-                sketchFile.Container);
-
-            var container = new CloudBlobContainer(new Uri(uriString), credentials);
-
-            var blob = container.GetBlockBlobReference(fileName);
-
             try
-            {
+            { 
+                var sketchFile = new SketchFile
+                {
+                    BlobName = fileName,
+                    Container = "sketches",
+                    Permissions = "rw"
+                };
+
+
+                var response =
+                    await CurrentClient.InvokeApiAsync<SketchFile, GetSasTokenResponse>("GetUploadToken", sketchFile);
+
+                var sasUri = new Uri(response.Uri);
+
+                var sasToken = sasUri.Query.Substring(1);
+
+                var credentials = new StorageCredentials(sasToken);
+
+                var uriString = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "https://{0}/{1}",
+                    sasUri.Host,
+                    sketchFile.Container);
+
+                var container = new CloudBlobContainer(new Uri(uriString), credentials);
+
+                var blob = container.GetBlockBlobReference(fileName);
+
                 await blob.UploadFromStreamAsync(stream);
+
+                var uri = response.Uri.Substring(0, response.Uri.IndexOf('?'));
+
+                return uri;
             }
             catch (StorageException se)
             {
                 Debug.WriteLine(
                     $"Error uploading {fileName}: {se.RequestInformation.ExtendedErrorInformation.ErrorMessage}.");
+            }
+            catch (HttpRequestException hre)
+            {
+                System.Diagnostics.Debug.WriteLine($"Failed to upload file {hre.Message}. Caching filename in local storage...");
 
-                return null;
+                var file = await PCLStorage.FileSystem.Current.LocalStorage.CreateFileAsync(fileName, PCLStorage.CreationCollisionOption.GenerateUniqueName);
+
+                using (var fileStream = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+                {
+                    await stream.CopyToAsync(fileStream);
+                }
+
+                return fileName;
             }
 
-            var uri = response.Uri.Substring(0, response.Uri.IndexOf('?'));
-
-            return uri;
+            return null;
         }
 
         public Task DeleteAsync(ISketch sketch)
@@ -346,7 +363,10 @@ namespace UrbanSketchers
             item.Sector = CustomIndexing.LatLonToSector(item.Latitude, item.Longitude, CustomIndexing.SectorSize);
 
             if (string.IsNullOrWhiteSpace(item.Id))
+            {
+                item.CreatedByName = "You";
                 await _sketchTable.InsertAsync(item as TSketch);
+            }
             else
                 await _sketchTable.UpdateAsync(item as TSketch);
         }

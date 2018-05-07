@@ -5,5 +5,6 @@
     /// </summary>
     public interface ISketchesPage
     {
+        string SearchText { get; set; }
     }
 }

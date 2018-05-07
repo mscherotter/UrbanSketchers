@@ -46,6 +46,7 @@
     <Compile Include="ConnectedAnimations.cs" />
     <Compile Include="Controls\ISketchPin.cs" />
     <Compile Include="Core\Container.cs" />
+    <Compile Include="ValueConverters\ImageSourceConverter.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IRating.cs" />
     <Compile Include="Interfaces\ISketch.cs" />

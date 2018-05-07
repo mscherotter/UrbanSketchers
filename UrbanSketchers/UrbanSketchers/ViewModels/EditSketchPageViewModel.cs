@@ -44,6 +44,11 @@ namespace UrbanSketchers.ViewModels
             }
         }
 
+        /// <summary>
+        /// Load an image stream
+        /// </summary>
+        /// <param name="imageStream">the image stream</param>
+        /// <returns>an async task with an image source</returns>
         public async Task<ImageSource> LoadImageStreamAsync(Stream imageStream)
         {
             if (imageStream.CanSeek)
@@ -79,6 +84,10 @@ namespace UrbanSketchers.ViewModels
             };
         }
 
+        /// <summary>
+        /// Select a file
+        /// </summary>
+        /// <returns>an async task with a new image source for the file</returns>
         public async Task<ImageSource> SelectFileAsync()
         {
             if (FilePickerService.Current == null)
@@ -98,6 +107,10 @@ namespace UrbanSketchers.ViewModels
             };
         }
 
+        /// <summary>
+        /// Add the sketch
+        /// </summary>
+        /// <returns>an</returns>
         public async Task<bool> AddAsync()
         {
             if (string.IsNullOrWhiteSpace(Sketch.Title)) return false;

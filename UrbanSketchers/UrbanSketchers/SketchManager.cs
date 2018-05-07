@@ -8,9 +8,5 @@ namespace UrbanSketchers
     /// </summary>
     public class SketchManager : ServiceManager<Sketch, Person, Rating>, ISketchManager
     {
-        /// <summary>
-        ///     Gets the singleton Sketch Manager
-        /// </summary>
-        // public static SketchManager DefaultManager { get; } = new SketchManager();
     }
 }
