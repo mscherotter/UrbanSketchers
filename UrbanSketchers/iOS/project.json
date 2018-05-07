@@ -3,8 +3,8 @@
     "Microsoft.AppCenter.Analytics": "1.6.0",
     "Microsoft.AppCenter.Crashes": "1.6.0",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
-    "Xamarin.Forms": "2.5.1.527436",
-    "Xamarin.Forms.Maps": "2.5.1.527436"
+    "Xamarin.Forms": "3.0.0.446417",
+    "Xamarin.Forms.Maps": "3.0.0.446417"
   },
   "frameworks": {
     "Xamarin.iOS,Version=v1.0": {}

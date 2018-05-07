@@ -11,8 +11,8 @@
     "Xamarin.Android.Support.v7.AppCompat": "27.0.2",
     "Xamarin.Android.Support.v7.CardView": "27.0.2",
     "Xamarin.Android.Support.v7.MediaRouter": "27.0.2",
-    "Xamarin.Forms": "2.5.1.527436",
-    "Xamarin.Forms.Maps": "2.5.1.527436"
+    "Xamarin.Forms": "3.0.0.446417",
+    "Xamarin.Forms.Maps": "3.0.0.446417"
   },
   "frameworks": {
     "MonoAndroid,Version=v8.1": {}

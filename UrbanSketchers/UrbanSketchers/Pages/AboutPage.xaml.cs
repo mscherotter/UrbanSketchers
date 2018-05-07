@@ -12,7 +12,7 @@ namespace UrbanSketchers.Pages
     /// <summary>
     ///     About page
     /// </summary>
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : IAboutPage
     {
         /// <summary>

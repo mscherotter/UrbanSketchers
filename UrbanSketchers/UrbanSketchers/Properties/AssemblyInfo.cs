@@ -4,11 +4,11 @@ using System.Resources;
 // Information about this assembly is defined by the following attributes.
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("UrbanSketchers Portable Xamarin Library")]
+//[assembly: AssemblyTitle("UrbanSketchers Portable Xamarin Library")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Michael S. Scherotter")]
-[assembly: AssemblyProduct("Urban Sketchers")]
+//[assembly: AssemblyConfiguration("")]
+//[assembly: AssemblyCompany("Michael S. Scherotter")]
+//[assembly: AssemblyProduct("Urban Sketchers")]
 [assembly: AssemblyCopyright("Copyright © 2017 Micahel S. Scherotter")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -17,7 +17,7 @@ using System.Resources;
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-[assembly: AssemblyVersion("1.0.*")]
+//[assembly: AssemblyVersion("1.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // The following attributes are used to specify the signing key for the assembly,
