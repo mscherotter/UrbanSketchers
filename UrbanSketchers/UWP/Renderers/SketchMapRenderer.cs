@@ -191,6 +191,7 @@ namespace UWP
                     CollisionBehaviorDesired = MapElementCollisionBehavior.RemainVisible,
                     Location = point,
                     NormalizedAnchorPoint = new Point(0.5, 1.0),
+                    
                     Title = pin.Pin.Label
                 };
 
