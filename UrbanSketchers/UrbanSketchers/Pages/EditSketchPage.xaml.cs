@@ -16,7 +16,7 @@ namespace UrbanSketchers.Pages
     ///     Edit sketch page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public class EditSketchPage : IEditSketchPage
+    public partial class EditSketchPage : IEditSketchPage
     {
         private readonly IEditSketchPageViewModel _viewModel;
         private bool _initialized;
@@ -35,6 +35,8 @@ namespace UrbanSketchers.Pages
             InitializeComponent();
 
             _viewModel = Container.Current.Resolve<IEditSketchPageViewModel>();
+
+            _viewModel.DeleteSketchCommand.Page = this;
 
             BindingContext = _viewModel;
         }
@@ -76,8 +78,6 @@ namespace UrbanSketchers.Pages
                     var stream = await client.GetStreamAsync(sketch.ImageUrl);
 
                     await LoadImageStreamAsync(stream);
-
-                    AddButton.Text = "Update";
                 }
 
                 _viewModel.Sketch = sketch;
@@ -119,8 +119,15 @@ namespace UrbanSketchers.Pages
 
         private async void OnAdd(object sender, EventArgs e)
         {
-            if (await _viewModel.AddAsync())
-                await Navigation.PopModalAsync(true);
+            if (sender is Button button)
+            {
+                button.IsEnabled = false;
+
+                if (await _viewModel.AddAsync())
+                    await Navigation.PopModalAsync(true);
+
+                button.IsEnabled = true;
+            }
         }
 
         private async void OnCancel(object sender, EventArgs e)

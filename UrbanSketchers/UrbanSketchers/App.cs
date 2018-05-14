@@ -7,6 +7,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
+using UrbanSketchers.Commands;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Core;
 using UrbanSketchers.Data;
@@ -183,6 +184,7 @@ namespace UrbanSketchers
             var builder = new ContainerBuilder();
 
             builder.RegisterType<AboutPage>().As<IAboutPage>();
+            builder.RegisterType<DeleteSketchCommand>().As<IDeleteSketchCommand>();
             builder.RegisterType<DrawingPage>().As<IDrawingPage>();
             builder.RegisterType<EditSketchPage>().As<IEditSketchPage>();
             builder.RegisterType<EditSketchPageViewModel>().As<IEditSketchPageViewModel>();

@@ -25,7 +25,6 @@ namespace UrbanSketchers.Pages
         /// </summary>
         public SketchesPage(ISketchManager sketchManager)
         {
-            ViewCell cc;
             InitializeComponent();
 
             BindingContext = this;

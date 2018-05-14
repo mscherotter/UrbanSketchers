@@ -25,6 +25,27 @@ namespace UrbanSketchers.ViewModels
         private ISketch _sketch;
 
         /// <summary>
+        /// Initializes a new instance of the EditSketchPageViewModel
+        /// </summary>
+        /// <param name="deleteSketchCommand">the delete sketch command</param>
+        public EditSketchPageViewModel(IDeleteSketchCommand deleteSketchCommand)
+        {
+            DeleteSketchCommand = deleteSketchCommand;
+        }
+
+        /// <summary>
+        /// Gets the add button text (add or update)
+        /// </summary>
+        public string AddButtonText
+        {
+            get
+            {
+                if (Sketch == null) return Properties.Resources.Add;
+
+                return string.IsNullOrWhiteSpace(Sketch.Id) ? Properties.Resources.Add : Properties.Resources.Update;
+            }
+        }
+        /// <summary>
         ///     Gets a value indicating whether the sketch can be added to or updated.
         /// </summary>
         public bool CanAdd
@@ -40,6 +61,11 @@ namespace UrbanSketchers.ViewModels
         }
 
         /// <summary>
+        /// Gets the delete sketch command
+        /// </summary>
+        public IDeleteSketchCommand DeleteSketchCommand { get; }
+
+        /// <summary>
         ///     Gets or sets the sketch
         /// </summary>
         public ISketch Sketch
@@ -48,7 +74,7 @@ namespace UrbanSketchers.ViewModels
             set
             {
                 if (_sketch != value && _sketch is INotifyPropertyChanged previousPropertyChanged)
-                    previousPropertyChanged.PropertyChanged += PropertyChanged_PropertyChanged;
+                    previousPropertyChanged.PropertyChanged -= PropertyChanged_PropertyChanged;
 
                 if (SetProperty(ref _sketch, value))
                 {
@@ -56,6 +82,7 @@ namespace UrbanSketchers.ViewModels
                         propertyChanged.PropertyChanged += PropertyChanged_PropertyChanged;
 
                     OnPropertyChanged(nameof(CanAdd));
+                    OnPropertyChanged(nameof(AddButtonText));
                 }
             }
         }
