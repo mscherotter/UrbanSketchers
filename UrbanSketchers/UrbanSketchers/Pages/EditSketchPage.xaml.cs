@@ -4,12 +4,11 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Autofac;
-using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
-using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using Container = UrbanSketchers.Core.Container;
 
 namespace UrbanSketchers.Pages
 {
@@ -17,16 +16,16 @@ namespace UrbanSketchers.Pages
     ///     Edit sketch page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditSketchPage : IEditSketchPage
+    public class EditSketchPage : IEditSketchPage
     {
         private readonly IEditSketchPageViewModel _viewModel;
+        private bool _initialized;
 
 
         /// <summary>
         ///     should the sketch be uploaded?
         /// </summary>
         public Func<ISketch, Task<bool>> ShouldUpload;
-        private bool _initialized;
 
         /// <summary>
         ///     Initializes a new instance of the EditSketchPage class.
@@ -35,7 +34,7 @@ namespace UrbanSketchers.Pages
         {
             InitializeComponent();
 
-            _viewModel = Core.Container.Current.Resolve<IEditSketchPageViewModel>();
+            _viewModel = Container.Current.Resolve<IEditSketchPageViewModel>();
 
             BindingContext = _viewModel;
         }
@@ -69,7 +68,7 @@ namespace UrbanSketchers.Pages
             }
             else
             {
-                var sketch = await Core.Container.Current.Resolve<ISketchManager>().GetSketchAsync(SketchId);
+                var sketch = await Container.Current.Resolve<ISketchManager>().GetSketchAsync(SketchId);
 
                 if (sketch != null)
                 {
@@ -77,6 +76,8 @@ namespace UrbanSketchers.Pages
                     var stream = await client.GetStreamAsync(sketch.ImageUrl);
 
                     await LoadImageStreamAsync(stream);
+
+                    AddButton.Text = "Update";
                 }
 
                 _viewModel.Sketch = sketch;

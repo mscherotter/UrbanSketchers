@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -179,7 +180,7 @@ namespace UWP
                 }
                 else
                 {
-                    var file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync(pin.Url);
+                    var file = await ApplicationData.Current.LocalFolder.GetFileAsync(pin.Url);
 
                     pinImage = RandomAccessStreamReference.CreateFromFile(file);
                 }
@@ -219,7 +220,7 @@ namespace UWP
 
                         _sourceImage.Source = bitmapImage;
 
-                        _nativeMap.GetOffsetFromLocation(icon.Location, out Point point);
+                        _nativeMap.GetOffsetFromLocation(icon.Location, out var point);
 
                         Canvas.SetLeft(_sourceImage, point.X - bitmapImage.PixelWidth / 2.0);
 

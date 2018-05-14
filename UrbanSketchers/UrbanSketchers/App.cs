@@ -190,6 +190,7 @@ namespace UrbanSketchers
             builder.RegisterType<PeoplePage>().As<IPeoplePage>();
             builder.RegisterType<Person>().As<IPerson>();
             builder.RegisterType<PersonPageViewModel>().As<IPersonPageViewModel>();
+            builder.RegisterType<PicturePage>().As<IPicturePage>();
             builder.RegisterType<Rating>().As<IRating>();
             builder.RegisterType<Sketch>().As<ISketch>();
             builder.RegisterType<SketchCommentsPage>().As<ISketchCommentsPage>();

@@ -2,12 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using Autofac;
-using Microsoft.WindowsAzure.MobileServices;
-using UrbanSketchers;
-using UrbanSketchers.Interfaces;
-using UrbanSketchers.Support;
-using UWP.Support;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
@@ -16,6 +10,12 @@ using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using Autofac;
+using Microsoft.WindowsAzure.MobileServices;
+using UrbanSketchers.Core;
+using UrbanSketchers.Interfaces;
+using UrbanSketchers.Support;
+using UWP.Support;
 using Xamarin.Forms;
 using Frame = Windows.UI.Xaml.Controls.Frame;
 
@@ -24,7 +24,7 @@ namespace UWP
     /// <summary>
     ///     Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App
+    internal sealed partial class App
     {
         /// <summary>
         ///     Initializes the singleton application object.  This is the first line of authored code
@@ -78,7 +78,7 @@ namespace UWP
 
             var message = request.Message;
 
-            if (message.TryGetValue("Method", out object value))
+            if (message.TryGetValue("Method", out var value))
             {
                 var method = value.ToString();
 
@@ -145,11 +145,11 @@ namespace UWP
         /// <returns></returns>
         private static async Task UploadAsync(AppServiceRequest request, ValueSet message)
         {
-            var sketch = UrbanSketchers.Core.Container.Current.Resolve<ISketch>();
+            var sketch = Container.Current.Resolve<ISketch>();
 
             StorageFile file = null;
 
-            if (message.TryGetValue("FileToken", out object fileToken))
+            if (message.TryGetValue("FileToken", out var fileToken))
                 file = await SharedStorageAccessManager.RedeemTokenForFileAsync(fileToken.ToString());
 
             if (file == null)
@@ -160,7 +160,7 @@ namespace UWP
             {
                 var imageProperties = await file.Properties.GetImagePropertiesAsync();
 
-                if (message.TryGetValue("Title", out object title))
+                if (message.TryGetValue("Title", out var title))
                     sketch.Title = title.ToString();
                 else
                     sketch.Title = imageProperties.Title;
@@ -173,33 +173,34 @@ namespace UWP
                     return;
                 }
 
-                if (message.TryGetValue("CreationDate", out object dateCreated))
+                if (message.TryGetValue("CreationDate", out var dateCreated))
                     sketch.CreationDate = (DateTime) dateCreated;
                 else
                     sketch.CreationDate = imageProperties.DateTaken.ToUniversalTime().DateTime;
-                if (message.TryGetValue("Address", out object address))
+                if (message.TryGetValue("Address", out var address))
                     sketch.Address = address.ToString();
 
-                if (message.TryGetValue("Latitude", out object latitude))
+                if (message.TryGetValue("Latitude", out var latitude))
                     sketch.Latitude = (double) latitude;
                 else if (imageProperties.Latitude.HasValue)
                     sketch.Latitude = imageProperties.Latitude.Value;
 
-                if (message.TryGetValue("Longitude", out object longitude))
+                if (message.TryGetValue("Longitude", out var longitude))
                     sketch.Longitude = (double) longitude;
                 else if (imageProperties.Longitude.HasValue)
                     sketch.Longitude = imageProperties.Longitude.Value;
 
-                if (message.TryGetValue("Description", out object description))
+                if (message.TryGetValue("Description", out var description))
                     sketch.Description = description.ToString();
 
                 using (var stream = await file.OpenStreamForReadAsync())
                 {
                     try
                     {
-                        sketch.ImageUrl = await UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().UploadAsync(file.Name, stream);
+                        sketch.ImageUrl =
+                            await Container.Current.Resolve<ISketchManager>().UploadAsync(file.Name, stream);
 
-                        await UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().SaveAsync(sketch);
+                        await Container.Current.Resolve<ISketchManager>().SaveAsync(sketch);
                     }
                     catch (Exception e)
                     {
@@ -231,7 +232,7 @@ namespace UWP
                 case ActivationKind.Protocol:
                     if (args is ProtocolActivatedEventArgs protocolArgs)
                         if (protocolArgs.Uri.ToString().StartsWith("urbansketchesauth:"))
-                            UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().CurrentClient.ResumeWithURL(protocolArgs.Uri);
+                            Container.Current.Resolve<ISketchManager>().CurrentClient.ResumeWithURL(protocolArgs.Uri);
                     break;
             }
         }

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using UrbanSketchers.Interfaces;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Pages
@@ -7,7 +8,7 @@ namespace UrbanSketchers.Pages
     /// Picture page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PicturePage
+    public partial class PicturePage : IPicturePage
     {
         /// <summary>
         /// Initializes a new instance of the PicturePage class.

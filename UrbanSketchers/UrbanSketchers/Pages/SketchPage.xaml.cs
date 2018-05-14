@@ -313,10 +313,11 @@ namespace UrbanSketchers.Pages
         {
             Image.Prepare("Image");
 
-            await Navigation.PushModalAsync(new PicturePage
-            {
-                ImageSource = new UriImageSource { Uri = new Uri(Sketch.ImageUrl)}
-            });
+            var page = UrbanSketchers.Core.Container.Current.Resolve<IPicturePage>();
+
+            page.ImageSource = new UriImageSource {Uri = new Uri(Sketch.ImageUrl)};
+
+            await Navigation.PushModalAsync(page as Page);
         }
     }
 }

@@ -12,14 +12,21 @@ using UrbanSketchers.Helpers;
 using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
+using Container = UrbanSketchers.Core.Container;
 
 namespace UrbanSketchers.ViewModels
 {
+    /// <summary>
+    ///     edit sketch page view model
+    /// </summary>
     public class EditSketchPageViewModel : ObservableObject, IEditSketchPageViewModel
     {
         private FileData _fileData;
         private ISketch _sketch;
 
+        /// <summary>
+        ///     Gets a value indicating whether the sketch can be added to or updated.
+        /// </summary>
         public bool CanAdd
         {
             get
@@ -32,20 +39,29 @@ namespace UrbanSketchers.ViewModels
             }
         }
 
-
+        /// <summary>
+        ///     Gets or sets the sketch
+        /// </summary>
         public ISketch Sketch
         {
             get => _sketch;
             set
             {
+                if (_sketch != value && _sketch is INotifyPropertyChanged previousPropertyChanged)
+                    previousPropertyChanged.PropertyChanged += PropertyChanged_PropertyChanged;
+
                 if (SetProperty(ref _sketch, value))
+                {
                     if (value is INotifyPropertyChanged propertyChanged)
                         propertyChanged.PropertyChanged += PropertyChanged_PropertyChanged;
+
+                    OnPropertyChanged(nameof(CanAdd));
+                }
             }
         }
 
         /// <summary>
-        /// Load an image stream
+        ///     Load an image stream
         /// </summary>
         /// <param name="imageStream">the image stream</param>
         /// <returns>an async task with an image source</returns>
@@ -85,7 +101,7 @@ namespace UrbanSketchers.ViewModels
         }
 
         /// <summary>
-        /// Select a file
+        ///     Select a file
         /// </summary>
         /// <returns>an async task with a new image source for the file</returns>
         public async Task<ImageSource> SelectFileAsync()
@@ -108,7 +124,7 @@ namespace UrbanSketchers.ViewModels
         }
 
         /// <summary>
-        /// Add the sketch
+        ///     Add the sketch
         /// </summary>
         /// <returns>an</returns>
         public async Task<bool> AddAsync()
@@ -121,7 +137,7 @@ namespace UrbanSketchers.ViewModels
             ////    if (!await ShouldUpload(Sketch))
             ////        return false;
 
-            if (_fileData != null)
+            if (_fileData != null && string.IsNullOrWhiteSpace(Sketch.ImageUrl))
             {
                 var guid = Guid.NewGuid().ToString();
 
@@ -134,7 +150,7 @@ namespace UrbanSketchers.ViewModels
                 using (var stream = new MemoryStream(_fileData.DataArray))
                 {
                     Sketch.ImageUrl =
-                        await Core.Container.Current.Resolve<ISketchManager>().UploadAsync(filename, stream);
+                        await Container.Current.Resolve<ISketchManager>().UploadAsync(filename, stream);
 
                     Sketch.ThumbnailUrl = Sketch.ImageUrl.Replace("/sketches/", "/thumbnails/");
                 }
@@ -142,7 +158,7 @@ namespace UrbanSketchers.ViewModels
 
             try
             {
-                await Core.Container.Current.Resolve<ISketchManager>().SaveAsync(Sketch);
+                await Container.Current.Resolve<ISketchManager>().SaveAsync(Sketch);
                 //SketchSaved?.Invoke(this, new TypedEventArgs<ISketch>(sketch));
             }
             catch (Exception exception)
