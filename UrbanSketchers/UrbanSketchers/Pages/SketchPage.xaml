@@ -79,7 +79,7 @@
                 <Label Text="{Binding Description}" Style="{DynamicResource CaptionStyle}"/>
                 <Label Text="{Binding Address}" Style="{DynamicResource CaptionStyle}" />
             </StackLayout>
-            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ThumbnailUrl, Converter={StaticResource ImageSourceConverter}}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
+            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl, Converter={StaticResource ImageSourceConverter}}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
                 <controls:ConnectedImage.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnImageTapped"/>
                 </controls:ConnectedImage.GestureRecognizers>

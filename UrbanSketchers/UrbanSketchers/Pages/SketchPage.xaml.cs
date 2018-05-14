@@ -315,7 +315,7 @@ namespace UrbanSketchers.Pages
 
             await Navigation.PushModalAsync(new PicturePage
             {
-                ImageSource = Image.Source
+                ImageSource = new UriImageSource { Uri = new Uri(Sketch.ImageUrl)}
             });
         }
     }

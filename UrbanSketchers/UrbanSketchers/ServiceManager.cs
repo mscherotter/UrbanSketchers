@@ -218,7 +218,7 @@ namespace UrbanSketchers
             }
             catch (HttpRequestException hre)
             {
-                System.Diagnostics.Debug.WriteLine($"Failed to upload file {hre.Message}. Caching filename in local storage...");
+                Debug.WriteLine($"Failed to upload file {hre.Message}. Caching filename in local storage...");
 
                 var file = await PCLStorage.FileSystem.Current.LocalStorage.CreateFileAsync(fileName, PCLStorage.CreationCollisionOption.GenerateUniqueName);
 

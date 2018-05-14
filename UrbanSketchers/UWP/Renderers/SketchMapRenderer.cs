@@ -219,9 +219,7 @@ namespace UWP
 
                         _sourceImage.Source = bitmapImage;
 
-                        Point point;
-
-                        _nativeMap.GetOffsetFromLocation(icon.Location, out point);
+                        _nativeMap.GetOffsetFromLocation(icon.Location, out Point point);
 
                         Canvas.SetLeft(_sourceImage, point.X - bitmapImage.PixelWidth / 2.0);
 
