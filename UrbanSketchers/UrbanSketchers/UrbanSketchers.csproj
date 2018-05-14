@@ -6,14 +6,28 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
       <DocumentationFile>bin\Debug\netstandard2.0\UrbanSketchers.xml</DocumentationFile>
     </PropertyGroup>
+  <!--
     <ItemGroup>
-      <Compile Remove="TodoList.xaml.cs" />
+      <EmbeddedResource Remove="Pages\AboutPage.xaml" />
+      <EmbeddedResource Remove="Pages\DrawingPage.xaml" />
+      <EmbeddedResource Remove="Pages\EditSketchPage.xaml" />
+      <EmbeddedResource Remove="Pages\HomePage.xaml" />
+      <EmbeddedResource Remove="Pages\MapPage.xaml" />
+      <EmbeddedResource Remove="Pages\MenuPage.xaml" />
+      <EmbeddedResource Remove="Pages\PeoplePage.xaml" />
+      <EmbeddedResource Remove="Pages\PersonPage.xaml" />
+      <EmbeddedResource Remove="Pages\PicturePage.xaml" />
+      <EmbeddedResource Remove="Pages\PicturePage.xaml" />
+      <EmbeddedResource Remove="Pages\RootPage.xaml" />
+      <EmbeddedResource Remove="Pages\SketchCommentsPage.xaml" />
+      <EmbeddedResource Remove="Pages\SketchesPage.xaml" />
+      <EmbeddedResource Remove="Pages\SketchPage.xaml" />
+      <EmbeddedResource Remove="Views\EditPersonView.xaml" />
+      <EmbeddedResource Remove="Views\EditSketchView.xaml" />
     </ItemGroup>
+    -->
     <ItemGroup>
-      <EmbeddedResource Remove="TodoList.xaml" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="Autofac" Version="4.8.0" />
+      <PackageReference Include="Autofac" Version="4.8.1" />
       <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.6.0" />
       <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.6.0" />
       <PackageReference Include="Microsoft.AppCenter.Push" Version="1.6.0" />
