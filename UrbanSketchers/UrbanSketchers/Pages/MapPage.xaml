@@ -21,6 +21,13 @@
                 </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
+        <ToolbarItem Text="{usk:Translate MapType}"  Clicked="OnSelectMapType">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Map.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem Text="{usk:Translate Refresh}" Clicked="OnRefresh">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">

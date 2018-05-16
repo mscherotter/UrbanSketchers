@@ -287,4 +287,7 @@ Press OK to continue uploading the sketch, affirming that you have read this and
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="MapType" xml:space="preserve">
+    <value>Map type</value>
+  </data>
 </root>

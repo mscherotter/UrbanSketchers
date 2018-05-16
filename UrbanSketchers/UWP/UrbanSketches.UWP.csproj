@@ -154,6 +154,7 @@
     <Content Include="Assets\FilledHeart.png" />
     <Content Include="Assets\LocateMe.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\Map.png" />
     <Content Include="Assets\PinToStart.png" />
     <Content Include="Assets\Refresh.png" />
     <Content Include="Assets\Share.png" />

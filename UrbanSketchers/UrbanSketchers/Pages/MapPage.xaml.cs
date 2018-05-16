@@ -297,6 +297,21 @@ namespace UrbanSketchers.Pages
             await Navigation.PushModalAsync(page as Page, true);
         }
 
+        private async void OnSelectMapType(object sender, EventArgs args)
+        {
+            var action = await DisplayActionSheet(
+                "Map type",
+                Properties.Resources.Cancel, 
+                null, 
+                Xamarin.Forms.Maps.MapType.Satellite.ToString(),
+                Xamarin.Forms.Maps.MapType.Street.ToString(),
+                Xamarin.Forms.Maps.MapType.Hybrid.ToString());
+
+            if (string.IsNullOrWhiteSpace(action)) return;
+
+            Map.MapType = (MapType) Enum.Parse(typeof(MapType), action);
+        }
+
         #endregion
     }
 }
