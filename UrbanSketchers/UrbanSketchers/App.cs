@@ -189,6 +189,7 @@ namespace UrbanSketchers
             builder.RegisterType<EditSketchPage>().As<IEditSketchPage>();
             builder.RegisterType<EditSketchPageViewModel>().As<IEditSketchPageViewModel>();
             builder.RegisterType<MapPage>().As<IMapPage>();
+            builder.RegisterType<MySketchesPage>().As<IMySketchesPage>();
             builder.RegisterType<PeoplePage>().As<IPeoplePage>();
             builder.RegisterType<Person>().As<IPerson>();
             builder.RegisterType<PersonPageViewModel>().As<IPersonPageViewModel>();

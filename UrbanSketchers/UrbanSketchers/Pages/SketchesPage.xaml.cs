@@ -32,6 +32,11 @@ namespace UrbanSketchers.Pages
             _sketchManager = sketchManager;
         }
 
+        /// <summary>
+        /// Gets the sketch  manager
+        /// </summary>
+        public ISketchManager SketchManager => _sketchManager; 
+
         // public ObservableCollection<Sketch> Items { get; set; }
 
         /// <summary>
