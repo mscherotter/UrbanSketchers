@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
-    "Microsoft.AppCenter.Analytics": "1.6.0",
-    "Microsoft.AppCenter.Crashes": "1.6.0",
+    "Microsoft.AppCenter.Analytics": "1.6.1",
+    "Microsoft.AppCenter.Crashes": "1.6.1",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
     "Xamarin.Forms": "3.0.0.482510",
     "Xamarin.Forms.Maps": "3.0.0.482510"
