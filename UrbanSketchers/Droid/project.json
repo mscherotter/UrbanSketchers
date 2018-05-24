@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Microsoft.AppCenter": "1.6.0",
+    "Microsoft.AppCenter": "1.6.1",
     "Microsoft.AppCenter.Analytics": "1.6.1",
     "Microsoft.AppCenter.Crashes": "1.6.1",
     "Microsoft.AppCenter.Push": "1.6.1",

@@ -25,6 +25,8 @@ using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using System.Net.Http;
+using System.Threading;
+
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 
@@ -117,14 +119,9 @@ namespace UrbanSketchers
         ///     Delete the current user
         /// </summary>
         /// <returns>an async task</returns>
-        public async Task DeleteCurrentUserAsync()
+        public async Task DeleteAsync(IPerson person)
         {
-            var user = await GetCurrentUserAsync();
-
-            if (user == null)
-                return;
-
-            await _peopleTable.DeleteAsync(user as TPerson);
+            await _peopleTable.DeleteAsync(person as TPerson);
         }
 
         /// <summary>
@@ -400,6 +397,16 @@ namespace UrbanSketchers
         public async Task<IPerson> GetPersonAsync(string personId)
         {
             return await _peopleTable.LookupAsync(personId);
+        }
+
+        public Task<string> GetUserDataAsync(string personId)
+        {
+            var parameters = new Dictionary<string, string>
+            {
+                ["UserId"] = personId
+            };
+
+            return CurrentClient.InvokeApiAsync<string>("GetUserData", HttpMethod.Get, parameters);
         }
 
 

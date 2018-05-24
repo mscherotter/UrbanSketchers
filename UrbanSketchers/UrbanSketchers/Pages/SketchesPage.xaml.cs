@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Microsoft.WindowsAzure.MobileServices;
-using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
@@ -19,12 +18,18 @@ namespace UrbanSketchers.Pages
     public partial class SketchesPage : ISketchesPage
     {
         private readonly ISketchManager _sketchManager;
+        private string _personId;
 
         /// <summary>
         ///     Initializes a new instance of the SketchesPage class.
         /// </summary>
-        public SketchesPage(ISketchManager sketchManager)
+        public SketchesPage(ISketchManager sketchManager,
+            IDownloadCommand downloadCommand,
+            IDeleteUserCommand deleteUserCommand)
         {
+            this.DownloadCommand = downloadCommand;
+            this.DeleteCommand = deleteUserCommand;
+
             InitializeComponent();
 
             BindingContext = this;
@@ -42,12 +47,24 @@ namespace UrbanSketchers.Pages
         /// <summary>
         ///     Gets the person Id
         /// </summary>
-        public string PersonId { get; internal set; }
+        public string PersonId
+        {
+            get => _personId;
+            set
+            {
+                _personId = value;
+
+                DownloadCommand.PersonId = value;
+                DeleteCommand.PersonId = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the search text
         /// </summary>
         public string SearchText { get; set; }
+        public IDownloadCommand DownloadCommand { get; }
+        public IDeleteUserCommand DeleteCommand { get; }
 
         /// <summary>
         ///     Refresh the items when appearing

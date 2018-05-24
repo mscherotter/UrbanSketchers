@@ -24,7 +24,6 @@ namespace UrbanSketchers.ViewModels
         {
             RefreshCommand = new RelayCommand<object>(OnRefresh, CanRefresh);
             UpdateCommand = new RelayCommand<object>(OnUpdate, CanUpdate);
-            DeleteCommand = new RelayCommand<object>(OnDelete, CanDelete);
 
             Sketches = new ObservableCollection<ISketch>();
         }
@@ -123,18 +122,6 @@ namespace UrbanSketchers.ViewModels
 
             await Core.Container.Current.Resolve<ISketchManager>().SaveAsync(Person);
 
-            IsBusy = false;
-        }
-
-        private bool CanDelete(object arg)
-        {
-            return !IsBusy;
-        }
-
-        private async void OnDelete(object obj)
-        {
-            IsBusy = true;
-            await Core.Container.Current.Resolve<ISketchManager>().DeleteCurrentUserAsync();
             IsBusy = false;
         }
     }

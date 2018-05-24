@@ -18,7 +18,9 @@ namespace UrbanSketchers.Pages
         /// Initializes a new instance of the MySketchesPage class
         /// </summary>
         /// <param name="sketchManager">the sketch manager</param>
-	    public MySketchesPage(ISketchManager sketchManager) : base(sketchManager)
+	    public MySketchesPage(ISketchManager sketchManager,
+            IDownloadCommand downloadCommand,
+            IDeleteUserCommand deleteUserCommand) : base(sketchManager, downloadCommand, deleteUserCommand)
         {
             Title = Properties.Resources.MySketches;
         }

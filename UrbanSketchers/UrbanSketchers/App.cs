@@ -185,6 +185,8 @@ namespace UrbanSketchers
 
             builder.RegisterType<AboutPage>().As<IAboutPage>();
             builder.RegisterType<DeleteSketchCommand>().As<IDeleteSketchCommand>();
+            builder.RegisterType<DeleteUserCommand>().As<IDeleteUserCommand>();
+            builder.RegisterType<DownloadCommand>().As<IDownloadCommand>();
             builder.RegisterType<DrawingPage>().As<IDrawingPage>();
             builder.RegisterType<EditSketchPage>().As<IEditSketchPage>();
             builder.RegisterType<EditSketchPageViewModel>().As<IEditSketchPageViewModel>();

@@ -8,6 +8,20 @@
         <us:SharedResources/>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Download" Command="{Binding DownloadCommand}" CommandParameter="{Binding}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Refresh.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Delete.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem Text="Refresh" Clicked="OnRefresh">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
