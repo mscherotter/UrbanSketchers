@@ -18,6 +18,8 @@ namespace UrbanSketchers.Pages
         /// Initializes a new instance of the MySketchesPage class
         /// </summary>
         /// <param name="sketchManager">the sketch manager</param>
+        /// <param name="deleteUserCommand">the delete user command</param>
+        /// <param name="downloadCommand">the download command</param>
 	    public MySketchesPage(ISketchManager sketchManager,
             IDownloadCommand downloadCommand,
             IDeleteUserCommand deleteUserCommand) : base(sketchManager, downloadCommand, deleteUserCommand)
@@ -29,12 +31,19 @@ namespace UrbanSketchers.Pages
         /// </summary>
 	    protected override async void OnAppearing()
 	    {
-	        var person = await SketchManager.GetCurrentUserAsync();
+            try
+            {
+	            var person = await SketchManager.GetCurrentUserAsync();
 
-	        if (person != null)
-	        {
-	            PersonId = person.Id;
-	        }
+	            if (person != null)
+	            {
+	                PersonId = person.Id;
+	            }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error appearing my sketches page: {e}");
+            }
 
 	        base.OnAppearing();
 	    }

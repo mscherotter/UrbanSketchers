@@ -189,6 +189,9 @@ namespace UrbanSketchers.Pages
 
             _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
             _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
+            editSketchPage.Radius = Map.VisibleRegion.Radius;
+
+            editSketchPage.MapType = Map.MapType;
 
             editSketchPage.Sketch = _sketch;
 

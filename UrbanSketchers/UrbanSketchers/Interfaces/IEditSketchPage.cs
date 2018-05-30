@@ -1,4 +1,5 @@
 ﻿using UrbanSketchers.Data;
+using Xamarin.Forms.Maps;
 
 namespace UrbanSketchers.Interfaces
 {
@@ -16,6 +17,7 @@ namespace UrbanSketchers.Interfaces
         /// Gets or sets the sketch
         /// </summary>
         ISketch Sketch { get; set; }
-        
+        Distance Radius { get; set; }
+        MapType MapType { get; set; }
     }
 }

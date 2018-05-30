@@ -42,8 +42,18 @@ namespace UrbanSketchers.Interfaces
 
         Task DeleteAsync(ISketch sketch);
 
+        /// <summary>
+        /// Delete a person
+        /// </summary>
+        /// <param name="person">the person</param>
+        /// <returns>an async task</returns>
         Task DeleteAsync(IPerson person);
 
+        /// <summary>
+        /// Gets a sketch
+        /// </summary>
+        /// <param name="id">the sketch Id</param>
+        /// <returns>an aysnc task with a sketch</returns>
         Task<ISketch> GetSketchAsync(string id);
 
         /// <summary>

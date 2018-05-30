@@ -56,6 +56,11 @@ namespace UrbanSketchers
         private readonly IMobileServiceTable<TRating> _ratingTable;
 #endif
 
+        /// <summary>
+        /// Gets the ratings for a sketch
+        /// </summary>
+        /// <param name="sketchId">the sketch id</param>
+        /// <returns>an async task with a collection of ratings</returns>
         public async Task<IEnumerable<IRating>> GetRatingsAsync(string sketchId)
         {
             var query = from item in _ratingTable
@@ -145,10 +150,19 @@ namespace UrbanSketchers
             return rating.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets the current user
+        /// </summary>
+        /// <returns>an async task with the current user</returns>
         public async Task<IPerson> GetCurrentUserAsync()
         {
             if (CurrentClient.CurrentUser == null)
                 return null;
+
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                return null;
+            }
 
             var query = from item in _peopleTable
                 where item.UserId == CurrentClient.CurrentUser.UserId
@@ -230,6 +244,11 @@ namespace UrbanSketchers
             return null;
         }
 
+        /// <summary>
+        /// Delete a sketch
+        /// </summary>
+        /// <param name="sketch">the sketch</param>
+        /// <returns>an async task</returns>
         public Task DeleteAsync(ISketch sketch)
         {
             return _sketchTable.DeleteAsync(sketch as TSketch);
@@ -394,11 +413,21 @@ namespace UrbanSketchers
                 await _ratingTable.UpdateAsync(item as TRating);
         }
 
+        /// <summary>
+        /// Gets a person
+        /// </summary>
+        /// <param name="personId">the person Id</param>
+        /// <returns>an async task with a person</returns>
         public async Task<IPerson> GetPersonAsync(string personId)
         {
             return await _peopleTable.LookupAsync(personId);
         }
 
+        /// <summary>
+        /// Gets the data for a user
+        /// </summary>
+        /// <param name="personId">the person Id</param>
+        /// <returns></returns>
         public Task<string> GetUserDataAsync(string personId)
         {
             var parameters = new Dictionary<string, string>

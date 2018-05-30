@@ -32,6 +32,14 @@ namespace UrbanSketchers.ValueConverters
             return null;
         }
 
+        /// <summary>
+        /// Not implemented
+        /// </summary>
+        /// <param name="value">not used.</param>
+        /// <param name="targetType">not used.</param>
+        /// <param name="parameter">not used.</param>
+        /// <param name="culture">not used.</param>
+        /// <returns>not used.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

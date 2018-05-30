@@ -61,6 +61,12 @@ namespace UrbanSketchers.Support
             ViewMode viewMode,
             IEnumerable<string> fileTypeFilter);
 
+        /// <summary>
+        /// Pick a file to save
+        /// </summary>
+        /// <param name="fileData">the file data</param>
+        /// <param name="locationId">the default location id</param>
+        /// <returns>an async task with a boolean value indicating whether the file was picked</returns>
         public abstract Task<bool> PickSaveFileAsync(
             FileData fileData, LocationId locationId);
     }

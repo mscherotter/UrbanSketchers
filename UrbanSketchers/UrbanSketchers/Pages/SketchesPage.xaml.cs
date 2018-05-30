@@ -63,7 +63,14 @@ namespace UrbanSketchers.Pages
         /// Gets or sets the search text
         /// </summary>
         public string SearchText { get; set; }
+
+        /// <summary>
+        /// Gets the download command
+        /// </summary>
         public IDownloadCommand DownloadCommand { get; }
+        /// <summary>
+        /// Gets the delete command
+        /// </summary>
         public IDeleteUserCommand DeleteCommand { get; }
 
         /// <summary>
