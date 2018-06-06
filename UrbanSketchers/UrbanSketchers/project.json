@@ -1,20 +1,20 @@
 ﻿{
   "dependencies": {
-    "Autofac": "4.8.0",
-    "Microsoft.AppCenter": "1.6.0",
-    "Microsoft.AppCenter.Analytics": "1.6.0",
-    "Microsoft.AppCenter.Crashes": "1.6.0",
-    "Microsoft.AppCenter.Push": "1.6.0",
+    "Autofac": "4.8.1",
+    "Microsoft.AppCenter": "1.6.1",
+    "Microsoft.AppCenter.Analytics": "1.6.1",
+    "Microsoft.AppCenter.Crashes": "1.6.1",
+    "Microsoft.AppCenter.Push": "1.6.1",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
     "Microsoft.Azure.Mobile.Client.SQLiteStore": "4.0.2",
-    "NETStandard.Library": "2.0.2",
+    "NETStandard.Library": "2.0.3",
     "PCLStorage": "1.0.2",
     "Plugin.Share": "7.1.1",
     "System.ComponentModel": "4.3.0",
-    "WindowsAzure.Storage": "9.1.1",
+    "WindowsAzure.Storage": "9.2.0",
     "Xam.Plugin.FilePicker": "1.1.0",
-    "Xamarin.Forms": "2.5.1.527436",
-    "Xamarin.Forms.Maps": "2.5.1.527436"
+    "Xamarin.Forms": "3.0.0.530893",
+    "Xamarin.Forms.Maps": "3.0.0.530893"
   },
   "frameworks": {
     "netstandard1.4": {
