@@ -5,20 +5,17 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using Autofac;
+using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
-using Autofac;
 using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Maps;
-using UrbanSketchers.Interfaces;
-using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json;
+using Container = UrbanSketchers.Core.Container;
 
 namespace UrbanSketchers.Pages
 {
@@ -64,7 +61,7 @@ namespace UrbanSketchers.Pages
 
             try
             {
-                var user = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
+                var user = await Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
 
                 if (user != null)
                 {
@@ -79,6 +76,34 @@ namespace UrbanSketchers.Pages
         }
 
         #endregion
+
+        private void SearchCompleted(object sender, EventArgs e)
+        {
+            if (sender is Entry entry)
+            {
+                var locations = BingSearch.LocationSearch(entry.Text);
+
+                if (locations == null) return;
+
+                SearchResults.ItemsSource = locations;
+                SearchResults.IsVisible = true;
+
+                SearchResults.Focus();
+            }
+        }
+
+        private void OnSearchResultSelected(object sender, EventArgs e)
+        {
+            if (SearchResults.SelectedItem is Resource resource && resource.Point?.Coordinates != null && resource.Point.Coordinates.Length == 2)
+            {
+                var position = new Position(resource.Point.Coordinates[0], resource.Point.Coordinates[1]);
+
+                var span = MapSpan.FromCenterAndRadius(position,
+                    Distance.FromMiles(1.0));
+
+                Map.MoveToRegion(span);
+            }
+        }
 
         #region Fields
 
@@ -103,7 +128,7 @@ namespace UrbanSketchers.Pages
 
         private static ISketchPin CreatePin(ISketch sketch)
         {
-            var pin = Core.Container.Current.Resolve<ISketchPin>();
+            var pin = Container.Current.Resolve<ISketchPin>();
 
             pin.Pin = new Pin
             {
@@ -139,17 +164,15 @@ namespace UrbanSketchers.Pages
                 Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
 
                 var sketches = visibleArea > sectorArea
-                    ? await Core.Container.Current.Resolve<ISketchManager>().GetSketchsAsync()
-                    : await Core.Container.Current.Resolve<ISketchManager>().GetSketchsAsync(sector);
+                    ? await Container.Current.Resolve<ISketchManager>().GetSketchsAsync()
+                    : await Container.Current.Resolve<ISketchManager>().GetSketchsAsync(sector);
 
                 if (sketches == null)
                     return;
 
                 if (sketches is MobileServiceCollection<Sketch> collection)
-                {
                     Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
-                            collection.TotalCount);
-                }
+                        collection.TotalCount);
 
 #if SKETCH_MAP
                 var pins = from sketch in sketches
@@ -162,12 +185,11 @@ namespace UrbanSketchers.Pages
 
                 Map.CustomPins.SetRange(pinList);
 #else
-
                 var pins = from sketch in sketches
                     select new Pin
                     {
                         Position = new Position(sketch.Latitude, sketch.Longitude),
-                        Type=PinType.Place,
+                        Type = PinType.Place,
                         Label = sketch.Title,
                         Id = sketch.Id
                     };
@@ -194,7 +216,7 @@ namespace UrbanSketchers.Pages
             {
                 case ISketchPin pin:
                 {
-                    var page = Core.Container.Current.Resolve<ISketchPage>();
+                    var page = Container.Current.Resolve<ISketchPage>();
 
                     page.SketchId = pin.Pin.Id.ToString();
 
@@ -203,7 +225,7 @@ namespace UrbanSketchers.Pages
                 }
                 case Pin pin2:
                 {
-                    var page = Core.Container.Current.Resolve<ISketchPage>();
+                    var page = Container.Current.Resolve<ISketchPage>();
 
                     page.SketchId = pin2.Id.ToString();
 
@@ -220,9 +242,9 @@ namespace UrbanSketchers.Pages
 
         private async void OnAddSketch(object sender, EventArgs e)
         {
-            var editSketchPage = Core.Container.Current.Resolve<IEditSketchPage>();
+            var editSketchPage = Container.Current.Resolve<IEditSketchPage>();
 
-            _sketch = Core.Container.Current.Resolve<ISketch>();
+            _sketch = Container.Current.Resolve<ISketch>();
 
             _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
             _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
@@ -329,7 +351,7 @@ namespace UrbanSketchers.Pages
             if (_inkStream == null)
                 _inkStream = new MemoryStream();
 
-            var page = Core.Container.Current.Resolve<IDrawingPage>();
+            var page = Container.Current.Resolve<IDrawingPage>();
 
             page.ImageStream = _imageStream;
             page.InkStream = _inkStream;
@@ -341,8 +363,8 @@ namespace UrbanSketchers.Pages
         {
             var action = await DisplayActionSheet(
                 "Map type",
-                Properties.Resources.Cancel, 
-                null, 
+                Properties.Resources.Cancel,
+                null,
                 MapType.Satellite.ToString(),
                 MapType.Street.ToString(),
                 MapType.Hybrid.ToString());
@@ -353,70 +375,5 @@ namespace UrbanSketchers.Pages
         }
 
         #endregion
-
-        private void SearchCompleted(object sender, EventArgs e)
-        {
-            // Search with Bing: https://msdn.microsoft.com/en-us/library/ff701711.aspx
-
-            if (sender is Entry entry)
-            {
-                var query = Uri.EscapeUriString(entry.Text);
-
-                if (string.IsNullOrWhiteSpace(query)) return;
-
-                var bingMapsKey =
-                    "B6p5hudPVN61Ykpp6D7W~JW-lf-G0P7wmsDcDrMWFuw~AsZdr0PHfOeWe9qmPtHDbuONPySTrgN47oWYdvD84J67bvxcMbXDQEnZCz6XWwR1";
-
-                var uriString =
-                    $"http://dev.virtualearth.net/REST/v1/Locations?query={query}&includeNeighborhood=1&maxResults=20&key={bingMapsKey}";
-
-                var requestUri = new Uri(uriString);
-
-                var request = WebRequest.Create(requestUri);
-
-                request.Method = "GET";
-                request.ContentType = "application/json";
-
-                using (var response = request.GetResponse() as HttpWebResponse)
-                {
-                    if (response == null) return;
-
-                    if (response.StatusCode != HttpStatusCode.OK) return;
-
-                    var stream = response.GetResponseStream();
-
-                    if (stream == null) return;
-
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var content = reader.ReadToEnd();
-
-                        var locationResponse = JsonConvert.DeserializeObject<LocationResponse>(content);
-
-                        var items = from item in locationResponse.resourceSets
-                            from item2 in item.resources
-                            select item2;
-
-                        SearchResults.ItemsSource = items.ToList();
-                        SearchResults.IsVisible = true;
-
-                        SearchResults.Focus();
-                    }
-                }
-            }
-        }
-
-        private void OnSearchResultSelected(object sender, EventArgs e)
-        {
-            if (SearchResults.SelectedItem is Resource resource)
-            {
-                var position = new Position(resource.point.coordinates[0], resource.point.coordinates[1]);
-
-                var span = MapSpan.FromCenterAndRadius(position,
-                    Distance.FromMiles(1.0));
-
-                Map.MoveToRegion(span);
-            }
-        }
     }
 }

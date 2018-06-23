@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:UrbanSketchers.Views"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"             
              xmlns:controls="clr-namespace:UrbanSketchers.Controls"
              xmlns:usk="clr-namespace:UrbanSketchers"
              Title="{usk:Translate SketchMap}"
@@ -46,7 +45,7 @@
         <controls:SketchMap x:Name="Map" MaxImageSize="320"  MapType="Hybrid" PropertyChanged="OnMapPropertyChanged" />
         <StackLayout VerticalOptions="Start" HorizontalOptions="End" Grid.Row="0">
             <Entry Placeholder="Search" Completed="SearchCompleted" HeightRequest="40" WidthRequest="200" />
-            <Picker x:Name="SearchResults" IsVisible="False" ItemDisplayBinding="{Binding name}" SelectedIndexChanged="OnSearchResultSelected"/>
+            <Picker x:Name="SearchResults" IsVisible="False" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="OnSearchResultSelected"/>
         </StackLayout>
         <Image Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Crosshair" IsVisible="False">
             <Image.Source>

@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace UrbanSketchers.Data
 {
+    /// <summary>
+    /// Location Search result resource
+    /// </summary>
     public class Resource
     {
-        public string name { get; set; }
-        public Point point { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        public Address address { get; set; }
+        [JsonProperty("point")] public Point Point { get; set; }
+
+        [JsonProperty("address")] public Address Address { get; set; }
     }
 }
