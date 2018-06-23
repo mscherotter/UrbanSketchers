@@ -1,10 +1,13 @@
-﻿using System;
+﻿#define SKETCH_MAP
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
 using UrbanSketchers.Support;
@@ -12,8 +15,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Autofac;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Maps;
 using UrbanSketchers.Interfaces;
 using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json;
 
 namespace UrbanSketchers.Pages
 {
@@ -145,6 +150,8 @@ namespace UrbanSketchers.Pages
                     Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
                             collection.TotalCount);
                 }
+
+#if SKETCH_MAP
                 var pins = from sketch in sketches
                     select CreatePin(sketch);
 
@@ -154,9 +161,26 @@ namespace UrbanSketchers.Pages
                     pin.Clicked += Pin_Clicked;
 
                 Map.CustomPins.SetRange(pinList);
+#else
 
-                //Map.Pins.SetRange(from pin in pinList
-                //    select pin.Pin);
+                var pins = from sketch in sketches
+                    select new Pin
+                    {
+                        Position = new Position(sketch.Latitude, sketch.Longitude),
+                        Type=PinType.Place,
+                        Label = sketch.Title,
+                        Id = sketch.Id
+                    };
+
+                var pinList = pins.ToList();
+
+                foreach (var pin in pinList)
+                    pin.Clicked += Pin_Clicked;
+
+                //Map.CustomPins.SetRange(pinList);
+
+                Map.Pins.SetRange(pinList);
+#endif
             }
             catch (Exception e)
             {
@@ -166,13 +190,26 @@ namespace UrbanSketchers.Pages
 
         private async void Pin_Clicked(object sender, EventArgs e)
         {
-            if (sender is ISketchPin pin)
+            switch (sender)
             {
-                var page = Core.Container.Current.Resolve<ISketchPage>();
+                case ISketchPin pin:
+                {
+                    var page = Core.Container.Current.Resolve<ISketchPage>();
 
-                page.SketchId = pin.Pin.Id.ToString();
+                    page.SketchId = pin.Pin.Id.ToString();
 
-                await Navigation.PushAsync(page as Page, false);
+                    await Navigation.PushAsync(page as Page, false);
+                    break;
+                }
+                case Pin pin2:
+                {
+                    var page = Core.Container.Current.Resolve<ISketchPage>();
+
+                    page.SketchId = pin2.Id.ToString();
+
+                    await Navigation.PushAsync(page as Page, false);
+                    break;
+                }
             }
         }
 
@@ -306,9 +343,9 @@ namespace UrbanSketchers.Pages
                 "Map type",
                 Properties.Resources.Cancel, 
                 null, 
-                Xamarin.Forms.Maps.MapType.Satellite.ToString(),
-                Xamarin.Forms.Maps.MapType.Street.ToString(),
-                Xamarin.Forms.Maps.MapType.Hybrid.ToString());
+                MapType.Satellite.ToString(),
+                MapType.Street.ToString(),
+                MapType.Hybrid.ToString());
 
             if (string.IsNullOrWhiteSpace(action)) return;
 
@@ -316,5 +353,70 @@ namespace UrbanSketchers.Pages
         }
 
         #endregion
+
+        private void SearchCompleted(object sender, EventArgs e)
+        {
+            // Search with Bing: https://msdn.microsoft.com/en-us/library/ff701711.aspx
+
+            if (sender is Entry entry)
+            {
+                var query = Uri.EscapeUriString(entry.Text);
+
+                if (string.IsNullOrWhiteSpace(query)) return;
+
+                var bingMapsKey =
+                    "B6p5hudPVN61Ykpp6D7W~JW-lf-G0P7wmsDcDrMWFuw~AsZdr0PHfOeWe9qmPtHDbuONPySTrgN47oWYdvD84J67bvxcMbXDQEnZCz6XWwR1";
+
+                var uriString =
+                    $"http://dev.virtualearth.net/REST/v1/Locations?query={query}&includeNeighborhood=1&maxResults=20&key={bingMapsKey}";
+
+                var requestUri = new Uri(uriString);
+
+                var request = WebRequest.Create(requestUri);
+
+                request.Method = "GET";
+                request.ContentType = "application/json";
+
+                using (var response = request.GetResponse() as HttpWebResponse)
+                {
+                    if (response == null) return;
+
+                    if (response.StatusCode != HttpStatusCode.OK) return;
+
+                    var stream = response.GetResponseStream();
+
+                    if (stream == null) return;
+
+                    using (var reader = new StreamReader(stream))
+                    {
+                        var content = reader.ReadToEnd();
+
+                        var locationResponse = JsonConvert.DeserializeObject<LocationResponse>(content);
+
+                        var items = from item in locationResponse.resourceSets
+                            from item2 in item.resources
+                            select item2;
+
+                        SearchResults.ItemsSource = items.ToList();
+                        SearchResults.IsVisible = true;
+
+                        SearchResults.Focus();
+                    }
+                }
+            }
+        }
+
+        private void OnSearchResultSelected(object sender, EventArgs e)
+        {
+            if (SearchResults.SelectedItem is Resource resource)
+            {
+                var position = new Position(resource.point.coordinates[0], resource.point.coordinates[1]);
+
+                var span = MapSpan.FromCenterAndRadius(position,
+                    Distance.FromMiles(1.0));
+
+                Map.MoveToRegion(span);
+            }
+        }
     }
 }

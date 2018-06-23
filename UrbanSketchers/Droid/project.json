@@ -11,6 +11,7 @@
     "Xamarin.Android.Support.v7.AppCompat": "27.0.2",
     "Xamarin.Android.Support.v7.CardView": "27.0.2",
     "Xamarin.Android.Support.v7.MediaRouter": "27.0.2",
+    "Xamarin.Essentials": "0.7.0.17-preview",
     "Xamarin.Forms": "3.1.0.583944",
     "Xamarin.Forms.Maps": "3.1.0.583944"
   },
