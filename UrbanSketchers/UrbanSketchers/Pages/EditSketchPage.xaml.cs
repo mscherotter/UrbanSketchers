@@ -3,10 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Autofac;
-using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
-using UrbanSketchers.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
@@ -20,22 +17,30 @@ namespace UrbanSketchers.Pages
     public partial class EditSketchPage : IEditSketchPage
     {
         private readonly IEditSketchPageViewModel _viewModel;
+        private bool _initialized;
 
 
         /// <summary>
         ///     should the sketch be uploaded?
         /// </summary>
         public Func<ISketch, Task<bool>> ShouldUpload;
-        private bool _initialized;
+        private readonly ISketchManager _sketchManager;
 
         /// <summary>
         ///     Initializes a new instance of the EditSketchPage class.
         /// </summary>
-        public EditSketchPage()
+        /// <param name="viewModel">the view model interface</param>
+        /// <param name="sketchManager">the sketch manager</param>
+        public EditSketchPage(IEditSketchPageViewModel viewModel,
+            ISketchManager sketchManager)
         {
+            _sketchManager = sketchManager;
+
             InitializeComponent();
 
-            _viewModel = Core.Container.Current.Resolve<IEditSketchPageViewModel>();
+            _viewModel = viewModel;
+
+            _viewModel.DeleteSketchCommand.Page = this;
 
             BindingContext = _viewModel;
         }
@@ -55,6 +60,16 @@ namespace UrbanSketchers.Pages
         public string SketchId { get; set; }
 
         /// <summary>
+        /// Gets or sets the map radius
+        /// </summary>
+        public Distance Radius { get;set;}
+
+        /// <summary>
+        /// Gets or sets the map type
+        /// </summary>
+        public MapType MapType { get;  set; } = MapType.Hybrid;
+
+        /// <summary>
         ///     Load the sketch
         /// </summary>
         protected override async void OnAppearing()
@@ -65,18 +80,21 @@ namespace UrbanSketchers.Pages
             {
                 var position = new Position(_viewModel.Sketch.Latitude, _viewModel.Sketch.Longitude);
 
-                Map.SetVisibleRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(0.5)));
+                Map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Radius));
+                Map.MapType = MapType;
             }
             else
             {
-                var sketch = await Core.Container.Current.Resolve<ISketchManager>().GetSketchAsync(SketchId);
+                var sketch = await _sketchManager.GetSketchAsync(SketchId);
 
                 if (sketch != null)
                 {
-                    var client = new HttpClient();
-                    var stream = await client.GetStreamAsync(sketch.ImageUrl);
-
-                    await LoadImageStreamAsync(stream);
+                    using (var client = new HttpClient())
+                    {
+                        var stream = await client.GetStreamAsync(sketch.ImageUrl);
+                    
+                        await LoadImageStreamAsync(stream);
+                    }
                 }
 
                 _viewModel.Sketch = sketch;
@@ -118,8 +136,15 @@ namespace UrbanSketchers.Pages
 
         private async void OnAdd(object sender, EventArgs e)
         {
-            if (await _viewModel.AddAsync())
-                await Navigation.PopModalAsync(true);
+            if (sender is Button button)
+            {
+                button.IsEnabled = false;
+
+                if (await _viewModel.AddAsync())
+                    await Navigation.PopModalAsync(true);
+
+                button.IsEnabled = true;
+            }
         }
 
         private async void OnCancel(object sender, EventArgs e)

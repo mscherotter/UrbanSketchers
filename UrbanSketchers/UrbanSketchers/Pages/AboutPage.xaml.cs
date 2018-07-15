@@ -1,18 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using Autofac;
-using Plugin.Share;
+﻿using Plugin.Share;
 using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace UrbanSketchers.Pages
 {
     /// <summary>
     ///     About page
     /// </summary>
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : IAboutPage
     {
         /// <summary>
@@ -74,39 +70,10 @@ namespace UrbanSketchers.Pages
         public Link[] Links { get; }
 
 
-        /// <summary>
-        /// Update the delete user button when the page appears
-        /// </summary>
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-            await UpdateDeleteUserButtonAsync();
-        }
-
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (CrossShare.IsSupported && e.SelectedItem is Link link)
                 await CrossShare.Current.OpenBrowser(link.Url);
-        }
-
-        private async void OnRemoveUser(object sender, EventArgs e)
-        {
-            if (!await DisplayAlert(Properties.Resources.RemoveUser,
-                Properties.Resources.RemoveUserQuestion,
-                Properties.Resources.OK, Properties.Resources.Cancel))
-                return;
-
-            await Core.Container.Current.Resolve<ISketchManager>().DeleteCurrentUserAsync();
-
-            await UpdateDeleteUserButtonAsync();
-        }
-
-        private async Task UpdateDeleteUserButtonAsync()
-        {
-            var user = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
-
-            DeleteUserButton.IsEnabled = user != null;
         }
     }
 }

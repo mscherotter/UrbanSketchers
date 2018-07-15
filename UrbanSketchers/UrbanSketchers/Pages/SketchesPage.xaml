@@ -1,33 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vc="clr-namespace:UrbanSketchers.ValueConverters"
+             xmlns:us="clr-namespace:UrbanSketchers"
              x:Class="UrbanSketchers.Pages.SketchesPage"
              Title="Sketches">
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <vc:ImageSourceConverter x:Key="ImageSourceConverter"/>
-            <DataTemplate x:Key="SketchTemplate">
-                <!--<ImageCell ImageSource="{Binding ThumbnailUrl, Converter={StaticResource ImageSourceConverter}}" Text="{Binding Title}" Detail="{Binding CreatedByName, StringFormat='by {0}'}"/>-->
-                <ViewCell>
-                    <Grid Padding="4" VerticalOptions="FillAndExpand">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="{Binding ThumbnailUrl, Converter={StaticResource ImageSourceConverter}}" VerticalOptions="FillAndExpand"/>
-
-                        <StackLayout Grid.Column="1" Padding="4,0,0,0">
-                            <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"/>
-                            <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
-                            <Label Text="{Binding CreationDate, StringFormat='on {0:d}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
-                        </StackLayout>
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ResourceDictionary>
+        <us:SharedResources/>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Download" Command="{Binding DownloadCommand}" CommandParameter="{Binding}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Refresh.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP">Assets/Delete.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem Text="Refresh" Clicked="OnRefresh">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
@@ -36,12 +30,14 @@
             </ToolbarItem.Icon>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    <ActivityIndicator x:Name="ActivityIndicator" 
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       IsVisible="False"
-                       IsEnabled="True" />
-    <ListView x:Name="SketchList" RowHeight="100"
-              ItemTapped="Handle_ItemTapped"
-              CachingStrategy="RecycleElement" ItemTemplate="{StaticResource SketchTemplate}"/>
+    <Grid>
+        <ActivityIndicator x:Name="ActivityIndicator" 
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           IsVisible="False"
+                           IsEnabled="True" />
+        <ListView x:Name="SketchList" 
+                  Style="{StaticResource SketchListStyle}"
+                  ItemTapped="Handle_ItemTapped"/>
+    </Grid>
 </ContentPage>

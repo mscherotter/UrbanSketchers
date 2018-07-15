@@ -21,7 +21,12 @@ namespace UrbanSketchers.Support
             /// <summary>
             /// 3D Models folder
             /// </summary>
-            Models3D
+            Models3D,
+
+            /// <summary>
+            /// Documents library
+            /// </summary>
+            Documents
         }
 
         /// <summary>
@@ -55,5 +60,14 @@ namespace UrbanSketchers.Support
             LocationId locationId,
             ViewMode viewMode,
             IEnumerable<string> fileTypeFilter);
+
+        /// <summary>
+        /// Pick a file to save
+        /// </summary>
+        /// <param name="fileData">the file data</param>
+        /// <param name="locationId">the default location id</param>
+        /// <returns>an async task with a boolean value indicating whether the file was picked</returns>
+        public abstract Task<bool> PickSaveFileAsync(
+            FileData fileData, LocationId locationId);
     }
 }

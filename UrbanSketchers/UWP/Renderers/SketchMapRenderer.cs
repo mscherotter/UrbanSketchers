@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -179,7 +180,7 @@ namespace UWP
                 }
                 else
                 {
-                    var file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync(pin.Url);
+                    var file = await ApplicationData.Current.LocalFolder.GetFileAsync(pin.Url);
 
                     pinImage = RandomAccessStreamReference.CreateFromFile(file);
                 }
@@ -190,6 +191,7 @@ namespace UWP
                     CollisionBehaviorDesired = MapElementCollisionBehavior.RemainVisible,
                     Location = point,
                     NormalizedAnchorPoint = new Point(0.5, 1.0),
+                    
                     Title = pin.Pin.Label
                 };
 
@@ -219,9 +221,7 @@ namespace UWP
 
                         _sourceImage.Source = bitmapImage;
 
-                        Point point;
-
-                        _nativeMap.GetOffsetFromLocation(icon.Location, out point);
+                        _nativeMap.GetOffsetFromLocation(icon.Location, out var point);
 
                         Canvas.SetLeft(_sourceImage, point.X - bitmapImage.PixelWidth / 2.0);
 

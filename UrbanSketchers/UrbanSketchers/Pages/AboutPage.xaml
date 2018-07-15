@@ -16,7 +16,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Margin="4" x:Name="DeleteUserButton" Text="{usk:Translate DeleteUserText}" Clicked="OnRemoveUser" HorizontalOptions="Start"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

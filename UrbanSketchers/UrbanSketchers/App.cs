@@ -7,6 +7,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
+using UrbanSketchers.Commands;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Core;
 using UrbanSketchers.Data;
@@ -183,13 +184,18 @@ namespace UrbanSketchers
             var builder = new ContainerBuilder();
 
             builder.RegisterType<AboutPage>().As<IAboutPage>();
+            builder.RegisterType<DeleteSketchCommand>().As<IDeleteSketchCommand>();
+            builder.RegisterType<DeleteUserCommand>().As<IDeleteUserCommand>();
+            builder.RegisterType<DownloadCommand>().As<IDownloadCommand>();
             builder.RegisterType<DrawingPage>().As<IDrawingPage>();
             builder.RegisterType<EditSketchPage>().As<IEditSketchPage>();
             builder.RegisterType<EditSketchPageViewModel>().As<IEditSketchPageViewModel>();
             builder.RegisterType<MapPage>().As<IMapPage>();
+            builder.RegisterType<MySketchesPage>().As<IMySketchesPage>();
             builder.RegisterType<PeoplePage>().As<IPeoplePage>();
             builder.RegisterType<Person>().As<IPerson>();
             builder.RegisterType<PersonPageViewModel>().As<IPersonPageViewModel>();
+            builder.RegisterType<PicturePage>().As<IPicturePage>();
             builder.RegisterType<Rating>().As<IRating>();
             builder.RegisterType<Sketch>().As<ISketch>();
             builder.RegisterType<SketchCommentsPage>().As<ISketchCommentsPage>();

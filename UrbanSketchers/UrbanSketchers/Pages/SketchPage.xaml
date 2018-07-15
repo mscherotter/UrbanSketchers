@@ -4,11 +4,13 @@
              xmlns:controls="clr-namespace:UrbanSketchers.Controls"
              xmlns:vc="clr-namespace:UrbanSketchers.ValueConverters"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:commands="clr-namespace:UrbanSketchers.Commands"
              x:Class="UrbanSketchers.Pages.SketchPage"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <vc:ImageSourceConverter x:Key="ImageSourceConverter"/>
+            <commands:DeleteSketchCommand x:Key="DeleteSketchCommand"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -48,7 +50,7 @@
                 </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
-        <ToolbarItem Text="Delete" Clicked="OnDelete">
+        <ToolbarItem Text="Delete" Command="{StaticResource DeleteSketchCommand}" CommandParameter="{Binding}">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP">Assets/Delete.png</On>
@@ -79,7 +81,7 @@
                 <Label Text="{Binding Description}" Style="{DynamicResource CaptionStyle}"/>
                 <Label Text="{Binding Address}" Style="{DynamicResource CaptionStyle}" />
             </StackLayout>
-            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ThumbnailUrl, Converter={StaticResource ImageSourceConverter}}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
+            <controls:ConnectedImage Grid.Row="1" Grid.Column="0" Margin="4"  Source="{Binding ImageUrl, Converter={StaticResource ImageSourceConverter}}" x:Name="Image" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
                 <controls:ConnectedImage.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnImageTapped"/>
                 </controls:ConnectedImage.GestureRecognizers>

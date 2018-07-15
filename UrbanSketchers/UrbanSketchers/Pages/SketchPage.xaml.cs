@@ -32,6 +32,11 @@ namespace UrbanSketchers.Pages
             ShareItem.IsEnabled = CrossShare.IsSupported;
 
             Image.PropertyChanged += Image_PropertyChanged;
+
+            if (this.Resources["DeleteSketchCommand"] is IDeleteSketchCommand command)
+            {
+                command.Page = this;
+            }
         }
 
         /// <summary>
@@ -216,43 +221,6 @@ namespace UrbanSketchers.Pages
             LikeButton.IsEnabled = true;
         }
 
-        private async void OnDelete(object sender, EventArgs e)
-        {
-            if (Sketch == null) return;
-
-            var person = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
-
-            if (person == null)
-                if (await App.Authenticator.AuthenticateAsync())
-                    person = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
-
-            if (person == null)
-                return;
-
-            if (person.Id != Sketch.CreatedBy && !person.IsAdministrator)
-            {
-                await DisplayAlert("Cannot Delete Sketch",
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        "Only {0} or an administrator can delete this sketch.", Sketch.CreatedByName),
-                    Properties.Resources.OK);
-
-                return;
-            }
-
-            var response = await DisplayAlert(
-                Properties.Resources.DeleteSketch,
-                Properties.Resources.PressOKToDeleteSketch,
-                Properties.Resources.OK,
-                Properties.Resources.Cancel);
-
-            if (!response) return;
-
-            await Core.Container.Current.Resolve<ISketchManager>().DeleteAsync(Sketch);
-
-            await Navigation.PopAsync(true);
-        }
-
         private void OnShare(object sender, EventArgs e)
         {
             if (Sketch == null) return;
@@ -313,10 +281,11 @@ namespace UrbanSketchers.Pages
         {
             Image.Prepare("Image");
 
-            await Navigation.PushModalAsync(new PicturePage
-            {
-                ImageSource = Image.Source
-            });
+            var page = UrbanSketchers.Core.Container.Current.Resolve<IPicturePage>();
+
+            page.ImageSource = new UriImageSource {Uri = new Uri(Sketch.ImageUrl)};
+
+            await Navigation.PushModalAsync(page as Page);
         }
     }
 }

@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:usk="clr-namespace:UrbanSketchers"
              x:Class="UrbanSketchers.Pages.PersonPage"
              Title="{Binding Name}">
+    <ContentPage.Resources>
+        <usk:SharedResources/>
+
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Update"/>
         <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}">
@@ -31,26 +36,9 @@
                 <Label Text="Image URL"/>
                 <Entry Text="{Binding Path=Person.ImageUrl, Mode=TwoWay}"/>
             </StackLayout>
-            <ListView Grid.Column="0" Margin="4" Grid.Row="1" x:Name="Sketches" Grid.ColumnSpan="2" ItemSelected="OnSketchSelected" ItemsSource="{Binding Sketches}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ImageCell ImageSource="{Binding ThumbnailUrl}" Text="{Binding Title}"
-                                   Detail="{Binding Address}"/>
-                        <!--<ViewCell>
-                            <Grid Padding="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="48"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <controls:ConnectedImage Name="Sketch" Source="{Binding ImageUrl}" VerticalOptions="FillAndExpand"/>
-                                <StackLayout Grid.Column="1" Padding="4,0,0,0">
-                                    <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"/>
-                                    <Label Text="{Binding CreatedByName, StringFormat='by {0}'}" Style="{DynamicResource ListItemDetailTextStyle}"/>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>-->
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView Grid.Column="0" Margin="4" Grid.Row="1" x:Name="Sketches" Grid.ColumnSpan="2" ItemSelected="OnSketchSelected" 
+                      ItemsSource="{Binding Sketches}"
+                      Style="{StaticResource SketchListStyle}">
             </ListView>
         </Grid>
         

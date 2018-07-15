@@ -1,9 +1,9 @@
 ﻿{
   "dependencies": {
-    "Microsoft.AppCenter": "1.6.0",
-    "Microsoft.AppCenter.Analytics": "1.6.0",
-    "Microsoft.AppCenter.Crashes": "1.6.0",
-    "Microsoft.AppCenter.Push": "1.6.0",
+    "Microsoft.AppCenter": "1.6.1",
+    "Microsoft.AppCenter.Analytics": "1.6.1",
+    "Microsoft.AppCenter.Crashes": "1.6.1",
+    "Microsoft.AppCenter.Push": "1.6.1",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
     "Xamarin.Android.Support.CustomTabs": "27.0.2",
     "Xamarin.Android.Support.Design": "27.0.2",
@@ -11,8 +11,8 @@
     "Xamarin.Android.Support.v7.AppCompat": "27.0.2",
     "Xamarin.Android.Support.v7.CardView": "27.0.2",
     "Xamarin.Android.Support.v7.MediaRouter": "27.0.2",
-    "Xamarin.Forms": "2.5.1.527436",
-    "Xamarin.Forms.Maps": "2.5.1.527436"
+    "Xamarin.Forms": "3.0.0.482510",
+    "Xamarin.Forms.Maps": "3.0.0.482510"
   },
   "frameworks": {
     "MonoAndroid,Version=v8.1": {}

@@ -29,7 +29,7 @@ namespace UWP.Support
         {
             _locationIdDictionary[LocationId.Pictures] = PickerLocationId.PicturesLibrary;
             _locationIdDictionary[LocationId.Models3D] = PickerLocationId.Objects3D;
-
+            _locationIdDictionary[LocationId.Documents] = PickerLocationId.DocumentsLibrary;
             _viewModeDictionary[ViewMode.List] = PickerViewMode.List;
             _viewModeDictionary[ViewMode.Thumbnail] = PickerViewMode.Thumbnail;
         }
@@ -76,6 +76,32 @@ namespace UWP.Support
 
                 return fileData;
             }
+        }
+
+        /// <summary>
+        /// Pick a file to save
+        /// </summary>
+        /// <param name="fileData">the file data</param>
+        /// <param name="locationId">the location id</param>
+        /// <returns>an async task with a boolean value indicating whether the file was created</returns>
+        public override async Task<bool> PickSaveFileAsync(FileData fileData, LocationId locationId)
+        {
+            var picker = new FileSavePicker
+            {
+                SuggestedStartLocation = _locationIdDictionary[locationId],
+                SuggestedFileName =  fileData.FileName,
+            };
+
+            var file = await picker.PickSaveFileAsync();
+
+            if (file == null) return false;
+
+            using (var stream = await file.OpenStreamForWriteAsync())
+            {
+                await stream.WriteAsync(fileData.DataArray, 0, fileData.DataArray.Length);
+            }
+
+            return true;
         }
     }
 

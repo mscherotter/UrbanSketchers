@@ -34,6 +34,7 @@ namespace UrbanSketchers.Pages
             string urbanSketchersIcon = null;
             string sketchesIcon = null;
             string aboutIcon = null;
+            string myIcon = null;
             //string pinToStartIcon = null;
             //string signInIcon = null;
 
@@ -44,6 +45,7 @@ namespace UrbanSketchers.Pages
                     urbanSketchersIcon = "Assets/UrbanSketchers.png";
                     sketchesIcon = "Assets/Sketches.png";
                     aboutIcon = "Assets/About.png";
+                    myIcon = "Assets/SignedIn.png";
                     //pinToStartIcon = "Assets/PinToStart.png";
                     //signInIcon = "Assets/SignIn.png";
                     break;
@@ -75,6 +77,12 @@ namespace UrbanSketchers.Pages
                     Label = Properties.Resources.UrbanSketchers,
                     Command = new NavigationCommand<IPeoplePage>(),
                     Icon = urbanSketchersIcon
+                },
+                new NavigationMenuItem
+                {
+                    Label = Properties.Resources.MySketches,
+                    Command = new NavigationCommand<IMySketchesPage>(),
+                    Icon = myIcon
                 }
             });
 

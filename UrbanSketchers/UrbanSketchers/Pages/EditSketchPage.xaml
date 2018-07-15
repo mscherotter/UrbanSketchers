@@ -30,15 +30,16 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Text="{urbanSketchers:Translate Latitude}"/>
-                    <Entry Grid.Row="1" Text="{Binding Path=Sketch.Latitude, Mode=TwoWay, StringFormat='{0:F5}'}" Grid.Column="0" />
+                    <Entry Grid.Row="1" Text="{Binding Path=Sketch.Latitude, Mode=TwoWay, StringFormat='{}{0:F5}'}" Grid.Column="0" />
                     <Label Text="{urbanSketchers:Translate Longitude}" Grid.Column="1" Grid.Row="0"/>
-                    <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Path=Sketch.Longitude, Mode=TwoWay, StringFormat='{0:F6}'}"/>
+                    <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Path=Sketch.Longitude, Mode=TwoWay, StringFormat='{}{0:F6}'}"/>
                 </Grid>
                 <!--<Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}" x:Name="ImageUrlEntry"/>-->
             </StackLayout>
             <StackLayout Orientation="Horizontal" Grid.Row="2" Margin="12">
                 <Button Text="{urbanSketchers:Translate SelectFile}" Clicked="OnSelectFile" HorizontalOptions="Start"/>
-                <Button Text="{urbanSketchers:Translate Add}" IsEnabled="{Binding CanAdd}" Clicked="OnAdd" x:Name="AddButton" VerticalOptions="End"/>
+                <Button Text="{Binding Path=AddButtonText}" IsEnabled="{Binding CanAdd}" Clicked="OnAdd" x:Name="AddButton" VerticalOptions="End"/>
+                <Button Text="{urbanSketchers:Translate Delete}" Command="{Binding DeleteSketchCommand}" CommandParameter="{Binding Sketch}"/>
                 <Button Text="{urbanSketchers:Translate Cancel}" Clicked="OnCancel" VerticalOptions="End"/>
             </StackLayout>
 

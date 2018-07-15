@@ -6,7 +6,7 @@
  * For more information, see: http://go.microsoft.com/fwlink/?LinkId=620342
  */
 
-#define OFFLINE_SYNC_ENABLED
+//#define OFFLINE_SYNC_ENABLED
 
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,8 @@ using UrbanSketchers.Data;
 using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using System.Net.Http;
+using System.Threading;
+
 #if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 
@@ -54,6 +56,11 @@ namespace UrbanSketchers
         private readonly IMobileServiceTable<TRating> _ratingTable;
 #endif
 
+        /// <summary>
+        /// Gets the ratings for a sketch
+        /// </summary>
+        /// <param name="sketchId">the sketch id</param>
+        /// <returns>an async task with a collection of ratings</returns>
         public async Task<IEnumerable<IRating>> GetRatingsAsync(string sketchId)
         {
             var query = from item in _ratingTable
@@ -117,14 +124,9 @@ namespace UrbanSketchers
         ///     Delete the current user
         /// </summary>
         /// <returns>an async task</returns>
-        public async Task DeleteCurrentUserAsync()
+        public async Task DeleteAsync(IPerson person)
         {
-            var user = await GetCurrentUserAsync();
-
-            if (user == null)
-                return;
-
-            await _peopleTable.DeleteAsync(user as TPerson);
+            await _peopleTable.DeleteAsync(person as TPerson);
         }
 
         /// <summary>
@@ -148,10 +150,19 @@ namespace UrbanSketchers
             return rating.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets the current user
+        /// </summary>
+        /// <returns>an async task with the current user</returns>
         public async Task<IPerson> GetCurrentUserAsync()
         {
             if (CurrentClient.CurrentUser == null)
                 return null;
+
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                return null;
+            }
 
             var query = from item in _peopleTable
                 where item.UserId == CurrentClient.CurrentUser.UserId
@@ -218,7 +229,7 @@ namespace UrbanSketchers
             }
             catch (HttpRequestException hre)
             {
-                System.Diagnostics.Debug.WriteLine($"Failed to upload file {hre.Message}. Caching filename in local storage...");
+                Debug.WriteLine($"Failed to upload file {hre.Message}. Caching filename in local storage...");
 
                 var file = await PCLStorage.FileSystem.Current.LocalStorage.CreateFileAsync(fileName, PCLStorage.CreationCollisionOption.GenerateUniqueName);
 
@@ -233,6 +244,11 @@ namespace UrbanSketchers
             return null;
         }
 
+        /// <summary>
+        /// Delete a sketch
+        /// </summary>
+        /// <param name="sketch">the sketch</param>
+        /// <returns>an async task</returns>
         public Task DeleteAsync(ISketch sketch)
         {
             return _sketchTable.DeleteAsync(sketch as TSketch);
@@ -397,9 +413,29 @@ namespace UrbanSketchers
                 await _ratingTable.UpdateAsync(item as TRating);
         }
 
+        /// <summary>
+        /// Gets a person
+        /// </summary>
+        /// <param name="personId">the person Id</param>
+        /// <returns>an async task with a person</returns>
         public async Task<IPerson> GetPersonAsync(string personId)
         {
             return await _peopleTable.LookupAsync(personId);
+        }
+
+        /// <summary>
+        /// Gets the data for a user
+        /// </summary>
+        /// <param name="personId">the person Id</param>
+        /// <returns></returns>
+        public Task<string> GetUserDataAsync(string personId)
+        {
+            var parameters = new Dictionary<string, string>
+            {
+                ["UserId"] = personId
+            };
+
+            return CurrentClient.InvokeApiAsync<string>("GetUserData", HttpMethod.Get, parameters);
         }
 
 

@@ -40,10 +40,27 @@ namespace UrbanSketchers.Interfaces
 
         Task<IPerson> GetCurrentUserAsync();
 
-        Task DeleteCurrentUserAsync();
-
         Task DeleteAsync(ISketch sketch);
 
+        /// <summary>
+        /// Delete a person
+        /// </summary>
+        /// <param name="person">the person</param>
+        /// <returns>an async task</returns>
+        Task DeleteAsync(IPerson person);
+
+        /// <summary>
+        /// Gets a sketch
+        /// </summary>
+        /// <param name="id">the sketch Id</param>
+        /// <returns>an aysnc task with a sketch</returns>
         Task<ISketch> GetSketchAsync(string id);
+
+        /// <summary>
+        /// Gets the user data HTML for a person
+        /// </summary>
+        /// <param name="personId">the user id</param>
+        /// <returns>an async task with the user</returns>
+        Task<string> GetUserDataAsync(string personId);
     }
 }
