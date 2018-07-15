@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Plugin.FilePicker.Abstractions;
+using UrbanSketchers.Data;
 using UrbanSketchers.Support;
 
 namespace UWP.Support
@@ -60,11 +61,25 @@ namespace UWP.Support
 
             using (var stream = await file.OpenStreamForReadAsync())
             {
-                var fileData = new FileData
+                var fileData = new PictureFileData
                 {
                     DataArray = new byte[stream.Length],
                     FileName = file.Name
                 };
+
+                try
+                {
+                    var imageProperties = await file.Properties.GetImagePropertiesAsync();
+
+                    fileData.Title = imageProperties.Title;
+                    fileData.Latitude = imageProperties.Latitude;
+                    fileData.Longitude = imageProperties.Longitude;
+                    fileData.CreationDate = imageProperties.DateTaken.DateTime;
+                }
+                catch (Exception e)
+                {
+
+                }
 
                 var dataRead = 0;
 

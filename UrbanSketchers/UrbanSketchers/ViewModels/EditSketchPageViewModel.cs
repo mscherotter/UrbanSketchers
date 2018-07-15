@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
+using UrbanSketchers.Data;
 using UrbanSketchers.Helpers;
 using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
@@ -143,6 +144,18 @@ namespace UrbanSketchers.ViewModels
 
             if (_fileData == null)
                 return null;
+
+            if (_fileData is PictureFileData pictureData)
+            {
+                Sketch.Title = pictureData.Title;
+                Sketch.CreationDate = pictureData.CreationDate;
+
+                if (pictureData.Latitude.HasValue && pictureData.Longitude.HasValue)
+                {
+                    Sketch.Longitude = pictureData.Longitude.Value;
+                    Sketch.Latitude = pictureData.Latitude.Value;
+                }
+            }
 
             return new StreamImageSource
             {

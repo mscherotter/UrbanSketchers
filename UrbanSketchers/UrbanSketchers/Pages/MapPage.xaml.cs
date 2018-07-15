@@ -1,19 +1,21 @@
-﻿using System;
+﻿#define SKETCH_MAP
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Microsoft.WindowsAzure.MobileServices;
 using UrbanSketchers.Controls;
 using UrbanSketchers.Data;
+using UrbanSketchers.Interfaces;
 using UrbanSketchers.Support;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
-using Autofac;
 using Xamarin.Forms.Xaml;
-using UrbanSketchers.Interfaces;
-using Microsoft.WindowsAzure.MobileServices;
+using Container = UrbanSketchers.Core.Container;
 
 namespace UrbanSketchers.Pages
 {
@@ -59,7 +61,7 @@ namespace UrbanSketchers.Pages
 
             try
             {
-                var user = await Core.Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
+                var user = await Container.Current.Resolve<ISketchManager>().GetCurrentUserAsync();
 
                 if (user != null)
                 {
@@ -74,6 +76,34 @@ namespace UrbanSketchers.Pages
         }
 
         #endregion
+
+        private void SearchCompleted(object sender, EventArgs e)
+        {
+            if (sender is Entry entry)
+            {
+                var locations = BingSearch.LocationSearch(entry.Text);
+
+                if (locations == null) return;
+
+                SearchResults.ItemsSource = locations;
+                SearchResults.IsVisible = true;
+
+                SearchResults.Focus();
+            }
+        }
+
+        private void OnSearchResultSelected(object sender, EventArgs e)
+        {
+            if (SearchResults.SelectedItem is Resource resource && resource.Point?.Coordinates != null && resource.Point.Coordinates.Length == 2)
+            {
+                var position = new Position(resource.Point.Coordinates[0], resource.Point.Coordinates[1]);
+
+                var span = MapSpan.FromCenterAndRadius(position,
+                    Distance.FromMiles(1.0));
+
+                Map.MoveToRegion(span);
+            }
+        }
 
         #region Fields
 
@@ -98,7 +128,7 @@ namespace UrbanSketchers.Pages
 
         private static ISketchPin CreatePin(ISketch sketch)
         {
-            var pin = Core.Container.Current.Resolve<ISketchPin>();
+            var pin = Container.Current.Resolve<ISketchPin>();
 
             pin.Pin = new Pin
             {
@@ -134,17 +164,17 @@ namespace UrbanSketchers.Pages
                 Debug.WriteLine($"Sector area: {sectorArea}, Visible area: {visibleArea}.");
 
                 var sketches = visibleArea > sectorArea
-                    ? await Core.Container.Current.Resolve<ISketchManager>().GetSketchsAsync()
-                    : await Core.Container.Current.Resolve<ISketchManager>().GetSketchsAsync(sector);
+                    ? await Container.Current.Resolve<ISketchManager>().GetSketchsAsync()
+                    : await Container.Current.Resolve<ISketchManager>().GetSketchsAsync(sector);
 
                 if (sketches == null)
                     return;
 
                 if (sketches is MobileServiceCollection<Sketch> collection)
-                {
                     Title = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SketchMapNSketches,
-                            collection.TotalCount);
-                }
+                        collection.TotalCount);
+
+#if SKETCH_MAP
                 var pins = from sketch in sketches
                     select CreatePin(sketch);
 
@@ -154,9 +184,25 @@ namespace UrbanSketchers.Pages
                     pin.Clicked += Pin_Clicked;
 
                 Map.CustomPins.SetRange(pinList);
+#else
+                var pins = from sketch in sketches
+                    select new Pin
+                    {
+                        Position = new Position(sketch.Latitude, sketch.Longitude),
+                        Type = PinType.Place,
+                        Label = sketch.Title,
+                        Id = sketch.Id
+                    };
 
-                //Map.Pins.SetRange(from pin in pinList
-                //    select pin.Pin);
+                var pinList = pins.ToList();
+
+                foreach (var pin in pinList)
+                    pin.Clicked += Pin_Clicked;
+
+                //Map.CustomPins.SetRange(pinList);
+
+                Map.Pins.SetRange(pinList);
+#endif
             }
             catch (Exception e)
             {
@@ -166,13 +212,26 @@ namespace UrbanSketchers.Pages
 
         private async void Pin_Clicked(object sender, EventArgs e)
         {
-            if (sender is ISketchPin pin)
+            switch (sender)
             {
-                var page = Core.Container.Current.Resolve<ISketchPage>();
+                case ISketchPin pin:
+                {
+                    var page = Container.Current.Resolve<ISketchPage>();
 
-                page.SketchId = pin.Pin.Id.ToString();
+                    page.SketchId = pin.Pin.Id.ToString();
 
-                await Navigation.PushAsync(page as Page, false);
+                    await Navigation.PushAsync(page as Page, false);
+                    break;
+                }
+                case Pin pin2:
+                {
+                    var page = Container.Current.Resolve<ISketchPage>();
+
+                    page.SketchId = pin2.Id.ToString();
+
+                    await Navigation.PushAsync(page as Page, false);
+                    break;
+                }
             }
         }
 
@@ -183,9 +242,9 @@ namespace UrbanSketchers.Pages
 
         private async void OnAddSketch(object sender, EventArgs e)
         {
-            var editSketchPage = Core.Container.Current.Resolve<IEditSketchPage>();
+            var editSketchPage = Container.Current.Resolve<IEditSketchPage>();
 
-            _sketch = Core.Container.Current.Resolve<ISketch>();
+            _sketch = Container.Current.Resolve<ISketch>();
 
             _sketch.Latitude = Map.VisibleRegion.Center.Latitude;
             _sketch.Longitude = Map.VisibleRegion.Center.Longitude;
@@ -292,7 +351,7 @@ namespace UrbanSketchers.Pages
             if (_inkStream == null)
                 _inkStream = new MemoryStream();
 
-            var page = Core.Container.Current.Resolve<IDrawingPage>();
+            var page = Container.Current.Resolve<IDrawingPage>();
 
             page.ImageStream = _imageStream;
             page.InkStream = _inkStream;
@@ -304,11 +363,11 @@ namespace UrbanSketchers.Pages
         {
             var action = await DisplayActionSheet(
                 "Map type",
-                Properties.Resources.Cancel, 
-                null, 
-                Xamarin.Forms.Maps.MapType.Satellite.ToString(),
-                Xamarin.Forms.Maps.MapType.Street.ToString(),
-                Xamarin.Forms.Maps.MapType.Hybrid.ToString());
+                Properties.Resources.Cancel,
+                null,
+                MapType.Satellite.ToString(),
+                MapType.Street.ToString(),
+                MapType.Hybrid.ToString());
 
             if (string.IsNullOrWhiteSpace(action)) return;
 

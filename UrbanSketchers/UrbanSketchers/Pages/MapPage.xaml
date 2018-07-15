@@ -41,7 +41,12 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <!--<maps:Map x:Name="Map" MapType="Hybrid" PropertyChanged="OnMapPropertyChanged" />-->
         <controls:SketchMap x:Name="Map" MaxImageSize="320"  MapType="Hybrid" PropertyChanged="OnMapPropertyChanged" />
+        <StackLayout VerticalOptions="Start" HorizontalOptions="End" Grid.Row="0">
+            <Entry Placeholder="Search" Completed="SearchCompleted" HeightRequest="40" WidthRequest="200" />
+            <Picker x:Name="SearchResults" IsVisible="False" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="OnSearchResultSelected"/>
+        </StackLayout>
         <Image Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Crosshair" IsVisible="False">
             <Image.Source>
                 <OnPlatform x:TypeArguments="ImageSource">
