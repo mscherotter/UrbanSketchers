@@ -14,6 +14,13 @@
             <maps:Map x:Name="Map" HorizontalOptions="Fill"
                       MapType="Street"  PropertyChanged="OnMapPropertyChanged" />
             <Image Grid.Row="0" x:Name="Image" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="140" HeightRequest="140"/>
+            <Image Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Crosshair" IsVisible="True">
+                <Image.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <On Platform="UWP">Assets/Crosshair.png</On>
+                    </OnPlatform>
+                </Image.Source>
+            </Image>
             <StackLayout Grid.Row="1" Margin="12,0">
                 <Entry Placeholder="{urbanSketchers:Translate Title}" Text="{Binding Sketch.Title, Mode=TwoWay}"/>
                 <Label Text="{urbanSketchers:Translate Description}"/>
