@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Plugin.FilePicker.Abstractions;
@@ -76,9 +74,9 @@ namespace UWP.Support
                     fileData.Longitude = imageProperties.Longitude;
                     fileData.CreationDate = imageProperties.DateTaken.DateTime;
                 }
-                catch (Exception e)
+                // ReSharper disable once EmptyGeneralCatchClause
+                catch (Exception)
                 {
-
                 }
 
                 var dataRead = 0;
