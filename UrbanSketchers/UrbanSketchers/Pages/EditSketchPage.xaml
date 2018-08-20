@@ -21,7 +21,7 @@
                     </OnPlatform>
                 </Image.Source>
             </Image>
-            <StackLayout Grid.Row="1" Margin="12,0">
+            <StackLayout Grid.Row="1" Margin="0">
                 <Entry Placeholder="{urbanSketchers:Translate Title}" Text="{Binding Sketch.Title, Mode=TwoWay}"/>
                 <Label Text="{urbanSketchers:Translate Description}"/>
                 <Editor Text="{Binding Sketch.Description, Mode=TwoWay}" HeightRequest="58"/>
@@ -43,11 +43,11 @@
                 </Grid>
                 <!--<Entry Placeholder="ImageUrl" Text="{Binding ImageUrl, Mode=TwoWay}" x:Name="ImageUrlEntry"/>-->
             </StackLayout>
-            <StackLayout Orientation="Horizontal" Grid.Row="2" Margin="12">
-                <Button Text="{urbanSketchers:Translate SelectFile}" Clicked="OnSelectFile" HorizontalOptions="Start"/>
-                <Button Text="{Binding Path=AddButtonText}" IsEnabled="{Binding CanAdd}" Clicked="OnAdd" x:Name="AddButton" VerticalOptions="End"/>
-                <Button Text="{urbanSketchers:Translate Delete}" Command="{Binding DeleteSketchCommand}" CommandParameter="{Binding Sketch}"/>
-                <Button Text="{urbanSketchers:Translate Cancel}" Clicked="OnCancel" VerticalOptions="End"/>
+            <StackLayout Orientation="Horizontal" Grid.Row="2" Margin="0" HeightRequest="60">
+                <Button Text="{urbanSketchers:Translate SelectFile}" Clicked="OnSelectFile" HorizontalOptions="Start" VerticalOptions="Start"/>
+                <Button Text="{Binding Path=AddButtonText}" IsEnabled="{Binding CanAdd}" Clicked="OnAdd" x:Name="AddButton" VerticalOptions="Start"/>
+                <Button Text="{urbanSketchers:Translate Delete}" Command="{Binding DeleteSketchCommand}" CommandParameter="{Binding Sketch}" VerticalOptions="Start"/>
+                <Button Text="{urbanSketchers:Translate Cancel}" Clicked="OnCancel" VerticalOptions="Start"/>
             </StackLayout>
 
         </Grid>

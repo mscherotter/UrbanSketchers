@@ -26,6 +26,10 @@ namespace UrbanSketchers.Pages
         public Func<ISketch, Task<bool>> ShouldUpload;
         private readonly ISketchManager _sketchManager;
 
+        public EditSketchPage()
+        {
+            InitializeComponent();
+        }
         /// <summary>
         ///     Initializes a new instance of the EditSketchPage class.
         /// </summary>
