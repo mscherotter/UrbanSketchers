@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Runtime;
 using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -20,6 +21,8 @@ namespace UrbanSketchers.Droid
         {
             base.OnCreate(bundle);
 
+            Xamarin.Essentials.Platform.Init(this, bundle);
+
             // Initialize Azure Mobile Apps
             CurrentPlatform.Init();
 
@@ -30,6 +33,15 @@ namespace UrbanSketchers.Droid
 
             // Load the main application
             LoadApplication(new App(_sketchManager));
+
+
         }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }    
     }
 }

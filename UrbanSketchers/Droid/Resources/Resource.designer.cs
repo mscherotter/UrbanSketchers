@@ -27,6 +27,8 @@ namespace UrbanSketchers.Droid
 		public static void UpdateIdValues()
 		{
 			global::Microsoft.AppCenter.Push.Android.Resource.Drawable.ic_stat_notify_dot = global::UrbanSketchers.Droid.Resource.Drawable.ic_stat_notify_dot;
+			global::Microsoft.AppCenter.Push.Android.Resource.Integer.google_play_services_version = global::UrbanSketchers.Droid.Resource.Integer.google_play_services_version;
+			global::Microsoft.AppCenter.Push.Android.Resource.String.common_google_play_services_unknown_issue = global::UrbanSketchers.Droid.Resource.String.common_google_play_services_unknown_issue;
 			global::Microsoft.AppCenter.Push.Android.Resource.String.library_name = global::UrbanSketchers.Droid.Resource.String.library_name;
 			global::Xamarin.Auth._MobileServices.Resource.Animation.slide_in_right = global::UrbanSketchers.Droid.Resource.Animation.slide_in_right;
 			global::Xamarin.Auth._MobileServices.Resource.Animation.slide_out_left = global::UrbanSketchers.Droid.Resource.Animation.slide_out_left;
