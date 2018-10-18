@@ -38,15 +38,22 @@ namespace UWP
         {
             InitializeComponent();
 
-            _sketch = UrbanSketchers.Core.Container.Current.Resolve<ISketch>(); 
-
-            DataContext = _sketch;
 
             var sketchManager = new SketchManager();
 
             _mobileServiceInit = new MobileServiceInit(sketchManager);
 
+            UrbanSketchers.App.Init(_mobileServiceInit);
+
             _mobileServiceInit.SignedIn += _mobileServiceInit_SignedIn;
+
+           UrbanSketchers.App.InitializeContainer(sketchManager);
+
+            _sketch = UrbanSketchers.Core.Container.Current.Resolve<ISketch>(); 
+
+            DataContext = _sketch;
+
+            UrbanSketchers.Core.Container.Current.Resolve<ISketchManager>().ThumbnailGenerator = new ThumbnailGenerator();
         }
 
         private async void _mobileServiceInit_SignedIn(object sender, EventArgs e)
@@ -117,6 +124,30 @@ namespace UWP
 
                             Image.Source = image;
                         }
+
+                        try
+                        {
+                            var imageProperties = await file.Properties.GetImagePropertiesAsync();
+
+                            if (imageProperties.Latitude.HasValue)
+                            {
+                                _sketch.Latitude = imageProperties.Latitude.Value;
+                            }
+
+                            if (imageProperties.Longitude.HasValue)
+                            {
+                                _sketch.Longitude = imageProperties.Longitude.Value;
+                            }
+
+                            _sketch.CreationDate = imageProperties.DateTaken.UtcDateTime;
+
+                            _sketch.Title = imageProperties.Title;
+                        }
+                        catch (Exception exception)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"image doesn't contain metadata: {exception.Message}.");
+                        }
+                        
                     }
                 }
             }

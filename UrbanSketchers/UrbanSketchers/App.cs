@@ -179,7 +179,7 @@ namespace UrbanSketchers
             // Handle when your app resumes
         }
 
-        private void InitializeContainer(ISketchManager sketchManager)
+        public static void InitializeContainer(ISketchManager sketchManager)
         {
             var builder = new ContainerBuilder();
 
