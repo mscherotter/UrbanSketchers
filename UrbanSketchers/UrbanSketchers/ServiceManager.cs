@@ -110,7 +110,7 @@ namespace UrbanSketchers
             text = text.ToLower();
 
             var query = from item in _sketchTable
-                where item.Title.ToLower().Contains(text) ||
+                where item.Title.ToLower(CultureInfo.CurrentCulture).Contains(text) ||
                       item.Description.ToLower().Contains(text) ||
                       item.Address.ToLower().Contains(text)
                 select item;

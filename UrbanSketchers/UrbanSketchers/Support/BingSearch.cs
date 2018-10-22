@@ -11,7 +11,7 @@ namespace UrbanSketchers.Support
     /// <summary>
     ///     Bing search
     /// </summary>
-    public class BingSearch
+    public static class BingSearch
     {
         /// <summary>
         ///     search for a location with Bing Search

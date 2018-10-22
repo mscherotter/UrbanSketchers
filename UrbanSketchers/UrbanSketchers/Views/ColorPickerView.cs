@@ -11,7 +11,7 @@ namespace UrbanSketchers.Controls
         ///     Color dependency property
         /// </summary>
         public static readonly BindableProperty ColorProperty =
-            BindableProperty.Create("Color", typeof(Color), typeof(ColorPickerView), Color.Black);
+            BindableProperty.Create(nameof(Color), typeof(Color), typeof(ColorPickerView), Color.Black);
 
         /// <summary>
         ///     Gets or sets the color
