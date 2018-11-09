@@ -4,8 +4,8 @@
     "Microsoft.AppCenter.Crashes": "1.10.0",
     "Microsoft.Azure.Mobile.Client": "4.0.2",
     "Xamarin.Essentials": "0.11.0-preview",
-    "Xamarin.Forms": "3.3.0.912540",
-    "Xamarin.Forms.Maps": "3.3.0.912540"
+    "Xamarin.Forms": "3.3.0.967583",
+    "Xamarin.Forms.Maps": "3.3.0.967583"
   },
   "frameworks": {
     "Xamarin.iOS,Version=v1.0": {}
