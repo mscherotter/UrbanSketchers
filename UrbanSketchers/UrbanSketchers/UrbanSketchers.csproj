@@ -44,8 +44,8 @@
       <PackageReference Include="WindowsAzure.Storage" Version="9.3.2" />
       <PackageReference Include="Xam.Plugin.FilePicker" Version="1.1.0" />
       <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
-      <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
-      <PackageReference Include="Xamarin.Forms.Maps" Version="3.3.0.967583" />
+      <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+      <PackageReference Include="Xamarin.Forms.Maps" Version="3.4.0.1008975" />
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Update="SharedResources.xaml">

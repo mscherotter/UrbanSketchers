@@ -179,6 +179,10 @@ namespace UrbanSketchers
             // Handle when your app resumes
         }
 
+        /// <summary>
+        /// Initialize the IoT Container
+        /// </summary>
+        /// <param name="sketchManager">the sketch manager</param>
         public static void InitializeContainer(ISketchManager sketchManager)
         {
             var builder = new ContainerBuilder();

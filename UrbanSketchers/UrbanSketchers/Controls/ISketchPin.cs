@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Xamarin.Forms.Maps;
 
 namespace UrbanSketchers.Controls
@@ -13,9 +14,11 @@ namespace UrbanSketchers.Controls
         /// </summary>
         Pin Pin { get; set; }
 
+
         /// <summary>
         ///     Gets or sets the URL string
         /// </summary>
+        [SuppressMessage("Design", "CA1056", Justification = "Necessary for serialization")]
         string Url { get; set; }
 
         /// <summary>

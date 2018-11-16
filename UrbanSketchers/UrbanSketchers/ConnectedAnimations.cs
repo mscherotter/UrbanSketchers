@@ -6,7 +6,7 @@ namespace UrbanSketchers
     /// <summary>
     ///     UWP Connected animations
     /// </summary>
-    public class ConnectedAnimations
+    public static class ConnectedAnimations
     {
         /// <summary>
         ///     the pepare connected animation attached property

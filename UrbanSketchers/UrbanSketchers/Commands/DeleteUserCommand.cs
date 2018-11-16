@@ -13,6 +13,10 @@ namespace UrbanSketchers.Commands
         private bool _isBusy;
         private IPerson _person;
 
+        /// <summary>
+        /// Initializes a new instance of the DeleteUserCommand class.
+        /// </summary>
+        /// <param name="sketchManager"></param>
         public DeleteUserCommand(ISketchManager sketchManager)
         {
             SketchManager = sketchManager;

@@ -1,4 +1,5 @@
-﻿using UrbanSketchers.Interfaces;
+﻿using System.Diagnostics.CodeAnalysis;
+using UrbanSketchers.Interfaces;
 
 namespace UrbanSketchers.Data
 {
@@ -20,11 +21,13 @@ namespace UrbanSketchers.Data
         /// <summary>
         ///     Gets or sets the image Ur
         /// </summary>
+        [SuppressMessage("Design", "CA1056", Justification = "Necessary for serialization")]        
         public string ImageUrl { get; set; }
 
         /// <summary>
         ///     Gets or sets the public URL of the user
         /// </summary>
+        [SuppressMessage("Design", "CA1056", Justification = "Necessary for serialization")]        
         public string PublicUrl { get; set; }
 
         /// <summary>

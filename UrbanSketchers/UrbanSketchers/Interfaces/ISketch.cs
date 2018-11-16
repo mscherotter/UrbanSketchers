@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UrbanSketchers.Interfaces
 {
@@ -45,6 +46,7 @@ namespace UrbanSketchers.Interfaces
         /// <summary>
         /// Gets or sets the thumbnail URL
         /// </summary>
+        [SuppressMessage("Design", "CA1056", Justification = "Necessary for serialization")]        
         string ThumbnailUrl { get; set; }
 
         /// <summary>
@@ -60,6 +62,7 @@ namespace UrbanSketchers.Interfaces
         /// <summary>
         /// Gets or sets the image URL
         /// </summary>
+        [SuppressMessage("Design", "CA1056", Justification = "Necessary for serialization")]        
         string ImageUrl { get; set; }
 
         /// <summary>
