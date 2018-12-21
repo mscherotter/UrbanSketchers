@@ -1,9 +1,9 @@
 ﻿{
   "dependencies": {
-    "Microsoft.AppCenter.Analytics": "1.10.0",
-    "Microsoft.AppCenter.Crashes": "1.10.0",
-    "Microsoft.Azure.Mobile.Client": "4.0.2",
-    "Xamarin.Essentials": "0.11.0-preview",
+    "Microsoft.AppCenter.Analytics": "1.12.0",
+    "Microsoft.AppCenter.Crashes": "1.12.0",
+    "Microsoft.Azure.Mobile.Client": "4.1.1",
+    "Xamarin.Essentials": "1.0.0",
     "Xamarin.Forms": "3.4.0.1008975",
     "Xamarin.Forms.Maps": "3.4.0.1008975"
   },
